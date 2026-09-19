@@ -17090,7 +17090,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.12";
+  const VERSION="V6.0.13";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -17208,19 +17208,68 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
     window.scrollTo({top:0,behavior:"auto"});
   };
 
+  function hasActiveAuthenticatedSession(){
+    // Respect the application's existing session state. Do not sign anyone out
+    // and do not interrupt an authenticated student/admin on refresh.
+    if(typeof adminLoggedIn!=="undefined" && adminLoggedIn===true) return true;
+    if(typeof currentStudent!=="undefined" && currentStudent) return true;
+
+    // Common persisted-session markers used by the existing app.
+    try{
+      const keys = ["hoa_student_session","hoaStudentSession","hoa_admin_session","hoaAdminSession"];
+      return keys.some(function(k){
+        const v = localStorage.getItem(k);
+        return !!v && v !== "null" && v !== "undefined";
+      });
+    }catch(_e){
+      return false;
+    }
+  }
+
   function initialFrontPage(){
-    // The public entry point is the front page. Existing authenticated sessions
-    // are not signed out; the user can explicitly enter through the Login CTA.
-    if(typeof adminLoggedIn!=="undefined" && adminLoggedIn===true) return;
-    if(typeof currentStudent!=="undefined" && currentStudent) return;
+    if(hasActiveAuthenticatedSession()) return;
+
+    // Run after the existing application's startup/session restoration work.
+    // A short second pass handles async session restoration without replacing
+    // authenticated dashboards.
     window.hoaShowFrontPage();
   }
 
-  if(document.readyState==="loading"){
-    document.addEventListener("DOMContentLoaded",function(){setTimeout(initialFrontPage,0);});
-  }else{
-    setTimeout(initialFrontPage,0);
+  function scheduleFrontPageStartup(){
+    [0,150,500,1000].forEach(function(delay){
+      setTimeout(function(){
+        if(!hasActiveAuthenticatedSession()){
+          // Only enforce the public landing page when no authenticated session
+          // has been established by the existing application.
+          window.hoaShowFrontPage();
+        }
+      },delay);
+    });
   }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",function(){
+      scheduleFrontPageStartup();
+    });
+  }else{
+    scheduleFrontPageStartup();
+  }
+})();
+</script>
+
+
+<script id="hoa-v613-pageshow">
+(function(){
+  "use strict";
+  window.addEventListener("pageshow",function(){
+    setTimeout(function(){
+      try{
+        if(typeof hasActiveAuthenticatedSession==="function" && !hasActiveAuthenticatedSession()){
+          window.hoaShowFrontPage();
+        }
+      }catch(_e){}
+    },80);
+  });
 })();
 </script>
 
