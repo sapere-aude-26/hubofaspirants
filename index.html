@@ -10752,6 +10752,57 @@ body.admin-ui,body.mission-exam-active{max-width:100%;overflow-x:clip}
 }
 </style>
 
+
+<style id="hoa-v608-front-page-css">
+/* V6.0.8 — public front page. The landing page is the unauthenticated entry point. */
+body.hoa-front-active > .header{display:none !important;}
+body.hoa-front-active > main.container{max-width:none !important;width:100% !important;padding:0 !important;margin:0 !important;}
+body.hoa-front-active > #hoaFrontPage{display:block !important;}
+body.hoa-front-active > main.container > #authScreen,body.hoa-front-active > main.container > #home,body.hoa-front-active > main.container > #exam,body.hoa-front-active > main.container > #result{display:none !important;}
+#hoaFrontPage{display:none;min-height:calc(100vh - 84px);background:#f6f9fd;color:#0b2342}
+#hoaFrontPage.active{display:block}
+#hoaFrontPage .frontNav{height:74px;background:#fff;border-bottom:1px solid #e6edf5;display:flex;align-items:center;justify-content:space-between;padding:0 28px;gap:18px;position:sticky;top:0;z-index:1000}
+#hoaFrontPage .frontBrand{display:flex;align-items:center;gap:10px;min-width:0}
+#hoaFrontPage .frontBrand img{width:52px;height:52px;object-fit:contain;flex:0 0 auto}
+#hoaFrontPage .frontBrandText{line-height:1.05}
+#hoaFrontPage .frontBrandTitle{font-size:22px;font-weight:900;letter-spacing:-.4px}
+#hoaFrontPage .frontBrandSub{font-size:11px;color:#64748b;margin-top:4px}
+#hoaFrontPage .frontNavLinks{display:flex;align-items:center;gap:26px;flex-wrap:wrap;justify-content:flex-end}
+#hoaFrontPage .frontNavLinks a{color:#41556f;text-decoration:none;font-weight:800;font-size:14px;padding:8px 0;border-bottom:3px solid transparent}
+#hoaFrontPage .frontNavLinks a:hover,#hoaFrontPage .frontNavLinks a.active{color:#1f6fe5;border-bottom-color:#2d7ff0}
+#hoaFrontPage .frontLogin{border:1px solid #d7e1ed;background:#fff;color:#173f6b;border-radius:10px;padding:10px 16px;font-weight:900;cursor:pointer;box-shadow:0 5px 16px rgba(3,27,56,.08)}
+#hoaFrontPage .frontHero{min-height:486px;background:linear-gradient(120deg,#08335f 0%,#0d4f84 55%,#1672aa 100%);color:#fff;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;padding:52px clamp(28px,6vw,76px);position:relative;overflow:hidden}
+#hoaFrontPage .frontHero:after{content:"";position:absolute;inset:auto -10% -130px 25%;height:270px;background:rgba(255,255,255,.06);transform:rotate(-9deg);border-radius:50%}
+#hoaFrontPage .heroCopy{position:relative;z-index:1;max-width:720px}
+#hoaFrontPage .heroEyebrow{font-weight:900;letter-spacing:6px;font-size:15px;margin-bottom:16px}
+#hoaFrontPage .heroTitle{font-size:clamp(46px,6vw,72px);line-height:.94;margin:0;font-weight:950;letter-spacing:-2px}
+#hoaFrontPage .heroTitle span{color:#ffc43d}
+#hoaFrontPage .heroLead{font-size:clamp(20px,2.3vw,29px);font-weight:850;margin:26px 0 12px}
+#hoaFrontPage .heroText{font-size:17px;line-height:1.65;max-width:650px;color:#e8f2ff;margin:0}
+#hoaFrontPage .heroActions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+#hoaFrontPage .heroBtn{border-radius:11px;padding:14px 24px;font-weight:900;font-size:15px;cursor:pointer;border:1px solid rgba(255,255,255,.65);background:transparent;color:#fff}
+#hoaFrontPage .heroBtn.primary{background:#ffc43d;color:#102b4d;border-color:#ffc43d}
+#hoaFrontPage .heroVisual{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;min-height:360px}
+#hoaFrontPage .heroLogoRing{width:min(360px,70vw);height:min(360px,70vw);border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.12);border:1px solid rgba(255,210,70,.45);box-shadow:0 0 0 22px rgba(255,255,255,.025),0 24px 80px rgba(0,0,0,.22)}
+#hoaFrontPage .heroLogoRing img{width:82%;height:82%;object-fit:contain;border-radius:50%;background:#fff}
+#hoaFrontPage .heroBrandCaption{text-align:center;margin-top:18px;font-size:27px;font-weight:950}
+#hoaFrontPage .heroTagline{text-align:center;margin-top:5px;font-size:17px;letter-spacing:1px;color:#e6f2ff}
+#hoaFrontPage .frontFeatures{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;padding:26px clamp(18px,7vw,150px) 42px;background:#f6f9fd}
+#hoaFrontPage .featureCard{background:#fff;border:1px solid #e0e8f2;border-radius:15px;padding:24px 18px;text-align:center;box-shadow:0 7px 24px rgba(16,43,77,.06)}
+#hoaFrontPage .featureIcon{width:70px;height:70px;margin:0 auto 14px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#1976e8;color:#fff;font-size:31px;font-weight:900}
+#hoaFrontPage .featureCard:nth-child(2) .featureIcon{background:#18ad70}
+#hoaFrontPage .featureCard:nth-child(3) .featureIcon{background:#ff7b20}
+#hoaFrontPage .featureCard:nth-child(4) .featureIcon{background:#7444cf}
+#hoaFrontPage .featureCard h3{margin:0 0 7px;font-size:19px}
+#hoaFrontPage .featureCard p{margin:0;color:#64748b;font-size:13px;line-height:1.5}
+#hoaFrontPage .frontBottom{padding:0 18px 30px;text-align:center;color:#64748b;font-size:12px}
+#hoaFrontPage .frontBottom b{color:#173f6b}
+#authScreen .hoaLoginBack{display:flex;justify-content:flex-start;margin:0 0 14px}
+#authScreen .hoaLoginBack button{border:1px solid #d7e1ed;background:#fff;color:#173f6b;border-radius:9px;padding:9px 13px;font-weight:800;cursor:pointer}
+@media(max-width:900px){#hoaFrontPage .frontHero{grid-template-columns:1fr;text-align:center;padding-top:38px}.heroCopy{margin:auto}.heroText{margin-left:auto;margin-right:auto}.heroActions{justify-content:center}.heroVisual{min-height:330px}.frontFeatures{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){#hoaFrontPage .frontNav{height:auto;padding:10px 12px;align-items:flex-start}.frontBrandTitle{font-size:17px!important}.frontBrand img{width:44px!important;height:44px!important}.frontNavLinks{gap:10px!important;width:100%;justify-content:flex-end}.frontNavLinks a:not(.frontLogin){display:none}.frontLogin{padding:8px 11px!important;font-size:12px}.frontHero{min-height:0!important;padding:38px 20px 48px!important}.heroEyebrow{font-size:11px!important;letter-spacing:4px}.heroTitle{font-size:45px!important}.heroLead{font-size:20px!important}.heroText{font-size:14px!important}.heroLogoRing{width:270px!important;height:270px!important}.heroBrandCaption{font-size:21px!important}.heroTagline{font-size:14px!important}.frontFeatures{grid-template-columns:1fr;padding:18px 14px 30px}}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -10775,7 +10826,52 @@ body.admin-ui,body.mission-exam-active{max-width:100%;overflow-x:clip}
 </div>
 </header>
 <main class="container">
-<section class="card" id="authScreen" style="max-width:520px;margin:35px auto">
+
+<section id="hoaFrontPage" class="active" aria-label="HUB OF ASPIRANTS main page">
+  <nav class="frontNav" aria-label="Main navigation">
+    <div class="frontBrand">
+      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS logo">
+      <div class="frontBrandText"><div class="frontBrandTitle">HUB OF ASPIRANTS</div><div class="frontBrandSub">Dream. Prepare. Conquer.</div></div>
+    </div>
+    <div class="frontNavLinks">
+      <a href="#hoaFrontPage" class="active">⌂ Home</a>
+      <a href="#hoaFrontFeatures">▣ Courses</a>
+      <a href="#hoaFrontFeatures">▤ Mock Tests</a>
+      <a href="#hoaFrontFeatures">▤ Current Affairs</a>
+      <button type="button" class="frontLogin" onclick="openStudentLogin()">STUDENT LOGIN</button>
+    </div>
+  </nav>
+  <div class="frontHero">
+    <div class="heroCopy">
+      <div class="heroEyebrow">WELCOME TO</div>
+      <h1 class="heroTitle">HUB OF<br><span>ASPIRANTS</span></h1>
+      <div class="heroLead">Your Journey to a Brighter Future Starts Here</div>
+      <p class="heroText">High-quality study material, mock tests, and current affairs to help you prepare for your dream exams.</p>
+      <div class="heroActions">
+        <button type="button" class="heroBtn primary" onclick="openStudentLogin()">🎓 Start Learning</button>
+        <button type="button" class="heroBtn" onclick="openStudentLogin()">▤ Take a Mock Test</button>
+      </div>
+      <div class="heroEyebrow" style="font-size:11px;margin-top:30px;letter-spacing:4px">DISCIPLINE TODAY <span style="color:#ffc43d">•</span> SUCCESS TOMORROW</div>
+    </div>
+    <div class="heroVisual">
+      <div>
+        <div class="heroLogoRing"><img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS"></div>
+        <div class="heroBrandCaption">HUB OF ASPIRANTS</div>
+        <div class="heroTagline">Dream. Prepare. Conquer.</div>
+      </div>
+    </div>
+  </div>
+  <div id="hoaFrontFeatures" class="frontFeatures">
+    <article class="featureCard"><div class="featureIcon">▣</div><h3>Comprehensive Courses</h3><p>Structured preparation resources designed for focused exam preparation.</p></article>
+    <article class="featureCard"><div class="featureIcon">✓</div><h3>Mock Tests</h3><p>Practice with exam-style tests and track your performance.</p></article>
+    <article class="featureCard"><div class="featureIcon">▤</div><h3>Current Affairs</h3><p>Stay updated with important national, international and exam-relevant developments.</p></article>
+    <article class="featureCard"><div class="featureIcon">▥</div><h3>Track Your Progress</h3><p>Use your results and performance history to improve your preparation.</p></article>
+  </div>
+  <div class="frontBottom"><b>HUB OF ASPIRANTS</b> • Dream. Prepare. Conquer.</div>
+</section>
+
+<section class="card hidden" id="authScreen" style="max-width:520px;margin:35px auto">
+<div class="hoaLoginBack"><button type="button" onclick="returnToFrontPage()">← MAIN PAGE</button></div>
 <div style="text-align:center;margin-bottom:20px">
 <img alt="HUB OF ASPIRANTS" class="mission-logo" src="hoa-logo-updated.png"/>
 <h1 style="margin-bottom:6px">HUB OF ASPIRANTS</h1>
@@ -11727,7 +11823,36 @@ function setMessage(text,ok=false,target="student"){
   el.textContent=text;
   el.style.color=ok?"#087443":"#b42318";
 }
+function showFrontPage(){
+  document.body.classList.add("hoa-front-active");
+  document.getElementById("hoaFrontPage")?.classList.add("active");
+  document.getElementById("authScreen")?.classList.add("hidden");
+  document.getElementById("authScreen")?.style.removeProperty("display");
+  document.getElementById("home")?.classList.add("hidden");
+  document.getElementById("studentOnlyDashboard")?.classList.add("hidden");
+  document.getElementById("adminOnlyDashboard")?.classList.add("hidden");
+  document.getElementById("exam")?.classList.add("hidden");
+  document.getElementById("result")?.classList.add("hidden");
+  document.getElementById("studentHeaderLogout")?.classList.add("hidden");
+  document.getElementById("adminHeaderLogout")?.classList.add("hidden");
+  document.getElementById("headerTimer")?.classList.add("hidden");
+  document.body.classList.remove("admin-ui");
+  document.documentElement.classList.remove("admin-ui");
+  window.scrollTo({top:0,left:0,behavior:"smooth"});
+}
+function openStudentLogin(){
+  document.body.classList.remove("hoa-front-active");
+  document.getElementById("hoaFrontPage")?.classList.remove("active");
+  document.getElementById("authScreen")?.classList.remove("hidden");
+  document.getElementById("authScreen")?.style.removeProperty("display");
+  showAuth("login");
+  window.scrollTo({top:0,left:0,behavior:"smooth"});
+}
+function returnToFrontPage(){ showFrontPage(); }
+
 function showAuth(mode){
+  document.body.classList.remove("hoa-front-active");
+  document.getElementById("hoaFrontPage")?.classList.remove("active");
   const login=mode==="login", register=mode==="register";
   document.getElementById("loginBox").classList.toggle("hidden",!login);
   document.getElementById("registerBox").classList.toggle("hidden",!register);
@@ -11756,6 +11881,7 @@ function updateRegistrationTypeUI(){
 }
 
 function showFreeGate(){
+  document.getElementById("hoaFrontPage")?.classList.remove("active");
   document.getElementById("loginBox").classList.add("hidden");
   document.getElementById("registerBox").classList.add("hidden");
   document.getElementById("freeGateBox").classList.remove("hidden");
@@ -12062,14 +12188,16 @@ async function logoutStudent(){
   document.getElementById("headerTimer").classList.add("hidden");
   document.getElementById("studentHeaderLogout").classList.add("hidden");
   document.getElementById("adminHeaderLogout").classList.add("hidden");
-  setAuthScreenVisible(true);
+  setAuthScreenVisible(false);
   document.getElementById("studentOnlyDashboard").classList.add("hidden");
   document.getElementById("adminOnlyDashboard").classList.add("hidden");
   document.getElementById("loginId").value="";
   document.getElementById("loginPassword").value="";
-  showAuth("login");
+  showFrontPage();
 }
 function enterPlatform(){
+  document.body.classList.remove("hoa-front-active");
+  document.getElementById("hoaFrontPage")?.classList.remove("active");
   document.getElementById("studentHeaderLogout").classList.remove("hidden");
   document.getElementById("adminHeaderLogout").classList.add("hidden");
   setAuthScreenVisible(false);
@@ -12093,7 +12221,7 @@ async function logoutAdmin(){
   document.getElementById("adminHeaderLogout").classList.add("hidden");
   document.getElementById("home").classList.add("hidden");
   hideStudentExamScreens();
-  setAuthScreenVisible(true);
+  setAuthScreenVisible(false);
   // V4.8: leave Admin UI mode completely after logout.
   document.body.classList.remove("admin-ui");
   const adminHeaderLogout=document.getElementById("adminHeaderLogout");
@@ -12104,7 +12232,7 @@ async function logoutAdmin(){
   const adminPassword=document.getElementById("adminPassword");
   if(adminUsername) adminUsername.value="";
   if(adminPassword) adminPassword.value="";
-  showAuth("login");
+  showFrontPage();
 }
 async function changeAdminAccount(){
   if(!requireAdmin("changing the Admin password")) return;
@@ -13905,7 +14033,9 @@ updateRegistrationTypeUI();
   currentStudent=getCurrentStudent();
   // Always establish a visible default login state before any network work.
   try{
-    document.getElementById("authScreen")?.classList.remove("hidden");
+    document.body.classList.add("hoa-front-active");
+    document.getElementById("hoaFrontPage")?.classList.add("active");
+    document.getElementById("authScreen")?.classList.add("hidden");
     document.getElementById("authScreen")?.style.removeProperty("display");
     document.getElementById("home")?.classList.add("hidden");
     document.getElementById("studentOnlyDashboard")?.classList.add("hidden");
@@ -13922,6 +14052,8 @@ updateRegistrationTypeUI();
       if(isAdmin===true){
         adminLoggedIn=true;
         currentStudent=null;
+        document.body.classList.remove("hoa-front-active");
+        document.getElementById("hoaFrontPage")?.classList.remove("active");
         setAuthScreenVisible(false);
         document.getElementById("home").classList.remove("hidden");
         document.getElementById("studentHeaderLogout").classList.add("hidden");
@@ -13967,8 +14099,8 @@ updateRegistrationTypeUI();
     document.getElementById("adminOnlyDashboard")?.classList.add("hidden");
     document.getElementById("exam")?.classList.add("hidden");
     document.getElementById("result")?.classList.add("hidden");
-    setAuthScreenVisible(true);
-    document.getElementById("authScreen")?.classList.remove("hidden");
+    setAuthScreenVisible(false);
+    showFrontPage();
   }
 
   updateHome();
@@ -16395,7 +16527,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.7";
+  const VERSION="V6.0.8";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
