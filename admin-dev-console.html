@@ -23,6 +23,15 @@ main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4
 .toast{position:fixed;right:18px;bottom:18px;background:#111d30;border:1px solid var(--line);padding:10px 13px;border-radius:10px;box-shadow:0 15px 40px #0008;z-index:50;max-width:420px}.toast.ok{border-color:#1f8f73}.toast.err{border-color:#a33b50}
 @media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr auto}.workspace{grid-template-columns:1fr}}
 @media(max-width:700px){.shell{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.appbar{padding:0 10px}.brand{font-size:12px}.user{display:none}}
+
+.modal-backdrop{position:fixed;inset:0;background:#020611aa;backdrop-filter:blur(5px);z-index:100;display:grid;place-items:center;padding:18px}
+.modal{width:min(920px,100%);max-height:min(760px,92vh);overflow:hidden;background:#0b1525;border:1px solid #304666;border-radius:16px;box-shadow:0 30px 100px #000b}
+.modal-head{display:flex;align-items:center;gap:10px;padding:15px 17px;border-bottom:1px solid #263a58}
+.modal-head h2{font-size:15px;margin:0}.modal-head small{color:#7589a6}.modal-close{margin-left:auto;background:#111e32;border:1px solid #304562;color:#dce8fa;border-radius:8px;padding:7px 10px}
+.modal-body{padding:16px;overflow:auto;max-height:calc(92vh - 64px)}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.result-card{background:#08111f;border:1px solid #243754;border-radius:10px;padding:13px}.result-card .label{font-size:10px;color:#8194af;text-transform:uppercase;letter-spacing:.08em}.result-card .value{margin-top:6px;font-weight:800}.ok{color:#20d9a0}.bad{color:#ff6075}.warn{color:#f1c75b}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}.data-table th,.data-table td{padding:10px;border-bottom:1px solid #20324c;text-align:left;vertical-align:top}.data-table th{color:#8da1bd;font-size:10px;text-transform:uppercase}.mono{font-family:Consolas,monospace;word-break:break-word}.modal-actions{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+@media(max-width:650px){.result-grid{grid-template-columns:1fr}.modal{max-height:96vh}}
 </style>
 </head>
 <body>
@@ -92,6 +101,19 @@ main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4
 </div>
 </section>
 <div id="toast" class="toast hidden"></div>
+<div id="modalRoot" class="hidden">
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h2 id="modalTitle">Result</h2>
+        <small id="modalSubtitle"></small>
+        <button id="modalClose" class="modal-close" type="button">Close</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+</div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -191,19 +213,96 @@ async function showApp() {
   setState("githubState","Not checked",true);
   output("Ready. Select an operation when needed.");
 }
+function openModal(title, subtitle="", body="") {
+  $("modalTitle").textContent=title;
+  $("modalSubtitle").textContent=subtitle;
+  $("modalBody").innerHTML=body;
+  $("modalRoot").classList.remove("hidden");
+}
+function closeModal(){ $("modalRoot").classList.add("hidden"); }
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function statusCard(label,value,ok=true){
+  return `<div class="result-card"><div class="label">${esc(label)}</div><div class="value ${ok?"ok":"bad"}">${esc(value)}</div></div>`;
+}
+function renderResult(action,d){
+  if(action==="status"){
+    openModal("Connection Status","Live check completed",`
+      <div class="result-grid">
+        ${statusCard("Authentication",d.auth?"Connected":"Failed",!!d.auth)}
+        ${statusCard("Admin Access",d.admin?"Authorized":"Denied",!!d.admin)}
+        ${statusCard("Supabase","Connected",true)}
+        ${statusCard("GitHub",d.github_ok?"Connected":"Failed",!!d.github_ok)}
+      </div>
+      <div class="result-card" style="margin-top:10px">
+        <div class="label">Repository</div><div class="value mono">${esc(d.repo||"")}</div>
+        <div class="label" style="margin-top:10px">Branch</div><div class="value mono">${esc(d.branch||"main")}</div>
+        ${d.github_error?`<div class="label" style="margin-top:10px">GitHub Error</div><div class="value bad mono">${esc(d.github_error)}</div>`:""}
+      </div>`);
+    return;
+  }
+  if(action==="health"){
+    openModal("Supabase Health","Live database check",`
+      <div class="result-grid">
+        ${statusCard("Database",d.ok?"Healthy":"Error",!!d.ok)}
+        ${statusCard("Admin Records",String(d.admin_count??"—"),true)}
+        ${statusCard("API Latency",(d.latency_ms??"—")+" ms",true)}
+        ${statusCard("Response","Successful",!!d.ok)}
+      </div>
+      <div class="result-card" style="margin-top:10px"><div class="label">Details</div><div class="value mono">${esc(d.error||"No error reported.")}</div></div>`);
+    return;
+  }
+  if(action==="admins"){
+    const rows=(d.admins||[]).map(a=>`<tr><td class="mono">${esc(a.auth_user_id)}</td><td>${esc(a.created_at||"")}</td></tr>`).join("");
+    openModal("Admin Accounts",`${(d.admins||[]).length} registered admin(s)`,`
+      <table class="data-table"><thead><tr><th>Auth User ID</th><th>Created</th></tr></thead><tbody>${rows||"<tr><td colspan=2>No admins returned.</td></tr>"}</tbody></table>`);
+    return;
+  }
+  if(action==="list"){
+    openModal("Repository Files",`${(d.files||[]).length} file(s)`,`
+      <div class="result-card"><div class="label">Repository</div><div class="value mono">${esc(d.repo||"sapere-aude-26/hubofaspirants")}</div></div>
+      <table class="data-table" style="margin-top:10px"><thead><tr><th>Path</th><th>Size</th></tr></thead><tbody>
+      ${(d.files||[]).map(f=>`<tr><td><button type="button" class="btn open-modal-file" data-path="${esc(f.path)}">${esc(f.path)}</button></td><td>${((f.size||0)/1024).toFixed(1)} KB</td></tr>`).join("")||"<tr><td colspan=2>No files returned.</td></tr>"}
+      </tbody></table>`);
+    document.querySelectorAll(".open-modal-file").forEach(b=>b.onclick=()=>{closeModal();openFile(b.dataset.path)});
+    return;
+  }
+  if(action==="commits"){
+    const rows=(d.commits||[]).map(c=>`<tr><td class="mono">${esc((c.sha||"").slice(0,10))}</td><td>${esc(c.message||"")}</td><td>${esc(c.author||"")}</td><td>${esc(c.date||"")}</td></tr>`).join("");
+    openModal("Recent Commits",`${(d.commits||[]).length} recent commit(s)`,`
+      <table class="data-table"><thead><tr><th>SHA</th><th>Message</th><th>Author</th><th>Date</th></tr></thead><tbody>${rows||"<tr><td colspan=4>No commits returned.</td></tr>"}</tbody></table>`);
+    return;
+  }
+  if(action==="pages"){
+    openModal("GitHub Pages","Current repository Pages configuration",`
+      <div class="result-grid">
+        ${statusCard("Status",d.status||"Unknown",d.status==="built"||d.status==="active")}
+        ${statusCard("Build Type",d.build_type||"Unknown",true)}
+      </div>
+      <div class="result-card" style="margin-top:10px"><div class="label">URL</div><div class="value mono">${esc(d.url||"Not returned")}</div></div>`);
+    return;
+  }
+  if(action==="runs"){
+    const rows=(d.runs||[]).map(r=>`<tr><td>${esc(r.name||"")}</td><td>${esc(r.status||"")}</td><td>${esc(r.conclusion||"—")}</td><td>${esc(r.created_at||"")}</td><td><a href="${esc(r.url||"#")}" target="_blank" rel="noopener" class="btn">Open</a></td></tr>`).join("");
+    openModal("Deployments",`${(d.runs||[]).length} workflow run(s)`,`
+      <table class="data-table"><thead><tr><th>Workflow</th><th>Status</th><th>Conclusion</th><th>Created</th><th></th></tr></thead><tbody>${rows||"<tr><td colspan=5>No workflow runs returned.</td></tr>"}</tbody></table>`);
+  }
+}
 async function runAction(action) {
   if(busy) return;
   setBusy(true,action);
-  const button=document.querySelector(`[data-action="${action}"]`);
-  document.querySelectorAll("[data-action]").forEach(x=>x.classList.remove("active"));
-  if(button) button.classList.add("active");
   try {
     const d=await api(action);
-    output(d); toast(action+" completed",true);
+    output(d);
+    renderResult(action,d);
     if(action==="status") updateStatus(d);
-    if(action==="list") renderFiles(d.files||[]);
+    if(action==="list") { renderFiles(d.files||[]); window.__repoCache={time:Date.now(),files:d.files||[]}; }
+    toast(action+" completed",true);
   } catch(e) {
     output({ok:false,action,error:e.message});
+    openModal(action==="health"?"Supabase Health":action,"Operation failed",
+      `<div class="result-card"><div class="label">Error</div><div class="value bad mono">${esc(e.message)}</div></div>`);
     toast(action+" failed: "+e.message,false);
   } finally { setBusy(false); }
 }
@@ -233,8 +332,10 @@ async function listFiles() {
   try {
     const now=Date.now();
     if(window.__repoCache && now-window.__repoCache.time < 30000) {
-      renderFiles(window.__repoCache.files);
-      output({ok:true,cached:true,file_count:window.__repoCache.files.length});
+      const cached={ok:true,cached:true,files:window.__repoCache.files};
+      renderFiles(cached.files);
+      output(cached);
+      renderResult("list",cached);
       toast("Repository loaded from cache",true);
       return;
     }
@@ -291,6 +392,9 @@ async function boot() {
       currentPath=""; $("path").value=""; $("editor").value=""; output("Editor cleared."); toast("Editor cleared",true);
     });
     $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
+    $("modalClose").addEventListener("click",closeModal);
+    $("modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop")closeModal();});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
     document.querySelectorAll("[data-action]").forEach(b=>{
       b.type="button";
       b.addEventListener("click",ev=>{ev.preventDefault();runAction(b.dataset.action);});
