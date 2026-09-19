@@ -11361,6 +11361,19 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 }
 </style>
 
+
+<style id="hoa-v620-no-header-student-login">
+/* V6.0.20 — Student Login is intentionally not shown in the public header bar. */
+.hoa-front-header a[aria-label="Student Login"],
+.hoa-front-header button[aria-label="Student Login"],
+.hoa-front-header a[title="Student Login"],
+.hoa-front-header button[title="Student Login"],
+.publicHeader a[aria-label="Student Login"],
+.publicHeader button[aria-label="Student Login"]{
+  display:none !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -11397,7 +11410,7 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
     <div class="hoa-front-navlinks">
       <button type="button" onclick="document.getElementById('hoaFrontFeatures').scrollIntoView({behavior:'smooth'})">Features</button>
       <button type="button" onclick="document.getElementById('hoaFrontSocialFooter').scrollIntoView({behavior:'smooth'})">Connect</button>
-      <button type="button" class="hoa-front-login" onclick="hoaOpenLogin('login')">Student Login</button>
+      
     </div>
   </nav>
 
@@ -11550,14 +11563,14 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 <div class="dashPanel" style="box-shadow:none;border:1px solid #e2e8f0">
 <h2 style="margin-top:0">🎓 Student</h2>
 <div class="authTabs">
-<button class="authTab active" id="loginTab" onclick="showAuth('login')">STUDENT LOGIN</button>
+
 <button class="authTab" id="registerTab" onclick="showAuth('register')">PAID REGISTER</button>
 <button class="authTab" id="freeTab" onclick="showFreeGate()">🎁 FREE TEST</button>
 </div>
 <div id="loginBox">
 <div class="formGroup"><label>Email / Mobile</label><input id="loginId" placeholder="Enter registered email or mobile"/></div>
 <div class="formGroup"><label>Password</label><input id="loginPassword" placeholder="Password given by Admin" type="password"/></div>
-<button class="primary" onclick="loginStudent()" style="width:100%">STUDENT LOGIN</button>
+
 </div>
 <div class="hidden" id="freeGateBox">
 <div style="background:#fff8e6;border:1px solid #f1d58a;padding:12px;border-radius:9px;margin-bottom:14px;font-size:13px;color:#7a5a00">🎁 <b>Free Test Access</b><br/>New candidate: use <b>MISSIONTES</b> / <b>TES@2026</b> to complete registration.</div>
@@ -17419,7 +17432,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.19";
+  const VERSION="V6.0.20";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
