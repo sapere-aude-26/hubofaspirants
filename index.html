@@ -8527,7 +8527,7 @@ body:has(#exam:not(.hidden)) #authScreen{
   /* ADMIN: use exactly one logout control. Do not allow the old global
      header to create a second/overlapping visual layer. The existing JS
      may move #adminHeaderLogout to <!--
-V6.0.33 DOM safety:
+V6.0.34 DOM safety:
 Legacy V5.7/V5.8 management controls that previously reused identical IDs
 are now uniquely identified in the DOM. Existing JavaScript selectors remain
 untouched for the first/active controls; secondary legacy copies are isolated.
@@ -11981,7 +11981,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.33: V6.0.28 remains the sole public navigation controller.
+/* V6.0.34: V6.0.28 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -12017,7 +12017,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
 
 
 <style id="hoa-v633-integrated-navigation-css">
-/* V6.0.33 — one public/authenticated navigation lifecycle.
+/* V6.0.34 — one public/authenticated navigation lifecycle.
    The V6.0.28 router owns browser history. */
 body.hoa-public-front > .header,
 body.hoa-public-portal > .header,
@@ -12057,6 +12057,274 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody[hidden] {
 }
 body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidden]) {
   display:block !important;
+}
+</style>
+
+
+<style id="hoa-v634-ui-hardening">
+/* V6.0.34 — UI hardening. No application workflow is replaced. */
+
+/* ---------- Global rendering / overflow ---------- */
+html {
+  overflow-x: hidden !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+img, svg, video, canvas {
+  max-width: 100%;
+}
+button, input, select, textarea {
+  font: inherit;
+  box-sizing: border-box;
+}
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+table {
+  max-width: 100%;
+}
+pre, code {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ---------- Public front page ---------- */
+body.hoa-public-front #hoaFrontPage,
+body.hoa-public-portal #hoaLoginPage,
+body.hoa-public-auth #hoaLoginPage {
+  min-height: 100svh;
+  min-height: 100dvh;
+  box-sizing: border-box;
+}
+body.hoa-public-front #hoaFrontPage {
+  width: 100%;
+  overflow: hidden;
+}
+body.hoa-public-front #hoaFrontPage * {
+  box-sizing: border-box;
+}
+body.hoa-public-front #hoaFrontPage img {
+  object-fit: contain;
+}
+body.hoa-public-front #hoaFrontPage button,
+body.hoa-public-portal #hoaLoginPage button,
+body.hoa-public-auth #hoaLoginPage button {
+  min-height: 42px;
+}
+
+/* ---------- Portal/auth layout ---------- */
+body.hoa-public-portal #hoaLoginPage,
+body.hoa-public-auth #hoaLoginPage {
+  width: 100%;
+  padding:
+    max(16px, env(safe-area-inset-top))
+    max(16px, env(safe-area-inset-right))
+    max(16px, env(safe-area-inset-bottom))
+    max(16px, env(safe-area-inset-left));
+}
+#hoaLoginChoiceView,
+#hoaStudentPortalPanel,
+#hoaAdminPortalPanel {
+  width: min(100%, 1100px);
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#hoaStudentLoginHost,
+#hoaAdminLoginHost {
+  width: min(100%, 720px);
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#hoaStudentLoginHost *,
+#hoaAdminLoginHost * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* ---------- Login cards / forms ---------- */
+#hoaStudentLoginHost input,
+#hoaStudentLoginHost select,
+#hoaStudentLoginHost textarea,
+#hoaAdminLoginHost input,
+#hoaAdminLoginHost select,
+#hoaAdminLoginHost textarea {
+  width: 100%;
+  min-width: 0;
+}
+#hoaStudentLoginHost .card,
+#hoaAdminLoginHost .card {
+  max-width: 100%;
+  overflow: hidden;
+}
+#hoaAdminLoginHost #homeAdminBody,
+#hoaAdminLoginHost #homeAdminPanel {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+#hoaAdminLoginHost #adminUsername,
+#hoaAdminLoginHost #adminPassword {
+  min-height: 44px;
+}
+
+/* ---------- Authenticated application shell ---------- */
+body.hoa-app-authenticated #home {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+body.hoa-app-authenticated .container,
+body.hoa-app-authenticated .main-container,
+body.hoa-app-authenticated .content,
+body.hoa-app-authenticated .dashboard {
+  max-width: 100%;
+}
+body.hoa-app-authenticated .card,
+body.hoa-app-authenticated .panel,
+body.hoa-app-authenticated .modal-content {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* ---------- Tables ---------- */
+body.hoa-app-authenticated table {
+  width: 100%;
+  border-collapse: collapse;
+}
+body.hoa-app-authenticated .table-responsive,
+body.hoa-app-authenticated [style*="overflow-x"],
+body.hoa-app-authenticated .table-wrap {
+  max-width: 100%;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+body.hoa-app-authenticated th,
+body.hoa-app-authenticated td {
+  max-width: 420px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---------- Long questions / answer options ---------- */
+body.hoa-app-authenticated .question,
+body.hoa-app-authenticated .question-text,
+body.hoa-app-authenticated .option,
+body.hoa-app-authenticated .answer-option,
+body.hoa-app-authenticated label {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+body.hoa-app-authenticated .question img,
+body.hoa-app-authenticated .option img {
+  height: auto;
+  max-width: 100%;
+}
+
+/* ---------- Modals / overlays ---------- */
+.modal,
+[role="dialog"],
+.dialog,
+.overlay {
+  box-sizing: border-box;
+}
+.modal-content,
+[role="dialog"] > *,
+.dialog > * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+@media (max-height: 700px) {
+  .modal,
+  [role="dialog"],
+  .dialog {
+    align-items: flex-start !important;
+    padding-top: max(12px, env(safe-area-inset-top)) !important;
+    padding-bottom: max(12px, env(safe-area-inset-bottom)) !important;
+    overflow-y: auto !important;
+  }
+}
+
+/* ---------- Toasts / alerts ---------- */
+.toast-container,
+#toastContainer,
+.toasts,
+.toast-stack {
+  z-index: 2147483000 !important;
+  max-width: min(420px, calc(100vw - 24px)) !important;
+}
+.toast,
+.alert,
+[role="alert"] {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---------- Focus / accessibility ---------- */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid currentColor !important;
+  outline-offset: 2px !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+  }
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 768px) {
+  body.hoa-public-front #hoaFrontPage,
+  body.hoa-public-portal #hoaLoginPage,
+  body.hoa-public-auth #hoaLoginPage {
+    padding-left: max(12px, env(safe-area-inset-left));
+    padding-right: max(12px, env(safe-area-inset-right));
+  }
+  #hoaLoginChoiceView,
+  #hoaStudentLoginHost,
+  #hoaAdminLoginHost {
+    width: 100%;
+  }
+  body.hoa-app-authenticated .header {
+    padding-left: max(10px, env(safe-area-inset-left));
+    padding-right: max(10px, env(safe-area-inset-right));
+  }
+  body.hoa-app-authenticated button,
+  body.hoa-app-authenticated a[role="button"] {
+    min-height: 42px;
+  }
+}
+
+/* ---------- Very small screens ---------- */
+@media (max-width: 420px) {
+  body {
+    font-size: 15px;
+  }
+  #hoaLoginChoiceView,
+  #hoaStudentLoginHost,
+  #hoaAdminLoginHost {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/* ---------- Forced colors ---------- */
+@media (forced-colors: active) {
+  button, a, input, select, textarea {
+    forced-color-adjust: auto;
+  }
 }
 </style>
 
@@ -18133,7 +18401,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.33";
+  const VERSION="V6.0.34";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -18236,7 +18504,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
 <script id="hoa-v633-integrated-navigation-controller">
 /*
- * V6.0.33
+ * V6.0.34
  * One history owner: V6.0.28 public router.
  * Authentication lifecycle is coordinated through the existing public router;
  * no second popstate listener is installed.
@@ -18348,6 +18616,41 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
       document.getElementById("adminOnlyDashboard")?.classList.add("hidden");
     }
   };
+})();
+</script>
+
+
+<script id="hoa-v634-ui-normalization">
+(function () {
+  "use strict";
+
+  function normalizeUI() {
+    document.documentElement.style.overflowX = "hidden";
+    document.body.style.overflowX = "hidden";
+
+    // Prevent accidental native overflow from oversized images in the public shell.
+    document.querySelectorAll("#hoaFrontPage img, #hoaLoginPage img").forEach(function (img) {
+      img.style.maxWidth = "100%";
+      img.style.height = img.style.height || "auto";
+    });
+
+    // Add accessible labels to unlabeled password/text inputs only when an
+    // adjacent placeholder exists; do not alter application values.
+    document.querySelectorAll("input").forEach(function (input) {
+      if (!input.getAttribute("aria-label") && !input.labels?.length) {
+        const placeholder = input.getAttribute("placeholder");
+        if (placeholder) input.setAttribute("aria-label", placeholder);
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", normalizeUI, { once: true });
+  } else {
+    normalizeUI();
+  }
+
+  window.addEventListener("resize", normalizeUI, { passive: true });
 })();
 </script>
 
