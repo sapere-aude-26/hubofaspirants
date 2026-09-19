@@ -1,3 +1,4 @@
+<!-- HOA V6.0.0 — Production Ready hardening from confirmed V5.9.9 MASTER -->
 <!-- HOA V5.9.7 — surgical professional mock-test UX upgrade from confirmed V5.9.6 MASTER -->
 <!-- HUB OF ASPIRANTS V5.9.3 — Storage Policy + Admin-Only Poster Management -->
 <!-- HUB OF ASPIRANTS V5.9.2 — Fixed Supabase Client Binding -->
@@ -10560,8 +10561,86 @@ body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-
 }
 </style>
 
+
+<style id="hoa-v598-session-protection">
+/* V5.9.8 — Session protection only.
+   Does not change answer, scoring, submission, authentication or admin workflows. */
+.hoa-v598-exam-status{
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:7px!important;
+  min-height:30px!important;
+  padding:5px 9px!important;
+  border:1px solid #d7e2ee!important;
+  border-radius:8px!important;
+  background:#f8fbff!important;
+  color:#45627e!important;
+  font:700 11px/1 Arial,sans-serif!important;
+  white-space:nowrap!important;
+}
+.hoa-v598-exam-status .dot{
+  width:7px!important;height:7px!important;border-radius:50%!important;
+  background:#2d8a58!important;display:inline-block!important;
+}
+.hoa-v598-exam-status.offline{
+  color:#8a5b12!important;
+  border-color:#ead6a6!important;
+  background:#fff9eb!important;
+}
+.hoa-v598-exam-status.offline .dot{background:#d28a16!important}
+.hoa-v598-exam-status.saving{
+  color:#315f91!important;
+}
+.hoa-v598-session-note{
+  position:fixed!important;
+  left:50%!important;
+  top:12px!important;
+  transform:translate(-50%,-140%)!important;
+  z-index:2147482000!important;
+  padding:9px 14px!important;
+  border:1px solid #ead6a6!important;
+  border-radius:9px!important;
+  background:#fff9eb!important;
+  color:#704d0b!important;
+  box-shadow:0 8px 26px rgba(18,52,91,.14)!important;
+  font:800 12px/1.3 Arial,sans-serif!important;
+  transition:transform .18s ease!important;
+}
+.hoa-v598-session-note.show{transform:translate(-50%,0)!important}
+@media(max-width:650px){
+  .hoa-v598-exam-status{font-size:10px!important;padding:5px 7px!important}
+  .hoa-v598-exam-status .label{display:none!important}
+}
+</style>
+
+
+<style id="hoa-v600-production-css">
+/* HOA V6.0.0 — production UX/accessibility/performance layer. Existing layouts and workflows are preserved. */
+:root{--hoa-focus:#2563eb;--hoa-danger:#b42318;--hoa-success:#087443;--hoa-panel:#ffffff;--hoa-border:#dbe4ef}
+*:focus-visible{outline:3px solid color-mix(in srgb,var(--hoa-focus) 72%,transparent);outline-offset:2px}
+button,[role="button"],a,input,select,textarea{touch-action:manipulation}
+button{min-height:38px}
+img{content-visibility:auto}
+img[width][height]{height:auto}
+.hoa-v600-status{position:fixed;left:50%;bottom:16px;transform:translate(-50%,120px);z-index:2147483000;display:flex;align-items:center;gap:9px;max-width:min(92vw,560px);padding:10px 14px;border:1px solid var(--hoa-border);border-radius:11px;background:rgba(255,255,255,.98);color:#17324d;box-shadow:0 12px 35px rgba(3,27,56,.18);font:700 12px/1.35 Arial,sans-serif;transition:transform .18s ease,opacity .18s ease;opacity:0;pointer-events:none}
+.hoa-v600-status.show{transform:translate(-50%,0);opacity:1}
+.hoa-v600-status.error{border-color:#efb1ad;background:#fff7f6;color:#8e2018}
+.hoa-v600-status.success{border-color:#a8d9bd;background:#f4fbf7;color:#087443}
+.hoa-v600-status.offline{border-color:#ead6a6;background:#fff9eb;color:#704d0b}
+.hoa-v600-status .dot{width:8px;height:8px;border-radius:50%;background:#2e9d59;flex:0 0 auto}
+.hoa-v600-status.error .dot{background:#d64545}.hoa-v600-status.offline .dot{background:#d28a16}
+.hoa-v600-loading{position:fixed;inset:0;z-index:2147482990;display:none;place-items:center;background:rgba(246,249,253,.62);backdrop-filter:blur(2px)}
+.hoa-v600-loading.show{display:grid}.hoa-v600-spinner{width:34px;height:34px;border:4px solid #dbe4ef;border-top-color:#2563eb;border-radius:50%;animation:hoaV600Spin .75s linear infinite}
+@keyframes hoaV600Spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
+@media(max-width:650px){.hoa-v600-status{bottom:10px;font-size:11px}.hoa-v600-loading .hoa-v600-spinner{width:30px;height:30px}}
+</style>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://pnzhtiwwqiqnnkecogcc.supabase.co; font-src 'self' data:; connect-src 'self' https://pnzhtiwwqiqnnkecogcc.supabase.co wss://pnzhtiwwqiqnnkecogcc.supabase.co; media-src 'self' blob: https://pnzhtiwwqiqnnkecogcc.supabase.co;"
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
 </head>
 <body>
+<a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
 <div class="countdownOverlay hidden" id="testCountdownOverlay">
 <div class="countdownCard">
 <div class="countdownTitle">GET READY</div>
@@ -11353,29 +11432,8 @@ async function loadTestsFromSupabase(){
 }
 
 async function resetPreviousAttemptsForStudent(studentId){
-  if(!supabaseClient || !studentId) return {ok:false,count:0,reason:"Supabase unavailable"};
-  const flag="missionTES_v21_history_reset_"+String(studentId);
-  if(localStorage.getItem(flag)==="1") return {ok:true,count:0,already:true};
-  try{
-    const {data:oldAttempts,error:readError}=await supabaseClient.from("attempts")
-      .select("id")
-      .eq("student_id",studentId);
-    if(readError) throw readError;
-    const ids=(oldAttempts||[]).map(x=>x.id).filter(Boolean);
-    if(ids.length){
-      const {error:answerError}=await supabaseClient.from("answers").delete().in("attempt_id",ids);
-      if(answerError) throw answerError;
-      const {error:attemptError}=await supabaseClient.from("attempts").delete().eq("student_id",studentId);
-      if(attemptError) throw attemptError;
-    }
-    localStorage.removeItem("missionTES_results_cache");
-    localStorage.removeItem("missionTES_attempt_details_v21");
-    localStorage.setItem(flag,"1");
-    return {ok:true,count:ids.length};
-  }catch(e){
-    console.warn("V2.1 previous-attempt reset skipped:",e);
-    return {ok:false,count:0,error:e};
-  }
+  /* Production hardening: login must never delete examination history. */
+  return {ok:true,count:0,skipped:true,studentId:studentId||null};
 }
 
 async function loadResultsFromSupabase(studentId){
@@ -11403,19 +11461,13 @@ async function loadResultsFromSupabase(studentId){
   });
 }
 async function createAttemptInSupabase(testId,totalQuestions){
-  if(!supabaseClient || !currentStudent) return null;
-  const {data,error}=await supabaseClient.from("attempts").insert({
-    student_id:currentStudent.id,
-    test_id:testId,
-    status:"in_progress",
-    total_questions:totalQuestions,
-    correct_answers:0,
-    wrong_answers:0,
-    unanswered:totalQuestions,
-    score:0
-  }).select("id").single();
+  if(!supabaseClient || !currentStudent || !testId) return null;
+  /* Production hardening: attempt creation is server-authorized. The browser
+     never chooses student_id, status, score or access rights. */
+  const {data,error}=await supabaseClient.rpc("start_test_attempt_v1",{p_test_id:testId});
   if(error) throw error;
-  return data.id;
+  if(!data?.ok || !data?.attempt_id) throw new Error(data?.error||"Could not start the test attempt.");
+  return data.attempt_id;
 }
 
 async function saveAttemptToSupabase(attemptId,testId,correct,wrong,skipped,score,answersSnapshot){
@@ -11450,45 +11502,33 @@ async function saveAttemptToSupabase(attemptId,testId,correct,wrong,skipped,scor
 
 async function saveTestToSupabase(t){
   if(!supabaseClient) return t.id;
-  const testId = (t.id && /^[0-9a-f-]{36}$/i.test(t.id)) ? t.id : undefined;
-  const payload={
-    title:t.title,
-    description:null,
-    duration_minutes:t.duration,
-    marks_per_question:t.marks,
-    negative_marking:t.negative,
-    is_published:Boolean(t.is_published),
-    access_type:t.accessType === "free" ? "free" : "paid"
-  };
-
-  let testRow, error;
-  if(testId){
-    ({data:testRow,error}=await supabaseClient.from("tests").update(payload).eq("id",testId).select("id").single());
-  }else{
-    ({data:testRow,error}=await supabaseClient.from("tests").insert(payload).select("id").single());
-  }
-  if(error) throw error;
-
-  const realId=testRow.id;
-  await supabaseClient.from("questions").delete().eq("test_id",realId);
-
-  const qRows=t.questions.map((q,i)=>({
-    test_id:realId,
-    question_text:q[0],
-    option_1:q[1],
-    option_2:q[2],
-    option_3:q[3],
-    option_4:q[4],
-    correct_option:q[5],
+  const testId=(t.id && /^[0-9a-f-]{36}$/i.test(t.id))?t.id:null;
+  const qRows=(Array.isArray(t.questions)?t.questions:[]).map((q,i)=>({
+    question_text:q[0]||"",
+    option_1:q[1]||"",
+    option_2:q[2]||"",
+    option_3:q[3]||"",
+    option_4:q[4]||"",
+    correct_option:Number(q[5]),
     explanation:q[6]||"",
     question_order:i+1
   }));
-  const {error:qError}=await supabaseClient.from("questions").insert(qRows);
-  if(qError) throw qError;
-
-  t.id=realId;
+  const {data,error}=await supabaseClient.rpc("save_test_bundle_v1",{
+    p_test_id:testId,
+    p_title:String(t.title||"").trim(),
+    p_description:null,
+    p_duration_minutes:Number(t.duration),
+    p_marks_per_question:Number(t.marks),
+    p_negative_marking:Number(t.negative),
+    p_is_published:Boolean(t.is_published),
+    p_access_type:t.accessType === "free" ? "free" : "paid",
+    p_questions:qRows
+  });
+  if(error) throw error;
+  if(!data) throw new Error("Test save returned no test id.");
+  t.id=data;
   t.created=t.created || new Date().toISOString();
-  return realId;
+  return data;
 }
 
 async function deleteTestFromSupabase(id){
@@ -11686,7 +11726,9 @@ async function registerFreeCandidate(){
   if(!/^\d{4}$/.test(passoutYear)||Number(passoutYear)<1950||Number(passoutYear)>currentYear){setMessage("Please enter a valid passout year.");return;}
   if(college.length<2){setMessage("Please enter a valid college name.");return;}
   try{
-    const clientPassword="TES@2026";
+    /* The Edge Function validates this field as a registration payload.
+       The actual Auth password remains the existing Free Test credential. */
+    const clientPassword="HOA_FREE_2026!";
     const {data,error}=await supabaseClient.functions.invoke("free-candidate-register",{body:{action:"register",login:gateLogin,password:gatePassword,id:crypto.randomUUID(),full_name:name,email,qualification,passout_year:passoutYear,college_name:college,client_password:clientPassword}});
     if(error) throw error;
     if(data?.error) throw new Error(data.error);
@@ -12551,7 +12593,7 @@ function showDashboardTab(tab){
 function renderStudentDashboard(){
   const dashboardLogo=document.getElementById("studentDashboardLogo");
   const sourceLogo=document.querySelector("#authScreen .mission-logo");
-  if(dashboardLogo && sourceLogo && !dashboardLogo.src) dashboardLogo.src=sourceLogo.src;
+  if(dashboardLogo && sourceLogo && !dashboardLogo.getAttribute("src")) dashboardLogo.src=sourceLogo.src;
   const allResults=getResults();
   const results=currentStudent?allResults.filter(r=>r.userId===currentStudent.id):[];
   const availableTests=tests.filter(t=>t.is_published && (t.accessType==="free" || currentStudent?.accessType==="paid"));
@@ -13740,6 +13782,7 @@ window.__missionTESCurrentElapsedSeconds=elapsedSeconds;
      skipped=Number(secureResult.skipped||0);
      marks=Number(secureResult.score||0);
      maxMarks=Number(secureResult.max_score||maxMarks);
+     if(Number.isFinite(Number(secureResult.time_taken))) elapsedSeconds=Number(secureResult.time_taken);
      // Always retain a client-side copy of the exact submitted questions/answers for historical review.
      saveHistoricalAttemptDetail(currentAttemptId,{
        questions:Array.isArray(questions)?questions.map(q=>Array.isArray(q)?q.slice():q):[],
@@ -15901,7 +15944,7 @@ function violation(reason){
 
   function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){
     return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
-  }}
+  });}
   function adminFlag(){
     try{return typeof adminLoggedIn!=="undefined" && adminLoggedIn===true;}catch(e){return false;}
   }
@@ -15911,11 +15954,9 @@ function violation(reason){
       try{
         var r=await supabase.rpc("is_app_admin");
         if(r.error) throw r.error;
-        if(r.data===false) throw new Error("Admin verification failed.");
+        if(r.data!==true) throw new Error("Admin verification failed.");
       }catch(e){
-        /* Existing V5.7 admin session remains the fallback for installations
-           where the legacy RPC is not callable from the browser. */
-        console.warn("Admin RPC verification:",e);
+        throw new Error("Admin verification failed. Please sign in again.");
       }
     }
   }
@@ -16316,6 +16357,247 @@ setInterval(boot,2500);
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot);
   else boot();
+})();
+</script>
+
+
+<script id="hoa-v598-session-protection-js">
+(function(){
+  "use strict";
+
+  let warningTimer=null;
+
+  function examVisible(){
+    const el=document.getElementById("exam");
+    if(!el) return false;
+    const s=getComputedStyle(el);
+    return !el.classList.contains("hidden") && s.display!=="none" && s.visibility!=="hidden";
+  }
+
+  function ensureStatus(){
+    if(!examVisible()) return;
+    const top=document.querySelector("#exam .examTop");
+    if(!top || document.getElementById("hoaV598ExamStatus")) return;
+
+    const status=document.createElement("div");
+    status.id="hoaV598ExamStatus";
+    status.className="hoa-v598-exam-status";
+    status.innerHTML='<span class="dot"></span><span class="label">Connection</span><span class="value">Online</span>';
+
+    const right=top.querySelector(".timer")?.parentElement || top.lastElementChild || top;
+    right.insertBefore(status, right.firstChild);
+  }
+
+  function updateStatus(){
+    ensureStatus();
+    const el=document.getElementById("hoaV598ExamStatus");
+    if(!el) return;
+
+    const offline=!navigator.onLine;
+    el.classList.toggle("offline",offline);
+    const value=el.querySelector(".value");
+    if(value) value.textContent=offline ? "Offline" : "Online";
+
+    const note=document.getElementById("hoaV598SessionNote");
+    if(offline){
+      if(!note){
+        const n=document.createElement("div");
+        n.id="hoaV598SessionNote";
+        n.className="hoa-v598-session-note";
+        n.textContent="Internet connection lost. Your current exam screen is still open; reconnect before relying on server-side saving.";
+        document.body.appendChild(n);
+        requestAnimationFrame(()=>n.classList.add("show"));
+      }
+    }else if(note){
+      note.classList.remove("show");
+      setTimeout(()=>note.remove(),220);
+    }
+  }
+
+  function installLeaveProtection(){
+    if(window.__hoaV598LeaveProtectionInstalled) return;
+    window.__hoaV598LeaveProtectionInstalled=true;
+
+    window.addEventListener("beforeunload",function(e){
+      if(!examVisible()) return;
+      if(window.submitted===true) return;
+      e.preventDefault();
+      e.returnValue="";
+    });
+
+    window.addEventListener("offline",updateStatus);
+    window.addEventListener("online",updateStatus);
+
+    setInterval(function(){
+      if(examVisible()) updateStatus();
+    },1000);
+  }
+
+  function boot(){
+    installLeaveProtection();
+    updateStatus();
+
+    new MutationObserver(function(){
+      if(examVisible()) ensureStatus();
+    }).observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["class","style"]});
+  }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot);
+  else boot();
+})();
+</script>
+
+
+
+<style id="hoa-v601-ui-production-css">
+/* HOA V6.0.1 — UI/UX production polish. Layout-only: no workflow changes. */
+:root{
+  --hoa-bg:#f5f8fc;--hoa-surface:#fff;--hoa-text:#172033;--hoa-muted:#66758a;
+  --hoa-border:#dbe4ef;--hoa-primary:#155eef;--hoa-primary-dark:#0d47b8;
+  --hoa-shadow:0 10px 30px rgba(21,46,82,.08);--hoa-radius:14px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{background:var(--hoa-bg);color:var(--hoa-text);overflow-x:hidden;line-height:1.45;text-rendering:optimizeLegibility;}
+*,*::before,*::after{box-sizing:border-box;}
+img{max-width:100%;height:auto;}
+button,input,select,textarea{font:inherit;}
+button{min-height:40px;touch-action:manipulation;}
+button:disabled{cursor:not-allowed!important;opacity:.55;}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:3px solid rgba(21,94,239,.28)!important;outline-offset:2px!important;}
+input,select,textarea{max-width:100%;}
+textarea{resize:vertical;}
+#authScreen,#home,#exam,#result{width:100%;max-width:100%;}
+#authScreen .loginBox,#authScreen .freeGateBox,#authScreen .freeRegisterBox,#authScreen .registerBox{max-width:100%;}
+#home .studentOnlyDashboard,#home .adminOnlyDashboard{width:100%;max-width:100%;}
+#studentOnlyDashboard,#adminOnlyDashboard{min-width:0;}
+#studentTests,#candidateResultsList,#studentAdminList,#paidStudentAdminList,#freeStudentAdminList,#testLibrary,#adminResultList{min-width:0;}
+/* Prevent long dynamic content from creating horizontal scroll. */
+.questionText,.reviewQuestionText,.card,.panel,.modal,.modal-content,.table-wrap,.table-responsive,.adminSection,.dashboard-card{overflow-wrap:anywhere;word-break:normal;}
+/* Tables remain usable on small screens. */
+#testWiseTable{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+#testWiseTable table{min-width:620px;width:100%;}
+/* Consistent form controls without replacing existing theme. */
+input:not([type="checkbox"]):not([type="radio"]),select,textarea{min-height:42px;border-radius:9px;}
+textarea{min-height:100px;}
+/* Modal layering and safe mobile sizing. */
+#hoaDevConsoleModal,#missionSubmitConfirm,#testInstructionsModal{max-width:100vw;}
+#hoaDevConsoleModal iframe{display:block;width:100%;height:100%;border:0;background:#fff;}
+/* Exam controls: preserve existing actions while making touch targets reliable. */
+#exam button{touch-action:manipulation;}
+#exam .options button{min-height:48px;text-align:left;}
+#exam .palette button{min-width:38px;min-height:38px;}
+/* Fixed/floating elements should respect safe areas on modern phones. */
+#examSubmitTestButton,#ui21Submit{padding-bottom:max(10px,env(safe-area-inset-bottom));}
+@supports(padding:max(0px)){
+  body{padding-bottom:max(0px,env(safe-area-inset-bottom));}
+}
+/* Avoid accidental text selection on controls, but preserve it for questions/results. */
+button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
+/* Responsive desktop/tablet */
+@media (max-width:1100px){
+  .dashboard-grid,.admin-grid,.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .content-grid,.two-col,.form-grid{grid-template-columns:minmax(0,1fr)!important;}
+  #home .adminOnlyDashboard .panel,#home .studentOnlyDashboard .panel{min-width:0;}
+}
+/* Mobile: stack instead of shrinking controls below usable touch size. */
+@media (max-width:700px){
+  body{font-size:14px;}
+  .dashboard-grid,.admin-grid,.stats-grid,.cards,.grid,.row,.form-grid,.two-col,.content-grid{grid-template-columns:1fr!important;}
+  .toolbar,.actions,.header-actions,.admin-actions{flex-wrap:wrap!important;gap:8px!important;}
+  .toolbar>*,.actions>*,.header-actions>*{max-width:100%;}
+  button,.btn{min-height:44px;}
+  input:not([type="checkbox"]):not([type="radio"]),select{min-height:44px;}
+  #home .panel,#home .card,#authScreen .loginBox,#authScreen .freeGateBox,#authScreen .freeRegisterBox,#authScreen .registerBox{border-radius:12px;}
+  #testWiseTable{margin-inline:-2px;max-width:calc(100% + 4px);}
+  #testWiseTable table{font-size:12px;}
+  #hoaDevConsoleModal{padding:0!important;}
+  #hoaDevConsoleModal iframe{min-height:70vh;}
+  #exam .examMeta{gap:6px;flex-wrap:wrap;}
+  #exam .questionText{font-size:clamp(18px,5vw,24px);line-height:1.45;}
+  #exam .options{gap:9px;}
+  #exam .palette{overflow-x:auto;display:flex;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;padding-bottom:4px;}
+  #exam .palette button{flex:0 0 auto;}
+  #missionSubmitConfirm .modal-content,#testInstructionsModal .modal-content{width:min(94vw,560px)!important;max-height:90vh;overflow:auto;}
+}
+@media (max-width:420px){
+  .hide-on-small{display:none!important;}
+  #authScreen{padding-inline:10px;}
+  #exam{padding-inline:8px;}
+  #exam .questionText{font-size:18px;}
+  #exam .options button{font-size:14px;padding:12px 10px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important;}
+}
+@media (forced-colors:active){
+  button,input,select,textarea{forced-color-adjust:auto;}
+  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid CanvasText!important;}
+}
+#hoa-v601-skip-link{position:fixed;left:10px;top:10px;z-index:2147483000;transform:translateY(-150%);padding:9px 12px;border-radius:8px;background:#172033;color:#fff;text-decoration:none;font-weight:800;box-shadow:var(--hoa-shadow)}#hoa-v601-skip-link:focus{transform:translateY(0);}
+</style>
+
+<script id="hoa-v600-production-guard">
+(function(){
+  "use strict";
+  const VERSION="V6.0.1";
+  window.__HOA_PRODUCTION_VERSION=VERSION;
+  let toastTimer=0;
+  function ensureUi(){
+    if(!document.body)return;
+    if(!document.getElementById("hoaV600Status")){
+      const n=document.createElement("div"); n.id="hoaV600Status"; n.className="hoa-v600-status"; n.setAttribute("role","status"); n.setAttribute("aria-live","polite");
+      n.innerHTML='<span class="dot" aria-hidden="true"></span><span class="msg"></span>'; document.body.appendChild(n);
+    }
+    if(!document.getElementById("hoaV600Loading")){
+      const l=document.createElement("div"); l.id="hoaV600Loading"; l.className="hoa-v600-loading"; l.setAttribute("aria-hidden","true");
+      l.innerHTML='<div class="hoa-v600-spinner" role="progressbar" aria-label="Loading"></div>'; document.body.appendChild(l);
+    }
+  }
+  function toast(message,type){
+    ensureUi(); const n=document.getElementById("hoaV600Status"); if(!n)return;
+    clearTimeout(toastTimer); n.className="hoa-v600-status "+(type||""); const m=n.querySelector(".msg"); if(m)m.textContent=String(message||"");
+    requestAnimationFrame(()=>n.classList.add("show")); toastTimer=setTimeout(()=>n.classList.remove("show"),type==="error"?7000:4000);
+  }
+  window.HOAToast=toast;
+  window.HOALoading=function(show){ensureUi();const l=document.getElementById("hoaV600Loading");if(l)l.classList.toggle("show",!!show);};
+  function network(){
+    ensureUi(); const n=document.getElementById("hoaV600Status"); if(!n)return;
+    if(!navigator.onLine){n.className="hoa-v600-status offline show";const m=n.querySelector(".msg");if(m)m.textContent="Internet connection is offline. Reconnect before submitting or saving.";}
+    else if(n.classList.contains("offline")){n.classList.remove("show");}
+  }
+  function prepareButtons(){
+    document.querySelectorAll("button").forEach(function(b){
+      if(!b.getAttribute("type"))b.setAttribute("type","button");
+      if(!b.getAttribute("aria-label") && !b.textContent.trim()){
+        const title=b.getAttribute("title"); if(title)b.setAttribute("aria-label",title);
+      }
+    });
+  }
+  function observeUi(){
+    prepareButtons();
+    if(window.__HOA_V600_OBSERVER)return;
+    window.__HOA_V600_OBSERVER=true;
+    const mo=new MutationObserver(function(records){
+      let added=false; for(const r of records){if(r.addedNodes&&r.addedNodes.length){added=true;break;}}
+      if(added)prepareButtons();
+    });
+    mo.observe(document.body,{childList:true,subtree:true});
+  }
+  function boot(){
+    ensureUi(); prepareButtons(); observeUi(); network();
+    window.addEventListener("online",function(){toast("Connection restored.","success");network();});
+    window.addEventListener("offline",function(){toast("Internet connection lost. Reconnect before submitting or saving.","offline");network();});
+    window.addEventListener("error",function(e){
+      const msg=e&&e.message?String(e.message):"Unexpected application error.";
+      console.error("HOA production error:",e.error||e.message||e); toast("Something went wrong. Your current screen has not been intentionally changed. Please retry.","error");
+      if(/Script error/i.test(msg))return;
+    });
+    window.addEventListener("unhandledrejection",function(e){
+      console.error("HOA unhandled promise rejection:",e.reason); toast("A background operation failed. Please retry the action.","error");
+    });
+    document.addEventListener("visibilitychange",function(){if(document.visibilityState==="visible")network();});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});else boot();
 })();
 </script>
 
