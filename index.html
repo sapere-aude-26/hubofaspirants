@@ -11538,6 +11538,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
       const adminToggle = adminPanel.querySelector("#homeAdminToggle");
       if(adminBody){
         adminBody.hidden = true;
+        adminBody.style.removeProperty('display');
       }
       if(adminToggle){
         adminToggle.setAttribute("aria-expanded","false");
@@ -11907,7 +11908,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
   border-top:1px solid #e4ebf2 !important;
 }
 body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody[hidden]{
-  display:block !important;
+  display:none !important;
 }
 
 body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup{
@@ -11974,7 +11975,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.31: V6.0.28 is the sole public navigation state controller.
+/* V6.0.32: V6.0.28 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -13399,6 +13400,7 @@ async function loginAdmin(){
     showAdminSection("student");
     await renderAdminAccount();
     await loadAdminData();
+    if(typeof window.hoaEnterAuthenticated === 'function') window.hoaEnterAuthenticated('admin');
   }catch(e){
     console.error("Admin login error",e);
     setMessage("Admin login failed: "+supaError("admin login",e),false,"admin");
@@ -13519,6 +13521,7 @@ async function logoutStudent(){
   document.getElementById("loginId").value="";
   document.getElementById("loginPassword").value="";
   showAuth("login");
+  if(typeof window.hoaExitToFrontPage === 'function') window.hoaExitToFrontPage();
 }
 function enterPlatform(){
   document.getElementById("studentHeaderLogout").classList.remove("hidden");
@@ -13532,6 +13535,7 @@ function enterPlatform(){
   showDashboardTab("student");
   showCandidateSection("test");
   renderStudentDashboard();
+  if(typeof window.hoaEnterAuthenticated === 'function') window.hoaEnterAuthenticated('student');
 }
 async function logoutAdmin(){
   ++testLaunchToken;
@@ -13556,6 +13560,7 @@ async function logoutAdmin(){
   if(adminUsername) adminUsername.value="";
   if(adminPassword) adminPassword.value="";
   showAuth("login");
+  if(typeof window.hoaExitToFrontPage === 'function') window.hoaExitToFrontPage();
 }
 async function changeAdminAccount(){
   if(!requireAdmin("changing the Admin password")) return;
@@ -15452,6 +15457,7 @@ updateRegistrationTypeUI();
         await showDashboardTab("admin");
         await renderAdminAccount();
         await loadAdminData();
+        if(typeof window.hoaEnterAuthenticated === 'function') window.hoaEnterAuthenticated('admin');
         return;
       }
     }
@@ -15496,6 +15502,7 @@ updateRegistrationTypeUI();
 
   updateHome();
   showSupabaseStatus();
+  if(typeof window.hoaExitToFrontPage === 'function') window.hoaExitToFrontPage();
 })();
 
 
@@ -16369,6 +16376,8 @@ function toggleHomeAdminLogin(){
   if(!body || !button) return;
   const open = body.hidden;
   body.hidden = !open;
+  if(open) body.style.setProperty('display','block','important');
+  else body.style.removeProperty('display');
   button.setAttribute('aria-expanded', String(open));
   button.textContent = open ? 'CLOSE' : 'ADMIN LOGIN';
   if(open){
@@ -18073,7 +18082,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.31";
+  const VERSION="V6.0.32";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -18170,6 +18179,93 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 })();
 </script>
 
+
+
+
+<style id="hoa-v632-auth-lifecycle-css">
+/* V6.0.32 — authoritative boundary between public navigation and the
+   established authenticated application. */
+body.hoa-app-authenticated #hoaFrontPage,
+body.hoa-app-authenticated #hoaLoginPage,
+body.hoa-app-authenticated #authScreen{display:none !important;}
+body.hoa-app-authenticated:not(.admin-ui) > .header{display:flex !important;}
+body.hoa-app-authenticated.admin-ui > .header{display:none !important;}
+body.hoa-app-authenticated #home{display:block !important;}
+
+/* The legacy application header must not appear above the new public pages. */
+body.hoa-public-front > .header,
+body.hoa-public-portal > .header,
+body.hoa-public-auth > .header{display:none !important;}
+body.hoa-public-front > #home,
+body.hoa-public-front > #exam,
+body.hoa-public-front > #result,
+body.hoa-public-portal > #home,
+body.hoa-public-portal > #exam,
+body.hoa-public-portal > #result,
+body.hoa-public-auth > #home,
+body.hoa-public-auth > #exam,
+body.hoa-public-auth > #result{display:none !important;}
+
+/* The native hidden attribute must win over legacy display rules. */
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody[hidden]{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidden]){
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+
+body.hoa-app-authenticated .hoa-front-nav,
+body.hoa-app-authenticated .hoa-login-page-shell{display:none !important;}
+</style>
+
+<script id="hoa-v632-auth-lifecycle-controller">
+(function(){
+  "use strict";
+  const PUBLIC_CLASSES=["hoa-public-front","hoa-public-portal","hoa-public-auth","hoa-student-auth","hoa-admin-auth"];
+  const AUTH_CLASSES=["hoa-app-authenticated","hoa-app-student","hoa-app-admin"];
+
+  function clear(list){ document.body.classList.remove.apply(document.body.classList,list); }
+  function url(){ return location.pathname+location.search+location.hash; }
+  function top(){ try{window.scrollTo(0,0);}catch(e){} }
+
+  window.hoaEnterAuthenticated=function(role){
+    role=role==="admin"?"admin":"student";
+    clear(PUBLIC_CLASSES);
+    clear(AUTH_CLASSES);
+    document.body.classList.add("hoa-app-authenticated",role==="admin"?"hoa-app-admin":"hoa-app-student");
+    document.getElementById("hoaFrontPage")?.setAttribute("aria-hidden","true");
+    document.getElementById("hoaLoginPage")?.setAttribute("aria-hidden","true");
+    document.getElementById("authScreen")?.setAttribute("aria-hidden","true");
+    try{history.replaceState({hoaAuthenticated:true,role:role},"",url());}catch(e){}
+    top();
+  };
+
+  window.hoaExitToFrontPage=function(){
+    clear(AUTH_CLASSES);
+    clear(PUBLIC_CLASSES);
+    document.body.classList.add("hoa-public-front");
+    document.getElementById("hoaFrontPage")?.removeAttribute("aria-hidden");
+    document.getElementById("hoaLoginPage")?.setAttribute("aria-hidden","true");
+    document.getElementById("authScreen")?.setAttribute("aria-hidden","true");
+    try{history.replaceState({hoaPublicPage:"front"},"",url());}catch(e){}
+    top();
+  };
+
+  /* Existing V6.0.28 popstate handler may render a public page first. If a
+     live authenticated session exists, restore the dashboard immediately. */
+  window.addEventListener("popstate",function(){
+    if(!document.body.classList.contains("hoa-app-authenticated")) return;
+    const role=document.body.classList.contains("hoa-app-admin")?"admin":"student";
+    try{history.replaceState({hoaAuthenticated:true,role:role},"",url());}catch(e){}
+    if(typeof showDashboardTab==="function") showDashboardTab(role);
+    top();
+  });
+})();
+</script>
 
 </body>
 </html>
