@@ -19,7 +19,6 @@
 <!-- HUB OF ASPIRANTS V4.8: Admin logout fully exits Admin UI mode; V4.7 base preserved -->
 <!DOCTYPE html>
 
-
 <html lang="en">
 <!-- HUB OF ASPIRANTS V4.2 — Automatic Result Management Workflow: no result publish/approval step. -->
 <head>
@@ -1783,7 +1782,6 @@ input[type=file]::file-selector-button{
   background:#b8c6d6;
   border-radius:99px;
 }
-
 
 /* ---------- Responsive ---------- */
 @media(max-width:900px){
@@ -10320,6 +10318,45 @@ body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-
 .hoa-v59-mini{font-size:12px;opacity:.7}
 </style>
 
+
+<style id="hoa-admin-console-link">
+.hoa-admin-console-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:36px;
+  padding:7px 12px;
+  border:1px solid #d7e2ee;
+  border-radius:9px;
+  background:#fff;
+  color:#173f6b;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  line-height:1;
+  box-shadow:0 2px 8px rgba(15,35,60,.06);
+  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
+.hoa-admin-console-link:hover{
+  background:#f5f9ff;
+  border-color:#a9c3df;
+  transform:translateY(-1px);
+}
+.hoa-admin-console-link:focus-visible{
+  outline:3px solid rgba(37,99,235,.2);
+  outline-offset:2px;
+}
+.hoa-admin-console-link .hoa-admin-icon{font-size:14px}
+@media(max-width:640px){
+  .hoa-admin-console-link{
+    min-height:34px;
+    padding:7px 9px;
+    font-size:11px;
+  }
+}
+</style>
+
 </head>
 <body>
 <div class="countdownOverlay hidden" id="testCountdownOverlay">
@@ -10334,6 +10371,8 @@ body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-
 <header class="header">
 <div><div class="brand">HUB OF ASPIRANTS</div><div class="sub">Civil Engineering Mock Test</div></div>
 <div class="headerRight">
+<a class="hoa-admin-console-link" href="admin-dev-console.html" aria-label="Open Admin Developer Console"><span class="hoa-admin-icon">⚙</span><span>Admin Console</span></a>
+
 <button class="headerLogoutBtn hidden" id="studentHeaderLogout" onclick="logoutStudent()">🚪 STUDENT LOGOUT</button>
 <button class="headerLogoutBtn hidden" id="adminHeaderLogout" onclick="logoutAdmin()">🚪 ADMIN LOGOUT</button>
 <div class="timer hidden" id="headerTimer">60:00</div>
