@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#060b14;--panel:#0c1524;--panel2:#101c30;--line:#243654;--text:#eef5ff;--muted:#91a3bd;--blue:#3275ed;--green:#20d9a0;--red:#ff6075;--yellow:#f1c75b}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 15% 0,#142b50 0,#060b14 42%);color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+button,input,textarea{font:inherit}button{cursor:pointer;transition:background .12s,border-color .12s,transform .05s}button:active{transform:translateY(1px)}.hidden{display:none!important}
 .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(450px,100%);background:rgba(12,21,36,.97);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 25px 90px #0009}
 .logo{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #35557f;box-shadow:0 12px 35px #0007}
 h1{font-size:25px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5;margin:0 0 24px}
@@ -83,7 +83,7 @@ main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4
   </div>
 
   <div class="workspace">
-    <div class="panel"><div class="panel-title">Repository Files</div><div id="files" class="files">Loading…</div></div>
+    <div class="panel"><div class="panel-title">Repository Files</div><div id="files" class="files">Click <b>Repository Files</b> to load GitHub files.</div></div>
     <div class="panel"><div class="panel-title">Code Editor</div><textarea id="editor" class="editor" spellcheck="false" placeholder="Open a repository file to edit it."></textarea></div>
   </div>
 
@@ -163,9 +163,6 @@ async function api(action, extra={}) {
 }
 function setBusy(value, action="") {
   busy=value;
-  document.querySelectorAll("button").forEach(b=>{
-    if(b.id!=="logout" && b.id!=="clearEditor") b.disabled=value;
-  });
   if(value) output("Running "+action+"…");
 }
 async function signIn(ev) {
@@ -187,8 +184,12 @@ async function showApp() {
   if(error || !data.user) throw new Error("Signed in, but the session could not be verified.");
   $("userEmail").textContent=data.user.email||"";
   $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden");
-  await runAction("status");
-  await listFiles();
+  // Show the dashboard immediately. Diagnostics and GitHub data are on-demand.
+  setState("authState","Connected",true);
+  setState("adminState","Authorized",true);
+  setState("supabaseState","Connected",true);
+  setState("githubState","Not checked",true);
+  output("Ready. Select an operation when needed.");
 }
 async function runAction(action) {
   if(busy) return;
@@ -211,6 +212,7 @@ function updateStatus(d) {
   setState("adminState",d.admin?"Authorized":"Denied",!!d.admin);
   setState("supabaseState","Connected",true);
   setState("githubState",d.github_ok?"Connected":"Error",!!d.github_ok);
+  if(d.github_error) output({...d,checked_at:new Date().toLocaleTimeString()});
 }
 function renderFiles(files) {
   const box=$("files"); box.innerHTML="";
@@ -226,12 +228,25 @@ function renderFiles(files) {
   }
 }
 async function listFiles() {
+  if(busy) return;
+  setBusy(true,"list");
   try {
-    const d=await api("list"); renderFiles(d.files||[]); output({ok:true,file_count:(d.files||[]).length});
+    const now=Date.now();
+    if(window.__repoCache && now-window.__repoCache.time < 30000) {
+      renderFiles(window.__repoCache.files);
+      output({ok:true,cached:true,file_count:window.__repoCache.files.length});
+      toast("Repository loaded from cache",true);
+      return;
+    }
+    const d=await api("list");
+    window.__repoCache={time:Date.now(),files:d.files||[]};
+    renderFiles(d.files||[]);
+    output({ok:true,file_count:(d.files||[]).length});
+    toast("Repository loaded",true);
   } catch(e) {
     $("files").textContent="Unable to load repository files.";
     output({ok:false,action:"list",error:e.message}); toast("Repository files failed: "+e.message);
-  }
+  } finally { setBusy(false); }
 }
 async function openFile(path) {
   path=(path || $("path").value).trim();
