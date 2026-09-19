@@ -11453,22 +11453,6 @@ body:not(.hoa-login-page) nav button{
 </style>
 
 
-<style id="hoa-v627-page-transition-css">
-/* V6.0.27 — single page-state controller. The legacy authScreen remains in the
-   DOM for the existing login functions, but is never used as a visible page. */
-body.hoa-front-page #hoaFrontPage{display:flex !important;}
-body.hoa-front-page #hoaLoginPage,
-body.hoa-front-page #authScreen{display:none !important;}
-body.hoa-login-page #hoaFrontPage{display:none !important;}
-body.hoa-login-page #hoaLoginPage{display:block !important;}
-body.hoa-login-page #authScreen{display:none !important;}
-body.hoa-login-page #hoaLoginChoiceView{display:block;}
-body.hoa-login-page #hoaStudentPortalPanel:not(.active),
-body.hoa-login-page #hoaAdminPortalPanel:not(.active){display:none !important;}
-body.hoa-login-page #hoaStudentPortalPanel.active,
-body.hoa-login-page #hoaAdminPortalPanel.active{display:block !important;}
-</style>
-
 <style id="hoa-v628-navigation-css">
 /* V6.0.28 — single authoritative public-page navigation layer */
 body.hoa-public-front #hoaFrontPage{display:flex !important}
@@ -11985,6 +11969,42 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
     width:100% !important;
     padding:28px 16px 30px !important;
   }
+}
+</style>
+
+
+<style id="hoa-v631-navigation-final-guard">
+/* V6.0.31: V6.0.28 is the sole public navigation state controller.
+   Legacy authScreen remains only as an implementation container for the
+   established authentication functions. */
+body.hoa-public-front #hoaFrontPage{display:flex !important;}
+body.hoa-public-front #hoaLoginPage,
+body.hoa-public-front #authScreen{display:none !important;}
+
+body.hoa-public-portal #hoaFrontPage,
+body.hoa-public-auth #hoaFrontPage{display:none !important;}
+body.hoa-public-portal #hoaLoginPage,
+body.hoa-public-auth #hoaLoginPage{display:block !important;}
+body.hoa-public-portal #authScreen,
+body.hoa-public-auth #authScreen{display:none !important;}
+
+body.hoa-public-portal #hoaLoginChoiceView{display:block !important;}
+body.hoa-public-portal #hoaStudentPortalPanel,
+body.hoa-public-portal #hoaAdminPortalPanel{display:none !important;}
+
+body.hoa-public-auth #hoaLoginChoiceView{display:none !important;}
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel{display:block !important;}
+body.hoa-public-auth.hoa-student-auth #hoaAdminPortalPanel{display:none !important;}
+body.hoa-public-auth.hoa-admin-auth #hoaStudentPortalPanel{display:none !important;}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !important;}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
+  display:block !important;
 }
 </style>
 
@@ -18053,7 +18073,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.30";
+  const VERSION="V6.0.31";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -18151,143 +18171,5 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 </script>
 
 
-<script id="hoa-v627-page-transition-controller">
-(function(){
-  "use strict";
-
-  const $=id=>document.getElementById(id);
-  const H="hidden";
-
-  function hide(id){const n=$(id); if(n){n.classList.add(H); n.style.setProperty("display","none","important");}}
-  function show(id,display="block"){const n=$(id); if(n){n.classList.remove(H); n.style.setProperty("display",display,"important");}}
-
-  function moveAuthPanels(){
-    const auth=$("authScreen"), studentHost=$("hoaStudentLoginHost"), adminHost=$("hoaAdminLoginHost");
-    if(!auth||!studentHost||!adminHost)return;
-    const adminPanel=auth.querySelector("#homeAdminPanel");
-    const panels=[...auth.querySelectorAll(".dashPanel")];
-    const studentPanel=panels.find(p=>p!==adminPanel);
-    if(studentPanel && !studentHost.contains(studentPanel)) studentHost.appendChild(studentPanel);
-    if(adminPanel && !adminHost.contains(adminPanel)) adminHost.appendChild(adminPanel);
-  }
-
-  function resetPortalPanels(){
-    const choice=$("hoaLoginChoiceView"), student=$("hoaStudentPortalPanel"), admin=$("hoaAdminPortalPanel");
-    if(choice) choice.style.setProperty("display","none","important");
-    student?.classList.remove("active");
-    admin?.classList.remove("active");
-    const sp=$("hoaStudentLoginHost")?.querySelector(".dashPanel");
-    const ap=$("hoaAdminLoginHost")?.querySelector(".dashPanel");
-    if(sp)sp.style.setProperty("display","none","important");
-    if(ap)ap.style.setProperty("display","none","important");
-  }
-
-  function hideAppScreens(){
-    ["authScreen","home","exam","result","studentOnlyDashboard","adminOnlyDashboard","headerTimer","studentHeaderLogout","adminHeaderLogout"].forEach(hide);
-  }
-
-  function front(){
-    document.body.classList.remove("hoa-login-page","admin-ui");
-    document.body.classList.add("hoa-front-page");
-    hideAppScreens();
-    hide("hoaLoginPage");
-    resetPortalPanels();
-    show("hoaFrontPage","flex");
-    window.scrollTo(0,0);
-  }
-
-  function choices(){
-    moveAuthPanels();
-    document.body.classList.remove("hoa-front-page","admin-ui");
-    document.body.classList.add("hoa-login-page");
-    hideAppScreens();
-    hide("hoaFrontPage");
-    show("hoaLoginPage","block");
-    resetPortalPanels();
-    show("hoaLoginChoiceView","block");
-    window.scrollTo(0,0);
-  }
-
-  function portal(type){
-    moveAuthPanels();
-    document.body.classList.remove("hoa-front-page");
-    document.body.classList.add("hoa-login-page");
-    hideAppScreens();
-    hide("hoaFrontPage");
-    show("hoaLoginPage","block");
-    resetPortalPanels();
-
-    const isAdmin=type==="admin";
-    const panel=$(isAdmin?"hoaAdminPortalPanel":"hoaStudentPortalPanel");
-    const host=$(isAdmin?"hoaAdminLoginHost":"hoaStudentLoginHost");
-    const otherHost=$(isAdmin?"hoaStudentLoginHost":"hoaAdminLoginHost");
-    const authPanel=host?.querySelector(".dashPanel");
-    const otherPanel=otherHost?.querySelector(".dashPanel");
-    if(panel)panel.classList.add("active");
-    if(authPanel)authPanel.style.setProperty("display","block","important");
-    if(otherPanel)otherPanel.style.setProperty("display","none","important");
-    window.scrollTo(0,0);
-  }
-
-  function registerOrFree(mode){
-    portal("student");
-    setTimeout(()=>{
-      if(mode==="register" && typeof showAuth==="function") showAuth("register");
-      else if(mode==="free" && typeof showFreeGate==="function") showFreeGate();
-    },0);
-  }
-
-  window.hoaShowFrontPage=front;
-  window.hoaShowPortalChoices=choices;
-  window.hoaOpenPortal=function(type){portal(type==="admin"?"admin":"student");};
-  window.hoaOpenLogin=function(mode){
-    if(mode==="register"||mode==="free") return registerOrFree(mode);
-    choices();
-  };
-
-  function bindBackState(){
-    try{history.replaceState({hoaPageState:"front"},"",location.href);}
-    catch(e){}
-  }
-
-  function boot(){
-    moveAuthPanels();
-    /* A clean reload always begins on the public page unless the existing app
-       has already established an authenticated dashboard. */
-    const admin=typeof window.adminLoggedIn!=="undefined" && window.adminLoggedIn===true;
-    const student=typeof window.currentStudent!=="undefined" && !!window.currentStudent;
-    if(!admin&&!student){
-      front();
-      bindBackState();
-    }else{
-      document.body.classList.remove("hoa-front-page","hoa-login-page");
-      hide("hoaFrontPage");
-      hide("hoaLoginPage");
-    }
-  }
-
-  window.addEventListener("popstate",function(e){
-    const state=e.state?.hoaPageState;
-    if(state==="choices") choices();
-    else if(state==="student") portal("student");
-    else if(state==="admin") portal("admin");
-    else front();
-  });
-
-  /* History is intentionally updated only by the explicit public-page CTAs.
-     Inline onclick handlers perform the actual transition; these listeners only
-     add a browser-history state and cannot recursively call the navigation API. */
-  function bindHistory(){
-    document.querySelectorAll("#hoaFrontPage [data-hoa-action=student-login]").forEach(b=>b.addEventListener("click",()=>{try{history.pushState({hoaPageState:"student"},"",location.href)}catch(e){}},{once:false}));
-    document.querySelectorAll("#hoaFrontPage .hoa-v619-admin").forEach(b=>b.addEventListener("click",()=>{try{history.pushState({hoaPageState:"admin"},"",location.href)}catch(e){}},{once:false}));
-    document.querySelectorAll("#hoaLoginPage .hoa-login-page-back").forEach(b=>b.addEventListener("click",()=>{try{history.pushState({hoaPageState:"front"},"",location.href)}catch(e){}},{once:false}));
-    document.querySelectorAll("#hoaLoginPage .hoa-login-back").forEach(b=>b.addEventListener("click",()=>{try{history.pushState({hoaPageState:"choices"},"",location.href)}catch(e){}},{once:false}));
-    document.querySelectorAll("#hoaLoginPage .hoa-login-choice").forEach(b=>b.addEventListener("click",()=>{const a=b.classList.contains("admin")?"admin":"student";try{history.pushState({hoaPageState:a},"",location.href)}catch(e){}},{once:false}));
-  }
-
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{boot();bindHistory();},{once:true});
-  else {boot();bindHistory();}
-})();
-</script>
 </body>
 </html>
