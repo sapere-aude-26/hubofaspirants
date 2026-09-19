@@ -11104,6 +11104,105 @@ body.hoa-front-page .missionBrandFooter{
 }
 </style>
 
+
+<style id="hoa-v617-login-page-css">
+/* V6.0.17 — Dedicated Page 2 login experience */
+body.hoa-login-page{
+  background:linear-gradient(135deg,#eef5fc 0%,#f8fbff 48%,#e8f1fb 100%) !important;
+}
+body.hoa-login-page #hoaFrontPage{display:none !important}
+body.hoa-login-page #authScreen{
+  display:block !important;
+  position:fixed !important;
+  inset:0 !important;
+  width:100% !important;
+  max-width:none !important;
+  height:100vh !important;
+  min-height:100vh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:auto !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+  z-index:1000 !important;
+}
+body.hoa-login-page #authScreen > div:first-child,
+body.hoa-login-page #authScreen > .dashPanel:nth-of-type(2),
+body.hoa-login-page #authScreen > div[style*="height:18px"]{
+  display:none !important;
+}
+body.hoa-login-page #authScreen > .dashPanel:first-of-type{
+  display:block !important;
+  width:min(560px,calc(100% - 28px)) !important;
+  margin:96px auto 40px !important;
+  padding:30px !important;
+  border:1px solid #dbe5f0 !important;
+  border-radius:22px !important;
+  background:#fff !important;
+  box-shadow:0 24px 70px rgba(15,39,68,.12) !important;
+}
+.hoa-login-page-shell{
+  min-height:100vh;display:flex;flex-direction:column;
+}
+.hoa-login-page-top{
+  height:72px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,5vw,60px);background:#fff;border-bottom:1px solid #dbe5f0;
+}
+.hoa-login-page-brand{display:flex;align-items:center;gap:10px}
+.hoa-login-page-brand img{width:43px;height:43px;object-fit:contain;border-radius:10px}
+.hoa-login-page-brand strong{color:#12395f;font-size:14px}
+.hoa-login-page-back{
+  border:1px solid #d3dfeb;background:#fff;color:#174ea6;border-radius:10px;
+  min-height:40px;padding:0 14px;font-weight:800;cursor:pointer;
+}
+.hoa-login-page-content{
+  width:min(1050px,calc(100% - 28px));margin:0 auto;padding:44px 0 55px;
+}
+.hoa-login-page-title{text-align:center;color:#102f50;font-size:clamp(28px,4vw,40px);margin:0}
+.hoa-login-page-sub{text-align:center;color:#64748b;margin:9px auto 30px}
+.hoa-login-choices{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;
+}
+.hoa-login-choice{
+  min-height:240px;border:1px solid #d6e2ee;border-radius:20px;background:#fff;padding:30px;
+  text-align:left;cursor:pointer;box-shadow:0 12px 35px rgba(15,39,68,.07);
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+}
+.hoa-login-choice:hover{transform:translateY(-4px);box-shadow:0 20px 45px rgba(15,39,68,.12);border-color:#9fc0e5}
+.hoa-login-choice-icon{
+  width:58px;height:58px;border-radius:16px;display:grid;place-items:center;
+  background:#eaf3ff;color:#1761ae;font-size:27px;margin-bottom:20px;
+}
+.hoa-login-choice.admin .hoa-login-choice-icon{background:#fff3df;color:#b56a00}
+.hoa-login-choice h2{margin:0 0 8px;color:#173f6b;font-size:22px}
+.hoa-login-choice p{margin:0;color:#64748b;line-height:1.55;font-size:14px}
+.hoa-login-choice .enter{
+  display:inline-flex;margin-top:22px;padding:10px 14px;border-radius:10px;background:#173f6b;color:#fff;
+  font-weight:800;font-size:13px;
+}
+.hoa-login-panel{
+  display:none;width:min(560px,100%);margin:0 auto;padding:30px;border:1px solid #dbe5f0;
+  border-radius:22px;background:#fff;box-shadow:0 20px 55px rgba(15,39,68,.10);
+}
+.hoa-login-panel.active{display:block}
+.hoa-login-panel-head{display:flex;align-items:center;gap:13px;margin-bottom:24px}
+.hoa-login-panel-head .icon{
+  width:48px;height:48px;border-radius:13px;display:grid;place-items:center;background:#eaf3ff;font-size:23px;
+}
+.hoa-login-panel-head h2{margin:0;color:#173f6b}
+.hoa-login-panel-head p{margin:3px 0 0;color:#64748b;font-size:12px}
+.hoa-login-back{
+  border:0;background:none;color:#1761ae;font-weight:800;padding:0;cursor:pointer;margin-bottom:18px;
+}
+.hoa-login-page .authTabs{margin-bottom:20px}
+@media(max-width:700px){
+  .hoa-login-choices{grid-template-columns:1fr}
+  .hoa-login-page-content{padding-top:30px}
+  .hoa-login-choice{min-height:auto}
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -11216,6 +11315,58 @@ body.hoa-front-page .missionBrandFooter{
       </nav>
     </div>
   </footer>
+</section>
+
+
+<section id="hoaLoginPage" class="hoa-login-page-shell" aria-label="HUB OF ASPIRANTS login page">
+  <header class="hoa-login-page-top">
+    <div class="hoa-login-page-brand">
+      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS">
+      <strong>HUB OF ASPIRANTS</strong>
+    </div>
+    <button type="button" class="hoa-login-page-back" onclick="hoaShowFrontPage()">← MAIN PAGE</button>
+  </header>
+
+  <main class="hoa-login-page-content">
+    <div id="hoaLoginChoiceView">
+      <h1 class="hoa-login-page-title">Access Your Portal</h1>
+      <p class="hoa-login-page-sub">Choose the portal you want to enter.</p>
+
+      <div class="hoa-login-choices">
+        <button type="button" class="hoa-login-choice" onclick="hoaOpenPortal('student')">
+          <span class="hoa-login-choice-icon">🎓</span>
+          <h2>Student Portal</h2>
+          <p>Login, register for mock tests, access free tests and continue your preparation.</p>
+          <span class="enter">STUDENT LOGIN →</span>
+        </button>
+
+        <button type="button" class="hoa-login-choice admin" onclick="hoaOpenPortal('admin')">
+          <span class="hoa-login-choice-icon">🔐</span>
+          <h2>Admin Portal</h2>
+          <p>Administrative access for managing tests, candidates, results and platform controls.</p>
+          <span class="enter">ADMIN LOGIN →</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="hoaStudentPortalPanel" class="hoa-login-panel">
+      <button type="button" class="hoa-login-back" onclick="hoaShowPortalChoices()">← Back to Portal Selection</button>
+      <div class="hoa-login-panel-head">
+        <div class="icon">🎓</div>
+        <div><h2>Student Login</h2><p>HUB OF ASPIRANTS Mock Test Platform</p></div>
+      </div>
+      <div id="hoaStudentLoginHost"></div>
+    </div>
+
+    <div id="hoaAdminPortalPanel" class="hoa-login-panel">
+      <button type="button" class="hoa-login-back" onclick="hoaShowPortalChoices()">← Back to Portal Selection</button>
+      <div class="hoa-login-panel-head">
+        <div class="icon">🔐</div>
+        <div><h2>Admin Login</h2><p>HUB OF ASPIRANTS Administration</p></div>
+      </div>
+      <div id="hoaAdminLoginHost"></div>
+    </div>
+  </main>
 </section>
 
 <section class="card" id="authScreen" style="max-width:520px;margin:35px auto">
@@ -17097,7 +17248,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.16";
+  const VERSION="V6.0.17";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -17277,6 +17428,115 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
       }catch(_e){}
     },80);
   });
+})();
+</script>
+
+
+<script id="hoa-v617-login-page-js">
+(function(){
+  "use strict";
+
+  function moveAuthPanels(){
+    const auth=document.getElementById("authScreen");
+    const studentPanel=auth?.querySelector(".dashPanel:first-of-type");
+    const adminPanel=auth?.querySelector(".dashPanel:nth-of-type(2)");
+    const studentHost=document.getElementById("hoaStudentLoginHost");
+    const adminHost=document.getElementById("hoaAdminLoginHost");
+    if(studentPanel && studentHost && !studentHost.contains(studentPanel)){
+      studentHost.appendChild(studentPanel);
+    }
+    if(adminPanel && adminHost && !adminHost.contains(adminPanel)){
+      adminHost.appendChild(adminPanel);
+    }
+  }
+
+  window.hoaShowPortalChoices=function(){
+    moveAuthPanels();
+    document.getElementById("hoaLoginChoiceView")?.style.removeProperty("display");
+    document.getElementById("hoaStudentPortalPanel")?.classList.remove("active");
+    document.getElementById("hoaAdminPortalPanel")?.classList.remove("active");
+  };
+
+  window.hoaOpenPortal=function(type){
+    moveAuthPanels();
+    document.body.classList.add("hoa-login-page");
+    document.getElementById("hoaFrontPage")?.classList.add("hidden");
+    document.getElementById("hoaLoginPage")?.style.removeProperty("display");
+    document.getElementById("hoaLoginChoiceView")?.style.setProperty("display","none");
+    document.getElementById("hoaStudentPortalPanel")?.classList.toggle("active",type==="student");
+    document.getElementById("hoaAdminPortalPanel")?.classList.toggle("active",type==="admin");
+
+    if(type==="student"){
+      const studentPanel=document.querySelector("#hoaStudentLoginHost > .dashPanel");
+      if(studentPanel) studentPanel.style.display="";
+      const adminPanel=document.querySelector("#hoaAdminLoginHost > .dashPanel");
+      if(adminPanel) adminPanel.style.display="none";
+    }else{
+      const studentPanel=document.querySelector("#hoaStudentLoginHost > .dashPanel");
+      if(studentPanel) studentPanel.style.display="none";
+      const adminPanel=document.querySelector("#hoaAdminLoginHost > .dashPanel");
+      if(adminPanel) adminPanel.style.display="";
+    }
+    window.scrollTo({top:0,behavior:"auto"});
+  };
+
+  // Replace the old front-page login action with the new Page 2 portal.
+  const originalOpenLogin=window.hoaOpenLogin;
+  window.hoaOpenLogin=function(mode){
+    if(mode==="register" || mode==="free"){
+      window.hoaOpenPortal("student");
+      setTimeout(function(){
+        if(mode==="register" && typeof showAuth==="function") showAuth("register");
+        if(mode==="free" && typeof showFreeGate==="function") showFreeGate();
+      },30);
+      return;
+    }
+    window.hoaShowPortalChoices();
+    document.body.classList.add("hoa-login-page");
+    document.getElementById("hoaFrontPage")?.classList.add("hidden");
+    document.getElementById("hoaLoginPage")?.style.removeProperty("display");
+    document.getElementById("hoaLoginChoiceView")?.style.removeProperty("display");
+    document.getElementById("hoaStudentPortalPanel")?.classList.remove("active");
+    document.getElementById("hoaAdminPortalPanel")?.classList.remove("active");
+    window.scrollTo({top:0,behavior:"auto"});
+  };
+
+  const oldFront=window.hoaShowFrontPage;
+  window.hoaShowFrontPage=function(){
+    document.body.classList.remove("hoa-login-page");
+    document.getElementById("hoaLoginPage")?.style.setProperty("display","none");
+    document.getElementById("hoaFrontPage")?.classList.remove("hidden");
+    document.getElementById("hoaFrontPage")?.style.removeProperty("display");
+    if(typeof oldFront==="function") oldFront();
+  };
+
+  // Keep the dedicated login page hidden until the visitor explicitly enters it.
+  function initLoginPage(){
+    moveAuthPanels();
+    document.getElementById("hoaLoginPage")?.style.setProperty("display","none");
+    document.getElementById("hoaStudentPortalPanel")?.classList.remove("active");
+    document.getElementById("hoaAdminPortalPanel")?.classList.remove("active");
+  }
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",initLoginPage);
+  }else{
+    setTimeout(initLoginPage,0);
+  }
+})();
+</script>
+
+
+<script id="hoa-v617-startup-guard">
+(function(){
+  "use strict";
+  function guard(){
+    const lp=document.getElementById("hoaLoginPage");
+    if(lp && !document.body.classList.contains("hoa-login-page")) lp.style.display="none";
+    const auth=document.getElementById("authScreen");
+    if(auth && !document.body.classList.contains("hoa-login-page")) auth.classList.add("hidden");
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",guard);
+  else setTimeout(guard,50);
 })();
 </script>
 
