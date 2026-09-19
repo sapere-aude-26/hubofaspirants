@@ -8527,7 +8527,7 @@ body:has(#exam:not(.hidden)) #authScreen{
   /* ADMIN: use exactly one logout control. Do not allow the old global
      header to create a second/overlapping visual layer. The existing JS
      may move #adminHeaderLogout to <!--
-V6.0.40 DOM safety:
+V6.0.41 DOM safety:
 Legacy V5.7/V5.8 management controls that previously reused identical IDs
 are now uniquely identified in the DOM. Existing JavaScript selectors remain
 untouched for the first/active controls; secondary legacy copies are isolated.
@@ -11583,7 +11583,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     if(state === S.FRONT){
       b.classList.add("hoa-public-front");
     }else if(state === S.PORTAL){
-      // V6.0.40: the intermediate portal-selection page no longer exists.
+      // V6.0.41: the intermediate portal-selection page no longer exists.
       state = S.FRONT;
       b.classList.add("hoa-public-front");
     }else if(state === S.STUDENT){
@@ -11983,7 +11983,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.40: V6.0.28 remains the sole public navigation controller.
+/* V6.0.41: V6.0.28 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -12019,7 +12019,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
 
 
 <style id="hoa-v633-integrated-navigation-css">
-/* V6.0.40 — one public/authenticated navigation lifecycle.
+/* V6.0.41 — one public/authenticated navigation lifecycle.
    The V6.0.28 router owns browser history. */
 body.hoa-public-front > .header,
 body.hoa-public-portal > .header,
@@ -12064,7 +12064,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidde
 
 
 <style id="hoa-v634-ui-hardening">
-/* V6.0.40 — UI hardening. No application workflow is replaced. */
+/* V6.0.41 — UI hardening. No application workflow is replaced. */
 
 /* ---------- Global rendering / overflow ---------- */
 html {
@@ -12332,7 +12332,7 @@ textarea:focus-visible,
 
 
 <style id="hoa-v635-no-portal-page">
-/* V6.0.40
+/* V6.0.41
    The intermediate "Access Your Portal" page has been removed.
    Login is opened directly from the public front page. */
 #hoaLoginChoiceView {
@@ -12348,7 +12348,7 @@ body.hoa-public-portal #hoaFrontPage {
 
 
 <style id="hoa-v636-remove-portal-screen">
-/* V6.0.40 — definitive removal of the intermediate portal-selection UI. */
+/* V6.0.41 — definitive removal of the intermediate portal-selection UI. */
 #hoaLoginChoiceView { display:none !important; }
 body.hoa-public-portal #hoaLoginPage { display:none !important; }
 body.hoa-public-portal #hoaFrontPage { display:block !important; }
@@ -12360,7 +12360,7 @@ body.hoa-public-portal #hoaAdminPortalPanel { display:none !important; }
 
 
 <style id="hoa-v637-student-login-ui">
-/* V6.0.40 — Student Login UI correction.
+/* V6.0.41 — Student Login UI correction.
    Existing authentication IDs/functions are preserved. */
 
 body.hoa-public-auth.hoa-student-auth {
@@ -12580,7 +12580,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #studentAuthMessage {
 
 
 <style id="hoa-v638-student-login-ui-final">
-/* V6.0.40 — Student Login visual correction.
+/* V6.0.41 — Student Login visual correction.
    The existing #authScreen/.dashPanel is still the functional source for
    Student authentication. It is hosted inside #hoaStudentLoginHost.
    This layer removes the redundant nested card without changing workflows. */
@@ -12731,7 +12731,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .hoa-student-login-su
 
 <style id="hoa-v639-student-dashboard-background-fix">
 /*
-  HOA V6.0.40 — Student Dashboard Background/UI correction.
+  HOA V6.0.41 — Student Dashboard Background/UI correction.
   Visual-only correction. Existing authentication, test, result, logout,
   navigation and Supabase logic are intentionally untouched.
 */
@@ -12928,7 +12928,7 @@ body.hoa-app-student #studentOnlyDashboard .profileCard{
 
 <style id="hoa-v640-student-dashboard-authoritative-fix">
 /*
-  HOA V6.0.40 — authoritative Student Dashboard background/header fix.
+  HOA V6.0.41 — authoritative Student Dashboard background/header fix.
   This block intentionally targets the ACTUAL dashboard state selector used
   by the application. No authentication, test, result, or database logic
   is modified.
@@ -13146,6 +13146,70 @@ body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboar
 }
 </style>
 
+
+<style id="hoa-v641-remove-student-ghost-brand">
+/*
+  HOA V6.0.41 — definitive fix for the ghost top-left header branding
+  visible on the Student Dashboard.
+  The screenshot identifies the elements as .header > div > .brand and .sub.
+  This is a presentation-only change.
+*/
+
+/* When the Student Dashboard is active, the legacy global header brand must
+   not render. The dashboard's own centered HOA branding remains visible. */
+body:has(#studentOnlyDashboard:not(.hidden)) > header.header > div:first-child,
+body:has(#studentOnlyDashboard:not(.hidden)) > .header > div:first-child,
+body:has(#studentOnlyDashboard:not(.hidden)) .header .brand,
+body:has(#studentOnlyDashboard:not(.hidden)) .header .sub{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+  width:0 !important;
+  height:0 !important;
+  max-width:0 !important;
+  max-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+
+/* Explicitly neutralize text painting in case an inherited pseudo-element
+   or transition attempts to retain the old header text. */
+body:has(#studentOnlyDashboard:not(.hidden)) .header .brand::before,
+body:has(#studentOnlyDashboard:not(.hidden)) .header .brand::after,
+body:has(#studentOnlyDashboard:not(.hidden)) .header .sub::before,
+body:has(#studentOnlyDashboard:not(.hidden)) .header .sub::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* Keep the utility header itself transparent and reserve only the logout /
+   action area. */
+body:has(#studentOnlyDashboard:not(.hidden)) > header.header,
+body:has(#studentOnlyDashboard:not(.hidden)) > .header{
+  background:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  border:0 !important;
+}
+
+body:has(#studentOnlyDashboard:not(.hidden)) > header.header .headerRight,
+body:has(#studentOnlyDashboard:not(.hidden)) > .header .headerRight{
+  margin-left:auto !important;
+}
+
+/* Safety fallback for browsers/contexts where :has() state evaluation is
+   delayed during the dashboard transition: hide the legacy brand whenever
+   the body is in the authenticated student state as well. */
+body.hoa-student-auth .header .brand,
+body.hoa-student-auth .header .sub,
+body.hoa-student-auth .header > div:first-child{
+  display:none !important;
+  visibility:hidden !important;
+  opacity:0 !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -13282,12 +13346,12 @@ body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboar
 
 
 <!--
-V6.0.40:
+V6.0.41:
 The former intermediate "Access Your Portal" screen has intentionally been
 removed. Student/Admin login pages remain separate and are reached directly
 from the front page. Existing login hosts and authentication workflows remain.
 -->
-<!-- V6.0.40: Intermediate "Access Your Portal" screen removed permanently.
+<!-- V6.0.41: Intermediate "Access Your Portal" screen removed permanently.
      Front Page -> Student Login or Admin Login directly. -->
 <section id="hoaLoginPage" class="hoa-login-page-shell" aria-label="HUB OF ASPIRANTS login page">
   <header class="hoa-login-page-top">
@@ -19205,7 +19269,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.40";
+  const VERSION="V6.0.41";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -19308,7 +19372,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
 <script id="hoa-v633-integrated-navigation-controller">
 /*
- * V6.0.40
+ * V6.0.41
  * One history owner: V6.0.28 public router.
  * Authentication lifecycle is coordinated through the existing public router;
  * no second popstate listener is installed.
