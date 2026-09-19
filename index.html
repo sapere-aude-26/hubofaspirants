@@ -13979,6 +13979,35 @@ updateRegistrationTypeUI();
 /* ===== Original inline script 3 — id: mission-admin-reference-ui-script ===== */
 
 (function(){
+  function returnToMainPage(){
+    if(typeof adminLoggedIn === 'undefined' || !adminLoggedIn) return;
+    const admin=document.getElementById('adminOnlyDashboard');
+    const home=document.getElementById('home');
+    const auth=document.getElementById('authScreen');
+    const exam=document.getElementById('exam');
+    const result=document.getElementById('result');
+    const studentDash=document.getElementById('studentOnlyDashboard');
+
+    admin?.classList.add('hidden');
+    exam?.classList.add('hidden');
+    result?.classList.add('hidden');
+    studentDash?.classList.add('hidden');
+    auth?.classList.add('hidden');
+    home?.classList.remove('hidden');
+    document.body.classList.remove('admin-ui');
+    document.documentElement.classList.remove('admin-ui');
+
+    document.getElementById('studentHeaderLogout')?.classList.add('hidden');
+    document.getElementById('adminHeaderLogout')?.classList.remove('hidden');
+    document.getElementById('headerTimer')?.classList.add('hidden');
+
+    if(typeof updateHome === 'function') updateHome();
+    if(typeof updateHeaderLogout === 'function') updateHeaderLogout();
+    if(typeof window.__HOA_SYNC_ADMIN_CHROME === 'function') window.__HOA_SYNC_ADMIN_CHROME();
+    window.scrollTo({top:0,left:0,behavior:'smooth'});
+  }
+  window.returnToMainPage=returnToMainPage;
+
   function setupAdminReferenceUI(){
     const home=document.getElementById('home');
     const admin=document.getElementById('adminOnlyDashboard');
@@ -14030,6 +14059,14 @@ updateRegistrationTypeUI();
       }
       const actions=document.createElement('div');
       actions.className='adminReferenceTopbarActions';
+      const mainPage=document.createElement('button');
+      mainPage.type='button';
+      mainPage.className='adminReferenceMainBtn';
+      mainPage.textContent='←  Main Page';
+      mainPage.title='Return to the main HUB OF ASPIRANTS page';
+      mainPage.setAttribute('aria-label','Return to main page');
+      mainPage.onclick=function(){ returnToMainPage(); };
+      actions.appendChild(mainPage);
       const refresh=document.createElement('button');
       refresh.type='button';
       refresh.className='adminReferenceRefreshBtn';
@@ -16358,7 +16395,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.6";
+  const VERSION="V6.0.7";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -16452,6 +16489,15 @@ body.admin-ui .adminReferenceMain{
     padding-top:10px !important;
   }
 }
+</style>
+
+<style id="hoa-v607-admin-main-page-css">
+/* V6.0.7 — explicit return-to-main-page control for Admin workspace */
+.adminReferenceTopbarActions{display:flex !important;align-items:center !important;gap:8px !important;flex-wrap:wrap !important;}
+.adminReferenceMainBtn{display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:6px !important;min-height:40px !important;padding:0 14px !important;border:1px solid #d6e0ec !important;border-radius:10px !important;background:#fff !important;color:#0b2f59 !important;font-weight:800 !important;font-size:13px !important;cursor:pointer !important;box-shadow:0 3px 10px rgba(3,27,56,.08) !important;}
+.adminReferenceMainBtn:hover{background:#f5f9ff !important;border-color:#b9cbe0 !important;}
+.adminReferenceMainBtn:focus-visible{outline:3px solid rgba(37,99,235,.25) !important;outline-offset:2px !important;}
+@media(max-width:768px){.adminReferenceMainBtn{min-height:38px !important;padding:0 11px !important;font-size:12px !important;}}
 </style>
 
 <script id="hoa-v606-admin-header-state-fix-js">
