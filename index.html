@@ -16223,7 +16223,7 @@ function mount(){
  if(!host)return;
  var wrap=document.createElement("div");wrap.id="hoaV59PosterWrap";wrap.innerHTML='<div id="hoaV59Showcase" class="hoa-v59-showcase" aria-label="HUB OF ASPIRANTS posters"></div>';
  host.parentNode.insertBefore(wrap,host);
- load();
+ loadPosters();
 }
 function adminMount(){
  var admin=document.getElementById("adminOnlyDashboard");
@@ -16260,7 +16260,7 @@ async function upload(){
   setMsg("Poster uploaded successfully.");
   document.getElementById("hoaV59File").value="";
   document.getElementById("hoaV59Title").value="";
-  await refreshAdmin();await load();
+  await refreshAdmin();await loadPosters();
  }catch(e){console.error(e);setMsg(e.message||String(e))}
 }
 async function refreshAdmin(){
