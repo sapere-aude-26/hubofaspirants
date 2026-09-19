@@ -10754,7 +10754,7 @@ body.admin-ui,body.mission-exam-active{max-width:100%;overflow-x:clip}
 
 
 <style id="hoa-v608-front-page-css">
-/* V6.0.8 — public front page. The landing page is the unauthenticated entry point. */
+/* V6.0.9 — public front page. The landing page is the unauthenticated entry point. */
 body.hoa-front-active > .header{display:none !important;}
 body.hoa-front-active > main.container{max-width:none !important;width:100% !important;padding:0 !important;margin:0 !important;}
 body.hoa-front-active > #hoaFrontPage{display:block !important;}
@@ -16527,7 +16527,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.8";
+  const VERSION="V6.0.9";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -16632,6 +16632,28 @@ body.admin-ui .adminReferenceMain{
 @media(max-width:768px){.adminReferenceMainBtn{min-height:38px !important;padding:0 11px !important;font-size:12px !important;}}
 </style>
 
+<style id="hoa-v609-admin-logout-fix">
+/* V6.0.9 — keep Admin Logout visible after the public header is hidden in Admin mode. */
+#adminOnlyDashboard .adminReferenceTopbarActions #adminHeaderLogout{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:40px !important;
+  min-width:142px !important;
+  padding:0 14px !important;
+  border:1px solid #d6e0ec !important;
+  border-radius:10px !important;
+  background:#fff !important;
+  color:#0b2f59 !important;
+  font-weight:800 !important;
+  font-size:13px !important;
+  cursor:pointer !important;
+  white-space:nowrap !important;
+}
+#adminOnlyDashboard .adminReferenceTopbarActions #adminHeaderLogout:hover{background:#f5f9ff !important;border-color:#b9cbe0 !important;}
+@media(max-width:768px){#adminOnlyDashboard .adminReferenceTopbarActions #adminHeaderLogout{min-height:38px !important;min-width:0 !important;padding:0 11px !important;font-size:12px !important;}}
+</style>
+
 <script id="hoa-v606-admin-header-state-fix-js">
 (function(){
   'use strict';
@@ -16653,11 +16675,23 @@ body.admin-ui .adminReferenceMain{
       publicHeader.classList.toggle('hoa-admin-hidden',adminActive);
     }
 
+    const studentLogout=document.getElementById('studentHeaderLogout');
+    const adminLogout=document.getElementById('adminHeaderLogout');
+    const publicHeaderRight=document.querySelector('body > header.header .headerRight');
+    const adminActions=document.querySelector('#adminOnlyDashboard .adminReferenceTopbarActions');
+
     if(adminActive){
-      const studentLogout=document.getElementById('studentHeaderLogout');
-      const adminLogout=document.getElementById('adminHeaderLogout');
       studentLogout?.classList.add('hidden');
-      adminLogout?.classList.remove('hidden');
+      if(adminLogout){
+        adminLogout.classList.remove('hidden');
+        /* V6.0.9: the public header is intentionally hidden in Admin mode,
+           so keep the single existing Admin Logout control inside the Admin topbar. */
+        if(adminActions && adminLogout.parentElement!==adminActions) adminActions.appendChild(adminLogout);
+      }
+    }else if(adminLogout){
+      /* Restore the same existing control to the public header when leaving Admin. */
+      if(publicHeaderRight && adminLogout.parentElement!==publicHeaderRight) publicHeaderRight.appendChild(adminLogout);
+      adminLogout.classList.toggle('hidden',!(typeof adminLoggedIn!=='undefined' && adminLoggedIn===true));
     }
   }
 
