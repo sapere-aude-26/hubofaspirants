@@ -5,30 +5,35 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>HOA Developer Console</title>
 <style>
-:root{--bg:#070b14;--panel:#0d1422;--panel2:#111b2d;--line:#263650;--text:#edf4ff;--muted:#91a0b8;--blue:#3b82f6;--green:#28d7a0;--red:#ff6478;--yellow:#f4c95d}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 20% 0%,#15284a 0,#070b14 42%);color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+:root{--bg:#060b14;--panel:#0c1524;--panel2:#101c30;--line:#243654;--text:#eef5ff;--muted:#91a3bd;--blue:#3275ed;--green:#20d9a0;--red:#ff6075;--yellow:#f1c75b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 15% 0,#142b50 0,#060b14 42%);color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
 button,input,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
-.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(440px,100%);background:rgba(13,20,34,.94);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 80px #0008;padding:30px}
-.logo-img{width:92px;height:92px;border-radius:50%;object-fit:cover;display:block;box-shadow:0 12px 32px #0006;border:2px solid #315079}
-.login-card h1{margin:18px 0 6px;font-size:25px}.subtitle{color:var(--muted);margin:0 0 24px}.field{margin:13px 0}.field label{display:block;color:#aebbd0;font-size:12px;margin-bottom:7px}.field input{width:100%;background:#080f1d;color:var(--text);border:1px solid #2b3b59;border-radius:10px;padding:12px;outline:none}.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px #3b82f61c}
-.signin{width:100%;border:0;border-radius:10px;padding:12px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:white;font-weight:750;margin-top:8px}.signin:disabled{opacity:.55;cursor:not-allowed}.login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
-.appbar{height:64px;background:#0b1220eF;border-bottom:1px solid var(--line);backdrop-filter:blur(16px);display:flex;align-items:center;gap:12px;padding:0 18px;position:sticky;top:0;z-index:10}.brand{font-weight:850}.pill{font-size:10px;letter-spacing:.08em;border:1px solid #315079;color:#9eb6d8;padding:5px 8px;border-radius:999px}.user{margin-left:auto;color:var(--muted);font-size:12px}.logout{background:#111b2d;border:1px solid var(--line);color:#dce7fa;border-radius:8px;padding:8px 10px}
-.shell{display:grid;grid-template-columns:235px 1fr;min-height:calc(100vh - 64px)}aside{background:#09111e;border-right:1px solid var(--line);padding:14px}.section{color:#687993;font-size:10px;letter-spacing:.13em;margin:15px 5px 7px}.nav{display:grid;gap:6px}.nav button{width:100%;text-align:left;background:#0e1829;border:1px solid transparent;color:#cbd7ea;padding:9px 10px;border-radius:8px}.nav button:hover{background:#142139;border-color:#2a3c5b}.nav .active{background:#17345f;border-color:#315f9e;color:white}
-main{padding:18px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:14px}.card{background:#0d1626;border:1px solid var(--line);border-radius:12px;padding:13px}.card span{display:block;color:var(--muted);font-size:11px}.card b{display:block;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
-.toolbar{display:flex;gap:8px;margin-bottom:12px}.toolbar input{min-width:0;flex:1;background:#09111e;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px}.btn{border:1px solid #30415e;background:#101b2e;color:#dce7fa;border-radius:9px;padding:9px 12px}.btn:hover{border-color:#4d6f9e}.btn.primary{background:#245eb4;border-color:#3976d1;color:white;font-weight:700}
-.workspace{display:grid;grid-template-columns:minmax(220px,.7fr) minmax(0,1.5fr);gap:12px}.panel{background:#0d1626;border:1px solid var(--line);border-radius:12px;overflow:hidden}.panel-title{height:42px;padding:12px 13px;border-bottom:1px solid var(--line);font-weight:700;font-size:12px}.files{height:610px;overflow:auto}.file{padding:9px 12px;border-bottom:1px solid #17243a;color:#cbd7ea;cursor:pointer}.file:hover{background:#13223b}.file small{float:right;color:#60708b}.editor{width:100%;height:610px;display:block;background:#070d18;color:#dce8fa;border:0;outline:0;padding:14px;resize:vertical;font:13px/1.55 Consolas,"Cascadia Code",monospace}.output{margin-top:12px}.output pre{margin:0;padding:13px;min-height:150px;max-height:360px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#b9c9df;font:12px/1.5 Consolas,monospace}
-@media(max-width:900px){.shell{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:1fr 1fr}.workspace{grid-template-columns:1fr}}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(450px,100%);background:rgba(12,21,36,.97);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 25px 90px #0009}
+.logo{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #35557f;box-shadow:0 12px 35px #0007}
+h1{font-size:25px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5;margin:0 0 24px}
+.field{margin:13px 0}.field label{display:block;color:#aebdd3;font-size:11px;letter-spacing:.04em;margin-bottom:7px}.field input{width:100%;padding:13px;background:#08111f;color:var(--text);border:1px solid #2b3e5e;border-radius:10px;outline:0}.field input:focus{border-color:#4384f4;box-shadow:0 0 0 3px #3275ed22}
+.signin{width:100%;border:0;border-radius:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-weight:800;margin-top:7px}.signin:disabled{opacity:.55;cursor:not-allowed}
+.login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
+.appbar{height:60px;background:#091220ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:12px;padding:0 18px;position:sticky;top:0;z-index:20}.brand{font-weight:850}.pill{font-size:10px;border:1px solid #31527c;color:#a8bddc;padding:5px 8px;border-radius:999px;letter-spacing:.08em}.user{margin-left:auto;color:var(--muted);font-size:12px}.logout{background:#101b2d;border:1px solid var(--line);color:#dce8fa;border-radius:8px;padding:8px 11px}
+.shell{display:grid;grid-template-columns:235px minmax(0,1fr);min-height:calc(100vh - 60px)}aside{background:#08111e;border-right:1px solid var(--line);padding:13px}.section{color:#6f829f;font-size:10px;letter-spacing:.14em;margin:15px 5px 7px}.nav{display:grid;gap:6px}.nav button{width:100%;text-align:left;background:#0d192b;border:1px solid transparent;color:#d0dced;padding:10px;border-radius:8px}.nav button:hover,.nav button.active{background:#17345d;border-color:#315f9c;color:#fff}.nav button:disabled{opacity:.55;cursor:wait}
+main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}.card{background:#0c1626;border:1px solid var(--line);border-radius:12px;padding:12px}.card span{display:block;color:var(--muted);font-size:10px}.card b{display:block;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
+.toolbar{display:grid;grid-template-columns:minmax(160px,1fr) auto minmax(180px,1fr) auto;gap:7px;margin-bottom:12px}.toolbar input{min-width:0;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px}.btn{border:1px solid #304562;background:#101d31;color:#dce8fa;border-radius:9px;padding:9px 12px}.btn.primary{background:#245eb4;border-color:#3a79d5;color:#fff;font-weight:750}.btn:disabled{opacity:.55;cursor:wait}
+.workspace{display:grid;grid-template-columns:minmax(230px,.65fr) minmax(0,1.55fr);gap:12px}.panel{background:#0c1626;border:1px solid var(--line);border-radius:12px;overflow:hidden}.panel-title{height:42px;padding:12px 13px;border-bottom:1px solid var(--line);font-weight:750;font-size:12px}.files{height:540px;overflow:auto}.file{padding:10px 12px;border-bottom:1px solid #17243a;color:#cbd7ea;cursor:pointer}.file:hover,.file.selected{background:#142844}.file small{float:right;color:#687b98}.editor{width:100%;height:540px;display:block;background:#060d18;color:#dce8fa;border:0;outline:0;padding:14px;resize:vertical;font:13px/1.55 Consolas,"Cascadia Code",monospace}
+.output{margin-top:12px}.output pre{margin:0;padding:13px;min-height:130px;max-height:330px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#b9c9df;font:12px/1.5 Consolas,monospace}
+.toast{position:fixed;right:18px;bottom:18px;background:#111d30;border:1px solid var(--line);padding:10px 13px;border-radius:10px;box-shadow:0 15px 40px #0008;z-index:50;max-width:420px}.toast.ok{border-color:#1f8f73}.toast.err{border-color:#a33b50}
+@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr auto}.workspace{grid-template-columns:1fr}}
+@media(max-width:700px){.shell{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.appbar{padding:0 10px}.brand{font-size:12px}.user{display:none}}
 </style>
 </head>
 <body>
 <section id="loginView" class="login-wrap">
   <div class="login-card">
-    <img class="logo-img" src="hoa-logo.png" alt="HUB OF ASPIRANTS logo">
+    <img class="logo" src="hoa-logo.png" alt="HUB OF ASPIRANTS">
     <h1>Developer Console</h1>
     <p class="subtitle">Secure control center for the HUB OF ASPIRANTS web platform.</p>
     <form id="loginForm">
-      <div class="field"><label for="email">ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required placeholder="admin@example.com"></div>
-      <div class="field"><label for="password">PASSWORD</label><input id="password" type="password" autocomplete="current-password" required placeholder="••••••••"></div>
+      <div class="field"><label>ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" required></div>
       <button id="signIn" class="signin" type="submit">Sign in</button>
     </form>
     <div id="loginStatus" class="login-status">Use your registered HOA Admin account.</div>
@@ -36,122 +41,250 @@ main{padding:18px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4
 </section>
 
 <section id="appView" class="hidden">
-<header class="appbar"><div class="brand">HUB OF ASPIRANTS · Developer Console</div><span class="pill">PRODUCTION</span><span id="userEmail" class="user"></span><button id="logout" class="logout">Logout</button></header>
+<header class="appbar">
+  <div class="brand">HUB OF ASPIRANTS · Developer Console</div><span class="pill">PRODUCTION</span>
+  <span id="userEmail" class="user"></span><button id="logout" class="logout">Logout</button>
+</header>
 <div class="shell">
 <aside>
-<div class="section">SYSTEM</div><div class="nav"><button data-action="status">Connection Status</button><button data-action="health">Supabase Health</button><button data-action="admins">Admin Accounts</button></div>
-<div class="section">GITHUB</div><div class="nav"><button data-action="list">Repository Files</button><button data-action="commits">Recent Commits</button><button data-action="pages">GitHub Pages</button><button data-action="runs">Deployments</button></div>
-<div class="section">EDITOR</div><div class="nav"><button id="clearEditor">New / Clear</button><button id="save" class="primary">Save & Commit</button></div>
+  <div class="section">SYSTEM</div>
+  <div class="nav">
+    <button data-action="status">Connection Status</button>
+    <button data-action="health">Supabase Health</button>
+    <button data-action="admins">Admin Accounts</button>
+  </div>
+  <div class="section">GITHUB</div>
+  <div class="nav">
+    <button data-action="list">Repository Files</button>
+    <button data-action="commits">Recent Commits</button>
+    <button data-action="pages">GitHub Pages</button>
+    <button data-action="runs">Deployments</button>
+  </div>
+  <div class="section">EDITOR</div>
+  <div class="nav">
+    <button id="clearEditor">New / Clear</button>
+    <button id="save" class="primary">Save & Commit</button>
+  </div>
 </aside>
+
 <main>
-<div class="cards"><div class="card"><span>AUTHENTICATION</span><b id="authState">Checking…</b></div><div class="card"><span>ADMIN ACCESS</span><b id="adminState">Checking…</b></div><div class="card"><span>SUPABASE</span><b id="supabaseState">Checking…</b></div><div class="card"><span>GITHUB</span><b id="githubState">Checking…</b></div></div>
-<div class="toolbar"><input id="path" placeholder="Repository path, e.g. index.html"><button id="open" class="btn">Open</button><input id="commitMessage" placeholder="Commit message" value="Update from HOA Developer Console"><button id="saveTop" class="btn primary">Save</button></div>
-<div class="workspace"><div class="panel"><div class="panel-title">Repository Files</div><div id="files" class="files">Loading…</div></div><div class="panel"><div class="panel-title">Code Editor</div><textarea id="editor" class="editor" spellcheck="false" placeholder="Open a repository file to edit it."></textarea></div></div>
-<div class="panel output"><div class="panel-title">Console Output</div><pre id="output">Ready.</pre></div>
-</main></div></section>
+  <div class="cards">
+    <div class="card"><span>AUTHENTICATION</span><b id="authState">Checking…</b></div>
+    <div class="card"><span>ADMIN ACCESS</span><b id="adminState">Checking…</b></div>
+    <div class="card"><span>SUPABASE</span><b id="supabaseState">Checking…</b></div>
+    <div class="card"><span>GITHUB</span><b id="githubState">Checking…</b></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="path" placeholder="Repository path, e.g. index.html">
+    <button id="open" class="btn">Open</button>
+    <input id="commitMessage" value="Update from HOA Developer Console" placeholder="Commit message">
+    <button id="saveTop" class="btn primary">Save</button>
+  </div>
+
+  <div class="workspace">
+    <div class="panel"><div class="panel-title">Repository Files</div><div id="files" class="files">Loading…</div></div>
+    <div class="panel"><div class="panel-title">Code Editor</div><textarea id="editor" class="editor" spellcheck="false" placeholder="Open a repository file to edit it."></textarea></div>
+  </div>
+
+  <div class="panel output"><div class="panel-title">Console Output</div><pre id="output">Ready.</pre></div>
+</main>
+</div>
+</section>
+<div id="toast" class="toast hidden"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-(function(){
-'use strict';
-const SUPABASE_URL='https://pnzhtiwwqiqnnkecogcc.supabase.co';
-const SUPABASE_KEY='sb_publishable_Qwq-5g_j446D3fEyJn5MOg_p9y6JNBC';
-const FUNCTION_NAME='admin-dev-console';
-let sb=null;
+(() => {
+"use strict";
 
-const $=id=>document.getElementById(id);
-function showOutput(v){$('output').textContent=typeof v==='string'?v:JSON.stringify(v,null,2)}
-function setLogin(msg,error=false){$('loginStatus').textContent=msg;$('loginStatus').className='login-status'+(error?' error':'')}
-function state(id,text,ok){$(id).textContent=text;$(id).className=ok?'green':'red'}
+const SUPABASE_URL = "https://pnzhtiwwqiqnnkecogcc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Qwq-5g_j446D3fEyJn5MOg_p9y6JNBC";
+const FUNCTION_NAME = "admin-dev-console";
+const $ = id => document.getElementById(id);
+let sb = null;
+let currentPath = "";
+let busy = false;
 
-function initSupabase(){
-  if(!window.supabase||!window.supabase.createClient) throw new Error('Supabase library failed to load. Check your internet connection and refresh.');
-  if(!sb) sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+function output(value) {
+  $("output").textContent = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+}
+function toast(message, good=false) {
+  const t=$("toast"); t.textContent=message; t.className="toast "+(good?"ok":"err");
+  clearTimeout(window.__toast); window.__toast=setTimeout(()=>t.className="toast hidden",3500);
+}
+function setLogin(message, error=false) {
+  $("loginStatus").textContent=message;
+  $("loginStatus").className="login-status"+(error?" error":" ok");
+}
+function setState(id,text,ok=true) {
+  const e=$(id); e.textContent=text; e.className=ok?"green":"red";
+}
+function init() {
+  if (!window.supabase || !window.supabase.createClient) throw new Error("Supabase library did not load.");
+  if (!sb) sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
   return sb;
 }
-
-async function api(action,extra){
-  const client=initSupabase();
-  const {data:{session}}=await client.auth.getSession();
-  if(!session) throw new Error('No active session. Please sign in again.');
-  const {data,error}=await client.functions.invoke(FUNCTION_NAME,{body:Object.assign({action},extra||{})});
-  if(error){
-    let message=error.message||'Edge Function request failed.';
-    try{if(error.context){const j=await error.context.json();if(j&&j.error)message=j.error}}catch(_){}
-    throw new Error(message);
-  }
-  if(data&&data.error) throw new Error(data.error);
-  return data;
+async function session() {
+  const {data,error}=await init().auth.getSession();
+  if(error) throw error;
+  if(!data.session) throw new Error("Your session has expired. Please sign in again.");
+  return data.session;
 }
-
-async function afterLogin(){
-  const client=initSupabase();
-  const {data:{user},error}=await client.auth.getUser();
-  if(error||!user) throw new Error('Signed in, but the user session could not be verified.');
-  $('userEmail').textContent=user.email||'';
-  $('loginView').classList.add('hidden');$('appView').classList.remove('hidden');
-  await refreshStatus();
+async function api(action, extra={}) {
+  const s=await session();
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),30000);
+  try {
+    const response=await fetch(`${SUPABASE_URL}/functions/v1/${FUNCTION_NAME}`,{
+      method:"POST",
+      signal:controller.signal,
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+s.access_token
+      },
+      body:JSON.stringify({action,...extra})
+    });
+    const raw=await response.text();
+    let data={};
+    try { data=raw?JSON.parse(raw):{}; } catch { data={raw}; }
+    if(!response.ok) {
+      throw new Error((data && data.error) || (data && data.message) || `Edge Function HTTP ${response.status}`);
+    }
+    if(data && data.error) throw new Error(data.error);
+    return data;
+  } catch(e) {
+    if(e.name==="AbortError") throw new Error("Request timed out after 30 seconds.");
+    throw e;
+  } finally { clearTimeout(timer); }
+}
+function setBusy(value, action="") {
+  busy=value;
+  document.querySelectorAll("button").forEach(b=>{
+    if(b.id!=="logout" && b.id!=="clearEditor") b.disabled=value;
+  });
+  if(value) output("Running "+action+"…");
+}
+async function signIn(ev) {
+  ev.preventDefault();
+  const button=$("signIn"); button.disabled=true; button.textContent="Signing in…"; setLogin("Authenticating…");
+  try {
+    const {error}=await init().auth.signInWithPassword({
+      email:$("email").value.trim(),password:$("password").value
+    });
+    if(error) throw error;
+    await showApp();
+    setLogin("Authenticated.",false);
+  } catch(e) {
+    setLogin(e.message || "Sign in failed.",true);
+  } finally { button.disabled=false; button.textContent="Sign in"; }
+}
+async function showApp() {
+  const {data,error}=await init().auth.getUser();
+  if(error || !data.user) throw new Error("Signed in, but the session could not be verified.");
+  $("userEmail").textContent=data.user.email||"";
+  $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden");
+  await runAction("status");
   await listFiles();
 }
-
-async function refreshStatus(){
-  try{
-    const d=await api('status');
-    state('authState','Connected',true);state('adminState','Authorized',true);state('supabaseState','Connected',true);state('githubState',d.github_ok?'Connected':'Error',d.github_ok);
-    showOutput(d);
-  }catch(e){
-    state('authState','Connected',true);state('adminState','Check',false);state('supabaseState','Connected',true);state('githubState','Error',false);showOutput(e.message);
+async function runAction(action) {
+  if(busy) return;
+  setBusy(true,action);
+  const button=document.querySelector(`[data-action="${action}"]`);
+  document.querySelectorAll("[data-action]").forEach(x=>x.classList.remove("active"));
+  if(button) button.classList.add("active");
+  try {
+    const d=await api(action);
+    output(d); toast(action+" completed",true);
+    if(action==="status") updateStatus(d);
+    if(action==="list") renderFiles(d.files||[]);
+  } catch(e) {
+    output({ok:false,action,error:e.message});
+    toast(action+" failed: "+e.message,false);
+  } finally { setBusy(false); }
+}
+function updateStatus(d) {
+  setState("authState",d.auth?"Connected":"Error",!!d.auth);
+  setState("adminState",d.admin?"Authorized":"Denied",!!d.admin);
+  setState("supabaseState","Connected",true);
+  setState("githubState",d.github_ok?"Connected":"Error",!!d.github_ok);
+}
+function renderFiles(files) {
+  const box=$("files"); box.innerHTML="";
+  if(!files.length){box.textContent="No repository files returned.";return;}
+  files.sort((a,b)=>a.path.localeCompare(b.path));
+  for(const f of files) {
+    const el=document.createElement("div"); el.className="file"; el.dataset.path=f.path;
+    el.textContent=f.path;
+    const size=document.createElement("small"); size.textContent=((f.size||0)/1024).toFixed(1)+" KB";
+    el.appendChild(size);
+    el.onclick=()=>openFile(f.path);
+    box.appendChild(el);
   }
 }
-
-async function listFiles(){
-  try{
-    const d=await api('list');
-    const box=$('files');box.innerHTML='';
-    (d.files||[]).forEach(f=>{const el=document.createElement('div');el.className='file';el.dataset.path=f.path;el.textContent=f.path;const s=document.createElement('small');s.textContent=((f.size||0)/1024).toFixed(1)+' KB';el.appendChild(s);el.onclick=()=>{ $('path').value=f.path;openFile() };box.appendChild(el)});
-    showOutput({ok:true,file_count:(d.files||[]).length});
-  }catch(e){$('files').textContent='Unable to load repository files.';showOutput(e.message)}
+async function listFiles() {
+  try {
+    const d=await api("list"); renderFiles(d.files||[]); output({ok:true,file_count:(d.files||[]).length});
+  } catch(e) {
+    $("files").textContent="Unable to load repository files.";
+    output({ok:false,action:"list",error:e.message}); toast("Repository files failed: "+e.message);
+  }
 }
-
-async function openFile(){
-  const path=$('path').value.trim();if(!path){showOutput('Enter a repository path first.');return}
-  try{const d=await api('read',{path});$('editor').value=d.content||'';showOutput({ok:true,path:d.path,sha:d.sha})}catch(e){showOutput(e.message)}
+async function openFile(path) {
+  path=(path || $("path").value).trim();
+  if(!path){toast("Enter a repository path.");return;}
+  if(busy) return;
+  setBusy(true,"read");
+  try {
+    const d=await api("read",{path});
+    currentPath=d.path; $("path").value=d.path; $("editor").value=d.content||"";
+    document.querySelectorAll(".file").forEach(x=>x.classList.toggle("selected",x.dataset.path===d.path));
+    output({ok:true,path:d.path,sha:d.sha,size:(d.content||"").length});
+    toast("Loaded "+d.path,true);
+  } catch(e) { output({ok:false,action:"read",path,error:e.message}); toast("Open failed: "+e.message); }
+  finally { setBusy(false); }
 }
-
-async function saveFile(){
-  const path=$('path').value.trim();if(!path){showOutput('Enter a repository path first.');return}
-  try{const d=await api('write',{path,content:$('editor').value,message:$('commitMessage').value.trim()||'Update from HOA Developer Console'});showOutput(d);await listFiles()}catch(e){showOutput(e.message)}
+async function saveFile() {
+  const path=$("path").value.trim();
+  if(!path){toast("Enter a repository path first.");return;}
+  if(!currentPath || currentPath!==path) {
+    toast("Open the existing file first, then save it."); return;
+  }
+  if(busy) return;
+  setBusy(true,"write");
+  try {
+    const d=await api("write",{
+      path,content:$("editor").value,
+      message:$("commitMessage").value.trim() || "Update from HOA Developer Console"
+    });
+    output(d); toast("Committed successfully",true); await listFiles();
+  } catch(e) { output({ok:false,action:"write",error:e.message}); toast("Save failed: "+e.message); }
+  finally { setBusy(false); }
 }
-
-async function runAction(action){
-  try{showOutput('Running '+action+'…');showOutput(await api(action))}catch(e){showOutput(e.message)}
-}
-
-async function signIn(e){
-  e.preventDefault();
-  const btn=$('signIn');btn.disabled=true;btn.textContent='Signing in…';setLogin('Authenticating…');
-  try{
-    const client=initSupabase();
-    const email=$('email').value.trim(),password=$('password').value;
-    const {error}=await client.auth.signInWithPassword({email,password});
-    if(error) throw error;
-    setLogin('Authenticated.',false);
-    await afterLogin();
-  }catch(e){setLogin(e.message||'Sign in failed.',true)}
-  finally{btn.disabled=false;btn.textContent='Sign in'}
-}
-
-async function boot(){
-  try{
-    initSupabase();
-    $('loginForm').addEventListener('submit',signIn);
-    $('open').addEventListener('click',openFile);$('save').addEventListener('click',saveFile);$('saveTop').addEventListener('click',saveFile);
-    $('clearEditor').addEventListener('click',()=>{$('path').value='';$('editor').value='';showOutput('Editor cleared.')});
-    $('logout').addEventListener('click',async()=>{await sb.auth.signOut();location.reload()});
-    document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>runAction(b.dataset.action)));
-    const {data:{session}}=await sb.auth.getSession();
-    if(session) await afterLogin();
-  }catch(e){setLogin(e.message||'Initialization failed.',true);$('signIn').disabled=true}
+async function boot() {
+  try {
+    init();
+    $("loginForm").addEventListener("submit",signIn);
+    $("open").addEventListener("click",()=>openFile());
+    $("save").addEventListener("click",saveFile);
+    $("saveTop").addEventListener("click",saveFile);
+    $("clearEditor").addEventListener("click",()=>{
+      if(busy)return;
+      currentPath=""; $("path").value=""; $("editor").value=""; output("Editor cleared."); toast("Editor cleared",true);
+    });
+    $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
+    document.querySelectorAll("[data-action]").forEach(b=>{
+      b.type="button";
+      b.addEventListener("click",ev=>{ev.preventDefault();runAction(b.dataset.action);});
+    });
+    const {data}=await init().auth.getSession();
+    if(data.session) await showApp();
+  } catch(e) {
+    setLogin(e.message||"Initialization failed.",true);
+  }
 }
 boot();
 })();
