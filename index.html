@@ -11438,6 +11438,20 @@ body:not(.hoa-login-page) nav button{
 }
 </style>
 
+
+<style id="hoa-v625-student-login-public-cta">
+/* V6.0.25: Student Login is intentionally visible in the public front-page
+   student action group. The dedicated Student Login workflow is unchanged. */
+#hoaFrontPage #hoaFrontStudentLogin {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  align-items: center;
+  justify-content: center;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -11488,6 +11502,14 @@ body:not(.hoa-login-page) nav button{
           and stay connected with HUB OF ASPIRANTS.
         </p>
         <div class="hoa-front-ctas">
+          <button type="button"
+            class="hoa-front-cta secondary hoa-student-login-cta"
+            id="hoaFrontStudentLogin"
+            data-hoa-action="student-login"
+            onclick="hoaOpenPortal('student')"
+            aria-label="Student Login">
+            🎓 Student Login
+          </button>
           
           <button type="button" class="hoa-front-cta secondary hoa-student-login-cta"
   onclick="hoaOpenPortal('student')" aria-label="Student Login">
@@ -17500,7 +17522,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.24";
+  const VERSION="V6.0.25";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
