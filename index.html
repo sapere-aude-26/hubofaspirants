@@ -11374,6 +11374,55 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 }
 </style>
 
+
+<style id="hoa-v621-remove-public-student-login">
+/* V6.0.21 — Public header must not expose Student Login. */
+body:not(.hoa-login-page) header a[href*="student" i],
+body:not(.hoa-login-page) header button[onclick*="student" i],
+body:not(.hoa-login-page) nav a[href*="student" i],
+body:not(.hoa-login-page) nav button[onclick*="student" i]{
+  display:none !important;
+}
+/* Text-label guard for common header containers. */
+body:not(.hoa-login-page) header a,
+body:not(.hoa-login-page) header button,
+body:not(.hoa-login-page) nav a,
+body:not(.hoa-login-page) nav button{
+  --hoa-student-login-label-check: initial;
+}
+</style>
+<script id="hoa-v621-public-header-cleanup">
+(function(){
+  "use strict";
+  function removePublicStudentLogin(){
+    if(document.body.classList.contains("hoa-login-page")) return;
+    const roots=document.querySelectorAll("header, nav, .header, .navbar, .topbar, .publicHeader");
+    roots.forEach(function(root){
+      root.querySelectorAll("a,button").forEach(function(el){
+        const text=(el.textContent||"").replace(/\s+/g," ").trim().toLowerCase();
+        const aria=(el.getAttribute("aria-label")||"").toLowerCase();
+        const title=(el.getAttribute("title")||"").toLowerCase();
+        if(text==="student login" || aria==="student login" || title==="student login"){
+          el.remove();
+        }
+      });
+    });
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",removePublicStudentLogin);
+  else removePublicStudentLogin();
+})();
+</script>
+
+
+<style id="hoa-v622-no-public-student-login">
+/* V6.0.22 — Student Login is accessed from the dedicated Page-2 portal only.
+   It is intentionally absent from the public front-page navigation/hero. */
+#hoaFrontPage .hoa-front-cta[onclick*="hoaOpenLogin('login')"],
+#hoaFrontPage .hoa-front-cta[onclick*="hoaOpenLogin(&quot;login&quot;)"]{
+  display:none !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -11424,7 +11473,7 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
           and stay connected with HUB OF ASPIRANTS.
         </p>
         <div class="hoa-front-ctas">
-          <button type="button" class="hoa-front-cta primary" onclick="hoaOpenLogin('login')">🎯 Student Login</button>
+          
           <button type="button" class="hoa-front-cta secondary" onclick="hoaOpenLogin('register')">📝 Register</button>
           <button type="button" class="hoa-front-cta secondary" onclick="hoaOpenLogin('free')">🎁 Free Test</button>
         </div>
@@ -17432,7 +17481,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.20";
+  const VERSION="V6.0.22";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
