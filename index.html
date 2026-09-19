@@ -11550,9 +11550,34 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
        public Student/Admin page; its parent authScreen can remain hidden. */
     if(adminPanel && adminHost.contains(adminPanel)){
       adminPanel.classList.remove("hidden");
+      const adminBody = adminPanel.querySelector("#homeAdminBody");
+      const adminToggle = adminPanel.querySelector("#homeAdminToggle");
+      if(adminBody){
+        adminBody.hidden = true;
+      }
+      if(adminToggle){
+        adminToggle.setAttribute("aria-expanded","false");
+        adminToggle.textContent = "ADMIN LOGIN";
+      }
     }
     if(studentPanel && studentHost.contains(studentPanel)){
       studentPanel.classList.remove("hidden");
+    }
+  }
+
+
+  function openAdminCredentials(){
+    const panel = document.getElementById("homeAdminPanel");
+    if(!panel) return;
+    const body = panel.querySelector("#homeAdminBody");
+    const toggle = panel.querySelector("#homeAdminToggle");
+    if(body){
+      body.hidden = false;
+      body.style.setProperty("display","block","important");
+    }
+    if(toggle){
+      toggle.setAttribute("aria-expanded","true");
+      toggle.textContent = "CLOSE";
     }
   }
 
@@ -11578,6 +11603,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     }
 
     hideLegacyAuth();
+    if(state === S.ADMIN) openAdminCredentials();
 
     const url = location.pathname + location.search + location.hash;
     const stateObj = {hoaPublicPage:state};
@@ -11644,6 +11670,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     else b.classList.add("hoa-public-auth","hoa-admin-auth");
 
     hideLegacyAuth();
+    if(state === S.ADMIN) openAdminCredentials();
     scrollTop();
   }
 
@@ -11734,6 +11761,230 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .dashPanel{
   display:block !important;
   visibility:visible !important;
   opacity:1 !important;
+}
+</style>
+
+
+<style id="hoa-v630-admin-login-design">
+/* V6.0.30 — Admin Login page visual treatment, based on the approved reference. */
+body.hoa-public-auth.hoa-admin-auth{
+  background:#eef5fc !important;
+  min-height:100vh !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaLoginPage{
+  min-height:100vh !important;
+  background:linear-gradient(180deg,#eef5fc 0%,#f8fbff 52%,#eef5fc 100%) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
+  height:68px !important;
+  min-height:68px !important;
+  box-sizing:border-box !important;
+  padding:0 26px !important;
+  background:#fff !important;
+  border-bottom:1px solid #dbe5f0 !important;
+  box-shadow:0 1px 4px rgba(15,39,68,.04) !important;
+  justify-content:flex-start !important;
+  gap:22px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand{
+  gap:10px !important;
+}
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand img{
+  width:43px !important;
+  height:43px !important;
+  border-radius:50% !important;
+}
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand strong{
+  font-size:14px !important;
+  color:#12395f !important;
+  white-space:nowrap !important;
+}
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-back{
+  display:none !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top::after{
+  content:"ADMIN PORTAL  •  CONTROL PANEL";
+  color:#64748b;
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.7px;
+  line-height:1;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-content{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+  padding:45px 16px 55px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+  display:block !important;
+  width:min(560px,calc(100% - 20px)) !important;
+  max-width:560px !important;
+  margin:0 auto !important;
+  padding:36px 30px 38px !important;
+  box-sizing:border-box !important;
+  border:1px solid #dbe5f0 !important;
+  border-radius:20px !important;
+  background:#fff !important;
+  box-shadow:0 16px 42px rgba(15,39,68,.10) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-back{
+  display:block !important;
+  margin:0 0 20px !important;
+  padding:0 !important;
+  color:#1761ae !important;
+  font-size:16px !important;
+  font-weight:800 !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head{
+  margin:0 0 24px !important;
+  gap:13px !important;
+}
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head .icon{
+  width:48px !important;
+  height:48px !important;
+  border-radius:13px !important;
+  background:#eaf3ff !important;
+  font-size:23px !important;
+}
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head h2{
+  margin:0 !important;
+  color:#173f6b !important;
+  font-size:25px !important;
+  line-height:1.15 !important;
+}
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head p{
+  margin:4px 0 0 !important;
+  color:#64748b !important;
+  font-size:12px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost{
+  width:100% !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:22px 20px 24px !important;
+  box-sizing:border-box !important;
+  border:1px solid #dbe5f0 !important;
+  border-radius:15px !important;
+  background:#fff !important;
+  box-shadow:0 7px 22px rgba(15,39,68,.06) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .homeAdminHeader{
+  display:block !important;
+  margin:0 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .homeAdminHeader > div{
+  margin:0 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .homeAdminHeader h2{
+  margin:0 !important;
+  color:#173f6b !important;
+  font-size:21px !important;
+  line-height:1.2 !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .homeAdminToggle{
+  display:block !important;
+  width:100% !important;
+  min-height:44px !important;
+  margin:14px 0 16px !important;
+  padding:10px 14px !important;
+  box-sizing:border-box !important;
+  border:1px solid #173f6b !important;
+  border-radius:8px !important;
+  background:#fff !important;
+  color:#173f6b !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .homeAdminToggle[aria-expanded="true"]{
+  background:#173f6b !important;
+  color:#fff !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
+  display:block !important;
+  padding-top:18px !important;
+  border-top:1px solid #e4ebf2 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody[hidden]{
+  display:block !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup{
+  margin:0 0 14px !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup label{
+  display:block !important;
+  margin:0 0 7px !important;
+  color:#1e293b !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername,
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword{
+  width:100% !important;
+  min-height:46px !important;
+  box-sizing:border-box !important;
+  padding:11px 13px !important;
+  border:1px solid #cbd8e6 !important;
+  border-radius:9px !important;
+  background:#fff !important;
+  color:#172033 !important;
+  font-size:14px !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername:focus,
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword:focus{
+  outline:none !important;
+  border-color:#3d78b8 !important;
+  box-shadow:0 0 0 3px rgba(61,120,184,.12) !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername{
+  background:#eef4ff !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
+  width:100% !important;
+  min-height:49px !important;
+  margin-top:1px !important;
+  border-radius:8px !important;
+  background:#173f6b !important;
+  color:#fff !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+}
+
+@media(max-width:600px){
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
+    padding:0 14px !important;
+    gap:12px !important;
+  }
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top::after{
+    font-size:10px !important;
+    letter-spacing:.45px !important;
+  }
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-content{
+    padding:24px 10px 35px !important;
+  }
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+    width:100% !important;
+    padding:28px 16px 30px !important;
+  }
 }
 </style>
 
@@ -17802,7 +18053,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.29";
+  const VERSION="V6.0.30";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
