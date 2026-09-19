@@ -11468,6 +11468,230 @@ body.hoa-login-page #hoaAdminPortalPanel:not(.active){display:none !important;}
 body.hoa-login-page #hoaStudentPortalPanel.active,
 body.hoa-login-page #hoaAdminPortalPanel.active{display:block !important;}
 </style>
+
+<style id="hoa-v628-navigation-css">
+/* V6.0.28 — single authoritative public-page navigation layer */
+body.hoa-public-front #hoaFrontPage{display:flex !important}
+body.hoa-public-front #hoaLoginPage{display:none !important}
+body.hoa-public-front #authScreen{display:none !important}
+
+body.hoa-public-portal #hoaFrontPage{display:none !important}
+body.hoa-public-portal #hoaLoginPage{display:block !important}
+body.hoa-public-portal #authScreen{display:none !important}
+
+body.hoa-public-auth #hoaFrontPage{display:none !important}
+body.hoa-public-auth #hoaLoginPage{display:block !important}
+body.hoa-public-auth #authScreen{display:none !important}
+
+body.hoa-public-portal #hoaLoginChoiceView{display:block !important}
+body.hoa-public-portal #hoaStudentPortalPanel,
+body.hoa-public-portal #hoaAdminPortalPanel{display:none !important}
+
+body.hoa-public-auth #hoaLoginChoiceView{display:none !important}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel{display:block !important}
+body.hoa-public-auth.hoa-student-auth #hoaAdminPortalPanel{display:none !important}
+
+body.hoa-public-auth.hoa-admin-auth #hoaStudentPortalPanel{display:none !important}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !important}
+
+#hoaFrontStudentLogin{display:inline-flex !important}
+</style>
+
+<script id="hoa-v628-navigation-controller">
+(function(){
+  "use strict";
+
+  const S = {
+    FRONT: "front",
+    PORTAL: "portal",
+    STUDENT: "student",
+    ADMIN: "admin"
+  };
+
+  function bodyState(){
+    return document.body;
+  }
+
+  function clearPublicState(){
+    const b = bodyState();
+    b.classList.remove(
+      "hoa-public-front",
+      "hoa-public-portal",
+      "hoa-public-auth",
+      "hoa-student-auth",
+      "hoa-admin-auth"
+    );
+  }
+
+  function hideLegacyAuth(){
+    const a = document.getElementById("authScreen");
+    if(a) a.style.setProperty("display","none","important");
+  }
+
+  function scrollTop(){
+    try{ window.scrollTo(0,0); }catch(e){}
+  }
+
+  function setState(state, replace){
+    const b = bodyState();
+    clearPublicState();
+
+    if(state === S.FRONT){
+      b.classList.add("hoa-public-front");
+    }else if(state === S.PORTAL){
+      b.classList.add("hoa-public-portal");
+    }else if(state === S.STUDENT){
+      b.classList.add("hoa-public-auth","hoa-student-auth");
+    }else if(state === S.ADMIN){
+      b.classList.add("hoa-public-auth","hoa-admin-auth");
+    }else{
+      b.classList.add("hoa-public-front");
+      state = S.FRONT;
+    }
+
+    hideLegacyAuth();
+
+    const url = location.pathname + location.search + location.hash;
+    const stateObj = {hoaPublicPage:state};
+    try{
+      if(replace) history.replaceState(stateObj,"",url);
+      else history.pushState(stateObj,"",url);
+    }catch(e){}
+
+    scrollTop();
+  }
+
+  function go(state){
+    setState(state,false);
+  }
+
+  window.hoaShowFrontPage = function(){
+    go(S.FRONT);
+  };
+
+  window.hoaShowPortalChoices = function(){
+    go(S.PORTAL);
+  };
+
+  window.hoaOpenPortal = function(type){
+    go(type === "admin" ? S.ADMIN : S.STUDENT);
+  };
+
+  /*
+   * Register and Free Test are existing student workflows. They first enter
+   * the Student Portal; after that the existing functions are invoked.
+   */
+  window.hoaOpenLogin = function(mode){
+    if(mode === "register" || mode === "free"){
+      go(S.STUDENT);
+      setTimeout(function(){
+        if(mode === "register" && typeof showAuth === "function"){
+          try{ showAuth("register"); }catch(e){}
+        }else if(mode === "free" && typeof showFreeGate === "function"){
+          try{ showFreeGate(); }catch(e){}
+        }
+      },50);
+      return;
+    }
+    go(S.PORTAL);
+  };
+
+  function renderFromHistory(){
+    const s = history.state && history.state.hoaPublicPage;
+    if(s === S.PORTAL) goHistory(S.PORTAL);
+    else if(s === S.STUDENT) goHistory(S.STUDENT);
+    else if(s === S.ADMIN) goHistory(S.ADMIN);
+    else goHistory(S.FRONT);
+  }
+
+  function goHistory(state){
+    const b = bodyState();
+    clearPublicState();
+
+    if(state === S.FRONT) b.classList.add("hoa-public-front");
+    else if(state === S.PORTAL) b.classList.add("hoa-public-portal");
+    else if(state === S.STUDENT) b.classList.add("hoa-public-auth","hoa-student-auth");
+    else b.classList.add("hoa-public-auth","hoa-admin-auth");
+
+    hideLegacyAuth();
+    scrollTop();
+  }
+
+  window.addEventListener("popstate",renderFromHistory);
+
+  function bindBackButtons(){
+    /*
+     * Back buttons should actually go to the previous public state instead of
+     * pushing a new history entry.
+     */
+    document.querySelectorAll("[data-hoa-back]").forEach(function(btn){
+      if(btn.dataset.hoaBackBound === "1") return;
+      btn.dataset.hoaBackBound = "1";
+      btn.addEventListener("click",function(){
+        const target = btn.getAttribute("data-hoa-back");
+        if(target === "front") window.hoaShowFrontPage();
+        else window.hoaShowPortalChoices();
+      });
+    });
+  }
+
+  function boot(){
+    const b = bodyState();
+
+    /*
+     * Do not interfere with an already authenticated student/admin session.
+     * If the public navigation is being loaded fresh, start at Front Page.
+     */
+    const hasPublic =
+      b.classList.contains("hoa-public-front") ||
+      b.classList.contains("hoa-public-portal") ||
+      b.classList.contains("hoa-public-auth");
+
+    if(!hasPublic){
+      clearPublicState();
+      b.classList.add("hoa-public-front");
+      hideLegacyAuth();
+      try{
+        history.replaceState({hoaPublicPage:S.FRONT},"",
+          location.pathname + location.search + location.hash);
+      }catch(e){}
+    }else{
+      renderFromHistory();
+    }
+
+    bindBackButtons();
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded",boot,{once:true});
+  }else{
+    boot();
+  }
+})();
+</script>
+
+
+<style id="hoa-v628-final-state-guard">
+/* The public navigation classes above are the final authority. */
+body.hoa-public-front #hoaLoginPage,
+body.hoa-public-front #authScreen{display:none !important}
+
+body.hoa-public-portal #hoaFrontPage,
+body.hoa-public-auth #hoaFrontPage{display:none !important}
+
+body.hoa-public-portal #hoaLoginPage,
+body.hoa-public-auth #hoaLoginPage{display:block !important}
+
+body.hoa-public-auth #hoaLoginChoiceView{display:none !important}
+body.hoa-public-portal #hoaLoginChoiceView{display:block !important}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel{display:block !important}
+body.hoa-public-auth.hoa-student-auth #hoaAdminPortalPanel{display:none !important}
+body.hoa-public-auth.hoa-admin-auth #hoaStudentPortalPanel{display:none !important}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !important}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -17533,7 +17757,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.27";
+  const VERSION="V6.0.28";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
