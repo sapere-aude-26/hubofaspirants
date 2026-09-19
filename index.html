@@ -17481,7 +17481,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.22";
+  const VERSION="V6.0.23";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -17671,10 +17671,18 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
   function moveAuthPanels(){
     const auth=document.getElementById("authScreen");
-    const studentPanel=auth?.querySelector(".dashPanel:first-of-type");
-    const adminPanel=auth?.querySelector(".dashPanel:nth-of-type(2)");
+    /*
+      IMPORTANT:
+      Do not use :first-of-type / :nth-of-type here.
+      #authScreen contains several sibling <div>s, so nth-of-type(2)
+      previously selected the STUDENT dashPanel and placed it inside
+      the Admin Login host.
+    */
+    const studentPanel=auth?.querySelector(".dashPanel:not(#homeAdminPanel):not(.homeAdminPanel)");
+    const adminPanel=auth?.querySelector("#homeAdminPanel");
     const studentHost=document.getElementById("hoaStudentLoginHost");
     const adminHost=document.getElementById("hoaAdminLoginHost");
+
     if(studentPanel && studentHost && !studentHost.contains(studentPanel)){
       studentHost.appendChild(studentPanel);
     }
@@ -17786,6 +17794,38 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
       if(typeof window.hoaOpenLogin==="function") window.hoaOpenLogin("login");
     });
   });
+})();
+</script>
+
+
+<script id="hoa-v623-auth-panel-guard">
+(function(){
+  "use strict";
+  function repairAuthPanelHosts(){
+    const auth=document.getElementById("authScreen");
+    const studentHost=document.getElementById("hoaStudentLoginHost");
+    const adminHost=document.getElementById("hoaAdminLoginHost");
+    if(!auth || !studentHost || !adminHost) return;
+
+    const studentPanel=auth.querySelector(".dashPanel:not(#homeAdminPanel):not(.homeAdminPanel)");
+    const adminPanel=auth.querySelector("#homeAdminPanel");
+
+    if(studentPanel && !studentHost.contains(studentPanel)){
+      studentHost.appendChild(studentPanel);
+    }
+    if(adminPanel && !adminHost.contains(adminPanel)){
+      adminHost.appendChild(adminPanel);
+    }
+    if(studentPanel && adminHost.contains(studentPanel)){
+      studentHost.appendChild(studentPanel);
+    }
+  }
+
+  if(document.readyState==="loading"){
+    document.addEventListener("DOMContentLoaded",repairAuthPanelHosts);
+  }else{
+    repairAuthPanelHosts();
+  }
 })();
 </script>
 
