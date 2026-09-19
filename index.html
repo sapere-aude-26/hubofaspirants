@@ -11529,6 +11529,33 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     if(a) a.style.setProperty("display","none","important");
   }
 
+  function moveExistingAuthPanels(){
+    const auth = document.getElementById("authScreen");
+    const studentHost = document.getElementById("hoaStudentLoginHost");
+    const adminHost = document.getElementById("hoaAdminLoginHost");
+    if(!auth || !studentHost || !adminHost) return;
+
+    const adminPanel = auth.querySelector("#homeAdminPanel");
+    const panels = Array.from(auth.querySelectorAll(".dashPanel"));
+    const studentPanel = panels.find(p => p !== adminPanel);
+
+    if(studentPanel && !studentHost.contains(studentPanel)){
+      studentHost.appendChild(studentPanel);
+    }
+    if(adminPanel && !adminHost.contains(adminPanel)){
+      adminHost.appendChild(adminPanel);
+    }
+
+    /* The legacy panel must be visible when it is deliberately hosted on the
+       public Student/Admin page; its parent authScreen can remain hidden. */
+    if(adminPanel && adminHost.contains(adminPanel)){
+      adminPanel.classList.remove("hidden");
+    }
+    if(studentPanel && studentHost.contains(studentPanel)){
+      studentPanel.classList.remove("hidden");
+    }
+  }
+
   function scrollTop(){
     try{ window.scrollTo(0,0); }catch(e){}
   }
@@ -11563,6 +11590,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
   }
 
   function go(state){
+    moveExistingAuthPanels();
     setState(state,false);
   }
 
@@ -11606,6 +11634,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
   }
 
   function goHistory(state){
+    moveExistingAuthPanels();
     const b = bodyState();
     clearPublicState();
 
@@ -11637,6 +11666,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
   }
 
   function boot(){
+    moveExistingAuthPanels();
     const b = bodyState();
 
     /*
@@ -11690,6 +11720,21 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel{display:block !impo
 body.hoa-public-auth.hoa-student-auth #hoaAdminPortalPanel{display:none !important}
 body.hoa-public-auth.hoa-admin-auth #hoaStudentPortalPanel{display:none !important}
 body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !important}
+</style>
+
+
+<style id="hoa-v629-admin-login-host-fix">
+/* V6.0.29 — the real existing admin credentials form is #homeAdminPanel. */
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .dashPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
 </style>
 
 </head>
@@ -17757,7 +17802,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.28";
+  const VERSION="V6.0.29";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
