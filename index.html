@@ -11423,6 +11423,21 @@ body:not(.hoa-login-page) nav button{
 }
 </style>
 
+
+<style id="hoa-v624-student-login-cta">
+/* V6.0.24 — Student Login belongs with the student Register / Free Test actions. */
+.hoa-student-login-cta{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:48px !important;
+  padding:0 22px !important;
+  border-radius:10px !important;
+  font-weight:800 !important;
+  cursor:pointer !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -11474,7 +11489,11 @@ body:not(.hoa-login-page) nav button{
         </p>
         <div class="hoa-front-ctas">
           
-          <button type="button" class="hoa-front-cta secondary" onclick="hoaOpenLogin('register')">📝 Register</button>
+          <button type="button" class="hoa-front-cta secondary hoa-student-login-cta"
+  onclick="hoaOpenPortal('student')" aria-label="Student Login">
+  🎓 Student Login
+</button>
+<button type="button" class="hoa-front-cta secondary" onclick="hoaOpenLogin('register')">📝 Register</button>
           <button type="button" class="hoa-front-cta secondary" onclick="hoaOpenLogin('free')">🎁 Free Test</button>
         </div>
       </div>
@@ -17481,7 +17500,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.23";
+  const VERSION="V6.0.24";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
