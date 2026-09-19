@@ -10805,6 +10805,118 @@ body.admin-ui > .header #adminHeaderLogout {
   body.admin-ui > .header #adminHeaderLogout { min-width:132px !important; min-height:38px !important; height:38px !important; padding:0 10px !important; font-size:12px !important; }
 }
 </style>
+<style>
+/* HOA V6.0.11 — Front Page Social Footer */
+.hoa-front-social-footer{
+  width:100%;
+  margin:42px 0 0;
+  padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));
+  background:linear-gradient(135deg,#0b1220 0%,#111827 55%,#172554 100%);
+  border-top:1px solid rgba(255,255,255,.12);
+  box-shadow:0 -8px 30px rgba(2,6,23,.14);
+  position:relative;
+  z-index:5;
+}
+.hoa-front-social-inner{
+  max-width:1180px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.hoa-front-social-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.hoa-front-social-brand img{
+  width:46px;
+  height:46px;
+  object-fit:contain;
+  border-radius:12px;
+  background:#fff;
+  padding:4px;
+  flex:0 0 auto;
+}
+.hoa-front-social-brand-text{
+  min-width:0;
+}
+.hoa-front-social-brand-title{
+  margin:0;
+  color:#fff;
+  font-weight:800;
+  font-size:15px;
+  letter-spacing:.02em;
+}
+.hoa-front-social-brand-subtitle{
+  margin:3px 0 0;
+  color:rgba(255,255,255,.66);
+  font-size:12px;
+}
+.hoa-front-social-links{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:10px;
+  flex-wrap:wrap;
+}
+.hoa-front-social-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  min-height:42px;
+  padding:0 14px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  color:#fff !important;
+  text-decoration:none !important;
+  font-weight:750;
+  font-size:13px;
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+  white-space:nowrap;
+}
+.hoa-front-social-btn:hover{
+  transform:translateY(-2px);
+  background:rgba(255,255,255,.13);
+  border-color:rgba(255,255,255,.30);
+}
+.hoa-front-social-btn:focus-visible{
+  outline:3px solid rgba(96,165,250,.75);
+  outline-offset:2px;
+}
+.hoa-front-social-icon{
+  width:20px;
+  height:20px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:900;
+}
+@media(max-width:760px){
+  .hoa-front-social-inner{
+    flex-direction:column;
+    align-items:stretch;
+    text-align:center;
+  }
+  .hoa-front-social-brand{
+    justify-content:center;
+  }
+  .hoa-front-social-links{
+    justify-content:center;
+  }
+  .hoa-front-social-btn{
+    flex:1 1 calc(50% - 10px);
+    min-width:132px;
+  }
+}
+</style>
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -16706,7 +16818,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.10";
+  const VERSION="V6.0.11";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -16787,5 +16899,32 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
   new MutationObserver(syncAdminLogout).observe(document.body,{attributes:true,attributeFilter:['class']});
 })();
 </script>
+
+<footer class="hoa-front-social-footer" id="hoaFrontSocialFooter" aria-label="HUB OF ASPIRANTS social links">
+  <div class="hoa-front-social-inner">
+    <div class="hoa-front-social-brand">
+      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS logo">
+      <div class="hoa-front-social-brand-text">
+        <p class="hoa-front-social-brand-title">HUB OF ASPIRANTS</p>
+        <p class="hoa-front-social-brand-subtitle">Dream. Prepare. Conquer.</p>
+      </div>
+    </div>
+    <nav class="hoa-front-social-links" aria-label="Social media">
+      <a class="hoa-front-social-btn" href="#" data-social="youtube" aria-label="YouTube">
+        <span class="hoa-front-social-icon">▶</span><span>YouTube</span>
+      </a>
+      <a class="hoa-front-social-btn" href="#" data-social="telegram" aria-label="Telegram">
+        <span class="hoa-front-social-icon">✈</span><span>Telegram</span>
+      </a>
+      <a class="hoa-front-social-btn" href="#" data-social="whatsapp" aria-label="WhatsApp">
+        <span class="hoa-front-social-icon">◉</span><span>WhatsApp</span>
+      </a>
+      <a class="hoa-front-social-btn" href="#" data-social="facebook" aria-label="Facebook">
+        <span class="hoa-front-social-icon">f</span><span>Facebook</span>
+      </a>
+    </nav>
+  </div>
+</footer>
+
 </body>
 </html>
