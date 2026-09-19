@@ -11280,6 +11280,87 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 }
 </style>
 
+
+<style id="hoa-v619-social-final-css">
+/* V6.0.19 — final public-page social/admin bar */
+#hoaFrontSocialFooter.hoa-front-social-footer{
+  display:block !important;
+  width:100% !important;
+  margin:38px 0 0 !important;
+  padding:12px 18px !important;
+  background:#102b4e !important;
+  border-top:0 !important;
+  box-shadow:0 -5px 18px rgba(8,26,49,.12) !important;
+  position:relative !important;
+  z-index:20 !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social-bar{
+  width:min(1180px,100%) !important;
+  min-height:66px !important;
+  margin:0 auto !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:18px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-width:220px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand img{
+  width:42px !important;height:42px !important;object-fit:contain !important;
+  border-radius:9px !important;background:#fff !important;padding:3px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand-name{
+  color:#fff !important;font-size:15px !important;font-weight:900 !important;line-height:1.1 !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand-tag{
+  color:rgba(255,255,255,.68) !important;font-size:10px !important;margin-top:3px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-actions{
+  display:flex !important;align-items:center !important;justify-content:flex-end !important;
+  gap:7px !important;flex-wrap:wrap !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social,
+#hoaFrontSocialFooter .hoa-v619-admin{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  gap:7px !important;height:38px !important;min-height:38px !important;
+  padding:0 12px !important;border-radius:9px !important;
+  color:#fff !important;text-decoration:none !important;
+  background:rgba(255,255,255,.09) !important;
+  border:1px solid rgba(255,255,255,.18) !important;
+  font:800 11px/1 Arial,sans-serif !important;
+  cursor:pointer !important;white-space:nowrap !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social:hover,
+#hoaFrontSocialFooter .hoa-v619-admin:hover{
+  background:rgba(255,255,255,.18) !important;
+  transform:translateY(-1px);
+}
+#hoaFrontSocialFooter .hoa-v619-social svg,
+#hoaFrontSocialFooter .hoa-v619-admin svg{
+  width:19px !important;height:19px !important;display:block !important;
+  color:#fff !important;fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-admin{
+  background:#173f6b !important;
+  border-color:rgba(255,255,255,.30) !important;
+  margin-left:4px !important;
+}
+@media(max-width:800px){
+  #hoaFrontSocialFooter .hoa-v619-social-bar{flex-direction:column !important;padding:5px 0 !important}
+  #hoaFrontSocialFooter .hoa-v619-brand{justify-content:center !important}
+  #hoaFrontSocialFooter .hoa-v619-actions{justify-content:center !important}
+}
+@media(max-width:500px){
+  #hoaFrontSocialFooter .hoa-v619-actions{width:100% !important;display:grid !important;grid-template-columns:repeat(2,1fr) !important}
+  #hoaFrontSocialFooter .hoa-v619-social,#hoaFrontSocialFooter .hoa-v619-admin{width:100% !important}
+  #hoaFrontSocialFooter .hoa-v619-admin{margin-left:0 !important}
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -11368,56 +11449,41 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
   </main>
 
   <footer class="hoa-front-social-footer" id="hoaFrontSocialFooter" aria-label="HUB OF ASPIRANTS social links">
-  <div class="hoa-front-social-inner">
-    <div class="hoa-front-social-brand">
-      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS logo">
+  <div class="hoa-v619-social-bar">
+    <div class="hoa-v619-brand">
+      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS">
       <div>
-        <p class="hoa-front-social-brand-title">HUB OF ASPIRANTS</p>
-        <p class="hoa-front-social-brand-subtitle">Dream. Prepare. Conquer.</p>
+        <div class="hoa-v619-brand-name">HUB OF ASPIRANTS</div>
+        <div class="hoa-v619-brand-tag">Dream. Prepare. Conquer.</div>
       </div>
     </div>
 
-    <nav class="hoa-front-social-links" aria-label="HUB OF ASPIRANTS social media">
-      <a class="hoa-front-social-btn" href="https://www.youtube.com/@hubofaspirants" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="HUB OF ASPIRANTS YouTube">
-        <svg class="hoa-social-logo youtube-logo" viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="2" y="5" width="20" height="14" rx="4" fill="currentColor"></rect>
-          <path d="M10 8.5v7l6-3.5-6-3.5z" fill="#102b4e"></path>
-        </svg>
+    <div class="hoa-v619-actions">
+      <a class="hoa-v619-social" href="https://www.youtube.com/@hubofaspirants" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z"/></svg>
         <span>YouTube</span>
       </a>
 
-      <a class="hoa-front-social-btn" href="https://t.me/HOA_TES_PWD" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="HUB OF ASPIRANTS Telegram">
-        <svg class="hoa-social-logo telegram-logo" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="currentColor"></circle>
-          <path d="M17.2 7.7 6.8 11.8c-.7.3-.7.8-.1 1l2.7.8 1 3.1c.1.4.3.5.6.2l1.5-1.5 2.9 2.1c.5.3.8.1.9-.4l1.7-8.1c.2-.7-.3-1.1-.8-.9zM10.1 13.2l5.7-3.6-4.5 4.3-.2 1.5-.9-2.2-2.1-.6 2-.8z" fill="#102b4e"></path>
-        </svg>
+      <a class="hoa-v619-social" href="https://t.me/HOA_TES_PWD" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.7 3.2 2.8 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.5c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.3 1.7-.8l3.1-14.5c.3-1.3-.5-1.9-1.1-1.6zM8.2 13.2l9.9-6.2c.5-.3 1-.1.6.3l-8.1 7.3-.3 3.1-1.1-4.5-1-.3z"/></svg>
         <span>Telegram</span>
       </a>
 
-      <a class="hoa-front-social-btn" href="https://www.facebook.com/profile.php?id=100071764417229" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="HUB OF ASPIRANTS Facebook">
-        <svg class="hoa-social-logo facebook-logo" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="currentColor"></circle>
-          <path d="M13.4 19v-6h2l.3-2.3h-2.3V9.2c0-.7.2-1.2 1.2-1.2h1.2V6c-.2 0-.9-.1-1.7-.1-1.8 0-3 1.1-3 3.1v1.7H9v2.3h2v6h2.4z" fill="#102b4e"></path>
-        </svg>
+      <a class="hoa-v619-social" href="https://www.facebook.com/profile.php?id=100071764417229" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 4v2.4H8.5V13H11v8h2.7z"/></svg>
         <span>Facebook</span>
       </a>
 
-      <a class="hoa-front-social-btn" href="https://chat.whatsapp.com/JxQKxEhxGgaCPrmc3KNFJT?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="HUB OF ASPIRANTS WhatsApp">
-        <svg class="hoa-social-logo whatsapp-logo" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="currentColor"></circle>
-          <path d="M16.8 14.4c-.2-.1-1.2-.6-1.4-.7-.2-.1-.3-.1-.5.1l-.7.9c-.1.1-.2.2-.4.1-.2-.1-.8-.3-1.6-1-.6-.5-1-1.1-1.1-1.3-.1-.2 0-.3.1-.4l.3-.4c.1-.1.1-.2.2-.3 0-.1 0-.2 0-.3l-.6-1.4c-.2-.4-.3-.4-.5-.4h-.4c-.1 0-.3.1-.4.2-.2.2-.7.7-.7 1.7s.7 1.9.8 2c.1.1 1.4 2.2 3.4 3 .5.2.9.3 1.2.4.5.2 1 .1 1.4.1.4-.1 1.2-.5 1.3-1 .2-.5.2-.9.1-1-.1-.1-.3-.2-.5-.3z" fill="#102b4e"></path>
-        </svg>
+      <a class="hoa-v619-social" href="https://chat.whatsapp.com/JxQKxEhxGgaCPrmc3KNFJT?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .1 5.4.1 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.6a12 12 0 0 0 5.8 1.5h.1c6.6 0 11.9-5.4 11.9-12 0-3.2-1.3-6.2-3.6-8.4zM12.1 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.1 12c0-5.5 4.5-9.9 10-9.9 2.7 0 5.2 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.5 9.8-9.9 9.8zm5.4-7.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.2-.3-.5.3-.5.8-1.6.1-.2 0-.4-.1-.6-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
         <span>WhatsApp</span>
       </a>
 
-      <button type="button" class="hoa-front-admin-btn" onclick="hoaOpenPortal('admin')" aria-label="Admin Portal" title="Admin Portal">
-        <svg class="hoa-social-logo admin-logo" viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="12" r="10" fill="currentColor"></circle>
-          <path d="M12 6.7a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-4 10.1c.3-2.1 1.6-3.2 4-3.2s3.7 1.1 4 3.2H8z" fill="#102b4e"></path>
-        </svg>
+      <button type="button" class="hoa-v619-admin" onclick="hoaOpenPortal('admin')" aria-label="Admin Portal" title="Admin Portal">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 1.8 4.2 5v5.8c0 5.2 3.3 9.9 7.8 11.4 4.5-1.5 7.8-6.2 7.8-11.4V5L12 1.8zm0 4.1 4.6 1.9v3c0 3.7-2.2 7.2-4.6 8.7-2.4-1.5-4.6-5-4.6-8.7v-3L12 5.9zm0 2.1a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4zm-3.1 8.1c.4-1.6 1.4-2.4 3.1-2.4s2.7.8 3.1 2.4H8.9z"/></svg>
         <span>Admin</span>
       </button>
-    </nav>
+    </div>
   </div>
 </footer>
 </section>
@@ -17353,7 +17419,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.18";
+  const VERSION="V6.0.19";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -17642,6 +17708,22 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
   }
   if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",guard);
   else setTimeout(guard,50);
+})();
+</script>
+
+
+<script id="hoa-v619-social-admin-fallback">
+(function(){
+  "use strict";
+  window.addEventListener("DOMContentLoaded",function(){
+    const b=document.querySelector("#hoaFrontSocialFooter .hoa-v619-admin");
+    if(!b) return;
+    b.addEventListener("click",function(e){
+      if(typeof window.hoaOpenPortal==="function") return;
+      e.preventDefault();
+      if(typeof window.hoaOpenLogin==="function") window.hoaOpenLogin("login");
+    });
+  });
 })();
 </script>
 
