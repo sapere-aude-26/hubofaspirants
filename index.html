@@ -8527,7 +8527,7 @@ body:has(#exam:not(.hidden)) #authScreen{
   /* ADMIN: use exactly one logout control. Do not allow the old global
      header to create a second/overlapping visual layer. The existing JS
      may move #adminHeaderLogout to <!--
-V6.0.34 DOM safety:
+V6.0.35 DOM safety:
 Legacy V5.7/V5.8 management controls that previously reused identical IDs
 are now uniquely identified in the DOM. Existing JavaScript selectors remain
 untouched for the first/active controls; secondary legacy copies are isolated.
@@ -11583,7 +11583,9 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     if(state === S.FRONT){
       b.classList.add("hoa-public-front");
     }else if(state === S.PORTAL){
-      b.classList.add("hoa-public-portal");
+      // V6.0.35: the intermediate portal-selection page no longer exists.
+      state = S.FRONT;
+      b.classList.add("hoa-public-front");
     }else if(state === S.STUDENT){
       b.classList.add("hoa-public-auth","hoa-student-auth");
     }else if(state === S.ADMIN){
@@ -11616,7 +11618,8 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
   };
 
   window.hoaShowPortalChoices = function(){
-    go(S.PORTAL);
+    // V6.0.35: portal-selection page removed.
+    go(S.FRONT);
   };
 
   window.hoaOpenPortal = function(type){
@@ -11639,12 +11642,12 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
       },50);
       return;
     }
-    go(S.PORTAL);
+    go(S.STUDENT);
   };
 
   function renderFromHistory(){
     const s = history.state && history.state.hoaPublicPage;
-    if(s === S.PORTAL) goHistory(S.PORTAL);
+    if(s === S.PORTAL) goHistory(S.FRONT);
     else if(s === S.STUDENT) goHistory(S.STUDENT);
     else if(s === S.ADMIN) goHistory(S.ADMIN);
     else goHistory(S.FRONT);
@@ -11655,8 +11658,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     const b = bodyState();
     clearPublicState();
 
-    if(state === S.FRONT) b.classList.add("hoa-public-front");
-    else if(state === S.PORTAL) b.classList.add("hoa-public-portal");
+    if(state === S.FRONT || state === S.PORTAL) b.classList.add("hoa-public-front");
     else if(state === S.STUDENT) b.classList.add("hoa-public-auth","hoa-student-auth");
     else b.classList.add("hoa-public-auth","hoa-admin-auth");
 
@@ -11981,7 +11983,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.34: V6.0.28 remains the sole public navigation controller.
+/* V6.0.35: V6.0.28 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -12017,7 +12019,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
 
 
 <style id="hoa-v633-integrated-navigation-css">
-/* V6.0.34 — one public/authenticated navigation lifecycle.
+/* V6.0.35 — one public/authenticated navigation lifecycle.
    The V6.0.28 router owns browser history. */
 body.hoa-public-front > .header,
 body.hoa-public-portal > .header,
@@ -12062,7 +12064,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidde
 
 
 <style id="hoa-v634-ui-hardening">
-/* V6.0.34 — UI hardening. No application workflow is replaced. */
+/* V6.0.35 — UI hardening. No application workflow is replaced. */
 
 /* ---------- Global rendering / overflow ---------- */
 html {
@@ -12328,6 +12330,22 @@ textarea:focus-visible,
 }
 </style>
 
+
+<style id="hoa-v635-no-portal-page">
+/* V6.0.35
+   The intermediate "Access Your Portal" page has been removed.
+   Login is opened directly from the public front page. */
+#hoaLoginChoiceView {
+  display: none !important;
+}
+body.hoa-public-portal #hoaLoginPage {
+  display: none !important;
+}
+body.hoa-public-portal #hoaFrontPage {
+  display: block !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -12463,6 +12481,12 @@ textarea:focus-visible,
 </section>
 
 
+<!--
+V6.0.35:
+The former intermediate "Access Your Portal" screen has intentionally been
+removed. Student/Admin login pages remain separate and are reached directly
+from the front page. Existing login hosts and authentication workflows remain.
+-->
 <section id="hoaLoginPage" class="hoa-login-page-shell" aria-label="HUB OF ASPIRANTS login page">
   <header class="hoa-login-page-top">
     <div class="hoa-login-page-brand">
@@ -12473,28 +12497,7 @@ textarea:focus-visible,
   </header>
 
   <main class="hoa-login-page-content">
-    <div id="hoaLoginChoiceView">
-      <h1 class="hoa-login-page-title">Access Your Portal</h1>
-      <p class="hoa-login-page-sub">Choose the portal you want to enter.</p>
-
-      <div class="hoa-login-choices">
-        <button type="button" class="hoa-login-choice" onclick="hoaOpenPortal('student')">
-          <span class="hoa-login-choice-icon">🎓</span>
-          <h2>Student Portal</h2>
-          <p>Login, register for mock tests, access free tests and continue your preparation.</p>
-          <span class="enter">STUDENT LOGIN →</span>
-        </button>
-
-        <button type="button" class="hoa-login-choice admin" onclick="hoaOpenPortal('admin')">
-          <span class="hoa-login-choice-icon">🔐</span>
-          <h2>Admin Portal</h2>
-          <p>Administrative access for managing tests, candidates, results and platform controls.</p>
-          <span class="enter">ADMIN LOGIN →</span>
-        </button>
-      </div>
-    </div>
-
-    <div id="hoaStudentPortalPanel" class="hoa-login-panel">
+<div id="hoaStudentPortalPanel" class="hoa-login-panel">
       <button type="button" class="hoa-login-back" onclick="hoaShowPortalChoices()">← Back to Portal Selection</button>
       <div class="hoa-login-panel-head">
         <div class="icon">🎓</div>
@@ -18401,7 +18404,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.34";
+  const VERSION="V6.0.35";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -18504,7 +18507,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
 <script id="hoa-v633-integrated-navigation-controller">
 /*
- * V6.0.34
+ * V6.0.35
  * One history owner: V6.0.28 public router.
  * Authentication lifecycle is coordinated through the existing public router;
  * no second popstate listener is installed.
