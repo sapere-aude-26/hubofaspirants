@@ -10638,6 +10638,119 @@ img[width][height]{height:auto}
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://pnzhtiwwqiqnnkecogcc.supabase.co; font-src 'self' data:; connect-src 'self' https://pnzhtiwwqiqnnkecogcc.supabase.co wss://pnzhtiwwqiqnnkecogcc.supabase.co; media-src 'self' blob: https://pnzhtiwwqiqnnkecogcc.supabase.co;"
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
+
+<style id="hoa-v602-ui-final-polish">
+/* HOA V6.0.2 — final UI/UX polish layer. Existing workflows/styles remain untouched. */
+html{box-sizing:border-box;scroll-behavior:smooth;overflow-x:clip}
+*,*::before,*::after{box-sizing:inherit}
+body{max-width:100%;overflow-x:clip;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}
+img,svg,video,canvas{max-width:100%;height:auto}
+button,input,select,textarea{font:inherit}
+button{touch-action:manipulation}
+button:disabled,[aria-disabled="true"]{cursor:not-allowed!important;opacity:.62}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid rgba(37,99,235,.55)!important;outline-offset:2px!important}
+[hidden]{display:none!important}
+
+/* Prevent accidental horizontal expansion from long content. */
+:where(.card,.panel,.modal,.modal-content,.tableWrap,.resultTableWrap,.testWiseTableWrap,
+.question-card,.questionCard,.question-text,.questionText,.explanation,.adminReferenceMain,
+#exam,#results,#review,.dashboard-card){min-width:0;overflow-wrap:anywhere}
+
+/* Tables stay usable on narrow screens without changing their content. */
+:where(.tableWrap,.resultTableWrap,.testWiseTableWrap,.adminTableWrap){
+  width:100%;max-width:100%;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable;
+}
+:where(.tableWrap table,.resultTableWrap table,.testWiseTableWrap table,.adminTableWrap table){
+  min-width:max-content;border-collapse:collapse;
+}
+:where(th,td){overflow-wrap:anywhere}
+
+/* Forms: consistent sizing and comfortable touch targets. */
+:where(input:not([type="checkbox"]):not([type="radio"]),select,textarea){
+  max-width:100%;min-height:42px;
+}
+:where(button,.btn,.button,.action-btn,.nav-btn){min-height:40px}
+:where(input[type="checkbox"],input[type="radio"]){accent-color:#2563eb}
+
+/* Overlays: never exceed the usable viewport. */
+:where(.modal,.modal-overlay,[role="dialog"]){
+  max-width:100vw;
+}
+:where(.modal-content,[role="dialog"]){
+  max-height:calc(100dvh - 24px);
+  overflow:auto;
+  overscroll-behavior:contain;
+}
+#hoaDevConsoleModal iframe{max-width:100%;max-height:100%;min-height:0}
+
+/* Fixed/floating UI must respect modern phone safe areas. */
+:where(.toast,.notification,.hoa-v598-session-note,#hoaV598ExamStatus){
+  max-width:calc(100vw - 24px);
+}
+@supports(padding:max(0px)){
+  :where(.fixed-bottom,.bottom-nav,.mobile-bottom-nav,.toast-container){
+    padding-bottom:max(8px,env(safe-area-inset-bottom));
+  }
+}
+
+/* Images and brand marks should not distort their intrinsic ratio. */
+:where(.logo,.brand-logo,.header-logo,img[alt*="logo" i]){
+  object-fit:contain;
+  object-position:center;
+}
+
+/* Better empty/loading states without affecting existing markup. */
+[aria-busy="true"]{cursor:progress}
+.loading,.is-loading{user-select:none}
+:where(.skeleton,.loading-placeholder){max-width:100%;overflow:hidden}
+
+/* Keyboard users should see the active exam control clearly. */
+body.mission-exam-active :where(button,[role="button"],input,select,textarea):focus-visible{
+  outline-color:rgba(37,99,235,.8)!important;
+}
+
+/* Avoid sticky/fixed layouts creating a second horizontal scrollbar. */
+body.admin-ui,body.mission-exam-active{max-width:100%;overflow-x:clip}
+
+/* Mobile polish */
+@media (max-width:768px){
+  html{scroll-padding-top:12px}
+  body{font-size:16px}
+  :where(.modal,.modal-content,[role="dialog"]){border-radius:12px}
+  :where(.modal-content,[role="dialog"]){max-height:calc(100dvh - 16px)}
+  :where(.tableWrap,.resultTableWrap,.testWiseTableWrap,.adminTableWrap){
+    margin-inline:0;
+    width:100%;
+  }
+  :where(.tableWrap table,.resultTableWrap table,.testWiseTableWrap table,.adminTableWrap table){
+    font-size:13px;
+  }
+  :where(.adminReferenceMain,#exam){max-width:100%!important;min-width:0!important}
+}
+
+/* Small phones */
+@media (max-width:420px){
+  :where(button,.btn,.button,.action-btn,.nav-btn){min-height:42px}
+  :where(input:not([type="checkbox"]):not([type="radio"]),select,textarea){min-height:44px}
+  :where(.modal-content,[role="dialog"]){padding-inline:12px}
+}
+
+/* Do not force animation on users who have requested less motion. */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+  }
+}
+@media (forced-colors:active){
+  :where(button,input,select,textarea,[role="button"]){forced-color-adjust:auto}
+  :where(a,button,[role="button"]):focus-visible{outline:2px solid CanvasText!important}
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
