@@ -8527,7 +8527,7 @@ body:has(#exam:not(.hidden)) #authScreen{
   /* ADMIN: use exactly one logout control. Do not allow the old global
      header to create a second/overlapping visual layer. The existing JS
      may move #adminHeaderLogout to <!--
-V6.0.36 DOM safety:
+V6.0.37 DOM safety:
 Legacy V5.7/V5.8 management controls that previously reused identical IDs
 are now uniquely identified in the DOM. Existing JavaScript selectors remain
 untouched for the first/active controls; secondary legacy copies are isolated.
@@ -11583,7 +11583,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     if(state === S.FRONT){
       b.classList.add("hoa-public-front");
     }else if(state === S.PORTAL){
-      // V6.0.36: the intermediate portal-selection page no longer exists.
+      // V6.0.37: the intermediate portal-selection page no longer exists.
       state = S.FRONT;
       b.classList.add("hoa-public-front");
     }else if(state === S.STUDENT){
@@ -11983,7 +11983,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.36: V6.0.28 remains the sole public navigation controller.
+/* V6.0.37: V6.0.28 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -12019,7 +12019,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
 
 
 <style id="hoa-v633-integrated-navigation-css">
-/* V6.0.36 — one public/authenticated navigation lifecycle.
+/* V6.0.37 — one public/authenticated navigation lifecycle.
    The V6.0.28 router owns browser history. */
 body.hoa-public-front > .header,
 body.hoa-public-portal > .header,
@@ -12064,7 +12064,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidde
 
 
 <style id="hoa-v634-ui-hardening">
-/* V6.0.36 — UI hardening. No application workflow is replaced. */
+/* V6.0.37 — UI hardening. No application workflow is replaced. */
 
 /* ---------- Global rendering / overflow ---------- */
 html {
@@ -12332,7 +12332,7 @@ textarea:focus-visible,
 
 
 <style id="hoa-v635-no-portal-page">
-/* V6.0.36
+/* V6.0.37
    The intermediate "Access Your Portal" page has been removed.
    Login is opened directly from the public front page. */
 #hoaLoginChoiceView {
@@ -12348,7 +12348,7 @@ body.hoa-public-portal #hoaFrontPage {
 
 
 <style id="hoa-v636-remove-portal-screen">
-/* V6.0.36 — definitive removal of the intermediate portal-selection UI. */
+/* V6.0.37 — definitive removal of the intermediate portal-selection UI. */
 #hoaLoginChoiceView { display:none !important; }
 body.hoa-public-portal #hoaLoginPage { display:none !important; }
 body.hoa-public-portal #hoaFrontPage { display:block !important; }
@@ -12356,6 +12356,226 @@ body.hoa-public-portal #hoaStudentPortalPanel,
 body.hoa-public-portal #hoaAdminPortalPanel { display:none !important; }
 /* No portal-selection copy should be visible anywhere in the login shell. */
 .hoa-login-back { display:none !important; }
+</style>
+
+
+<style id="hoa-v637-student-login-ui">
+/* V6.0.37 — Student Login UI correction.
+   Existing authentication IDs/functions are preserved. */
+
+body.hoa-public-auth.hoa-student-auth {
+  background: linear-gradient(180deg,#eef5fc 0%,#f8fbff 54%,#eef5fc 100%) !important;
+  min-height: 100vh !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaLoginPage {
+  min-height: 100vh !important;
+  background: transparent !important;
+}
+
+body.hoa-public-auth.hoa-student-auth .hoa-login-page-top {
+  min-height: 68px !important;
+  height: 68px !important;
+  padding: 0 26px !important;
+  box-sizing: border-box !important;
+  background: #fff !important;
+  border-bottom: 1px solid #dbe5f0 !important;
+  box-shadow: 0 1px 4px rgba(15,39,68,.04) !important;
+}
+
+body.hoa-public-auth.hoa-student-auth .hoa-login-page-brand {
+  gap: 10px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth .hoa-login-page-brand img {
+  width: 43px !important;
+  height: 43px !important;
+  border-radius: 50% !important;
+  object-fit: contain !important;
+}
+
+body.hoa-public-auth.hoa-student-auth .hoa-login-page-brand strong {
+  color: #12395f !important;
+  font-size: 14px !important;
+  white-space: nowrap !important;
+}
+
+body.hoa-public-auth.hoa-student-auth .hoa-login-page-content {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 42px 16px 55px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel {
+  display: block !important;
+  width: min(560px, calc(100% - 20px)) !important;
+  max-width: 560px !important;
+  margin: 0 auto !important;
+  padding: 34px 30px 38px !important;
+  box-sizing: border-box !important;
+  border: 1px solid #dbe5f0 !important;
+  border-radius: 20px !important;
+  background: #fff !important;
+  box-shadow: 0 16px 42px rgba(15,39,68,.10) !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel .hoa-login-panel-head {
+  margin: 0 0 24px !important;
+  gap: 13px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel .hoa-login-panel-head .icon {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 13px !important;
+  background: #eaf3ff !important;
+  font-size: 23px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel .hoa-login-panel-head h2 {
+  margin: 0 !important;
+  color: #173f6b !important;
+  font-size: 25px !important;
+  line-height: 1.15 !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel .hoa-login-panel-head p {
+  margin: 4px 0 0 !important;
+  color: #64748b !important;
+  font-size: 12px !important;
+}
+
+/* The legacy authentication panel is the functional form host.
+   Make it visually transparent so students see one coherent card. */
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .dashPanel {
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .dashPanel > h2 {
+  display: none !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .authTabs {
+  display: grid !important;
+  grid-template-columns: repeat(3,minmax(0,1fr)) !important;
+  gap: 8px !important;
+  margin: 0 0 20px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .authTab {
+  min-width: 0 !important;
+  min-height: 45px !important;
+  padding: 9px 8px !important;
+  border: 1px solid #cbd8e6 !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+  color: #173f6b !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  white-space: normal !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .authTab.active {
+  border-color: #173f6b !important;
+  background: #173f6b !important;
+  color: #fff !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #loginBox,
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #registerBox,
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #freeGateBox,
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #freeRegisterBox {
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .formGroup {
+  margin: 0 0 15px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .formGroup label {
+  display: block !important;
+  margin: 0 0 7px !important;
+  color: #1e293b !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost input:not([type="checkbox"]):not([type="radio"]),
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost select {
+  width: 100% !important;
+  min-height: 46px !important;
+  box-sizing: border-box !important;
+  padding: 11px 13px !important;
+  border: 1px solid #cbd8e6 !important;
+  border-radius: 9px !important;
+  background: #fff !important;
+  color: #172033 !important;
+  font-size: 14px !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost input:focus,
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost select:focus {
+  outline: none !important;
+  border-color: #3d78b8 !important;
+  box-shadow: 0 0 0 3px rgba(61,120,184,.12) !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .hoa-student-login-submit {
+  display: block !important;
+  width: 100% !important;
+  min-height: 49px !important;
+  margin: 4px 0 0 !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: #173f6b !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  cursor: pointer !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .hoa-student-login-submit:hover {
+  filter: brightness(1.06);
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #studentAuthMessage {
+  min-height: 20px !important;
+  overflow-wrap: anywhere !important;
+}
+
+@media (max-width: 600px) {
+  body.hoa-public-auth.hoa-student-auth .hoa-login-page-top {
+    padding: 0 14px !important;
+  }
+
+  body.hoa-public-auth.hoa-student-auth .hoa-login-page-content {
+    padding: 24px 10px 35px !important;
+  }
+
+  body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel {
+    width: 100% !important;
+    padding: 28px 16px 30px !important;
+    border-radius: 16px !important;
+  }
+
+  body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .authTabs {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .authTab {
+    min-height: 44px !important;
+  }
+}
 </style>
 
 </head>
@@ -12494,12 +12714,12 @@ body.hoa-public-portal #hoaAdminPortalPanel { display:none !important; }
 
 
 <!--
-V6.0.36:
+V6.0.37:
 The former intermediate "Access Your Portal" screen has intentionally been
 removed. Student/Admin login pages remain separate and are reached directly
 from the front page. Existing login hosts and authentication workflows remain.
 -->
-<!-- V6.0.36: Intermediate "Access Your Portal" screen removed permanently.
+<!-- V6.0.37: Intermediate "Access Your Portal" screen removed permanently.
      Front Page -> Student Login or Admin Login directly. -->
 <section id="hoaLoginPage" class="hoa-login-page-shell" aria-label="HUB OF ASPIRANTS login page">
   <header class="hoa-login-page-top">
@@ -12540,13 +12760,14 @@ from the front page. Existing login hosts and authentication workflows remain.
 <h2 style="margin-top:0">🎓 Student</h2>
 <div class="authTabs">
 
-<button class="authTab" id="registerTab" onclick="showAuth('register')">PAID REGISTER</button>
+<button class="authTab" id="loginTab" onclick="showAuth('login')">🔐 STUDENT LOGIN</button>
+<button class="authTab" id="registerTab" onclick="showAuth('register')">📝 PAID REGISTER</button>
 <button class="authTab" id="freeTab" onclick="showFreeGate()">🎁 FREE TEST</button>
 </div>
 <div id="loginBox">
-<div class="formGroup"><label>Email / Mobile</label><input id="loginId" placeholder="Enter registered email or mobile"/></div>
-<div class="formGroup"><label>Password</label><input id="loginPassword" placeholder="Password given by Admin" type="password"/></div>
-
+<div class="formGroup"><label>Email / Mobile</label><input autocomplete="username" id="loginId" placeholder="Enter registered email or mobile"/></div>
+<div class="formGroup"><label>Password</label><input autocomplete="current-password" id="loginPassword" placeholder="Password given by Admin" type="password"/></div>
+<button class="primary hoa-student-login-submit" type="button" onclick="loginStudent()">STUDENT LOGIN</button>
 </div>
 <div class="hidden" id="freeGateBox">
 <div style="background:#fff8e6;border:1px solid #f1d58a;padding:12px;border-radius:9px;margin-bottom:14px;font-size:13px;color:#7a5a00">🎁 <b>Free Test Access</b><br/>New candidate: use <b>MISSIONTES</b> / <b>TES@2026</b> to complete registration.</div>
@@ -18416,7 +18637,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.36";
+  const VERSION="V6.0.37";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -18519,7 +18740,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
 <script id="hoa-v633-integrated-navigation-controller">
 /*
- * V6.0.36
+ * V6.0.37
  * One history owner: V6.0.28 public router.
  * Authentication lifecycle is coordinated through the existing public router;
  * no second popstate listener is installed.
@@ -18666,6 +18887,33 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
   }
 
   window.addEventListener("resize", normalizeUI, { passive: true });
+})();
+</script>
+
+
+<script id="hoa-v637-student-login-state">
+(function(){
+  "use strict";
+  function ensureStudentLoginTab(){
+    const loginTab = document.getElementById("loginTab");
+    const loginBox = document.getElementById("loginBox");
+    const registerBox = document.getElementById("registerBox");
+    const freeGateBox = document.getElementById("freeGateBox");
+    const freeRegisterBox = document.getElementById("freeRegisterBox");
+    if(!loginTab || !loginBox || !registerBox || !freeGateBox || !freeRegisterBox) return;
+    if(document.body.classList.contains("hoa-student-auth")){
+      loginTab.classList.add("active");
+      loginBox.classList.remove("hidden");
+      registerBox.classList.add("hidden");
+      freeGateBox.classList.add("hidden");
+      freeRegisterBox.classList.add("hidden");
+    }
+  }
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", ensureStudentLoginTab, {once:true});
+  }else{
+    ensureStudentLoginTab();
+  }
 })();
 </script>
 
