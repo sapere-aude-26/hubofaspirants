@@ -1,4 +1,5 @@
 <!-- HOA V6.0.0 — Production Ready hardening from confirmed V5.9.9 MASTER -->
+<!-- V6.0.3: dead compatibility code removed; poster carousel globals namespaced; runtime version corrected. -->
 <!-- HOA V5.9.7 — surgical professional mock-test UX upgrade from confirmed V5.9.6 MASTER -->
 <!-- HUB OF ASPIRANTS V5.9.3 — Storage Policy + Admin-Only Poster Management -->
 <!-- HUB OF ASPIRANTS V5.9.2 — Fixed Supabase Client Binding -->
@@ -11582,37 +11583,6 @@ async function createAttemptInSupabase(testId,totalQuestions){
   if(!data?.ok || !data?.attempt_id) throw new Error(data?.error||"Could not start the test attempt.");
   return data.attempt_id;
 }
-
-async function saveAttemptToSupabase(attemptId,testId,correct,wrong,skipped,score,answersSnapshot){
-  // V4.2: final submission is handled by the secure submit_test_v4 RPC.
-  // Kept as a compatibility shim for older code paths.
-  if(!supabaseClient || !currentStudent || !attemptId) return;
-  return;
-  const {error:updateError}=await supabaseClient.from("attempts").update({
-    submitted_at:new Date().toISOString(),
-    status:"completed",
-    total_questions:questions.length,
-    correct_answers:correct,
-    wrong_answers:wrong,
-    unanswered:skipped,
-    score:score,
-  }).eq("id",attemptId);
-  if(updateError) throw updateError;
-
-  const rows=questions.map((q,i)=>({
-    attempt_id:attemptId,
-    question_id:q.__id || null,
-    selected_option:answersSnapshot[i],
-    is_correct:answersSnapshot[i]!==null && answersSnapshot[i]===q[5],
-    marks_awarded:answersSnapshot[i]===null ? 0 : (answersSnapshot[i]===q[5] ? marksPerCorrect : -negativeMarks)
-  })).filter(r=>r.question_id);
-
-  if(rows.length){
-    const {error:ansError}=await supabaseClient.from("answers").insert(rows);
-    if(ansError) throw ansError;
-  }
-}
-
 async function saveTestToSupabase(t){
   if(!supabaseClient) return t.id;
   const testId=(t.id && /^[0-9a-f-]{36}$/i.test(t.id))?t.id:null;
@@ -12896,78 +12866,6 @@ function showTestCountdown(title, onComplete){
 
  step();
 }
-
-function startSavedTestLegacyV19(id){
- const t=tests.find(x=>x.id===id);
- if(!t)return;
-
- const launchToken=++testLaunchToken;
- clearInterval(interval);
- interval=null;
-
- adminPreviewMode=(adminLoggedIn===true && currentStudent===null);
- activeTestId=id;
- questions.length=0;
- t.questions.forEach(q=>questions.push(q));
-
- testTitle=t.title;
- durationMinutes=t.duration;
- marksPerCorrect=t.marks;
- negativeMarks=t.negative;
- timer=Math.round(durationMinutes*60);
- current=0;
- answers=Array(questions.length).fill(null);
- pendingAnswers=Array(questions.length).fill(null);
- submitted=false;
- currentAttemptId=null;
-
- showTestCountdown(t.title, ()=>{
-   if(launchToken!==testLaunchToken)return;
-
-   try{
-     const home=document.getElementById("home");
-     const exam=document.getElementById("exam");
-     const headerTimer=document.getElementById("headerTimer");
-     const previewExit=document.getElementById("adminPreviewExit");
-     const overlay=document.getElementById("testCountdownOverlay");
-
-     /* Always remove the countdown overlay before opening the test. */
-     overlay?.classList.add("hidden");
-     if(overlay) overlay.style.display="none";
-
-     home?.classList.add("hidden");
-     exam?.classList.remove("hidden");
-     if(exam) exam.style.display="block";
-     headerTimer?.classList.remove("hidden");
-     previewExit?.classList.toggle("hidden",!adminPreviewMode);
-
-     /* Render Question 1 and start the exam timer immediately. */
-     render();
-     updateTimer();
-     clearInterval(interval);
-     interval=setInterval(tick,1000);
-
-     /*
-       Preserve Supabase attempt creation, but never allow it to block
-       the exam UI. The candidate can see the test first.
-     */
-     if(!adminPreviewMode && supabaseClient && currentStudent){
-       createAttemptInSupabase(id,questions.length)
-         .then(attemptId=>{ currentAttemptId=attemptId; })
-         .catch(e=>{
-           console.error("Attempt creation failed:",e);
-           /* Keep the test running; submission logic remains unchanged. */
-         });
-     }
-   }catch(e){
-     console.error("Test launch error:",e);
-     document.getElementById("testCountdownOverlay")?.classList.add("hidden");
-     document.getElementById("testCountdownOverlay")?.style.setProperty("display","none");
-     alert("The test could not be opened. Please refresh the page and try again.");
-   }
- });
-}
-
 /* Admin preview exit is owned by the V1.3 clean controller below. */
 
 function showCreator(){
@@ -16301,19 +16199,19 @@ async function getActive(){
  return r.data||[];
 }
 function url(path){var s=client();if(!s)return"";var x=s.storage.from(BUCKET).getPublicUrl(path);return x&&x.data?x.data.publicUrl:""}
-function render(){
+function renderPosterShowcase(){
  var box=document.getElementById("hoaV59Showcase");if(!box)return;
  if(!slides.length){box.innerHTML='<div class="hoa-v59-empty">Your latest HUB OF ASPIRANTS posters will appear here.</div>';return}
  current=(current+slides.length)%slides.length;
  box.innerHTML=slides.map(function(x,i){return '<div class="hoa-v59-slide '+(i===current?"active":"")+'"><img src="'+esc(url(x.storage_path))+'" alt="'+esc(x.title||"HUB OF ASPIRANTS")+'" loading="'+(i?"lazy":"eager")+'"></div>'}).join("")+
  '<button class="hoa-v59-arrow hoa-v59-prev" aria-label="Previous poster">‹</button><button class="hoa-v59-arrow hoa-v59-next" aria-label="Next poster">›</button>'+
  '<div class="hoa-v59-dots">'+slides.map(function(_,i){return '<span class="hoa-v59-dot '+(i===current?"active":"")+'" data-i="'+i+'"></span>'}).join("")+'</div>';
- box.querySelector(".hoa-v59-prev").onclick=function(){current=(current-1+slides.length)%slides.length;render();restart()};
- box.querySelector(".hoa-v59-next").onclick=function(){current=(current+1)%slides.length;render();restart()};
- box.querySelectorAll(".hoa-v59-dot").forEach(function(d){d.onclick=function(){current=Number(d.dataset.i);render();restart()}})
+ box.querySelector(".hoa-v59-prev").onclick=function(){current=(current-1+slides.length)%slides.length;renderPosterShowcase();restartPosterCarousel()};
+ box.querySelector(".hoa-v59-next").onclick=function(){current=(current+1)%slides.length;renderPosterShowcase();restartPosterCarousel()};
+ box.querySelectorAll(".hoa-v59-dot").forEach(function(d){d.onclick=function(){current=Number(d.dataset.i);renderPosterShowcase();restartPosterCarousel()}})
 }
-function restart(){clearInterval(timer);if(slides.length>1)timer=setInterval(function(){current=(current+1)%slides.length;render()},5000)}
-async function load(){slides=await getActive();current=0;render();restart()}
+function restartPosterCarousel(){clearInterval(timer);if(slides.length>1)timer=setInterval(function(){current=(current+1)%slides.length;renderPosterShowcase()},5000)}
+async function loadPosters(){slides=await getActive();current=0;renderPosterShowcase();restartPosterCarousel()}
 function findLogin(){
  var candidates=["studentLogin","student-login","loginPage","loginPanel","authPage"];
  for(var i=0;i<candidates.length;i++){var e=document.getElementById(candidates[i]);if(e)return e}
@@ -16652,7 +16550,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.1";
+  const VERSION="V6.0.3";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
