@@ -1,4 +1,5 @@
 <!-- HOA V6.0.0 — Production Ready hardening from confirmed V5.9.9 MASTER -->
+<!-- V6.0.3: dead compatibility code removed; poster carousel globals namespaced; runtime version corrected. -->
 <!-- HOA V5.9.7 — surgical professional mock-test UX upgrade from confirmed V5.9.6 MASTER -->
 <!-- HUB OF ASPIRANTS V5.9.3 — Storage Policy + Admin-Only Poster Management -->
 <!-- HUB OF ASPIRANTS V5.9.2 — Fixed Supabase Client Binding -->
@@ -10751,71 +10752,6 @@ body.admin-ui,body.mission-exam-active{max-width:100%;overflow-x:clip}
 }
 </style>
 
-<style id="hoa-v603-public-home-css">
-/* HOA V6.0.3 — public homepage presentation layer. Existing platform workflows are preserved. */
-#hoaPublicLanding{display:block!important;margin:0!important;padding:0!important;background:#f7faff!important;border:0!important;box-shadow:none!important;max-width:none!important;width:100%!important;overflow:hidden!important}
-.hoa-public-brand-wrap{display:flex;align-items:center;gap:11px;min-width:0}
-.hoa-public-brand-mark{width:58px;height:58px;flex:0 0 58px}
-.hoa-public-brand-mark img{width:100%;height:100%;object-fit:contain;border-radius:50%}
-.hoa-public-brand-copy .brand{font-size:22px!important;line-height:1.1!important;font-weight:900!important;letter-spacing:-.4px}
-.hoa-public-brand-copy .sub{font-size:14px!important;line-height:1.25!important;color:#526581!important;margin-top:3px}
-.hoa-public-nav{display:flex;align-items:stretch;justify-content:center;gap:4px;margin-left:auto;margin-right:18px;height:64px}
-.hoa-public-nav-link{position:relative;border:0!important;background:transparent!important;color:#334765!important;min-height:64px!important;padding:0 13px!important;font-size:15px!important;font-weight:700!important;display:inline-flex!important;align-items:center!important;gap:7px!important;cursor:pointer!important;box-shadow:none!important}
-.hoa-public-nav-link span{font-size:20px;line-height:1}
-.hoa-public-nav-link:hover,.hoa-public-nav-link:focus-visible{color:#155eef!important;background:#f4f8ff!important}
-.hoa-public-nav-link.active{color:#155eef!important}
-.hoa-public-nav-link.active::after{content:"";position:absolute;left:15px;right:15px;bottom:0;height:3px;border-radius:4px;background:#155eef}
-.hoa-public-hero{position:relative;isolation:isolate;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(360px,.88fr);min-height:510px;padding:72px clamp(28px,6vw,72px) 60px;overflow:hidden;background:linear-gradient(116deg,#062c58 0%,#0b4f88 55%,#146ca6 100%);color:#fff}
-.hoa-public-hero-glow{position:absolute;width:560px;height:560px;right:12%;top:-270px;border-radius:50%;background:radial-gradient(circle,rgba(45,157,255,.26),transparent 67%);z-index:-1}
-.hoa-public-hero-mountain{position:absolute;inset:auto -5% 0;height:190px;opacity:.25;background:linear-gradient(145deg,transparent 0 28%,#001d3e 28% 44%,transparent 44% 49%,#001d3e 49% 68%,transparent 68%),linear-gradient(35deg,transparent 0 36%,#001d3e 36% 54%,transparent 54%);clip-path:polygon(0 100%,0 60%,13% 43%,24% 67%,39% 31%,51% 61%,65% 20%,79% 56%,91% 34%,100% 52%,100% 100%);z-index:-1}
-.hoa-public-hero-copy{position:relative;z-index:2;max-width:720px;align-self:center}
-.hoa-public-eyebrow{font-size:14px;letter-spacing:5px;font-weight:800;opacity:.9;margin-bottom:14px}
-.hoa-public-hero h1{margin:0;font-size:clamp(42px,5.3vw,70px);line-height:.98;letter-spacing:-2px;color:#fff;font-weight:900}
-.hoa-public-hero h1 span{color:#ffc53d}
-.hoa-public-hero h2{font-size:clamp(21px,2.2vw,30px);margin:20px 0 13px;color:#fff;font-weight:700;line-height:1.2}
-.hoa-public-hero-copy>p{max-width:650px;font-size:18px;line-height:1.65;margin:0;color:#eaf4ff}
-.hoa-public-hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:28px}
-.hoa-public-btn{border-radius:10px!important;min-height:54px!important;padding:0 26px!important;font-size:16px!important;font-weight:900!important;display:inline-flex!important;align-items:center!important;justify-content:center!important;gap:9px!important;cursor:pointer!important;transition:transform .16s ease,box-shadow .16s ease,background .16s ease!important}
-.hoa-public-btn:hover{transform:translateY(-2px)!important}
-.hoa-public-btn.primary{background:#ffc53d!important;color:#082c57!important;border:1px solid #ffd96d!important;box-shadow:0 9px 24px rgba(0,0,0,.18)!important}
-.hoa-public-btn.secondary{background:rgba(7,40,76,.15)!important;color:#fff!important;border:2px solid rgba(255,255,255,.8)!important;box-shadow:none!important}
-.hoa-public-motto{margin-top:26px;font-size:12px;letter-spacing:4px;font-weight:800;color:#dbeeff}
-.hoa-public-motto span{color:#ffc53d;padding:0 8px}
-.hoa-public-hero-art{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:390px}
-.hoa-public-logo-orbit{position:absolute;width:min(350px,70vw);aspect-ratio:1;border-radius:50%;border:2px solid rgba(255,197,61,.65);box-shadow:0 0 0 12px rgba(255,197,61,.05),0 0 60px rgba(42,170,255,.25);background:radial-gradient(circle,rgba(255,255,255,.14),transparent 66%)}
-.hoa-public-hero-logo{position:relative;width:min(270px,56vw);height:auto;aspect-ratio:1;object-fit:contain;border-radius:50%;filter:drop-shadow(0 18px 25px rgba(0,0,0,.28));z-index:2}
-.hoa-public-hero-brand{position:relative;margin-top:10px;font-size:28px;font-weight:900;letter-spacing:.4px;z-index:2}
-.hoa-public-hero-tagline{position:relative;font-size:18px;letter-spacing:2px;color:#eaf4ff;z-index:2;margin-top:4px}
-.hoa-public-hero-line{width:90px;height:3px;background:#ffc53d;border-radius:5px;margin-top:14px}
-.hoa-public-section{padding:24px clamp(18px,4vw,36px) 8px;max-width:1280px;margin:0 auto}
-.hoa-public-feature-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.hoa-public-feature-card{min-height:200px;padding:24px 18px;text-align:center;background:#fff;border:1px solid #e0e8f2;border-radius:14px;box-shadow:0 6px 20px rgba(21,46,82,.06);transition:transform .16s ease,box-shadow .16s ease}
-.hoa-public-feature-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(21,46,82,.10)}
-.hoa-public-feature-card[role="button"]{cursor:pointer}
-.hoa-public-feature-icon{width:70px;height:70px;margin:0 auto 13px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:31px;font-weight:900}
-.hoa-public-feature-icon.blue{background:#1468df}.hoa-public-feature-icon.green{background:#18a56a}.hoa-public-feature-icon.orange{background:#f47a1f}.hoa-public-feature-icon.purple{background:#7143c8}
-.hoa-public-feature-card h3{margin:0;color:#12366a;font-size:20px;line-height:1.2}.hoa-public-feature-card p{margin:9px auto 0;max-width:250px;color:#5d6f86;font-size:14px;line-height:1.5}
-.hoa-public-quote{margin:18px 0 8px;min-height:72px;padding:16px 24px;display:flex;align-items:center;justify-content:center;gap:16px;border-radius:13px;background:#eaf4ff;color:#1553ad}
-.hoa-public-quote-mark{font-size:54px;line-height:.6;font-family:Georgia,serif;color:#8ebbf2}.hoa-public-quote strong{font-size:19px;font-style:italic;font-weight:600}.hoa-public-quote span{margin-left:30px;font-size:13px;font-weight:800;letter-spacing:1px}
-.hoa-public-pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px 10px 28px;text-align:center}.hoa-public-pillars>div{display:flex;flex-direction:column;align-items:center;gap:4px;color:#12366a}.hoa-public-pillars span{font-size:30px;color:#1567d9;line-height:1.1}.hoa-public-pillars b{font-size:16px}.hoa-public-pillars small{font-size:12px;color:#63758b}
-.hoa-public-footer{border-top:1px solid #dce5ef;background:#fff;padding:18px clamp(18px,3vw,32px);display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;align-items:center;color:#5d6f86}
-.hoa-public-footer-brand{display:flex;align-items:center;gap:12px}.hoa-public-footer-brand img{width:70px;height:70px;object-fit:contain;border-radius:50%}.hoa-public-footer-brand div{display:flex;flex-direction:column}.hoa-public-footer-brand strong{font-size:20px;color:#12366a}.hoa-public-footer-brand span{font-size:13px}
-.hoa-public-footer-copy{text-align:center;font-size:12px;line-height:1.6}.hoa-public-footer-copy span{color:#8796a8}.hoa-public-footer-links{text-align:right;font-size:12px}.hoa-public-footer-links a{color:#536780;text-decoration:none}.hoa-public-footer-links a:hover{text-decoration:underline}.hoa-public-footer-links>div:first-child{display:flex;justify-content:flex-end;gap:7px}.hoa-public-socials{display:flex;justify-content:flex-end;gap:10px;margin-top:9px}.hoa-public-socials span{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:#edf4fc;color:#155eef;font-weight:900}
-/* Public landing and authentication are separate surfaces. */
-#authScreen.hoa-public-auth-active{display:block!important;max-width:620px!important;margin:32px auto!important}
-#hoaPublicLanding.hoa-public-hidden{display:none!important}
-body.hoa-public-mode .header{background:#fff!important;color:#17345d!important;min-height:72px!important;padding:7px clamp(14px,3vw,34px)!important;border-bottom:1px solid #e1e8f1!important;box-shadow:0 2px 10px rgba(19,50,88,.05)!important}
-body.hoa-public-mode .header .headerRight{gap:10px!important}
-body.hoa-public-mode .header .hoa-admin-console-link,body.hoa-public-mode .header .headerLogoutBtn,body.hoa-public-mode .header .timer{display:none!important}
-body.hoa-public-mode .container{padding:0!important;max-width:none!important}
-body.hoa-public-mode #authScreen{display:none!important}
-body.hoa-public-mode #home,body.hoa-public-mode #exam,body.hoa-public-mode #result{display:none!important}
-body.hoa-public-mode .hoa-public-nav{display:flex!important}
-@media(max-width:980px){.hoa-public-nav{margin-right:8px}.hoa-public-nav-link{padding:0 8px!important;font-size:13px!important}.hoa-public-brand-copy .brand{font-size:18px!important}.hoa-public-brand-copy .sub{font-size:12px!important}.hoa-public-hero{grid-template-columns:1fr;min-height:0;padding-top:50px}.hoa-public-hero-art{min-height:360px}.hoa-public-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hoa-public-footer{grid-template-columns:1fr 1fr}.hoa-public-footer-links{text-align:left}.hoa-public-footer-links>div:first-child,.hoa-public-socials{justify-content:flex-start}}
-@media(max-width:700px){.hoa-public-brand-mark{width:45px;height:45px;flex-basis:45px}.hoa-public-brand-copy .brand{font-size:16px!important}.hoa-public-brand-copy .sub{font-size:10px!important}.hoa-public-nav{display:none!important}.hoa-public-hero{padding:42px 20px 34px}.hoa-public-hero h1{font-size:42px;letter-spacing:-1px}.hoa-public-hero h2{font-size:21px}.hoa-public-hero-copy>p{font-size:15px}.hoa-public-hero-actions{flex-direction:column}.hoa-public-btn{width:100%}.hoa-public-motto{font-size:10px;letter-spacing:2px}.hoa-public-hero-art{min-height:330px}.hoa-public-hero-logo{width:220px}.hoa-public-logo-orbit{width:280px}.hoa-public-hero-brand{font-size:22px}.hoa-public-hero-tagline{font-size:14px}.hoa-public-feature-grid{grid-template-columns:1fr}.hoa-public-feature-card{min-height:175px}.hoa-public-quote{padding:15px;align-items:flex-start}.hoa-public-quote strong{font-size:15px}.hoa-public-quote span{display:block;margin:8px 0 0}.hoa-public-pillars{grid-template-columns:repeat(2,1fr)}.hoa-public-footer{grid-template-columns:1fr;text-align:center}.hoa-public-footer-brand{justify-content:center}.hoa-public-footer-links{text-align:center}.hoa-public-footer-links>div:first-child,.hoa-public-socials{justify-content:center}}
-@media(max-width:420px){.hoa-public-hero h1{font-size:36px}.hoa-public-hero-art{min-height:300px}.hoa-public-hero-logo{width:190px}.hoa-public-logo-orbit{width:240px}.hoa-public-pillars{gap:16px 4px}.hoa-public-pillars small{font-size:11px}}
-</style>
-
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -10829,16 +10765,7 @@ body.hoa-public-mode .hoa-public-nav{display:flex!important}
 </div>
 </div>
 <header class="header">
-<div class="hoa-public-brand-wrap">
-  <div class="hoa-public-brand-mark"><img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS" /></div>
-  <div class="hoa-public-brand-copy"><div class="brand">HUB OF ASPIRANTS</div><div class="sub">Dream. Prepare. Conquer.</div></div>
-</div>
-<nav class="hoa-public-nav" aria-label="Primary navigation">
-  <button type="button" class="hoa-public-nav-link active" data-hoa-nav="home" onclick="showPublicLanding()"><span aria-hidden="true">⌂</span> Home</button>
-  <button type="button" class="hoa-public-nav-link" data-hoa-nav="courses" onclick="hoaPublicScrollTo('hoaPublicFeatures')"><span aria-hidden="true">▣</span> Courses</button>
-  <button type="button" class="hoa-public-nav-link" data-hoa-nav="mock" onclick="showPublicAuth('login')"><span aria-hidden="true">▤</span> Mock Tests</button>
-  <button type="button" class="hoa-public-nav-link" data-hoa-nav="current" onclick="hoaPublicScrollTo('hoaPublicLearning')"><span aria-hidden="true">▤</span> Current Affairs</button>
-</nav>
+<div><div class="brand">HUB OF ASPIRANTS</div><div class="sub">Civil Engineering Mock Test</div></div>
 <div class="headerRight">
 <button class="hoa-admin-console-link" id="openHoaDevConsole" type="button" aria-label="Open Admin Developer Console"><span class="hoa-admin-icon">⚙</span><span>Admin Console</span></button>
 
@@ -10848,79 +10775,6 @@ body.hoa-public-mode .hoa-public-nav{display:flex!important}
 </div>
 </header>
 <main class="container">
-<section id="hoaPublicLanding" aria-label="HUB OF ASPIRANTS home page">
-  <div class="hoa-public-hero">
-    <div class="hoa-public-hero-glow" aria-hidden="true"></div>
-    <div class="hoa-public-hero-mountain" aria-hidden="true"></div>
-    <div class="hoa-public-hero-copy">
-      <div class="hoa-public-eyebrow">WELCOME TO</div>
-      <h1>HUB OF <span>ASPIRANTS</span></h1>
-      <h2>Your Journey to a Brighter Future Starts Here</h2>
-      <p>High-quality study material, mock tests, and current affairs to help you prepare for your dream exams.</p>
-      <div class="hoa-public-hero-actions">
-        <button type="button" class="hoa-public-btn primary" onclick="showPublicAuth('login')"><span aria-hidden="true">🎓</span> Start Learning</button>
-        <button type="button" class="hoa-public-btn secondary" onclick="showPublicAuth('login')"><span aria-hidden="true">▤</span> Take a Mock Test</button>
-      </div>
-      <div class="hoa-public-motto">DISCIPLINE TODAY <span>•</span> SUCCESS TOMORROW</div>
-    </div>
-    <div class="hoa-public-hero-art">
-      <div class="hoa-public-logo-orbit" aria-hidden="true"></div>
-      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS official logo" class="hoa-public-hero-logo" />
-      <div class="hoa-public-hero-brand">HUB OF ASPIRANTS</div>
-      <div class="hoa-public-hero-tagline">Dream. Prepare. Conquer.</div>
-      <div class="hoa-public-hero-line" aria-hidden="true"></div>
-    </div>
-  </div>
-
-  <div class="hoa-public-section" id="hoaPublicFeatures">
-    <div class="hoa-public-feature-grid">
-      <article class="hoa-public-feature-card">
-        <div class="hoa-public-feature-icon blue" aria-hidden="true">▣</div>
-        <h3>Comprehensive Courses</h3>
-        <p>Structured preparation resources designed to strengthen your concepts.</p>
-      </article>
-      <article class="hoa-public-feature-card" onclick="showPublicAuth('login')" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showPublicAuth('login')">
-        <div class="hoa-public-feature-icon green" aria-hidden="true">✓</div>
-        <h3>Mock Tests</h3>
-        <p>Practice with exam-style tests and track your performance.</p>
-      </article>
-      <article class="hoa-public-feature-card" id="hoaPublicLearning">
-        <div class="hoa-public-feature-icon orange" aria-hidden="true">▤</div>
-        <h3>Current Affairs</h3>
-        <p>Stay updated with important national, international and exam-relevant developments.</p>
-      </article>
-      <article class="hoa-public-feature-card">
-        <div class="hoa-public-feature-icon purple" aria-hidden="true">▥</div>
-        <h3>Track Your Progress</h3>
-        <p>Use your results and performance history to improve consistently.</p>
-      </article>
-    </div>
-
-    <div class="hoa-public-quote">
-      <div class="hoa-public-quote-mark" aria-hidden="true">“</div>
-      <div><strong>Success is not a destination, it is a journey of consistent effort.</strong><span>— HUB OF ASPIRANTS</span></div>
-    </div>
-
-    <div class="hoa-public-pillars" aria-label="Preparation approach">
-      <div><span aria-hidden="true">◎</span><b>Learn</b><small>Build Strong Concepts</small></div>
-      <div><span aria-hidden="true">⚙</span><b>Practice</b><small>Sharpen Your Skills</small></div>
-      <div><span aria-hidden="true">▥</span><b>Improve</b><small>Track Your Growth</small></div>
-      <div><span aria-hidden="true">♜</span><b>Achieve</b><small>Turn Your Dreams into Reality</small></div>
-    </div>
-  </div>
-
-  <footer class="hoa-public-footer">
-    <div class="hoa-public-footer-brand">
-      <img src="hoa-logo-updated.png" alt="HUB OF ASPIRANTS" />
-      <div><strong>HUB OF ASPIRANTS</strong><span>Dream. Prepare. Conquer.</span></div>
-    </div>
-    <div class="hoa-public-footer-copy">© 2026 HUB OF ASPIRANTS. All rights reserved.<br><span>Education Today. A Better Tomorrow.</span></div>
-    <div class="hoa-public-footer-links">
-      <div><a href="#" onclick="event.preventDefault();return false;">Privacy Policy</a><span>|</span><a href="#" onclick="event.preventDefault();return false;">Terms of Service</a></div>
-      <div class="hoa-public-socials" aria-label="Social links"><span>▶</span><span>➤</span><span>f</span><span>◉</span><span>◎</span><span>𝕏</span></div>
-    </div>
-  </footer>
-</section>
 <section class="card" id="authScreen" style="max-width:520px;margin:35px auto">
 <div style="text-align:center;margin-bottom:20px">
 <img alt="HUB OF ASPIRANTS" class="mission-logo" src="hoa-logo-updated.png"/>
@@ -11729,37 +11583,6 @@ async function createAttemptInSupabase(testId,totalQuestions){
   if(!data?.ok || !data?.attempt_id) throw new Error(data?.error||"Could not start the test attempt.");
   return data.attempt_id;
 }
-
-async function saveAttemptToSupabase(attemptId,testId,correct,wrong,skipped,score,answersSnapshot){
-  // V4.2: final submission is handled by the secure submit_test_v4 RPC.
-  // Kept as a compatibility shim for older code paths.
-  if(!supabaseClient || !currentStudent || !attemptId) return;
-  return;
-  const {error:updateError}=await supabaseClient.from("attempts").update({
-    submitted_at:new Date().toISOString(),
-    status:"completed",
-    total_questions:questions.length,
-    correct_answers:correct,
-    wrong_answers:wrong,
-    unanswered:skipped,
-    score:score,
-  }).eq("id",attemptId);
-  if(updateError) throw updateError;
-
-  const rows=questions.map((q,i)=>({
-    attempt_id:attemptId,
-    question_id:q.__id || null,
-    selected_option:answersSnapshot[i],
-    is_correct:answersSnapshot[i]!==null && answersSnapshot[i]===q[5],
-    marks_awarded:answersSnapshot[i]===null ? 0 : (answersSnapshot[i]===q[5] ? marksPerCorrect : -negativeMarks)
-  })).filter(r=>r.question_id);
-
-  if(rows.length){
-    const {error:ansError}=await supabaseClient.from("answers").insert(rows);
-    if(ansError) throw ansError;
-  }
-}
-
 async function saveTestToSupabase(t){
   if(!supabaseClient) return t.id;
   const testId=(t.id && /^[0-9a-f-]{36}$/i.test(t.id))?t.id:null;
@@ -12113,7 +11936,6 @@ async function loginAdmin(){
 
     adminLoggedIn=true;
     currentStudent=null;
-    if(typeof window.showPublicLanding==="function"){const l=document.getElementById("hoaPublicLanding");if(l)l.classList.add("hoa-public-hidden");document.body.classList.remove("hoa-public-mode");}
     document.getElementById("studentHeaderLogout").classList.add("hidden");
     document.getElementById("adminHeaderLogout").classList.remove("hidden");
     setAuthScreenVisible(false);
@@ -12246,10 +12068,8 @@ async function logoutStudent(){
   document.getElementById("loginId").value="";
   document.getElementById("loginPassword").value="";
   showAuth("login");
-  if(typeof window.showPublicLanding==="function") window.dispatchEvent(new Event("hoa:logged-out"));
 }
 function enterPlatform(){
-  if(typeof window.showPublicLanding==="function"){const l=document.getElementById("hoaPublicLanding");if(l)l.classList.add("hoa-public-hidden");document.body.classList.remove("hoa-public-mode");}
   document.getElementById("studentHeaderLogout").classList.remove("hidden");
   document.getElementById("adminHeaderLogout").classList.add("hidden");
   setAuthScreenVisible(false);
@@ -12285,7 +12105,6 @@ async function logoutAdmin(){
   if(adminUsername) adminUsername.value="";
   if(adminPassword) adminPassword.value="";
   showAuth("login");
-  if(typeof window.showPublicLanding==="function") window.dispatchEvent(new Event("hoa:logged-out"));
 }
 async function changeAdminAccount(){
   if(!requireAdmin("changing the Admin password")) return;
@@ -13047,78 +12866,6 @@ function showTestCountdown(title, onComplete){
 
  step();
 }
-
-function startSavedTestLegacyV19(id){
- const t=tests.find(x=>x.id===id);
- if(!t)return;
-
- const launchToken=++testLaunchToken;
- clearInterval(interval);
- interval=null;
-
- adminPreviewMode=(adminLoggedIn===true && currentStudent===null);
- activeTestId=id;
- questions.length=0;
- t.questions.forEach(q=>questions.push(q));
-
- testTitle=t.title;
- durationMinutes=t.duration;
- marksPerCorrect=t.marks;
- negativeMarks=t.negative;
- timer=Math.round(durationMinutes*60);
- current=0;
- answers=Array(questions.length).fill(null);
- pendingAnswers=Array(questions.length).fill(null);
- submitted=false;
- currentAttemptId=null;
-
- showTestCountdown(t.title, ()=>{
-   if(launchToken!==testLaunchToken)return;
-
-   try{
-     const home=document.getElementById("home");
-     const exam=document.getElementById("exam");
-     const headerTimer=document.getElementById("headerTimer");
-     const previewExit=document.getElementById("adminPreviewExit");
-     const overlay=document.getElementById("testCountdownOverlay");
-
-     /* Always remove the countdown overlay before opening the test. */
-     overlay?.classList.add("hidden");
-     if(overlay) overlay.style.display="none";
-
-     home?.classList.add("hidden");
-     exam?.classList.remove("hidden");
-     if(exam) exam.style.display="block";
-     headerTimer?.classList.remove("hidden");
-     previewExit?.classList.toggle("hidden",!adminPreviewMode);
-
-     /* Render Question 1 and start the exam timer immediately. */
-     render();
-     updateTimer();
-     clearInterval(interval);
-     interval=setInterval(tick,1000);
-
-     /*
-       Preserve Supabase attempt creation, but never allow it to block
-       the exam UI. The candidate can see the test first.
-     */
-     if(!adminPreviewMode && supabaseClient && currentStudent){
-       createAttemptInSupabase(id,questions.length)
-         .then(attemptId=>{ currentAttemptId=attemptId; })
-         .catch(e=>{
-           console.error("Attempt creation failed:",e);
-           /* Keep the test running; submission logic remains unchanged. */
-         });
-     }
-   }catch(e){
-     console.error("Test launch error:",e);
-     document.getElementById("testCountdownOverlay")?.classList.add("hidden");
-     document.getElementById("testCountdownOverlay")?.style.setProperty("display","none");
-     alert("The test could not be opened. Please refresh the page and try again.");
-   }
- });
-}
-
 /* Admin preview exit is owned by the V1.3 clean controller below. */
 
 function showCreator(){
@@ -14896,200 +14643,8 @@ updateRegistrationTypeUI();
 })();
 
 
-/* ===== Original inline script 5 — id: mission-tes-v16-result-rescue-clean ===== */
-
-(function(){
-  'use strict';
-  const PANEL='adminSectionResultPanel';
-  const OTHERS=['adminSectionStudentPanel','adminSectionTestPanel','adminSectionAdminPanel'];
-
-  function visibleAdmin(){
-    const admin=document.getElementById('adminOnlyDashboard');
-    return !!(document.body.classList.contains('admin-ui') && admin && !admin.classList.contains('hidden'));
-  }
-
-  function activateResultDOM(){
-    const panel=document.getElementById(PANEL);
-    const admin=document.getElementById('adminOnlyDashboard');
-    if(!panel || !admin || !visibleAdmin()) return false;
-    OTHERS.forEach(id=>{
-      const el=document.getElementById(id);
-      if(!el) return;
-      el.classList.remove('active','v13-active','v16-result-open');
-    });
-    panel.classList.add('active','v13-active','v16-result-open');
-    panel.style.setProperty('display','block','important');
-    panel.style.setProperty('visibility','visible','important');
-    panel.style.setProperty('opacity','1','important');
-    const dash=panel.querySelector(':scope > .dashPanel');
-    if(dash){
-      dash.style.setProperty('display','block','important');
-      dash.style.setProperty('visibility','visible','important');
-      dash.style.setProperty('opacity','1','important');
-    }
-    document.querySelectorAll('[id^="adminNav"]').forEach(b=>b.classList.toggle('active',b.id==='adminNavResult'));
-    const title=document.getElementById('adminReferencePageTitle');
-    const sub=document.getElementById('adminReferencePageSub');
-    if(title) title.textContent='Result Management';
-    if(sub) sub.textContent='Search, filter, inspect and manage candidate test results';
-    return true;
-  }
-
-  async function openResult(){
-    if(!activateResultDOM()) return;
-    try{
-      if(typeof window.loadAdminResults==='function') await window.loadAdminResults();
-      else if(typeof window.loadAdminResultsFromSupabase==='function') await window.loadAdminResultsFromSupabase();
-    }catch(e){ console.error('Result Management load:',e); }
-    activateResultDOM();
-    try{ if(typeof window.renderResultRows==='function') window.renderResultRows(); }catch(e){console.error('Result rows:',e);}
-    try{ if(typeof window.renderAdminResultSummary==='function') window.renderAdminResultSummary(); }catch(e){console.error('Result summary:',e);}
-    try{ if(typeof window.populateTestWiseSelector==='function') window.populateTestWiseSelector(); if(typeof window.renderTestWiseResults==='function') window.renderTestWiseResults(); }catch(e){console.error('Test-wise result:',e);}
-    requestAnimationFrame(activateResultDOM);
-  }
-
-  function commitPendingAnswerForCurrentQuestion(){
-  if(!Array.isArray(questions) || !questions.length) return;
-  if(!Array.isArray(answers) || answers.length!==questions.length) answers=Array(questions.length).fill(null);
-  if(!Array.isArray(pendingAnswers) || pendingAnswers.length!==questions.length) pendingAnswers=Array(questions.length).fill(null);
-  if(!Array.isArray(marked) || marked.length!==questions.length) marked=Array(questions.length).fill(false);
-  if(!Array.isArray(visited) || visited.length!==questions.length) visited=Array(questions.length).fill(false);
-  const i=Math.max(0,Math.min(Number(current)||0,questions.length-1));
-  // Selecting an option creates a draft; when the candidate submits, that
-  // draft must not silently disappear.
-  if(pendingAnswers[i]!==null && pendingAnswers[i]!==undefined){
-    answers[i]=pendingAnswers[i];
-    visited[i]=true;
-  }
-}
-
-function bind(){
-    const nav=document.getElementById('adminNavResult');
-    if(!nav || nav.dataset.v16CleanBound) return;
-    nav.dataset.v16CleanBound='1';
-    // Capture phase guarantees the Result panel is activated before the inline onclick.
-    nav.addEventListener('click',function(){
-      if(!visibleAdmin()) return;
-      activateResultDOM();
-      setTimeout(openResult,0);
-      setTimeout(activateResultDOM,50);
-      setTimeout(activateResultDOM,250);
-    },true);
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind); else bind();
-  window.v16OpenResultWorkspace=openResult;
-})();
-
-
-/* ===== Original inline script 6 — id: mission-tes-v16-result-rootfix ===== */
-
-(function(){
-  'use strict';
-  const RESULT_id='adminSectionResultPanel__dup2';
-  const ADMIN_id='adminOnlyDashboard__dup2';
-  let originalShow=window.showAdminSection;
-
-  function ensureAdminRoot(){
-    const admin=document.getElementById(ADMIN_ID);
-    const main=document.querySelector('.adminReferenceMain');
-    if(!admin || !main) return false;
-    if(admin.parentElement!==main) main.appendChild(admin);
-    const panel=document.getElementById(RESULT_ID);
-    /* The source HTML has the Result panel outside #adminOnlyDashboard because
-       of an old unmatched wrapper. Move only this panel into the Admin root. */
-    if(panel && panel.parentElement!==admin) admin.appendChild(panel);
-    admin.classList.remove('hidden');
-    admin.style.removeProperty('display');
-    return true;
-  }
-
-  function activateResultRoot(){
-    if(!ensureAdminRoot()) return false;
-    const admin=document.getElementById(ADMIN_ID);
-    const panel=document.getElementById(RESULT_ID);
-    if(!panel) return false;
-
-    admin.classList.remove('hidden');
-    admin.style.setProperty('display','block','important');
-    admin.style.setProperty('visibility','visible','important');
-    admin.style.setProperty('opacity','1','important');
-
-    ['adminSectionStudentPanel','adminSectionTestPanel','adminSectionAdminPanel'].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el){el.classList.remove('active','v13-active','v16-result-open','v16-root-result-active');}
-    });
-
-    panel.classList.add('active','v13-active','v16-result-open','v16-root-result-active');
-    panel.style.setProperty('display','block','important');
-    panel.style.setProperty('visibility','visible','important');
-    panel.style.setProperty('opacity','1','important');
-    panel.style.setProperty('width','100%','important');
-    panel.style.setProperty('height','auto','important');
-
-    const dash=panel.querySelector(':scope > .dashPanel');
-    if(dash){
-      dash.style.setProperty('display','block','important');
-      dash.style.setProperty('visibility','visible','important');
-      dash.style.setProperty('opacity','1','important');
-      dash.style.setProperty('width','100%','important');
-    }
-
-    ['adminNavStudent','adminNavTest','adminNavResult','adminNavAdmin'].forEach(id=>{
-      const b=document.getElementById(id);
-      if(b) b.classList.toggle('active',id==='adminNavResult');
-    });
-    const title=document.getElementById('adminReferencePageTitle');
-    const sub=document.getElementById('adminReferencePageSub');
-    if(title) title.textContent='Result Management';
-    if(sub) sub.textContent='Search, filter, inspect and manage candidate test results';
-    return true;
-  }
-
-  async function openResult(){
-    activateResultRoot();
-    try{
-      if(typeof window.loadAdminResults==='function') await window.loadAdminResults();
-      else if(typeof window.loadAdminResultsFromSupabase==='function') await window.loadAdminResultsFromSupabase();
-    }catch(e){ console.error('Result Management rootfix load:',e); }
-    activateResultRoot();
-    try{ if(typeof window.renderResultRows==='function') window.renderResultRows(); }catch(e){console.error(e);}
-    try{ if(typeof window.renderAdminResultSummary==='function') window.renderAdminResultSummary(); }catch(e){console.error(e);}
-    try{ if(typeof window.populateTestWiseSelector==='function') window.populateTestWiseSelector(); }catch(e){console.error(e);}
-    try{ if(typeof window.renderTestWiseResults==='function') window.renderTestWiseResults(); }catch(e){console.error(e);}
-    requestAnimationFrame(activateResultRoot);
-  }
-
-  function install(){
-    const nav=document.getElementById('adminNavResult');
-    if(nav && !nav.dataset.v16RootFixBound){
-      nav.dataset.v16RootFixBound='1';
-      nav.addEventListener('click',function(){
-        activateResultRoot();
-        setTimeout(openResult,0);
-      },true);
-    }
-
-    if(window.showAdminSection && !window.showAdminSection.__v16RootWrapped){
-      originalShow=window.showAdminSection;
-      const wrapped=function(section){
-        const r=originalShow.apply(this,arguments);
-        if(section==='result'){
-          activateResultRoot();
-          Promise.resolve(r).then(openResult).catch(openResult);
-        }
-        return r;
-      };
-      wrapped.__v16RootWrapped=true;
-      wrapped.__v16Original=originalShow;
-      window.showAdminSection=wrapped;
-    }
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',install); else install();
-  window.v16ResultRootFix=openResult;
-})();
-
+/* V6.0.4 Result Management cleanup: removed redundant V16 result rescue/rootfix layers.
+   The existing activateAdminPanel("result") pipeline is now the single Result navigation path. */
 
 /* ===== Original inline script 7 — id: v17-home-admin-toggle ===== */
 
@@ -16452,19 +16007,19 @@ async function getActive(){
  return r.data||[];
 }
 function url(path){var s=client();if(!s)return"";var x=s.storage.from(BUCKET).getPublicUrl(path);return x&&x.data?x.data.publicUrl:""}
-function render(){
+function renderPosterShowcase(){
  var box=document.getElementById("hoaV59Showcase");if(!box)return;
  if(!slides.length){box.innerHTML='<div class="hoa-v59-empty">Your latest HUB OF ASPIRANTS posters will appear here.</div>';return}
  current=(current+slides.length)%slides.length;
  box.innerHTML=slides.map(function(x,i){return '<div class="hoa-v59-slide '+(i===current?"active":"")+'"><img src="'+esc(url(x.storage_path))+'" alt="'+esc(x.title||"HUB OF ASPIRANTS")+'" loading="'+(i?"lazy":"eager")+'"></div>'}).join("")+
  '<button class="hoa-v59-arrow hoa-v59-prev" aria-label="Previous poster">‹</button><button class="hoa-v59-arrow hoa-v59-next" aria-label="Next poster">›</button>'+
  '<div class="hoa-v59-dots">'+slides.map(function(_,i){return '<span class="hoa-v59-dot '+(i===current?"active":"")+'" data-i="'+i+'"></span>'}).join("")+'</div>';
- box.querySelector(".hoa-v59-prev").onclick=function(){current=(current-1+slides.length)%slides.length;render();restart()};
- box.querySelector(".hoa-v59-next").onclick=function(){current=(current+1)%slides.length;render();restart()};
- box.querySelectorAll(".hoa-v59-dot").forEach(function(d){d.onclick=function(){current=Number(d.dataset.i);render();restart()}})
+ box.querySelector(".hoa-v59-prev").onclick=function(){current=(current-1+slides.length)%slides.length;renderPosterShowcase();restartPosterCarousel()};
+ box.querySelector(".hoa-v59-next").onclick=function(){current=(current+1)%slides.length;renderPosterShowcase();restartPosterCarousel()};
+ box.querySelectorAll(".hoa-v59-dot").forEach(function(d){d.onclick=function(){current=Number(d.dataset.i);renderPosterShowcase();restartPosterCarousel()}})
 }
-function restart(){clearInterval(timer);if(slides.length>1)timer=setInterval(function(){current=(current+1)%slides.length;render()},5000)}
-async function load(){slides=await getActive();current=0;render();restart()}
+function restartPosterCarousel(){clearInterval(timer);if(slides.length>1)timer=setInterval(function(){current=(current+1)%slides.length;renderPosterShowcase()},5000)}
+async function loadPosters(){slides=await getActive();current=0;renderPosterShowcase();restartPosterCarousel()}
 function findLogin(){
  var candidates=["studentLogin","student-login","loginPage","loginPanel","authPage"];
  for(var i=0;i<candidates.length;i++){var e=document.getElementById(candidates[i]);if(e)return e}
@@ -16476,7 +16031,7 @@ function mount(){
  if(!host)return;
  var wrap=document.createElement("div");wrap.id="hoaV59PosterWrap";wrap.innerHTML='<div id="hoaV59Showcase" class="hoa-v59-showcase" aria-label="HUB OF ASPIRANTS posters"></div>';
  host.parentNode.insertBefore(wrap,host);
- load();
+ loadPosters();
 }
 function adminMount(){
  var admin=document.getElementById("adminOnlyDashboard");
@@ -16513,7 +16068,7 @@ async function upload(){
   setMsg("Poster uploaded successfully.");
   document.getElementById("hoaV59File").value="";
   document.getElementById("hoaV59Title").value="";
-  await refreshAdmin();await load();
+  await refreshAdmin();await loadPosters();
  }catch(e){console.error(e);setMsg(e.message||String(e))}
 }
 async function refreshAdmin(){
@@ -16803,7 +16358,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.3";
+  const VERSION="V6.0.6";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -16852,9 +16407,20 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
     window.addEventListener("online",function(){toast("Connection restored.","success");network();});
     window.addEventListener("offline",function(){toast("Internet connection lost. Reconnect before submitting or saving.","offline");network();});
     window.addEventListener("error",function(e){
-      const msg=e&&e.message?String(e.message):"Unexpected application error.";
-      console.error("HOA production error:",e.error||e.message||e); toast("Something went wrong. Your current screen has not been intentionally changed. Please retry.","error");
+      /* Do not turn resource-loading errors (broken images, favicon, CSS,
+         iframe resources, etc.) into a misleading application toast.
+         Only JavaScript runtime exceptions should reach the user-facing
+         production error notification. */
+      const msg=e&&e.message?String(e.message):"";
+      const runtimeError=!!(e&&e.error);
+      const source=e&&e.filename?String(e.filename):"";
+      if(!runtimeError){
+        console.warn("HOA resource/non-runtime error:",source||e&&e.target||e);
+        return;
+      }
+      console.error("HOA production error:",e.error||msg||e);
       if(/Script error/i.test(msg))return;
+      toast("Something went wrong. Your current screen has not been intentionally changed. Please retry.","error");
     });
     window.addEventListener("unhandledrejection",function(e){
       console.error("HOA unhandled promise rejection:",e.reason); toast("A background operation failed. Please retry the action.","error");
@@ -16865,46 +16431,94 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 })();
 </script>
 
-<script id="hoa-v603-public-home-js">
+
+<style id="hoa-v606-admin-header-state-fix">
+/* V6.0.6 — Admin/public header isolation.
+   The global public header must never remain visible over the Admin shell.
+   Admin navigation and branding are provided by .adminReferenceShell. */
+body.admin-ui > header.header{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+  height:0 !important;
+  min-height:0 !important;
+  overflow:hidden !important;
+}
+body.admin-ui .adminReferenceMain{
+  padding-top:20px !important;
+}
+@media (max-width:768px){
+  body.admin-ui .adminReferenceMain{
+    padding-top:10px !important;
+  }
+}
+</style>
+
+<script id="hoa-v606-admin-header-state-fix-js">
 (function(){
-  "use strict";
-  const landingId="hoaPublicLanding";
-  function landing(){return document.getElementById(landingId)}
-  function setPublicMode(on){document.body.classList.toggle("hoa-public-mode",!!on)}
-  window.showPublicLanding=function(){
-    const l=landing(),a=document.getElementById("authScreen");
-    if(l)l.classList.remove("hoa-public-hidden");
-    if(a){a.classList.remove("hoa-public-auth-active");a.classList.add("hidden");a.style.display="none";}
-    setPublicMode(true);
-    document.querySelectorAll(".hoa-public-nav-link").forEach(b=>b.classList.toggle("active",b.dataset.hoaNav==="home"));
-    window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
-  };
-  window.showPublicAuth=function(mode){
-    const l=landing(),a=document.getElementById("authScreen");
-    if(l)l.classList.add("hoa-public-hidden");
-    if(a){a.classList.remove("hidden");a.classList.add("hoa-public-auth-active");a.style.display="block";}
-    setPublicMode(false);
-    if(typeof window.showAuth==="function")window.showAuth(mode||"login");
-    window.scrollTo({top:0,behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
-  };
-  window.hoaPublicScrollTo=function(id){
-    const el=document.getElementById(id);
-    if(el){document.querySelectorAll(".hoa-public-nav-link").forEach(b=>b.classList.remove("active"));el.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
-  };
-  function closeAuthBack(){
-    if(document.getElementById("authScreen") && !document.getElementById("authScreen").classList.contains("hidden") && !window.currentStudent && window.adminLoggedIn!==true){
-      /* Public landing is the default unauthenticated surface. */
+  'use strict';
+
+  function syncAdminChrome(){
+    const root=document.getElementById('adminOnlyDashboard');
+    const adminActive=!!(
+      typeof adminLoggedIn !== 'undefined' && adminLoggedIn === true &&
+      typeof currentStudent !== 'undefined' && !currentStudent &&
+      root && !root.classList.contains('hidden')
+    );
+
+    document.documentElement.classList.toggle('admin-ui',adminActive);
+    document.body?.classList.toggle('admin-ui',adminActive);
+
+    const publicHeader=document.querySelector('body > header.header');
+    if(publicHeader){
+      publicHeader.setAttribute('aria-hidden',adminActive?'true':'false');
+      publicHeader.classList.toggle('hoa-admin-hidden',adminActive);
+    }
+
+    if(adminActive){
+      const studentLogout=document.getElementById('studentHeaderLogout');
+      const adminLogout=document.getElementById('adminHeaderLogout');
+      studentLogout?.classList.add('hidden');
+      adminLogout?.classList.remove('hidden');
     }
   }
+
   function boot(){
-    const auth=document.getElementById("authScreen");
-    if(auth && !window.currentStudent && window.adminLoggedIn!==true){
-      showPublicLanding();
+    syncAdminChrome();
+
+    const root=document.getElementById('adminOnlyDashboard');
+    if(root){
+      const observer=new MutationObserver(syncAdminChrome);
+      observer.observe(root,{attributes:true,attributeFilter:['class']});
     }
-    /* Keep the public homepage visible after an unauthenticated logout. */
-    window.addEventListener("hoa:logged-out",showPublicLanding);
+
+    const home=document.getElementById('home');
+    if(home){
+      const observer=new MutationObserver(syncAdminChrome);
+      observer.observe(home,{attributes:true,attributeFilter:['class']});
+    }
+
+    /* Re-sync after established navigation/auth functions without replacing them. */
+    ['showDashboardTab','showAdminSection','logoutAdmin','logoutStudent','enterPlatform'].forEach(function(name){
+      const fn=window[name];
+      if(typeof fn!=='function' || fn.__hoaV606Wrapped)return;
+      const wrapped=function(){
+        const result=fn.apply(this,arguments);
+        const finish=()=>syncAdminChrome();
+        if(result && typeof result.then==='function') return result.then(function(v){finish();return v;},function(err){finish();throw err;});
+        finish();
+        return result;
+      };
+      wrapped.__hoaV606Wrapped=true;
+      window[name]=wrapped;
+    });
+
+    window.__HOA_SYNC_ADMIN_CHROME=syncAdminChrome;
+    syncAdminChrome();
   }
-  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",boot,{once:true});else boot();
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot,{once:true});
+  else boot();
 })();
 </script>
 
