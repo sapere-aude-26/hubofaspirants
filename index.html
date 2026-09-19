@@ -10319,41 +10319,37 @@ body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-
 </style>
 
 
-<style id="hoa-admin-console-link">
-.hoa-admin-console-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:7px;
-  min-height:36px;
-  padding:7px 12px;
-  border:1px solid #d7e2ee;
-  border-radius:9px;
-  background:#fff;
-  color:#173f6b;
-  text-decoration:none;
-  font-size:12px;
-  font-weight:800;
-  line-height:1;
-  box-shadow:0 2px 8px rgba(15,35,60,.06);
-  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+<style id="hoa-admin-console-entry">
+#hoaAdminConsoleEntry{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:7px!important;
+  min-height:38px!important;
+  padding:8px 13px!important;
+  border:1px solid #12345b!important;
+  border-radius:9px!important;
+  background:#fff!important;
+  color:#12345b!important;
+  text-decoration:none!important;
+  font:800 12px/1 Arial,sans-serif!important;
+  cursor:pointer!important;
+  box-sizing:border-box!important;
+  box-shadow:0 2px 8px rgba(10,35,65,.08)!important;
+  position:relative!important;
+  z-index:100000!important;
 }
-.hoa-admin-console-link:hover{
-  background:#f5f9ff;
-  border-color:#a9c3df;
-  transform:translateY(-1px);
+#hoaAdminConsoleEntry:hover{background:#eef5ff!important}
+#hoaAdminConsoleEntry:focus-visible{outline:3px solid rgba(37,99,235,.25)!important;outline-offset:2px!important}
+#hoaAdminConsoleFixed{
+  position:fixed!important;
+  right:18px!important;
+  bottom:18px!important;
+  z-index:2147483000!important;
 }
-.hoa-admin-console-link:focus-visible{
-  outline:3px solid rgba(37,99,235,.2);
-  outline-offset:2px;
-}
-.hoa-admin-console-link .hoa-admin-icon{font-size:14px}
-@media(max-width:640px){
-  .hoa-admin-console-link{
-    min-height:34px;
-    padding:7px 9px;
-    font-size:11px;
-  }
+@media(max-width:699px){
+  #hoaAdminConsoleFixed{right:10px!important;bottom:78px!important}
+  #hoaAdminConsoleEntry{min-height:36px!important;padding:8px 11px!important}
 }
 </style>
 
@@ -10371,8 +10367,6 @@ body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-
 <header class="header">
 <div><div class="brand">HUB OF ASPIRANTS</div><div class="sub">Civil Engineering Mock Test</div></div>
 <div class="headerRight">
-<a class="hoa-admin-console-link" href="admin-dev-console.html" aria-label="Open Admin Developer Console"><span class="hoa-admin-icon">⚙</span><span>Admin Console</span></a>
-
 <button class="headerLogoutBtn hidden" id="studentHeaderLogout" onclick="logoutStudent()">🚪 STUDENT LOGOUT</button>
 <button class="headerLogoutBtn hidden" id="adminHeaderLogout" onclick="logoutAdmin()">🚪 ADMIN LOGOUT</button>
 <div class="timer hidden" id="headerTimer">60:00</div>
@@ -16036,6 +16030,13 @@ if(document.readyState==="loading"){
 setInterval(boot,2500);
 })();
 </script>
+
+
+<div id="hoaAdminConsoleFixed">
+  <a id="hoaAdminConsoleEntry" href="./admin-dev-console.html" aria-label="Open Admin Developer Console">
+    <span aria-hidden="true">⚙</span><span>Admin Console</span>
+  </a>
+</div>
 
 </body>
 </html>
