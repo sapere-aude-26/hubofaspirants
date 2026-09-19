@@ -16358,7 +16358,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.4";
+  const VERSION="V6.0.5";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -16407,9 +16407,20 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
     window.addEventListener("online",function(){toast("Connection restored.","success");network();});
     window.addEventListener("offline",function(){toast("Internet connection lost. Reconnect before submitting or saving.","offline");network();});
     window.addEventListener("error",function(e){
-      const msg=e&&e.message?String(e.message):"Unexpected application error.";
-      console.error("HOA production error:",e.error||e.message||e); toast("Something went wrong. Your current screen has not been intentionally changed. Please retry.","error");
+      /* Do not turn resource-loading errors (broken images, favicon, CSS,
+         iframe resources, etc.) into a misleading application toast.
+         Only JavaScript runtime exceptions should reach the user-facing
+         production error notification. */
+      const msg=e&&e.message?String(e.message):"";
+      const runtimeError=!!(e&&e.error);
+      const source=e&&e.filename?String(e.filename):"";
+      if(!runtimeError){
+        console.warn("HOA resource/non-runtime error:",source||e&&e.target||e);
+        return;
+      }
+      console.error("HOA production error:",e.error||msg||e);
       if(/Script error/i.test(msg))return;
+      toast("Something went wrong. Your current screen has not been intentionally changed. Please retry.","error");
     });
     window.addEventListener("unhandledrejection",function(e){
       console.error("HOA unhandled promise rejection:",e.reason); toast("A background operation failed. Please retry the action.","error");
