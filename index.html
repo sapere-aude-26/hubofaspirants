@@ -11097,6 +11097,13 @@ body.hoa-front-page > #result{
   .hoa-front-social-btn{flex:1 1 calc(50% - 8px);justify-content:center}
 }
 </style>
+
+<style id="hoa-v616-front-footer-fix">
+body.hoa-front-page .missionBrandFooter{
+  display:none !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -17090,7 +17097,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.15";
+  const VERSION="V6.0.16";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
