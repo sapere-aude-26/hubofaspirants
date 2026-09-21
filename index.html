@@ -1,5 +1,5 @@
 <!-- HUB OF ASPIRANTS V6.0.81 — Scroll-linked hero animation -->
-<!-- HUB OF ASPIRANTS V6.0.84 — Front page mobile-friendly polish -->
+<!-- HUB OF ASPIRANTS V6.0.104 — Mobile navigation polish -->
 <!-- HUB OF ASPIRANTS V6.0.79 — Animated non-clickable hero section -->
 <!-- HUB OF ASPIRANTS V6.0.78 — Student Area full-card button polish -->
 <!-- HOA V6.0.0 — Production Ready hardening from confirmed V5.9.9 MASTER -->
@@ -15322,6 +15322,967 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 }
 </style>
 
+
+<style id="hoa-v6085-staircase-feature-cards">
+/* V6.0.85 — Hero feature cards:
+   equal dimensions + deliberate staircase alignment.
+   Uses CSS translate (separate from transform) so the existing slow
+   animation/parallax transforms continue to work. */
+
+#hoaFrontPage .hoa-front-hero .hoa-front-card-stack{
+  width:min(446px,100%) !important;
+  display:grid !important;
+  gap:12px !important;
+  align-items:stretch !important;
+}
+
+#hoaFrontPage .hoa-front-hero .hoa-front-feature{
+  width:calc(100% - 56px) !important;
+  min-height:84px !important;
+  height:84px !important;
+  box-sizing:border-box !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  padding:17px 18px !important;
+  justify-self:start !important;
+  translate:0 0 !important;
+}
+
+#hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(2){
+  margin-left:0 !important;
+  translate:28px 0 !important;
+}
+
+#hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(3){
+  margin-left:0 !important;
+  translate:56px 0 !important;
+}
+
+#hoaFrontPage .hoa-front-hero .hoa-front-feature-icon{
+  width:46px !important;
+  height:46px !important;
+  flex:0 0 46px !important;
+}
+
+@media (max-width:850px){
+  #hoaFrontPage .hoa-front-hero .hoa-front-card-stack{
+    width:min(446px,100%) !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature{
+    width:calc(100% - 40px) !important;
+    min-height:82px !important;
+    height:82px !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(2){
+    margin-left:0 !important;
+    translate:20px 0 !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(3){
+    margin-left:0 !important;
+    translate:40px 0 !important;
+  }
+}
+
+@media (max-width:600px){
+  #hoaFrontPage .hoa-front-hero .hoa-front-card-stack{
+    width:100% !important;
+    max-width:430px !important;
+    gap:12px !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature{
+    width:calc(100% - 40px) !important;
+    min-height:82px !important;
+    height:82px !important;
+    padding:14px 15px !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(2){
+    translate:20px 0 !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(3){
+    translate:40px 0 !important;
+  }
+}
+
+@media (max-width:380px){
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature{
+    width:calc(100% - 32px) !important;
+    min-height:78px !important;
+    height:78px !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(2){
+    translate:16px 0 !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(3){
+    translate:32px 0 !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6086-mobile-nav-polish">
+/* V6.0.86 — Mobile top navigation polish.
+   Keeps LOGIN, FEATURES and CONNECT inside the rounded navigation bar,
+   with equal touch targets and no clipping/overflow. */
+
+@media (max-width:850px){
+  #hoaFrontPage .hoa-front-nav{
+    width:calc(100% - 20px) !important;
+    max-width:620px !important;
+    box-sizing:border-box !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:6px !important;
+    padding:7px 8px !important;
+    min-height:58px !important;
+    overflow:hidden !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand{
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand img{
+    flex:0 0 auto !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand > div{
+    min-width:0 !important;
+    overflow:hidden !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks{
+    flex:0 0 auto !important;
+    min-width:0 !important;
+    width:auto !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-end !important;
+    gap:4px !important;
+    overflow:visible !important;
+  }
+
+  /* On mobile all three navigation actions stay visible. */
+  #hoaFrontPage .hoa-front-navlinks > button,
+  #hoaFrontPage .hoa-front-navlinks > a{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    flex:0 0 auto !important;
+    box-sizing:border-box !important;
+    min-height:40px !important;
+    border-radius:10px !important;
+    white-space:nowrap !important;
+    touch-action:manipulation !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks > .hoa-v6060-login-card{
+    width:auto !important;
+    min-width:86px !important;
+    padding:0 12px !important;
+    font-size:11px !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks > button:not(.hoa-v6060-login-card),
+  #hoaFrontPage .hoa-front-navlinks > a{
+    min-width:72px !important;
+    padding:0 10px !important;
+    font-size:11px !important;
+  }
+}
+
+@media (max-width:600px){
+  #hoaFrontPage .hoa-front-nav{
+    width:calc(100% - 16px) !important;
+    min-height:56px !important;
+    padding:6px !important;
+    gap:4px !important;
+    border-radius:15px !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand{
+    flex:1 1 34% !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand img{
+    width:36px !important;
+    height:36px !important;
+    border-radius:11px !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand-name{
+    font-size:11px !important;
+    line-height:1.1 !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand-tag{
+    font-size:7.5px !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks{
+    flex:1 1 66% !important;
+    gap:3px !important;
+    justify-content:stretch !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks > button,
+  #hoaFrontPage .hoa-front-navlinks > a{
+    flex:1 1 0 !important;
+    min-width:0 !important;
+    width:auto !important;
+    min-height:40px !important;
+    padding:0 7px !important;
+    font-size:10.5px !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks > .hoa-v6060-login-card{
+    min-width:0 !important;
+    padding:0 7px !important;
+  }
+}
+
+@media (max-width:430px){
+  #hoaFrontPage .hoa-front-nav{
+    width:calc(100% - 12px) !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand{
+    flex:0 1 30% !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand img{
+    width:33px !important;
+    height:33px !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand-name{
+    font-size:9.5px !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand-tag{
+    display:none !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks{
+    flex:1 1 70% !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks > button,
+  #hoaFrontPage .hoa-front-navlinks > a{
+    min-height:38px !important;
+    font-size:9.5px !important;
+    padding:0 5px !important;
+  }
+}
+
+@media (max-width:360px){
+  /* On very narrow screens, hide the brand text but retain the logo.
+     This preserves all three navigation actions without clipping. */
+  #hoaFrontPage .hoa-front-brand{
+    flex:0 0 40px !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand > div{
+    display:none !important;
+  }
+
+  #hoaFrontPage .hoa-front-brand img{
+    width:34px !important;
+    height:34px !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks{
+    flex:1 1 auto !important;
+  }
+
+  #hoaFrontPage .hoa-front-navlinks > button,
+  #hoaFrontPage .hoa-front-navlinks > a{
+    font-size:9px !important;
+    padding:0 4px !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6089-home-final-polish">
+/* V6.0.89 — final home-page polish */
+.hoa-front-hero,
+.hoa-hero {
+  overflow: hidden;
+}
+
+.hoa-front-hero .hoa-hero-card,
+.hoa-hero .hoa-hero-card {
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .hoa-front-hero,
+  .hoa-hero {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .hoa-front-hero .hoa-hero-card,
+  .hoa-hero .hoa-hero-card {
+    width: min(100%, 390px);
+  }
+}
+
+/* Respect reduced-motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  .hoa-front-hero *,
+  .hoa-hero * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+
+<style id="hoa-v6090-final-home-hero">
+/* V6.0.90 — verified home-page hero polish */
+#hoaFrontPage .hoa-front-hero .hoa-front-feature{
+  pointer-events:none;
+  box-sizing:border-box;
+}
+#hoaFrontPage .hoa-front-hero .hoa-front-copy{max-width:680px;}
+@media (max-width:600px){
+  #hoaFrontPage .hoa-front-hero .hoa-front-copy{max-width:100%;}
+}
+@media (prefers-reduced-motion:reduce){
+  #hoaFrontPage .hoa-front-hero *,
+  #hoaFrontFeatures *{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6091-contact-us">
+/* V6.0.91 — Connect Us currently limited to Telegram, WhatsApp, Email and Call. */
+.hoa-v653-connect-link.hoa-v653-connect-disabled{
+  opacity:.55 !important;
+  cursor:not-allowed !important;
+  pointer-events:none !important;
+}
+.hoa-v653-placeholder-icon{
+  width:22px;height:22px;display:grid;place-items:center;
+  font-size:17px;line-height:1;font-weight:700;
+}
+</style>
+
+
+<style id="hoa-v6092-contact-actual-icons">
+/* V6.0.92 — actual inline SVG icons for Connect Us */
+.hoa-v653-placeholder-icon{
+  width:24px !important;
+  height:24px !important;
+  display:grid !important;
+  place-items:center !important;
+  flex:0 0 24px !important;
+}
+.hoa-v653-placeholder-icon svg{
+  width:22px;
+  height:22px;
+  display:block;
+  fill:currentColor;
+}
+.hoa-icon-telegram{color:#229ED9 !important;}
+.hoa-icon-whatsapp{color:#25D366 !important;}
+.hoa-icon-email{color:#EA4335 !important;}
+.hoa-icon-call{color:#2563EB !important;}
+</style>
+
+
+<style id="hoa-v6094-professional-footer">
+/* V6.0.94 — polished compact public-site footer */
+.hoa-professional-footer{
+  width:100%;
+  margin-top:44px;
+  padding:32px 24px 15px;
+  background:linear-gradient(180deg,#0b2f6b 0%,#082653 100%);
+  color:#fff;
+  box-sizing:border-box;
+  border-radius:26px 26px 0 0;
+}
+.hoa-footer-inner{
+  width:min(1120px,100%);
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1.4fr;
+  gap:30px;
+  align-items:center;
+}
+.hoa-footer-brand-name{
+  font-size:19px;
+  font-weight:800;
+  letter-spacing:.6px;
+}
+.hoa-footer-tagline{
+  margin-top:5px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.6px;
+  color:rgba(255,255,255,.78);
+}
+.hoa-footer-links{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+}
+.hoa-footer-links a,
+.hoa-footer-contact a{
+  color:rgba(255,255,255,.84);
+  text-decoration:none;
+  font-size:12px;
+  transition:opacity .2s ease;
+}
+.hoa-footer-links a:hover,
+.hoa-footer-contact a:hover{opacity:1;}
+.hoa-footer-heading{
+  margin-bottom:5px;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.58);
+}
+.hoa-footer-divider{
+  width:min(1120px,100%);
+  height:1px;
+  margin:22px auto 12px;
+  background:rgba(255,255,255,.14);
+}
+.hoa-footer-bottom{
+  width:min(1120px,100%);
+  margin:0 auto;
+  text-align:center;
+  color:rgba(255,255,255,.55);
+  font-size:10.5px;
+  line-height:1.5;
+}
+@media(max-width:760px){
+  .hoa-professional-footer{
+    margin-top:32px;
+    padding:27px 18px 14px;
+    border-radius:20px 20px 0 0;
+  }
+  .hoa-footer-inner{
+    grid-template-columns:1fr;
+    gap:18px;
+    text-align:center;
+  }
+  .hoa-footer-links{
+    justify-content:center;
+    gap:14px;
+  }
+}
+</style>
+
+
+<style id="hoa-v6095-bottom-polish">
+/* V6.0.95 — final bottom-area polish */
+
+/* The old test-era branding block is redundant on the public page. */
+body.hoa-front-page .missionBrandFooter,
+body:has(#hoaFrontPage) .missionBrandFooter{
+  display:none !important;
+}
+
+/* Keep the social bar as a compact utility bar rather than a second footer. */
+#hoaFrontSocialFooter{
+  width:min(1120px,calc(100% - 32px)) !important;
+  margin:24px auto 0 !important;
+  padding:0 !important;
+  background:transparent !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social-bar{
+  min-height:68px !important;
+  padding:10px 14px !important;
+  border-radius:18px !important;
+  box-sizing:border-box !important;
+  box-shadow:0 12px 30px rgba(10,35,70,.10) !important;
+}
+
+/* Professional footer: compact, balanced, and clearly separated. */
+#hoaProfessionalFooter{
+  width:100% !important;
+  margin:18px 0 0 !important;
+  padding:28px 24px 14px !important;
+  border-radius:24px 24px 0 0 !important;
+  box-shadow:0 -4px 24px rgba(10,35,70,.05) !important;
+}
+#hoaProfessionalFooter .hoa-footer-inner{
+  width:min(1120px,100%) !important;
+  grid-template-columns:1.5fr 1fr 1.25fr !important;
+  gap:28px !important;
+}
+#hoaProfessionalFooter .hoa-footer-brand-name{
+  font-size:18px !important;
+  letter-spacing:.5px !important;
+}
+#hoaProfessionalFooter .hoa-footer-tagline{
+  font-size:11px !important;
+  margin-top:4px !important;
+}
+#hoaProfessionalFooter .hoa-footer-links{
+  gap:16px !important;
+}
+#hoaProfessionalFooter .hoa-footer-links a,
+#hoaProfessionalFooter .hoa-footer-contact a{
+  font-size:12px !important;
+}
+#hoaProfessionalFooter .hoa-footer-divider{
+  margin:18px auto 10px !important;
+}
+#hoaProfessionalFooter .hoa-footer-bottom{
+  font-size:10.5px !important;
+}
+
+/* Keep the floating Connect Us control clear of the footer edge. */
+#hoaV653ConnectWrap{
+  bottom:18px !important;
+  right:18px !important;
+}
+
+/* Mobile: stack cleanly without excessive vertical space. */
+@media(max-width:760px){
+  #hoaFrontSocialFooter{
+    width:calc(100% - 20px) !important;
+    margin-top:18px !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-social-bar{
+    min-height:60px !important;
+    border-radius:16px !important;
+  }
+  #hoaProfessionalFooter{
+    margin-top:14px !important;
+    padding:25px 18px 13px !important;
+    border-radius:20px 20px 0 0 !important;
+  }
+  #hoaProfessionalFooter .hoa-footer-inner{
+    grid-template-columns:1fr !important;
+    gap:16px !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6098-connect-polish">
+/* V6.0.98 — polished Connect Us control */
+#hoaV653ConnectWrap{
+  right:18px !important;
+  bottom:18px !important;
+  z-index:9999 !important;
+}
+#hoaV653ConnectToggle{
+  min-height:48px !important;
+  padding:6px 17px 6px 7px !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:9px !important;
+  border:1px solid rgba(255,255,255,.32) !important;
+  border-radius:999px !important;
+  background:linear-gradient(135deg,#123f78 0%,#1763b5 100%) !important;
+  color:#fff !important;
+  box-shadow:0 10px 26px rgba(8,38,83,.24) !important;
+  font-weight:800 !important;
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease !important;
+}
+#hoaV653ConnectToggle:hover{
+  background:linear-gradient(135deg,#174c8d 0%,#2173ca 100%) !important;
+  transform:translateY(-2px) !important;
+  box-shadow:0 14px 30px rgba(8,38,83,.30) !important;
+}
+#hoaV653ConnectToggle:active{
+  transform:translateY(0) !important;
+}
+#hoaV653ConnectToggle .hoa-v653-connect-icon{
+  width:35px !important;
+  height:35px !important;
+  min-width:35px !important;
+  border-radius:50% !important;
+  display:grid !important;
+  place-items:center !important;
+  background:#fff !important;
+  color:#1763b5 !important;
+  box-shadow:0 2px 8px rgba(0,0,0,.13) !important;
+}
+#hoaV653ConnectToggle .hoa-v653-connect-icon svg{
+  width:18px !important;
+  height:18px !important;
+  fill:none !important;
+  stroke:currentColor !important;
+  stroke-width:1.9 !important;
+  stroke-linecap:round !important;
+  stroke-linejoin:round !important;
+}
+#hoaV653ConnectPanel{
+  border:1px solid rgba(16,62,113,.12) !important;
+  box-shadow:0 16px 38px rgba(8,38,83,.18) !important;
+}
+@media(max-width:760px){
+  #hoaV653ConnectWrap{
+    right:12px !important;
+    bottom:12px !important;
+  }
+  #hoaV653ConnectToggle{
+    min-height:44px !important;
+    padding-right:14px !important;
+  }
+  #hoaV653ConnectToggle .hoa-v653-connect-icon{
+    width:32px !important;
+    height:32px !important;
+    min-width:32px !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6099-follow-us">
+/* V6.0.99 — subtle social-follow label */
+#hoaFrontSocialFooter .hoa-v619-actions{
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-follow-label{
+  margin-right:3px !important;
+  padding-right:7px !important;
+  color:rgba(255,255,255,.62) !important;
+  font-size:10px !important;
+  font-weight:700 !important;
+  letter-spacing:.35px !important;
+  white-space:nowrap !important;
+  line-height:1 !important;
+  position:relative !important;
+}
+#hoaFrontSocialFooter .hoa-v619-follow-label::after{
+  content:"" !important;
+  position:absolute !important;
+  right:0 !important;
+  top:50% !important;
+  width:1px !important;
+  height:18px !important;
+  background:rgba(255,255,255,.18) !important;
+  transform:translateY(-50%) !important;
+}
+@media(max-width:760px){
+  #hoaFrontSocialFooter .hoa-v619-follow-label{
+    display:none !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6100-original-social-colors">
+/* V6.0.100 — original brand colours for social icons */
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="youtube"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="YouTube"] svg{
+  color:#FF0000 !important;
+  fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="telegram"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="Telegram"] svg{
+  color:#229ED9 !important;
+  fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="facebook"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="Facebook"] svg{
+  color:#1877F2 !important;
+  fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="whatsapp"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="WhatsApp"] svg{
+  color:#25D366 !important;
+  fill:currentColor !important;
+}
+</style>
+
+
+<style id="hoa-v6101-final-mobile-audit">
+/* V6.0.101 — final home-page and mobile release polish */
+html, body{
+  max-width:100%;
+  overflow-x:hidden !important;
+}
+body{min-width:0 !important;}
+body *{box-sizing:border-box;}
+
+.hoa-career-soon{
+  display:inline-block;
+  margin-left:6px;
+  padding:2px 6px;
+  border-radius:999px;
+  font-size:8px;
+  line-height:1.25;
+  font-weight:800;
+  letter-spacing:.2px;
+  color:#245da8;
+  background:#edf4ff;
+  vertical-align:middle;
+}
+.hoa-career-footer-note{
+  display:block;
+  margin-bottom:7px;
+  color:rgba(255,255,255,.58);
+  font-size:10px;
+  font-weight:700;
+}
+
+#hoaV643PosterSection,
+#hoaV643PosterWrap,
+#hoaV643PosterNav{
+  max-width:100% !important;
+}
+#hoaV643PosterSection{overflow:hidden !important;}
+#hoaV643PosterWrap{overflow:hidden !important;}
+#hoaV643PosterWrap img{
+  max-width:100% !important;
+  height:auto !important;
+}
+
+#hoaFrontSocialFooter{
+  max-width:1120px !important;
+  width:calc(100% - 32px) !important;
+}
+#hoaV653ConnectWrap{max-width:calc(100vw - 20px) !important;}
+
+@media (max-width:760px){
+  header, nav{max-width:100% !important;}
+
+  .hoa-front-hero,
+  .hoa-front-hero *{
+    max-width:100% !important;
+  }
+
+  #hoaV643PosterSection{
+    padding-left:8px !important;
+    padding-right:8px !important;
+    min-height:0 !important;
+  }
+  #hoaV643PosterWrap{
+    padding:7px !important;
+    min-height:0 !important;
+    border-radius:18px !important;
+  }
+  #hoaV643PosterWrap img{
+    width:100% !important;
+    max-height:70vh !important;
+    object-fit:contain !important;
+  }
+  #hoaV643PosterNav button,
+  #hoaV643PosterNav [role="button"]{
+    width:42px !important;
+    height:42px !important;
+    min-width:42px !important;
+    min-height:42px !important;
+    padding:0 !important;
+  }
+
+  #hoaV648StudentOptions{
+    width:100% !important;
+    max-width:100% !important;
+  }
+  #hoaV648StudentOptions .hoa-v648-option-grid{
+    grid-template-columns:1fr !important;
+  }
+  #hoaV648StudentOptions .hoa-v648-option-card{
+    width:100% !important;
+    min-width:0 !important;
+  }
+
+  .hoa-front-feature-grid{
+    grid-template-columns:1fr !important;
+  }
+
+  #hoaFrontSocialFooter{
+    width:calc(100% - 20px) !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-social-bar{
+    min-height:58px !important;
+    padding:8px 10px !important;
+    border-radius:16px !important;
+    justify-content:center !important;
+    gap:6px !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-follow-label{display:none !important;}
+  #hoaFrontSocialFooter .hoa-v619-social{
+    width:40px !important;
+    height:40px !important;
+    min-width:40px !important;
+    padding:0 !important;
+    justify-content:center !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-admin{
+    width:40px !important;
+    min-width:40px !important;
+    padding:0 !important;
+  }
+
+  #hoaProfessionalFooter{
+    width:100% !important;
+    margin-top:14px !important;
+    padding:24px 16px 14px !important;
+    border-radius:20px 20px 0 0 !important;
+  }
+  #hoaProfessionalFooter .hoa-footer-inner{
+    width:100% !important;
+    grid-template-columns:1fr !important;
+    gap:16px !important;
+    text-align:center !important;
+  }
+  #hoaProfessionalFooter .hoa-footer-links{
+    justify-content:center !important;
+    flex-wrap:wrap !important;
+    gap:12px 16px !important;
+  }
+  #hoaProfessionalFooter .hoa-footer-contact,
+  #hoaProfessionalFooter .hoa-footer-bottom{
+    text-align:center !important;
+  }
+  #hoaProfessionalFooter .hoa-footer-bottom{line-height:1.5 !important;}
+
+  .hoa-career-soon{
+    display:block;
+    width:max-content;
+    margin:4px auto 0;
+  }
+
+  #hoaV653ConnectWrap{
+    right:10px !important;
+    bottom:10px !important;
+  }
+  #hoaV653ConnectToggle{
+    min-height:44px !important;
+    max-width:calc(100vw - 20px) !important;
+  }
+}
+
+@media (max-width:390px){
+  #hoaFrontSocialFooter .hoa-v619-social{
+    width:36px !important;
+    height:36px !important;
+    min-width:36px !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-admin{
+    width:36px !important;
+    min-width:36px !important;
+  }
+  #hoaV643PosterWrap{padding:5px !important;}
+  #hoaV643PosterNav button,
+  #hoaV643PosterNav [role="button"]{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+    min-height:38px !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6103-follow-us-polish">
+/* V6.0.103 — stronger Follow us on label */
+#hoaFrontSocialFooter .hoa-v619-follow-label{
+  display:inline-flex !important;
+  align-items:center;
+  font-size:14px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+  letter-spacing:.15px !important;
+  color:inherit !important;
+  white-space:nowrap !important;
+  opacity:1 !important;
+}
+@media (max-width:760px){
+  #hoaFrontSocialFooter .hoa-v619-follow-label{
+    display:inline-flex !important;
+    font-size:12px !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6104-follow-us-visible">
+/* V6.0.104 — make Follow us on unmistakably visible */
+#hoaFrontSocialFooter .hoa-v619-actions{
+  align-items:center !important;
+}
+#hoaFrontSocialFooter .hoa-v619-follow-label{
+  display:inline-flex !important;
+  flex:0 0 auto !important;
+  align-items:center !important;
+  justify-content:center !important;
+  width:auto !important;
+  min-width:max-content !important;
+  height:auto !important;
+  margin:0 4px 0 0 !important;
+  padding:0 10px 0 0 !important;
+  color:#ffffff !important;
+  opacity:1 !important;
+  font-size:14px !important;
+  font-weight:800 !important;
+  letter-spacing:.2px !important;
+  line-height:1.2 !important;
+  white-space:nowrap !important;
+  visibility:visible !important;
+  position:relative !important;
+  z-index:5 !important;
+}
+#hoaFrontSocialFooter .hoa-v619-follow-label::after{
+  content:"" !important;
+  display:block !important;
+  position:absolute !important;
+  right:0 !important;
+  top:50% !important;
+  width:1px !important;
+  height:22px !important;
+  background:rgba(255,255,255,.35) !important;
+  transform:translateY(-50%) !important;
+}
+@media(max-width:600px){
+  #hoaFrontSocialFooter .hoa-v619-follow-label{
+    font-size:13px !important;
+    padding-right:0 !important;
+    margin:0 0 4px !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-follow-label::after{
+    display:none !important;
+  }
+}
+@media(max-width:500px){
+  #hoaFrontSocialFooter .hoa-v619-actions{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    align-items:center !important;
+  }
+  #hoaFrontSocialFooter .hoa-v619-follow-label{
+    grid-column:1 / -1 !important;
+    justify-self:center !important;
+    width:max-content !important;
+    display:inline-flex !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -15369,13 +16330,11 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   <main>
     <section class="hoa-front-hero">
       <div>
-        
-        <h1 class="hoa-front-title">Prepare smarter.<br><span>Perform stronger.</span></h1>
+        <h1 class="hoa-front-title">Prepare smarter.<br><span>Learn better.<br>Perform stronger.</span></h1>
         <p class="hoa-front-copy">
-          Practice with structured mock tests, review your performance, follow your preparation journey,
-          and stay connected with HUB OF ASPIRANTS.
+          A complete preparation platform for Mock Tests, Live &amp; Recorded Classes,
+          Notes, Career Guidance and your learning journey with HUB OF ASPIRANTS.
         </p>
-
       </div>
 
       <div class="hoa-front-visual" aria-hidden="true">
@@ -15383,15 +16342,15 @@ body:has(#studentOnlyDashboard:not(.hidden)){
         <div class="hoa-front-card-stack">
           <div class="hoa-front-feature">
             <div class="hoa-front-feature-icon">📝</div>
-            <div><b>Mock Tests</b><span>CBT-style practice with timed examination flow.</span></div>
+            <div><b>Mock Tests</b><span>Structured practice for competitive-exam preparation.</span></div>
           </div>
           <div class="hoa-front-feature">
-            <div class="hoa-front-feature-icon">📊</div>
-            <div><b>Performance</b><span>Review scores, attempts and detailed results.</span></div>
+            <div class="hoa-front-feature-icon">🎥</div>
+            <div><b>Live &amp; Recorded Classes</b><span>Learn through live sessions and recorded lectures.</span></div>
           </div>
           <div class="hoa-front-feature">
             <div class="hoa-front-feature-icon">📚</div>
-            <div><b>Focused Preparation</b><span>Built around consistent competitive-exam practice.</span></div>
+            <div><b>Notes &amp; Career Guidance</b><span>Access study materials and useful career guidance in one place.</span></div>
           </div>
         </div>
       </div>
@@ -15453,10 +16412,10 @@ body:has(#studentOnlyDashboard:not(.hidden)){
       <h2 class="hoa-front-section-title">Everything in one place</h2>
       <p class="hoa-front-section-sub">A focused preparation environment for students preparing through HUB OF ASPIRANTS.</p>
       <div class="hoa-front-features">
-        <article class="hoa-front-feature-box"><div class="icon">🎯</div><h3>Mock Tests</h3><p>Attempt available tests in a structured examination interface.</p></article>
-        <article class="hoa-front-feature-box"><div class="icon">📈</div><h3>Results & Review</h3><p>Check performance, marks, percentage and attempted-question review.</p></article>
-        <article class="hoa-front-feature-box"><div class="icon">⏱️</div><h3>Timed Practice</h3><p>Build speed and exam discipline with a proper test timer.</p></article>
-        <article class="hoa-front-feature-box"><div class="icon">🔐</div><h3>Student Access</h3><p>Use your existing student account to enter your preparation dashboard.</p></article>
+        <article class="hoa-front-feature-box"><div class="icon">🎯</div><h3>Mock Tests</h3><p>Practice with structured mock tests designed for competitive-exam preparation.</p></article>
+        <article class="hoa-front-feature-box"><div class="icon">🎥</div><h3>Live & Recorded Classes</h3><p>Attend live classes and access recorded lectures through your assigned batches.</p></article>
+        <article class="hoa-front-feature-box"><div class="icon">📚</div><h3>Notes</h3><p>Access organized exam notes and study materials provided for your preparation.</p></article>
+        <article class="hoa-front-feature-box"><div class="icon">🧭</div><h3>Career Guidance</h3><p>Get guidance and useful information to plan your competitive-exam preparation and career.</p></article>
       </div>
     </section>
   </main>
@@ -15472,6 +16431,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
     </div>
 
     <div class="hoa-v619-actions">
+      <span class="hoa-v619-follow-label">Follow us on</span>
       <a class="hoa-v619-social" href="https://www.youtube.com/@hubofaspirants" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z"/></svg>
         <span>YouTube</span>
@@ -15981,16 +16941,6 @@ Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;
     </div>
   </div>
 </div>
-
-
-
-<div class="missionBrandFooter" style="text-align:center;padding:28px 16px 34px;color:#64748b">
-<img alt="HUB OF ASPIRANTS" class="footer-logo" src="hoa-logo-updated.png"/>
-<div style="font-weight:800;color:#0f172a;font-size:15px">HUB OF ASPIRANTS</div>
-
-<div style="font-size:11px;margin-top:6px">Dream. Prepare. Conquer</div>
-</div>
-
 <!-- =========================================================
      HUB OF ASPIRANTS — V1.2 PATCH
      Major fixes only. Existing Supabase configuration and core
@@ -16691,7 +17641,7 @@ async function registerStudent(){
     saveUsers(users);
     renderAdminStudents();
 
-    alert("You have successfully registered.\n\nPlease ask the Admin for your unique password.");
+    alert("You have successfully registered.Please ask the Admin for your unique password.");
     document.getElementById("regAccessType").value="paid";
     document.getElementById("regName").value="";
     document.getElementById("regEmail").value="";
@@ -16937,10 +17887,10 @@ async function deleteStudent(id){
   if(!user)return;
 
   const confirmed=confirm(
-    "Confirm Delete\n\n"+
-    "Student: "+user.name+"\n"+
-    "Email: "+user.email+"\n"+
-    "Mobile: "+user.mobile+"\n\n"+
+    "Confirm Delete"+
+    "Student: "+user.name+""+
+    "Email: "+user.email+""+
+    "Mobile: "+user.mobile+""+
     "Are you sure you want to permanently delete this student?"
   );
   if(!confirmed)return;
@@ -17012,7 +17962,7 @@ async function assignStudentPassword(id){
     if(data?.error) throw new Error(data.error);
     await loadStudentsFromSupabase();
     renderAdminStudents();
-    alert("Password assigned successfully. Give this password to the student.\n\nThe candidate's Supabase Auth account is now active.");
+    alert("Password assigned successfully. Give this password to the student.The candidate's Supabase Auth account is now active.");
   }catch(e){
     alert("Password update failed: "+supaError("password update",e));
   }
@@ -17042,7 +17992,7 @@ async function resetStudentPassword(id){
     if(data?.error) throw new Error(data.error);
     await loadStudentsFromSupabase();
     renderAdminStudents();
-    alert("Password reset successfully.\n\nNew password: "+(data?.password||""));
+    alert("Password reset successfully.New password: "+(data?.password||""));
   }catch(e){
     alert("Reset failed: "+supaError("password reset",e));
   }
@@ -17777,7 +18727,7 @@ async function saveCurrentAsTest(){
   const normalizedTitle=testTitle.toLowerCase();
   const duplicate=tests.some(t=>String(t.title||"").trim().replace(/\s+/g," ").toLowerCase()===normalizedTitle);
   if(duplicate){
-    alert(`A mock test named "${testTitle}" already exists.\n\nPlease enter a different Test Title.`);
+    alert(`A mock test named "${testTitle}" already exists.Please enter a different Test Title.`);
     const titleBox=document.getElementById("titleInput");
     if(titleBox){titleBox.focus();titleBox.select();}
     return;
@@ -17886,7 +18836,7 @@ function renderCSVPreview(){
 function downloadSampleCSV(){
   if(!requireAdmin("CSV tools")) return;
   const rows=[["Question","Option 1","Option 2","Option 3","Option 4","Correct Option","Explanation"],...questions];
-  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r\n");
+  const csv=rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(",")).join("\r");
   const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
   const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="TES_Mock_Test_Sample.csv";a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href),500);
@@ -18711,7 +19661,7 @@ window.__missionTESCurrentElapsedSeconds=elapsedSeconds;
    console.error(e);
    if(supabaseClient && currentStudent && !adminPreviewMode){
      submitted=false;
-     alert("Your result could not be securely saved. Please try submitting again.\n\n"+supaError("secure submission",e));
+     alert("Your result could not be securely saved. Please try submitting again."+supaError("secure submission",e));
      return;
    }
    // Offline/local preview fallback only.
@@ -19139,8 +20089,8 @@ updateRegistrationTypeUI();
      --------------------------------------------------------- */
   function parseCSV(text){
     text=String(text??'').replace(/^\uFEFF/,'');
-    if(!/[\r\n]/.test(text) && /\\n/.test(text)) text=text.replace(/\\r?\\n/g,'\n');
-    const first=(text.split(/\r?\n/)[0]||'');
+    if(!/[\r]/.test(text) && /\/.test(text)) text=text.replace(/\\r?\/g,'');
+    const first=(text.split(/\r?/)[0]||'');
     let delimiter=',';
     if(first.includes('\t') && !first.includes(',')) delimiter='\t';
     else if(first.includes(';') && first.split(';').length>=5 && first.split(',').length<5) delimiter=';';
@@ -19150,7 +20100,7 @@ updateRegistrationTypeUI();
       if(c==='"'){
         if(quoted && n==='"'){cell+='"';i++;} else quoted=!quoted;
       }else if(c===delimiter && !quoted){row.push(cell);cell='';}
-      else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&n==='\n')i++;row.push(cell);cell='';if(row.some(x=>String(x).trim()!==''))rows.push(row);row=[];}
+      else if((c===''||c==='\r')&&!quoted){if(c==='\r'&&n==='')i++;row.push(cell);cell='';if(row.some(x=>String(x).trim()!==''))rows.push(row);row=[];}
       else cell+=c;
     }
     if(cell!==''||row.length){row.push(cell);if(row.some(x=>String(x).trim()!==''))rows.push(row);}
@@ -19292,7 +20242,7 @@ updateRegistrationTypeUI();
     const candidate=r.userName||'Candidate';
     const test=r.title||'Mock Test';
     const id=String(r.id);
-    const ok=confirm('DELETE RESULT / ATTEMPT?\n\nCandidate: '+candidate+'\nTest: '+test+'\nAttempt ID: '+id+'\n\nThis permanently deletes the attempt and any related records covered by the database cascade rules.\n\nThis action cannot be undone.');
+    const ok=confirm('DELETE RESULT / ATTEMPT?Candidate: '+candidate+'Test: '+test+'Attempt ID: '+id+'This permanently deletes the attempt and any related records covered by the database cascade rules.This action cannot be undone.');
     if(!ok)return;
     try{
       if(!supabaseClient || !supabaseClient.functions) throw new Error('Supabase is not ready.');
@@ -19429,12 +20379,12 @@ updateRegistrationTypeUI();
   window.exportAdminResultsCSV=function(){
     const rows=window.__adminFilteredResults||resultRows; if(!rows.length){alert('No results to export.');return;}
     const data=[['Candidate Name','Email','Candidate Type','Test','Score','Max Marks','Correct','Wrong','Skipped','Percentage'],...rows.map(r=>[r.userName||r.name||'',r.email||'',resultAccess(r).toUpperCase(),r.title||'',score(r).toFixed(2),maxMarks(r)?maxMarks(r).toFixed(2):'',Number(r.correct||0),Number(r.wrong||0),Number(r.skipped||0),pct(r).toFixed(2)])];
-    const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"'; const blob=new Blob([data.map(row=>row.map(esc).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='MISSION_TES_Results.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+    const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"'; const blob=new Blob([data.map(row=>row.map(esc).join(',')).join('\r')],{type:'text/csv;charset=utf-8;'}); const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='MISSION_TES_Results.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
   };
   window.exportTestWiseCSV=function(){
     const key=document.getElementById('testWiseTestSelect')?.value||''; const date=document.getElementById('testWiseDate')?.value||''; let rows=resultRows.filter(r=>String(r.testId||r.title||'')===key);if(date)rows=rows.filter(r=>String(r.date||'').slice(0,10)===date);rows.sort((a,b)=>pct(b)-pct(a)); if(!rows.length){alert('Select a test with results first.');return;}
     const data=[['Name of the Test',rows[0].title||'Mock Test'],['Subject','—'],['Date',date||String(rows[0].date||'').slice(0,10)],[],['Sl. No.','Candidate Name','Email','Individual Score','Percentage'],...rows.map((r,i)=>[i+1,r.userName||'',r.email||'',score(r).toFixed(2)+(maxMarks(r)?' / '+maxMarks(r).toFixed(2):''),pct(r).toFixed(2)+'%'])];
-    const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"'; const blob=new Blob([data.map(row=>row.map(esc).join(',')).join('\r\n')],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='MISSION_TES_'+(rows[0].title||'Result').replace(/[^\w\-]+/g,'_').slice(0,80)+'_Result.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+    const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"'; const blob=new Blob([data.map(row=>row.map(esc).join(',')).join('\r')],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='MISSION_TES_'+(rows[0].title||'Result').replace(/[^\w\-]+/g,'_').slice(0,80)+'_Result.csv';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
   };
   window.printTestWiseResult=function(){window.print();};
 
@@ -20949,7 +21899,7 @@ function violation(reason){
       table==="tests" ? "Deleting this test will also delete its questions and related attempts/answers because of database CASCADE rules." :
       table==="questions" ? "Deleting this question will also delete its stored answers from existing attempts." :
       "This will permanently delete the selected record.";
-    if(!confirm("Delete "+label+"?\\n\\n"+warning+"\\n\\nThis cannot be undone."))return;
+    if(!confirm("Delete "+label+"?\\"+warning+"\\This cannot be undone."))return;
     try{
       await verifyAdmin();
       if(table==="attempts"){
@@ -22038,28 +22988,73 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 
 
 <!-- V6.0.53 Connect Us widget -->
+
+<footer class="hoa-professional-footer" id="hoaProfessionalFooter">
+  <div class="hoa-footer-inner">
+    <div class="hoa-footer-brand">
+      <div class="hoa-footer-brand-name">HUB OF ASPIRANTS</div>
+      <div class="hoa-footer-tagline">Dream • Prepare • Conquer</div>
+    </div>
+
+    <nav class="hoa-footer-links" aria-label="Footer navigation">
+      <a href="#hoaFrontPage">Home</a>
+      <a href="#hoaFrontFeatures">Features</a>
+      <a href="#hoaCareerComingSoon" title="Career opportunities at HUB OF ASPIRANTS" aria-label="Career Opportunities — Coming Soon">Career Opportunities <span class="hoa-career-soon">Coming Soon</span></a>
+      <a href="#hoaV648StudentOptions">Student Area</a>
+    </nav>
+
+    <div class="hoa-footer-contact">
+      <div class="hoa-footer-heading">Contact</div>
+      <a href="mailto:hubofaspirants@gmail.com">hubofaspirants@gmail.com</a>
+    </div>
+  </div>
+
+  <div class="hoa-footer-divider"></div>
+
+  <div class="hoa-footer-bottom">
+    <span>© 2026 HUB OF ASPIRANTS. All rights reserved.</span>
+  </div>
+</footer>
+
 <div class="hoa-v653-connect-wrap" id="hoaV653ConnectWrap">
-  <button class="hoa-v653-connect-toggle" id="hoaV653ConnectToggle" type="button" aria-expanded="false" aria-controls="hoaV653ConnectPanel">
-    <span class="hoa-v653-connect-icon" aria-hidden="true">↗</span><span>Connect Us</span>
+  <button class="hoa-v653-connect-toggle" id="hoaV653ConnectToggle" type="button"
+          aria-expanded="false" aria-controls="hoaV653ConnectPanel">
+    <span class="hoa-v653-connect-icon" aria-hidden="true">
+  <svg viewBox="0 0 24 24" focusable="false">
+    <path d="M9.5 14.5 14.5 9.5"/>
+    <path d="M7.8 17.2 6.1 18.9a3.6 3.6 0 1 1-5.1-5.1l3.3-3.3a3.6 3.6 0 0 1 5.1 0"/>
+    <path d="m16.2 6.8 1.7-1.7a3.6 3.6 0 1 1 5.1 5.1l-3.3 3.3a3.6 3.6 0 0 1-5.1 0"/>
+  </svg>
+</span><span>Connect Us</span>
   </button>
-  <div class="hoa-v653-connect-panel" id="hoaV653ConnectPanel" role="dialog" aria-label="Connect with HUB OF ASPIRANTS">
+  <div class="hoa-v653-connect-panel" id="hoaV653ConnectPanel" role="dialog"
+       aria-label="Connect with HUB OF ASPIRANTS">
     <div class="hoa-v653-connect-panel-title">Connect with HUB OF ASPIRANTS</div>
     <div class="hoa-v653-connect-grid">
-      <a class="hoa-v653-connect-link" href="https://www.youtube.com/@hubofaspirants" target="_blank" rel="noopener noreferrer" aria-label="Open YouTube">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z"/></svg><span>YouTube</span>
+      <button class="hoa-v653-connect-link hoa-v653-connect-disabled" type="button"
+              aria-label="Telegram — coming soon" disabled>
+        <span class="hoa-v653-placeholder-icon hoa-icon-telegram" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M21.6 3.6 2.9 10.8c-.8.3-.8 1.1-.1 1.4l4.8 1.8 1.8 5.7c.2.7.7.8 1.2.4l2.7-2.5 4.9 3.6c.6.4 1.2.1 1.4-.6l3.1-16.1c.2-.9-.5-1.4-1.1-1.1ZM9.1 13.6l9.1-7.2c.4-.3.8-.1.5.2l-7.5 8.1-.3 3.1-1.8-4.2Z"/></svg>
+    </span><span>Telegram</span>
+      </button>
+      <button class="hoa-v653-connect-link hoa-v653-connect-disabled" type="button"
+              aria-label="WhatsApp — coming soon" disabled>
+        <span class="hoa-v653-placeholder-icon hoa-icon-whatsapp" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 2.2a9.8 9.8 0 0 0-8.5 14.7L2.2 21.8l5.1-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1a6.4 6.4 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.6c-.1-.2 0-.3.1-.5l.4-.5c.1-.2.1-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1 2.5c.1.2 1.8 2.8 4.4 3.9 2.2 1 2.2.7 2.6.7.4 0 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.1-.5-.2Z"/></svg>
+    </span><span>WhatsApp</span>
+      </button>
+      <a class="hoa-v653-connect-link" href="mailto:hubofaspirants@gmail.com"
+         aria-label="Email HUB OF ASPIRANTS">
+        <span class="hoa-v653-placeholder-icon hoa-icon-email" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10A1.5 1.5 0 0 1 21 18.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm0 1.8v.1l9 6.1 9-6.1v-.1H3Zm18 9.4V9.5l-8.5 5.8a.9.9 0 0 1-1 0L3 9.5v7.2c0 .1.1.2.2.2h17.6c.1 0 .2-.1.2-.2Z"/></svg>
+    </span><span>Email</span>
       </a>
-      <a class="hoa-v653-connect-link" href="https://t.me/HOA_TES_PWD" target="_blank" rel="noopener noreferrer" aria-label="Open Telegram">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#229ED9" d="M21.7 3.2 2.8 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.5c.2.6.1.8.7.8.5 0 .7-.2 1-.5 1l2.3-2.2 4.8 3.5c.9.5 1.5.3 1.7-.8l3.1-14.5c.3-1.3-.5-1.9-1.1-1.6zM8.2 13.2l9.9-6.2c.5-.3 1-.1.6.3l-8.1 7.3-.3 3.1-1.1-4.5-1-.3z"/></svg><span>Telegram</span>
-      </a>
-      <a class="hoa-v653-connect-link" href="https://www.facebook.com/profile.php?id=100071764417229" target="_blank" rel="noopener noreferrer" aria-label="Open Facebook">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1877F2" d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 4v2.4H8.5V13H11v8h2.7z"/></svg><span>Facebook</span>
-      </a>
-      <a class="hoa-v653-connect-link" href="https://chat.whatsapp.com/JxQKxEhxGgaCPrmc3KNFJT?s=cl&p=a&ilr=0" target="_blank" rel="noopener noreferrer" aria-label="Open WhatsApp">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#25D366" d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .1 5.4.1 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.6a12 12 0 0 0 5.8 1.5h.1c6.6 0 11.9-5.4 11.9-12 0-3.2-1.3-6.2-3.6-8.4zM12.1 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.1 12c0-5.5 4.5-9.9 10-9.9 2.7 0 5.2 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.5 9.8-9.9 9.8zm5.4-7.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.2-.3-.5.3-.5.8-1.6.1-.2 0-.4-.1-.6-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.2-.3-.3-.6-.4z"/></svg><span>WhatsApp</span>
-      </a>
-      <a class="hoa-v653-connect-link email" href="mailto:dwipjoy2d@gmail.com" aria-label="Send email">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#64748B" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg><span>Email</span>
-      </a>
+      <button class="hoa-v653-connect-link hoa-v653-connect-disabled" type="button"
+              aria-label="Call — coming soon" disabled>
+        <span class="hoa-v653-placeholder-icon hoa-icon-call" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M6.6 2.5 9.2 2c.6-.1 1.1.2 1.3.8l1.2 3.4c.2.5 0 1-.4 1.3L9.8 9a14.7 14.7 0 0 0 5.2 5.2l1.5-1.5c.4-.4.9-.5 1.3-.3l3.4 1.2c.6.2.9.7.8 1.3l-.5 2.6c-.1.6-.7 1-1.3 1C11.3 18.5 5.5 12.7 5.5 5.8c0-.6.4-1.2 1.1-1.3Z"/></svg>
+    </span><span>Call</span>
+      </button>
     </div>
   </div>
 </div>
@@ -22517,7 +23512,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 }
 </style>
 
-\n<style id="hoa-v6074-poster-max-visibility">\n/* V6.0.75 — larger poster presentation stage. Existing poster assets/data are untouched. */\n#hoaV643PosterWrap.hoa643-poster-wrap{\n  height:clamp(680px,68vw,820px) !important;\n  min-height:680px !important;\n  padding:30px 118px !important;\n  overflow:hidden !important;\n  border-radius:28px !important;\n}\n#hoaV643PosterWrap .hoa643-poster-slide{\n  width:min(72vw,860px) !important;\n  height:calc(100% - 60px) !important;\n  max-width:860px !important;\n  max-height:none !important;\n  border-radius:24px !important;\n}\n#hoaV643PosterWrap .hoa643-poster-slide img{\n  display:block !important;\n  width:100% !important;\n  height:100% !important;\n  max-width:100% !important;\n  max-height:100% !important;\n  object-fit:contain !important;\n  object-position:center center !important;\n  padding:12px !important;\n  background:#fff !important;\n}\n#hoaV643PosterWrap .hoa643-poster-center{\n  transform:translate3d(-50%,-50%,0) scale(1) !important;\n  z-index:10 !important;\n}\n#hoaV643PosterWrap .hoa643-poster-left{\n  transform:translate3d(-110%,-50%,0) scale(.72) !important;\n  opacity:.25 !important;\n  filter:blur(3px) saturate(.65) !important;\n}\n#hoaV643PosterWrap .hoa643-poster-right{\n  transform:translate3d(10%,-50%,0) scale(.72) !important;\n  opacity:.25 !important;\n  filter:blur(3px) saturate(.65) !important;\n}\n@media (max-width:1100px){\n  #hoaV643PosterWrap.hoa643-poster-wrap{\n    height:clamp(620px,76vw,740px) !important;\n    min-height:620px !important;\n    padding:28px 92px !important;\n  }\n  #hoaV643PosterWrap .hoa643-poster-slide{\n    width:min(72vw,740px) !important;\n    height:calc(100% - 56px) !important;\n    max-width:740px !important;\n  }\n}\n@media (max-width:700px){\n  #hoaV643PosterWrap.hoa643-poster-wrap{\n    height:clamp(520px,125vw,650px) !important;\n    min-height:520px !important;\n    padding:22px 60px !important;\n    border-radius:22px !important;\n  }\n  #hoaV643PosterWrap .hoa643-poster-slide{\n    width:min(82vw,540px) !important;\n    height:calc(100% - 44px) !important;\n    max-width:540px !important;\n    border-radius:20px !important;\n  }\n  #hoaV643PosterWrap .hoa643-poster-slide img{padding:8px !important;}\n  #hoaV643PosterWrap .hoa643-poster-left{\n    transform:translate3d(-88%,-50%,0) scale(.62) !important;\n    opacity:.18 !important;\n  }\n  #hoaV643PosterWrap .hoa643-poster-right{\n    transform:translate3d(-12%,-50%,0) scale(.62) !important;\n    opacity:.18 !important;\n  }\n}\n</style>\n
+<style id="hoa-v6074-poster-max-visibility">/* V6.0.75 — larger poster presentation stage. Existing poster assets/data are untouched. */#hoaV643PosterWrap.hoa643-poster-wrap{  height:clamp(680px,68vw,820px) !important;  min-height:680px !important;  padding:30px 118px !important;  overflow:hidden !important;  border-radius:28px !important;}#hoaV643PosterWrap .hoa643-poster-slide{  width:min(72vw,860px) !important;  height:calc(100% - 60px) !important;  max-width:860px !important;  max-height:none !important;  border-radius:24px !important;}#hoaV643PosterWrap .hoa643-poster-slide img{  display:block !important;  width:100% !important;  height:100% !important;  max-width:100% !important;  max-height:100% !important;  object-fit:contain !important;  object-position:center center !important;  padding:12px !important;  background:#fff !important;}#hoaV643PosterWrap .hoa643-poster-center{  transform:translate3d(-50%,-50%,0) scale(1) !important;  z-index:10 !important;}#hoaV643PosterWrap .hoa643-poster-left{  transform:translate3d(-110%,-50%,0) scale(.72) !important;  opacity:.25 !important;  filter:blur(3px) saturate(.65) !important;}#hoaV643PosterWrap .hoa643-poster-right{  transform:translate3d(10%,-50%,0) scale(.72) !important;  opacity:.25 !important;  filter:blur(3px) saturate(.65) !important;}@media (max-width:1100px){  #hoaV643PosterWrap.hoa643-poster-wrap{    height:clamp(620px,76vw,740px) !important;    min-height:620px !important;    padding:28px 92px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide{    width:min(72vw,740px) !important;    height:calc(100% - 56px) !important;    max-width:740px !important;  }}@media (max-width:700px){  #hoaV643PosterWrap.hoa643-poster-wrap{    height:clamp(520px,125vw,650px) !important;    min-height:520px !important;    padding:22px 60px !important;    border-radius:22px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide{    width:min(82vw,540px) !important;    height:calc(100% - 44px) !important;    max-width:540px !important;    border-radius:20px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide img{padding:8px !important;}  #hoaV643PosterWrap .hoa643-poster-left{    transform:translate3d(-88%,-50%,0) scale(.62) !important;    opacity:.18 !important;  }  #hoaV643PosterWrap .hoa643-poster-right{    transform:translate3d(-12%,-50%,0) scale(.62) !important;    opacity:.18 !important;  }}</style>
 
 <style id="hoa-v6076-poster-section-extra-large">
 /* V6.0.76 — extra-large existing poster presentation.
