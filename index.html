@@ -13303,7 +13303,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 @media(max-width:700px){#adminOnlyDashboard .hoaV643AdminNavExtra{grid-template-columns:1fr}}
 </style>
 <style id="hoa-v649-front-polish">
-/* V6.0.49 — Front page visual polish: redesigned top/bottom bars + subtle motion */
+/* V6.0.50 — Front page visual polish: redesigned top/bottom bars + subtle motion */
 #hoaFrontPage{overflow:hidden;background:linear-gradient(180deg,#f8fbff 0%,#f1f6fc 48%,#fff 100%)}
 #hoaFrontPage .hoa-front-nav{
   position:sticky!important;top:10px!important;width:min(1180px,calc(100% - 24px))!important;margin:10px auto 0!important;
@@ -13380,6 +13380,66 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   #hoaFrontPage *,#hoaFrontSocialFooter *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
 </style>
+
+<style id="hoa-v650-socialbar">
+/* V6.0.50 — Social bottom bar redesign */
+#hoa-v648-socialBar, #hoaV648SocialBar, .hoa-social-bar, [class*="socialBar"]{
+  --hoa-social-height:64px;
+}
+.hoa-v650-socialbar{
+  position:fixed;
+  left:50%;
+  bottom:18px;
+  transform:translateX(-50%);
+  z-index:9990;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 10px;
+  border:1px solid rgba(255,255,255,.72);
+  border-radius:22px;
+  background:rgba(255,255,255,.94);
+  box-shadow:0 12px 34px rgba(15,23,42,.16);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.hoa-v650-socialbar .hoa-v650-social{
+  width:44px;height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  text-decoration:none;
+  border:1px solid rgba(15,23,42,.08);
+  background:#fff;
+  box-shadow:0 4px 12px rgba(15,23,42,.07);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.hoa-v650-socialbar .hoa-v650-social:hover{
+  transform:translateY(-3px);
+  box-shadow:0 8px 18px rgba(15,23,42,.14);
+}
+.hoa-v650-socialbar svg{width:23px;height:23px;display:block}
+.hoa-v650-divider{width:1px;height:28px;background:rgba(15,23,42,.12);margin:0 3px}
+.hoa-v650-admin{
+  width:auto!important;
+  padding:0 14px;
+  gap:7px;
+  color:#334155;
+  font:700 12px/1 system-ui,sans-serif;
+}
+.hoa-v650-admin svg{width:17px!important;height:17px!important}
+@media(max-width:600px){
+  .hoa-v650-socialbar{bottom:10px;gap:5px;padding:6px 7px;border-radius:18px}
+  .hoa-v650-socialbar .hoa-v650-social{width:39px;height:39px;border-radius:12px}
+  .hoa-v650-socialbar svg{width:20px;height:20px}
+  .hoa-v650-admin{padding:0 10px!important;font-size:11px}
+  .hoa-v650-divider{height:24px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hoa-v650-socialbar .hoa-v650-social{transition:none}
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -19992,5 +20052,27 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 })();
 </script>
+
+<!-- V6.0.50 — Redesigned social bottom bar -->
+<nav class="hoa-v650-socialbar" aria-label="HUB OF ASPIRANTS social links">
+  <a class="hoa-v650-social" href="https://www.youtube.com/@hubofaspirants" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8Z"/><path fill="#fff" d="m9.6 15.9 6.3-3.9-6.3-3.9v7.8Z"/></svg>
+  </a>
+  <a class="hoa-v650-social" href="https://t.me/HOA_TES_PWD" target="_blank" rel="noopener noreferrer" aria-label="Telegram" title="Telegram">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#229ED9"/><path fill="#fff" d="m17.9 6.8-2.1 10c-.2.7-.6.9-1.2.6l-3.3-2.4-1.6 1.5c-.2.2-.4.4-.8.4l.3-3.4 6.2-5.6c.3-.3-.1-.4-.5-.2l-7.7 4.9-3.3-1c-.7-.2-.7-.7.1-1l12.9-5c.6-.2 1.1.1 1 1.2Z"/></svg>
+  </a>
+  <a class="hoa-v650-social" href="#" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#25D366"/><path fill="#fff" d="M17.3 6.7A7.4 7.4 0 0 0 5.1 15l-1 3.7 3.8-1A7.4 7.4 0 0 0 17.3 6.7Zm-5.2 11a6.2 6.2 0 0 1-3.2-.9l-.2-.1-2.3.6.6-2.2-.1-.2a6.2 6.2 0 1 1 5.2 2.8Zm3.4-4.6c-.2-.1-1.2-.6-1.4-.6s-.3-.1-.5.2-.5.6-.6.7-.2.1-.4 0a5.2 5.2 0 0 1-1.5-.9 5.7 5.7 0 0 1-1-1.3c-.1-.2 0-.3.1-.4l.3-.3.2-.3c.1-.1 0-.2 0-.3l-.6-1.4c-.2-.4-.3-.4-.5-.4h-.4c-.2 0-.4.1-.5.2-.2.2-.7.7-.7 1.7s.7 2  .8 2.1c.1.1 1.4 2.2 3.5 3.1.5.2.9.4 1.2.5.5.2 1 .2 1.3.1.4-.1 1.2-.5 1.4-1 .2-.5.2-.9.1-1-.1-.1-.2-.1-.4-.2Z"/></svg>
+  </a>
+  <a class="hoa-v650-social" href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="12" fill="#1877F2"/><path fill="#fff" d="M13.4 20v-7h2.3l.4-2.7h-2.7V8.6c0-.8.2-1.3 1.4-1.3h1.5V4.9c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5v2H8.6V13h2.3v7h2.5Z"/></svg>
+  </a>
+  <span class="hoa-v650-divider" aria-hidden="true"></span>
+  <a class="hoa-v650-social hoa-v650-admin" href="#" aria-label="Admin Login" title="Admin Login">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 8.4 7 10 4.1-1.6 7-5.5 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.8"/><path d="M9.5 12.2 11.2 14l3.5-3.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Admin
+  </a>
+</nav>
+
 </body>
 </html>
