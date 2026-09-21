@@ -1,5 +1,5 @@
 <!-- HUB OF ASPIRANTS V6.0.81 — Scroll-linked hero animation -->
-<!-- HUB OF ASPIRANTS V6.0.104 — Mobile navigation polish -->
+<!-- HUB OF ASPIRANTS V6.0.105 — Mobile navigation polish -->
 <!-- HUB OF ASPIRANTS V6.0.79 — Animated non-clickable hero section -->
 <!-- HUB OF ASPIRANTS V6.0.78 — Student Area full-card button polish -->
 <!-- HOA V6.0.0 — Production Ready hardening from confirmed V5.9.9 MASTER -->
@@ -16283,6 +16283,15 @@ body *{box-sizing:border-box;}
 }
 </style>
 
+
+<style id="hoa-v6105-poster-loading-fix">
+#hoaV643PosterWrap .hoa643-poster-slide img{
+  display:block !important;
+  max-width:100% !important;
+  max-height:100% !important;
+}
+</style>
+
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -20089,7 +20098,7 @@ updateRegistrationTypeUI();
      --------------------------------------------------------- */
   function parseCSV(text){
     text=String(text??'').replace(/^\uFEFF/,'');
-    if(!/[\r]/.test(text) && /\/.test(text)) text=text.replace(/\\r?\/g,'');
+    if(!/[\r]/.test(text) && /\\r/.test(text)) text=text.replace(/\\r/g,'');
     const first=(text.split(/\r?/)[0]||'');
     let delimiter=',';
     if(first.includes('\t') && !first.includes(',')) delimiter='\t';
