@@ -13284,6 +13284,15 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 #adminOnlyDashboard .adminSectionNav{grid-template-columns:repeat(7,minmax(0,1fr)) !important;}
 @media(max-width:1000px){#adminOnlyDashboard .adminSectionNav{grid-template-columns:repeat(3,minmax(0,1fr)) !important;}}
 @media(max-width:700px){#adminOnlyDashboard .adminSectionNav{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}}
+<style id="hoa-v646-admin-feature-visibility">
+#adminOnlyDashboard .hoaV643AdminNavExtra{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;margin:8px 0 14px}
+#adminOnlyDashboard .hoaV643AdminNavExtra button{display:inline-flex!important;visibility:visible!important;align-items:center;justify-content:center;min-height:44px;padding:10px 12px;border:1px solid #cbd8e6;border-radius:10px;background:#fff;color:#173f6b;font-weight:800;cursor:pointer}
+#adminOnlyDashboard .hoaV643AdminNavExtra button.active{background:#173f6b;color:#fff}
+#adminOnlyDashboard #hoaV643AdminModules{display:block!important;width:100%}
+#adminOnlyDashboard #hoaV643AdminModules>.adminSectionPanel{display:none!important}
+#adminOnlyDashboard #hoaV643AdminModules>.adminSectionPanel.active{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+@media(max-width:700px){#adminOnlyDashboard .hoaV643AdminNavExtra{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -14977,6 +14986,7 @@ function openAdminTab(){
   }
   showDashboardTab("admin");
   showAdminSection("student");
+  setTimeout(function(){ if(window.hoaV643EnsureAdminModules) window.hoaV643EnsureAdminModules(); },0);
 }
 function setAuthScreenVisible(visible){
   const auth=document.getElementById("authScreen");
@@ -19743,8 +19753,10 @@ async function openBatch(id){var c=S(),player=document.getElementById('hoaV643Ba
 
 function addAdminModules(){
  var root=document.getElementById('adminOnlyDashboard'),nav=root&&root.querySelector('.adminSectionNav');if(!root||!nav||document.getElementById('hoaV643AdminModules'))return;
- function navBtn(id,text,sec){var b=document.createElement('button');b.id=id;b.type='button';b.textContent=text;b.onclick=function(){showAdmin(sec)};nav.appendChild(b)}
- navBtn('hoaV643AdminNotesBtn','📚 Exam Notes','notes');navBtn('hoaV643AdminBatchesBtn','🎥 Batches','batches');navBtn('hoaV643AdminAccessBtn','🎟 Access','access');
+ function navBtn(id,text,sec){var b=document.createElement('button');b.id=id;b.type='button';b.textContent=text;b.onclick=function(){showAdmin(sec)};return b}
+ var extra=document.getElementById('hoaV643AdminNavExtra');
+ if(!extra){extra=document.createElement('div');extra.id='hoaV643AdminNavExtra';extra.className='hoaV643AdminNavExtra';nav.parentElement.insertBefore(extra,nav.nextSibling)}
+ extra.appendChild(navBtn('hoaV643AdminNotesBtn','📚 Exam Notes','notes'));extra.appendChild(navBtn('hoaV643AdminBatchesBtn','🎥 Batches','batches'));extra.appendChild(navBtn('hoaV643AdminAccessBtn','🎟 Access','access'));
  var holder=document.createElement('div');holder.id='hoaV643AdminModules';holder.innerHTML='<div class="adminSectionPanel" id="hoaV643AdminNotes"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>📚 Exam Notes Management</h3><p>Upload and publish study materials. Students only see notes assigned to their account.</p></div></div><div class="hoa643-admin-form"><label>Title<input id="hoa643NoteTitle" placeholder="e.g. SOM Complete Notes"></label><label>Subject<input id="hoa643NoteSubject" placeholder="e.g. Strength of Materials"></label><label>Exam<input id="hoa643NoteExam" placeholder="e.g. TES JE 2026"></label><label>Order<input id="hoa643NoteOrder" type="number" value="0"></label><label class="full">Description<textarea id="hoa643NoteDesc" placeholder="Short description"></textarea></label><label>PDF / Document<input id="hoa643NoteFile" type="file" accept="application/pdf,.pdf"></label><label>Publish<select id="hoa643NotePublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveNote">UPLOAD NOTE</button><span id="hoa643NoteMsg" class="hoa643-meta"></span></div><div id="hoa643NotesAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminBatches"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎥 Batch Management</h3><p>Create multiple batches and add YouTube lectures to each batch.</p></div></div><div class="hoa643-admin-form"><label>Batch Name<input id="hoa643BatchName" placeholder="TES JE 2026 – Civil Engineering"></label><label>Batch Code<input id="hoa643BatchCode" placeholder="TESJE26"></label><label class="full">Description<textarea id="hoa643BatchDesc" placeholder="Batch description"></textarea></label><label>Publish<select id="hoa643BatchPublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveBatch">CREATE BATCH</button><span id="hoa643BatchMsg" class="hoa643-meta"></span></div><div id="hoa643BatchAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminAccess"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎟 Student Access Management</h3><p>Assign individual mock tests, study notes or complete batches to each student.</p></div></div><div class="hoa643-admin-form"><label>Student<select id="hoa643AccessStudent"></select></label><label>Resource Type<select id="hoa643AccessType"><option value="test">Mock Test</option><option value="note">Exam Note</option><option value="batch">Batch</option></select></label><label class="full">Resource<select id="hoa643AccessResource"></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643GrantAccess">GRANT ACCESS</button><button class="secondary" type="button" id="hoa643RefreshAccess">REFRESH</button></div><div id="hoa643AccessMsg" class="hoa643-meta" style="margin-top:8px"></div><div id="hoa643AccessList" class="hoa643-admin-list"></div></div></div>';
  root.appendChild(holder);
  var af=document.getElementById('hoa643AccessResource')?.parentElement; if(af && !document.getElementById('hoa644AccessStarts')){var dates=document.createElement('div');dates.className='hoa644-access-dates';dates.innerHTML='<label>Access Starts (optional)<input id="hoa644AccessStarts" type="datetime-local"></label><label>Access Expires (optional)<input id="hoa644AccessExpires" type="datetime-local"></label>';af.parentElement.appendChild(dates)}
@@ -19754,7 +19766,7 @@ function addAdminModules(){
 function showAdmin(sec){
  var ids={student:'adminSectionStudentPanel',test:'adminSectionTestPanel',result:'adminSectionResultPanel',admin:'adminSectionAdminPanel',notes:'hoaV643AdminNotes',batches:'hoaV643AdminBatches',access:'hoaV643AdminAccess'};
  document.querySelectorAll('#adminOnlyDashboard .adminSectionPanel').forEach(function(p){p.classList.toggle('active',p.id===ids[sec])});
- document.querySelectorAll('#adminOnlyDashboard .adminSectionNav button').forEach(function(b){b.classList.remove('active')});
+ document.querySelectorAll('#adminOnlyDashboard .adminSectionNav button,#adminOnlyDashboard .hoaV643AdminNavExtra button').forEach(function(b){b.classList.remove('active')});
  var map={student:'adminNavStudent',test:'adminNavTest',result:'adminNavResult',admin:'adminNavAdmin',notes:'hoaV643AdminNotesBtn',batches:'hoaV643AdminBatchesBtn',access:'hoaV643AdminAccessBtn'};var btn=document.getElementById(map[sec]);if(btn)btn.classList.add('active');
  if(sec==='notes')loadAdminNotes();if(sec==='batches')loadAdminBatches();if(sec==='access')loadAccessModule();
 }
@@ -19783,10 +19795,12 @@ function ensureAdminModules(){
   try{
     var root=document.getElementById('adminOnlyDashboard');
     var nav=root&&root.querySelector('.adminSectionNav');
-    if(root&&nav){
-      addAdminModules();
-      if(window.hoaAdminRole) applyAdminRole();
-    }
+    if(!root||!nav)return;
+    addAdminModules();
+    var extras=['hoaV643AdminNotesBtn','hoaV643AdminBatchesBtn','hoaV643AdminAccessBtn'];
+    extras.forEach(function(id){var b=document.getElementById(id);if(b){b.style.setProperty('display','inline-flex','important');b.style.setProperty('visibility','visible','important');b.style.setProperty('pointer-events','auto','important')}});
+    if(window.hoaAdminRole) applyAdminRole();
+    if(window.hoaAdminRole==='owner'&&window.hoaV643RenderOwnerAdminManager) window.hoaV643RenderOwnerAdminManager();
   }catch(e){console.warn(V+' admin modules init failed',e)}
 }
 function boot(){addFrontPoster();addStudentPanels();ensureAdminModules();wrapAuth();if(document.body.classList.contains('admin-ui'))applyAdminRole();}
@@ -19797,7 +19811,7 @@ var hoaAdminObserver=new MutationObserver(function(){
   if(root&&!root.classList.contains('hidden')&&root.querySelector('.adminSectionNav')){ensureAdminModules();}
 });
 hoaAdminObserver.observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
-window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=showAdmin;
+window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=showAdmin;window.hoaV643EnsureAdminModules=ensureAdminModules;
 })();
 </script>
 <script id="hoa-v644-owner-admin-js">
