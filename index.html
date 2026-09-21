@@ -4271,12 +4271,7 @@ body:not(.admin-ui) #studentOnlyDashboard #candidateNavResult{
 }
 
 
-/*
-  HUB OF ASPIRANTS — REMOVE WHITE-AREA BRANDING
-  UI ONLY. This removes the large "HUB OF ASPIRANTS / Civil Engineering
-  Mock Test Platform" branding shown inside the white content workspace.
-  Sidebar/header branding is intentionally preserved.
-*/
+
 
 /* Common content-branding wrappers */
 .mainContentBranding,
@@ -13303,7 +13298,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 @media(max-width:700px){#adminOnlyDashboard .hoaV643AdminNavExtra{grid-template-columns:1fr}}
 </style>
 <style id="hoa-v649-front-polish">
-/* V6.0.50 — Front page visual polish: redesigned top/bottom bars + subtle motion */
+/* V6.0.51 — Front page visual polish: redesigned top/bottom bars + subtle motion */
 #hoaFrontPage{overflow:hidden;background:linear-gradient(180deg,#f8fbff 0%,#f1f6fc 48%,#fff 100%)}
 #hoaFrontPage .hoa-front-nav{
   position:sticky!important;top:10px!important;width:min(1180px,calc(100% - 24px))!important;margin:10px auto 0!important;
@@ -13453,7 +13448,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </div>
 </div>
 <header class="header">
-<div><div class="brand">HUB OF ASPIRANTS</div><div class="sub">Civil Engineering Mock Test</div></div>
+<div><div class="brand">HUB OF ASPIRANTS</div><div class="sub">Mock Test</div></div>
 <div class="headerRight">
 <button class="hoa-admin-console-link" id="openHoaDevConsole" type="button" aria-label="Open Admin Developer Console"><span class="hoa-admin-icon">⚙</span><span>Admin Console</span></button>
 
@@ -13737,7 +13732,7 @@ from the front page. Existing login hosts and authentication workflows remain.
   <div class="studentDashboardBrandMark"><img id="studentDashboardLogo" alt="HUB OF ASPIRANTS" /></div>
   <div class="studentDashboardBrandText">
     <div class="studentDashboardTitle">HUB OF ASPIRANTS</div>
-    <div class="studentDashboardSubtitle">Civil Engineering Mock Test Platform</div>
+    <div class="studentDashboardSubtitle">Mock Test Platform</div>
   </div>
 </div>
 <div aria-label="Candidate dashboard sections" class="candidateSectionNav">
@@ -14098,7 +14093,7 @@ Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;
 <div class="missionBrandFooter" style="text-align:center;padding:28px 16px 34px;color:#64748b">
 <img alt="HUB OF ASPIRANTS" class="footer-logo" src="hoa-logo-updated.png"/>
 <div style="font-weight:800;color:#0f172a;font-size:15px">HUB OF ASPIRANTS</div>
-<div style="font-size:12px;margin-top:4px">FOR CIVIL DEGREE &amp; DIPLOMA</div>
+
 <div style="font-size:11px;margin-top:6px">Dream. Prepare. Conquer</div>
 </div>
 
@@ -15912,7 +15907,7 @@ async function saveCurrentAsTest(){
    mission-tes-v13-clean-controller below. */
 function updateHome(){
   const sub=document.getElementById("testSubtitle");
-  if(sub) sub.textContent="Civil Engineering Mock Test Platform";
+  if(sub) sub.textContent="Mock Test Platform";
 }
 document.getElementById("csvFile").addEventListener("change", function(){
   if(!requireAdmin("CSV import")){ this.value=""; return; }
@@ -16997,7 +16992,7 @@ updateRegistrationTypeUI();
     const bottom=document.createElement('div');
     bottom.className='adminReferenceBottom';
     bottom.innerHTML=(logoSrc?'<div class="adminReferenceAdminCard"><img src="'+logoSrc+'" alt=""><div><div class="adminReferenceAdminTitle">Admin Dashboard</div><div class="adminReferenceAdminSub">Manage students and tests</div></div></div>':'<div class="adminReferenceAdminCard"><div><div class="adminReferenceAdminTitle">Admin Dashboard</div><div class="adminReferenceAdminSub">Manage students and tests</div></div></div>')+
-      '<div class="adminReferenceFooter">© HUB OF ASPIRANTS<br>For Civil Degree &amp; Diploma<br>Dream. Prepare. Conquer</div>';
+      '<div class="adminReferenceFooter">© HUB OF ASPIRANTS<br>Dream. Prepare. Conquer</div>';
     sidebar.appendChild(bottom);
 
     const main=document.createElement('div');
@@ -19975,7 +19970,7 @@ function addAdminModules(){
  if(!document.getElementById('hoaV643AdminNotesBtn'))extra.appendChild(navBtn('hoaV643AdminNotesBtn','📚 Exam Notes','notes'));
  if(!document.getElementById('hoaV643AdminBatchesBtn'))extra.appendChild(navBtn('hoaV643AdminBatchesBtn','🎥 Batches','batches'));
  if(!document.getElementById('hoaV643AdminAccessBtn'))extra.appendChild(navBtn('hoaV643AdminAccessBtn','🎟 Access','access'));
- var holder=document.createElement('div');holder.id='hoaV643AdminModules';holder.innerHTML='<div class="adminSectionPanel" id="hoaV643AdminNotes"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>📚 Exam Notes Management</h3><p>Upload and publish study materials. Students only see notes assigned to their account.</p></div></div><div class="hoa643-admin-form"><label>Title<input id="hoa643NoteTitle" placeholder="e.g. SOM Complete Notes"></label><label>Subject<input id="hoa643NoteSubject" placeholder="e.g. Strength of Materials"></label><label>Exam<input id="hoa643NoteExam" placeholder="e.g. TES JE 2026"></label><label>Order<input id="hoa643NoteOrder" type="number" value="0"></label><label class="full">Description<textarea id="hoa643NoteDesc" placeholder="Short description"></textarea></label><label>PDF / Document<input id="hoa643NoteFile" type="file" accept="application/pdf,.pdf"></label><label>Publish<select id="hoa643NotePublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveNote">UPLOAD NOTE</button><span id="hoa643NoteMsg" class="hoa643-meta"></span></div><div id="hoa643NotesAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminBatches"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎥 Batch Management</h3><p>Create multiple batches and add YouTube lectures to each batch.</p></div></div><div class="hoa643-admin-form"><label>Batch Name<input id="hoa643BatchName" placeholder="TES JE 2026 – Civil Engineering"></label><label>Batch Code<input id="hoa643BatchCode" placeholder="TESJE26"></label><label class="full">Description<textarea id="hoa643BatchDesc" placeholder="Batch description"></textarea></label><label>Publish<select id="hoa643BatchPublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveBatch">CREATE BATCH</button><span id="hoa643BatchMsg" class="hoa643-meta"></span></div><div id="hoa643BatchAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminAccess"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎟 Student Access Management</h3><p>Assign individual mock tests, study notes or complete batches to each student.</p></div></div><div class="hoa643-admin-form"><label>Student<select id="hoa643AccessStudent"></select></label><label>Resource Type<select id="hoa643AccessType"><option value="test">Mock Test</option><option value="note">Exam Note</option><option value="batch">Batch</option></select></label><label class="full">Resource<select id="hoa643AccessResource"></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643GrantAccess">GRANT ACCESS</button><button class="secondary" type="button" id="hoa643RefreshAccess">REFRESH</button></div><div id="hoa643AccessMsg" class="hoa643-meta" style="margin-top:8px"></div><div id="hoa643AccessList" class="hoa643-admin-list"></div></div></div>';
+ var holder=document.createElement('div');holder.id='hoaV643AdminModules';holder.innerHTML='<div class="adminSectionPanel" id="hoaV643AdminNotes"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>📚 Exam Notes Management</h3><p>Upload and publish study materials. Students only see notes assigned to their account.</p></div></div><div class="hoa643-admin-form"><label>Title<input id="hoa643NoteTitle" placeholder="e.g. SOM Complete Notes"></label><label>Subject<input id="hoa643NoteSubject" placeholder="e.g. Strength of Materials"></label><label>Exam<input id="hoa643NoteExam" placeholder="e.g. TES JE 2026"></label><label>Order<input id="hoa643NoteOrder" type="number" value="0"></label><label class="full">Description<textarea id="hoa643NoteDesc" placeholder="Short description"></textarea></label><label>PDF / Document<input id="hoa643NoteFile" type="file" accept="application/pdf,.pdf"></label><label>Publish<select id="hoa643NotePublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveNote">UPLOAD NOTE</button><span id="hoa643NoteMsg" class="hoa643-meta"></span></div><div id="hoa643NotesAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminBatches"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎥 Batch Management</h3><p>Create multiple batches and add YouTube lectures to each batch.</p></div></div><div class="hoa643-admin-form"><label>Batch Name<input id="hoa643BatchName" placeholder="TES JE 2026"></label><label>Batch Code<input id="hoa643BatchCode" placeholder="TESJE26"></label><label class="full">Description<textarea id="hoa643BatchDesc" placeholder="Batch description"></textarea></label><label>Publish<select id="hoa643BatchPublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveBatch">CREATE BATCH</button><span id="hoa643BatchMsg" class="hoa643-meta"></span></div><div id="hoa643BatchAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminAccess"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎟 Student Access Management</h3><p>Assign individual mock tests, study notes or complete batches to each student.</p></div></div><div class="hoa643-admin-form"><label>Student<select id="hoa643AccessStudent"></select></label><label>Resource Type<select id="hoa643AccessType"><option value="test">Mock Test</option><option value="note">Exam Note</option><option value="batch">Batch</option></select></label><label class="full">Resource<select id="hoa643AccessResource"></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643GrantAccess">GRANT ACCESS</button><button class="secondary" type="button" id="hoa643RefreshAccess">REFRESH</button></div><div id="hoa643AccessMsg" class="hoa643-meta" style="margin-top:8px"></div><div id="hoa643AccessList" class="hoa643-admin-list"></div></div></div>';
  root.appendChild(holder);
  var af=document.getElementById('hoa643AccessResource')?.parentElement; if(af && !document.getElementById('hoa644AccessStarts')){var dates=document.createElement('div');dates.className='hoa644-access-dates';dates.innerHTML='<label>Access Starts (optional)<input id="hoa644AccessStarts" type="datetime-local"></label><label>Access Expires (optional)<input id="hoa644AccessExpires" type="datetime-local"></label>';af.parentElement.appendChild(dates)}
  document.getElementById('hoa643SaveNote').onclick=saveNote;document.getElementById('hoa643SaveBatch').onclick=saveBatch;document.getElementById('hoa643GrantAccess').onclick=grantAccess;document.getElementById('hoa643RefreshAccess').onclick=loadAccessModule;document.getElementById('hoa643AccessType').onchange=loadAccessResources;
