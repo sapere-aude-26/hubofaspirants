@@ -8527,7 +8527,7 @@ body:has(#exam:not(.hidden)) #authScreen{
   /* ADMIN: use exactly one logout control. Do not allow the old global
      header to create a second/overlapping visual layer. The existing JS
      may move #adminHeaderLogout to <!--
-V6.0.43 DOM safety:
+V6.0.44 DOM safety:
 Legacy V5.7/V5.8 management controls that previously reused identical IDs
 are now uniquely identified in the DOM. Existing JavaScript selectors remain
 untouched for the first/active controls; secondary legacy copies are isolated.
@@ -11583,7 +11583,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     if(state === S.FRONT){
       b.classList.add("hoa-public-front");
     }else if(state === S.PORTAL){
-      // V6.0.43: the intermediate portal-selection page no longer exists.
+      // V6.0.44: the intermediate portal-selection page no longer exists.
       state = S.FRONT;
       b.classList.add("hoa-public-front");
     }else if(state === S.STUDENT){
@@ -11983,7 +11983,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.43: V6.0.28 remains the sole public navigation controller.
+/* V6.0.44: V6.0.28 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -12019,7 +12019,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
 
 
 <style id="hoa-v633-integrated-navigation-css">
-/* V6.0.43 — one public/authenticated navigation lifecycle.
+/* V6.0.44 — one public/authenticated navigation lifecycle.
    The V6.0.28 router owns browser history. */
 body.hoa-public-front > .header,
 body.hoa-public-portal > .header,
@@ -12064,7 +12064,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidde
 
 
 <style id="hoa-v634-ui-hardening">
-/* V6.0.43 — UI hardening. No application workflow is replaced. */
+/* V6.0.44 — UI hardening. No application workflow is replaced. */
 
 /* ---------- Global rendering / overflow ---------- */
 html {
@@ -12332,7 +12332,7 @@ textarea:focus-visible,
 
 
 <style id="hoa-v635-no-portal-page">
-/* V6.0.43
+/* V6.0.44
    The intermediate "Access Your Portal" page has been removed.
    Login is opened directly from the public front page. */
 #hoaLoginChoiceView {
@@ -12348,7 +12348,7 @@ body.hoa-public-portal #hoaFrontPage {
 
 
 <style id="hoa-v636-remove-portal-screen">
-/* V6.0.43 — definitive removal of the intermediate portal-selection UI. */
+/* V6.0.44 — definitive removal of the intermediate portal-selection UI. */
 #hoaLoginChoiceView { display:none !important; }
 body.hoa-public-portal #hoaLoginPage { display:none !important; }
 body.hoa-public-portal #hoaFrontPage { display:block !important; }
@@ -12360,7 +12360,7 @@ body.hoa-public-portal #hoaAdminPortalPanel { display:none !important; }
 
 
 <style id="hoa-v637-student-login-ui">
-/* V6.0.43 — Student Login UI correction.
+/* V6.0.44 — Student Login UI correction.
    Existing authentication IDs/functions are preserved. */
 
 body.hoa-public-auth.hoa-student-auth {
@@ -12580,7 +12580,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #studentAuthMessage {
 
 
 <style id="hoa-v638-student-login-ui-final">
-/* V6.0.43 — Student Login visual correction.
+/* V6.0.44 — Student Login visual correction.
    The existing #authScreen/.dashPanel is still the functional source for
    Student authentication. It is hosted inside #hoaStudentLoginHost.
    This layer removes the redundant nested card without changing workflows. */
@@ -12731,7 +12731,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .hoa-student-login-su
 
 <style id="hoa-v639-student-dashboard-background-fix">
 /*
-  HOA V6.0.43 — Student Dashboard Background/UI correction.
+  HOA V6.0.44 — Student Dashboard Background/UI correction.
   Visual-only correction. Existing authentication, test, result, logout,
   navigation and Supabase logic are intentionally untouched.
 */
@@ -12928,7 +12928,7 @@ body.hoa-app-student #studentOnlyDashboard .profileCard{
 
 <style id="hoa-v640-student-dashboard-authoritative-fix">
 /*
-  HOA V6.0.43 — authoritative Student Dashboard background/header fix.
+  HOA V6.0.44 — authoritative Student Dashboard background/header fix.
   This block intentionally targets the ACTUAL dashboard state selector used
   by the application. No authentication, test, result, or database logic
   is modified.
@@ -13149,7 +13149,7 @@ body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboar
 
 <style id="hoa-v641-remove-student-ghost-brand">
 /*
-  HOA V6.0.43 — definitive fix for the ghost top-left header branding
+  HOA V6.0.44 — definitive fix for the ghost top-left header branding
   visible on the Student Dashboard.
   The screenshot identifies the elements as .header > div > .brand and .sub.
   This is a presentation-only change.
@@ -13212,7 +13212,7 @@ body.hoa-student-auth .header > div:first-child{
 
 
 <style id="hoa-v642-student-header-edge-fix">
-/* HOA V6.0.43 — final Student Dashboard top-right logout positioning fix.
+/* HOA V6.0.44 — final Student Dashboard top-right logout positioning fix.
    Prevent the utility header from becoming wider than the viewport. */
 body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header{
   box-sizing:border-box !important;
@@ -13249,7 +13249,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 <style id="hoa-v643-content-access-css">
-/* HOA V6.0.43 — content/access foundation UI */
+/* HOA V6.0.44 — content/access foundation UI */
 #hoaV643PosterSection,#hoaV643NotesPanel,#hoaV643BatchesPanel,#hoaV643AdminNotes,#hoaV643AdminBatches,#hoaV643AdminAccess{margin-top:18px}
 .hoa643-panel{background:#fff;border:1px solid #dbe5f0;border-radius:16px;box-shadow:0 10px 30px rgba(15,39,68,.06);padding:18px}
 .hoa643-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
@@ -13270,11 +13270,15 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 .hoa643-empty{padding:28px 10px;text-align:center;color:#64748b;border:1px dashed #cbd8e6;border-radius:12px;background:#f8fbff}
 .hoa643-admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.hoa643-admin-form label{display:grid;gap:5px;font-size:12px;font-weight:800;color:#173f6b}.hoa643-admin-form .full{grid-column:1/-1}.hoa643-admin-form input,.hoa643-admin-form textarea,.hoa643-admin-form select{width:100%;padding:10px 12px;border:1px solid #cbd8e6;border-radius:9px;background:#fff;box-sizing:border-box}.hoa643-admin-form textarea{min-height:80px;resize:vertical}
 .hoa643-admin-list{display:grid;gap:9px;margin-top:14px}.hoa643-admin-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px;border:1px solid #dbe5f0;border-radius:11px;background:#fbfdff}.hoa643-admin-row-main{min-width:0}.hoa643-admin-row-main b{color:#123d69}.hoa643-admin-row-main small{display:block;color:#64748b;margin-top:3px}
+
+.hoa644-toolbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.hoa644-toolbar .secondary{min-height:36px}
+.hoa644-status{display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:10px;font-weight:900;text-transform:uppercase;background:#eef4fb;color:#315a82}.hoa644-status.live{background:#eaf8ef;color:#16804b}.hoa644-status.draft{background:#fff5df;color:#9a6500}
+.hoa644-lecture-admin{border:1px solid #e1e9f2;border-radius:10px;background:#fff;padding:10px;margin-top:8px}.hoa644-lecture-admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}.hoa644-lecture-admin small{display:block;color:#64748b;margin-top:3px}.hoa644-access-dates{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:10px}.hoa644-access-dates label{display:grid;gap:5px;font-size:12px;font-weight:800;color:#173f6b}.hoa644-access-dates input{width:100%;padding:10px 12px;border:1px solid #cbd8e6;border-radius:9px;box-sizing:border-box;background:#fff}.hoa644-player-note{font-size:11px;color:#64748b;margin-top:7px}@media(max-width:800px){.hoa644-access-dates{grid-template-columns:1fr}}
 .hoa643-role{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eaf2ff;color:#1658a6;font-size:11px;font-weight:900;text-transform:uppercase}
 .hoa643-lecture{border-top:1px solid #e5edf5;padding:11px 0}.hoa643-lecture:first-child{border-top:0}.hoa643-player{position:relative;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#08182d;margin-top:12px}.hoa643-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media(max-width:800px){.hoa643-grid,.hoa643-admin-form{grid-template-columns:1fr}.hoa643-admin-form .full{grid-column:auto}}
 </style>
-<style id="hoa-v643-owner-admin-css">#hoaV643AdminManager{margin-top:16px;padding-top:16px;border-top:1px solid #e2e8f0}#hoaV643AdminManager h4{margin:0 0 6px;color:#173f6b}.hoa643-admin-manager-grid{display:grid;grid-template-columns:1fr 1fr 180px auto;gap:9px;align-items:end}.hoa643-admin-manager-grid label{display:grid;gap:5px;font-size:12px;font-weight:800;color:#173f6b}.hoa643-admin-manager-grid input,.hoa643-admin-manager-grid select{padding:10px;border:1px solid #cbd8e6;border-radius:9px}.hoa643-admin-manager-list{display:grid;gap:8px;margin-top:12px}@media(max-width:850px){.hoa643-admin-manager-grid{grid-template-columns:1fr 1fr}.hoa643-admin-manager-grid button{grid-column:1/-1}}</style>
+<style id="hoa-v644-owner-admin-css">#hoaV643AdminManager{margin-top:16px;padding-top:16px;border-top:1px solid #e2e8f0}#hoaV643AdminManager h4{margin:0 0 6px;color:#173f6b}.hoa643-admin-manager-grid{display:grid;grid-template-columns:1fr 1fr 180px auto;gap:9px;align-items:end}.hoa643-admin-manager-grid label{display:grid;gap:5px;font-size:12px;font-weight:800;color:#173f6b}.hoa643-admin-manager-grid input,.hoa643-admin-manager-grid select{padding:10px;border:1px solid #cbd8e6;border-radius:9px}.hoa643-admin-manager-list{display:grid;gap:8px;margin-top:12px}@media(max-width:850px){.hoa643-admin-manager-grid{grid-template-columns:1fr 1fr}.hoa643-admin-manager-grid button{grid-column:1/-1}}</style>
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -13411,12 +13415,12 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <!--
-V6.0.43:
+V6.0.44:
 The former intermediate "Access Your Portal" screen has intentionally been
 removed. Student/Admin login pages remain separate and are reached directly
 from the front page. Existing login hosts and authentication workflows remain.
 -->
-<!-- V6.0.43: Intermediate "Access Your Portal" screen removed permanently.
+<!-- V6.0.44: Intermediate "Access Your Portal" screen removed permanently.
      Front Page -> Student Login or Admin Login directly. -->
 <section id="hoaLoginPage" class="hoa-login-page-shell" aria-label="HUB OF ASPIRANTS login page">
   <header class="hoa-login-page-top">
@@ -19334,7 +19338,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.43";
+  const VERSION="V6.0.44";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -19437,7 +19441,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
 <script id="hoa-v633-integrated-navigation-controller">
 /*
- * V6.0.43
+ * V6.0.44
  * One history owner: V6.0.28 public router.
  * Authentication lifecycle is coordinated through the existing public router;
  * no second popstate listener is installed.
@@ -19648,10 +19652,10 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 })();
 </script>
 
-<script id="hoa-v643-content-access-js">
+<script id="hoa-v644-content-access-js">
 (function(){
 'use strict';
-var V='V6.0.43';
+var V='V6.0.44';
 var posterIndex=0, posterRows=[];
 var adminRole='none';
 var studentNoteRows=[], studentBatchRows=[];
@@ -19685,8 +19689,9 @@ function addStudentPanels(){
  var n=document.createElement('button');n.id='hoaV643StudentNotesBtn';n.type='button';n.textContent='📚 Exam Notes';n.onclick=function(){showStudent('notes')};
  var b=document.createElement('button');b.id='hoaV643StudentBatchBtn';b.type='button';b.textContent='🎥 Batches';b.onclick=function(){showStudent('batches')};nav.append(n,b);
  var host=document.createElement('div');host.id='hoaV643StudentContent';
- host.innerHTML='<div class="candidateSectionPanel" id="hoaV643NotesPanel"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>📚 Exam Notes</h3><p>Study materials assigned to your account.</p></div><span class="testCountBadge" id="hoaV643NotesCount">0 NOTES</span></div><div id="hoaV643NotesList" class="hoa643-grid"></div></div></div><div class="candidateSectionPanel" id="hoaV643BatchesPanel"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎥 My Batches</h3><p>Open your assigned batch and watch classes inside HUB OF ASPIRANTS.</p></div><span class="testCountBadge" id="hoaV643BatchCount">0 BATCHES</span></div><div id="hoaV643BatchList" class="hoa643-grid"></div><div id="hoaV643BatchPlayer"></div></div></div>';
+ host.innerHTML='<div class="candidateSectionPanel" id="hoaV643NotesPanel"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>📚 Exam Notes</h3><p>Study materials assigned to your account.</p></div><span class="testCountBadge" id="hoaV643NotesCount">0 NOTES</span><div class="hoa644-toolbar"><button class="secondary" type="button" id="hoa644RefreshNotes">REFRESH</button></div></div><div id="hoaV643NotesList" class="hoa643-grid"></div></div></div><div class="candidateSectionPanel" id="hoaV643BatchesPanel"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎥 My Batches</h3><p>Open your assigned batch and watch classes inside HUB OF ASPIRANTS.</p></div><span class="testCountBadge" id="hoaV643BatchCount">0 BATCHES</span><div class="hoa644-toolbar"><button class="secondary" type="button" id="hoa644RefreshBatches">REFRESH</button></div></div><div id="hoaV643BatchList" class="hoa643-grid"></div><div id="hoaV643BatchPlayer"></div></div></div>';
  var result=document.getElementById('candidateSectionResultPanel');result?result.insertAdjacentElement('afterend',host):root.appendChild(host);
+ var rn=document.getElementById('hoa644RefreshNotes');if(rn)rn.onclick=loadStudentNotes;var rb=document.getElementById('hoa644RefreshBatches');if(rb)rb.onclick=loadStudentBatches;
 }
 function allStudentPanels(){return Array.from(document.querySelectorAll('#studentOnlyDashboard .candidateSectionPanel'))}
 function showStudent(which){
@@ -19702,31 +19707,42 @@ async function loadStudentTestAccess(){
  try{var sr=await c.from('students').select('granular_test_access').eq('id',currentStudent.id).maybeSingle(); if(sr.error)throw sr.error; window.hoaV643GranularTestAccess=Boolean(sr.data?.granular_test_access); var r=await c.from('student_test_access').select('test_id').eq('student_id',currentStudent.id); if(r.error)throw r.error; window.hoaV643TestGrantIds=new Set((r.data||[]).map(function(x){return x.test_id})); if(typeof window.renderStudentDashboard==='function')window.renderStudentDashboard();}catch(e){console.warn(V+' test access load failed',e)}
 }
 async function loadStudentNotes(){
- var c=S(),box=document.getElementById('hoaV643NotesList');if(!box)return;if(!c){box.innerHTML='<div class="hoa643-empty">Supabase is not connected.</div>';return}box.innerHTML='<div class="hoa643-empty">Loading notes…</div>';
- try{var r=await c.from('exam_notes').select('id,title,subject,exam,description,storage_path,file_name,mime_type,sort_order,created_at').eq('is_published',true).order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;studentNoteRows=r.data||[];document.getElementById('hoaV643NotesCount').textContent=studentNoteRows.length+' '+(studentNoteRows.length===1?'NOTE':'NOTES');
-  if(!studentNoteRows.length){box.innerHTML='<div class="hoa643-empty">No study notes are assigned to your account yet.</div>';return}
-  box.innerHTML=studentNoteRows.map(function(x){return '<article class="hoa643-card"><h4>'+esc(x.title)+'</h4><div class="hoa643-meta">'+esc(x.subject||'General')+(x.exam?' · '+esc(x.exam):'')+'</div><p>'+esc(x.description||'Study material provided by HUB OF ASPIRANTS.')+'</p><div class="hoa643-actions"><button class="primary" type="button" data-note="'+esc(x.id)+'">OPEN NOTE</button></div></article>'}).join('');
+ var c=S(),box=document.getElementById('hoaV643NotesList');if(!box)return;if(!c){box.innerHTML='<div class="hoa643-empty">Supabase is not connected.</div>';return}box.innerHTML='<div class="hoa643-empty">Loading assigned notes…</div>';
+ try{
+  var a=await c.from('student_note_access').select('note_id,starts_at,expires_at').eq('student_id',currentStudent.id);if(a.error)throw a.error;
+  var ids=(a.data||[]).filter(function(x){var now=Date.now(),s=x.starts_at?Date.parse(x.starts_at):-Infinity,e=x.expires_at?Date.parse(x.expires_at):Infinity;return s<=now&&now<e}).map(function(x){return x.note_id});
+  if(!ids.length){studentNoteRows=[];document.getElementById('hoaV643NotesCount').textContent='0 NOTES';box.innerHTML='<div class="hoa643-empty">No study notes are assigned to your account yet.</div>';return}
+  var r=await c.from('exam_notes').select('id,title,subject,exam,description,storage_path,file_name,mime_type,sort_order,created_at').in('id',ids).eq('is_published',true).order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;studentNoteRows=r.data||[];document.getElementById('hoaV643NotesCount').textContent=studentNoteRows.length+' '+(studentNoteRows.length===1?'NOTE':'NOTES');
+  box.innerHTML=studentNoteRows.length?studentNoteRows.map(function(x){return '<article class="hoa643-card"><h4>'+esc(x.title)+'</h4><div class="hoa643-meta">'+esc(x.subject||'General')+(x.exam?' · '+esc(x.exam):'')+'</div><p>'+esc(x.description||'Study material provided by HUB OF ASPIRANTS.')+'</p><div class="hoa643-actions"><button class="primary" type="button" data-note="'+esc(x.id)+'">OPEN NOTE</button></div></article>'}).join(''):'<div class="hoa643-empty">No published notes are available for your account.</div>';
   box.querySelectorAll('[data-note]').forEach(function(btn){btn.onclick=function(){openNote(btn.dataset.note)}});
- }catch(e){console.error(V+' notes',e);box.innerHTML='<div class="hoa643-empty">Unable to load your notes. Please refresh and try again.</div>'}
+ }catch(e){console.error(V+' notes',e);box.innerHTML='<div class="hoa643-empty">Unable to load your assigned notes. Please refresh and try again.</div>'}
 }
+
 async function openNote(id){var c=S(),x=studentNoteRows.find(function(n){return n.id===id});if(!c||!x)return;try{var r=await c.storage.from('exam-notes').createSignedUrl(x.storage_path,600);if(r.error)throw r.error;window.open(r.data.signedUrl,'_blank','noopener,noreferrer')}catch(e){alert('Could not open this note: '+(e.message||e))}}
 async function loadStudentBatches(){
- var c=S(),box=document.getElementById('hoaV643BatchList');if(!box)return;if(!c){box.innerHTML='<div class="hoa643-empty">Supabase is not connected.</div>';return}box.innerHTML='<div class="hoa643-empty">Loading batches…</div>';
- try{var r=await c.from('batches').select('id,name,batch_code,description,status,sort_order,created_at').eq('is_published',true).order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;studentBatchRows=r.data||[];document.getElementById('hoaV643BatchCount').textContent=studentBatchRows.length+' '+(studentBatchRows.length===1?'BATCH':'BATCHES');
-  if(!studentBatchRows.length){box.innerHTML='<div class="hoa643-empty">No batches are assigned to your account yet.</div>';return}
-  box.innerHTML=studentBatchRows.map(function(x){return '<article class="hoa643-card"><h4>'+esc(x.name)+'</h4><div class="hoa643-meta">'+esc(x.batch_code||'Batch')+'</div><p>'+esc(x.description||'Live classes and recorded lessons from HUB OF ASPIRANTS.')+'</p><div class="hoa643-actions"><button class="primary" type="button" data-batch="'+esc(x.id)+'">OPEN BATCH</button></div></article>'}).join('');
+ var c=S(),box=document.getElementById('hoaV643BatchList');if(!box)return;if(!c){box.innerHTML='<div class="hoa643-empty">Supabase is not connected.</div>';return}box.innerHTML='<div class="hoa643-empty">Loading assigned batches…</div>';
+ try{
+  var a=await c.from('student_batch_access').select('batch_id,starts_at,expires_at').eq('student_id',currentStudent.id);if(a.error)throw a.error;
+  var ids=(a.data||[]).filter(function(x){var now=Date.now(),s=x.starts_at?Date.parse(x.starts_at):-Infinity,e=x.expires_at?Date.parse(x.expires_at):Infinity;return s<=now&&now<e}).map(function(x){return x.batch_id});
+  if(!ids.length){studentBatchRows=[];document.getElementById('hoaV643BatchCount').textContent='0 BATCHES';box.innerHTML='<div class="hoa643-empty">No batches are assigned to your account yet.</div>';return}
+  var r=await c.from('batches').select('id,name,batch_code,description,status,sort_order,created_at').in('id',ids).eq('is_published',true).order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;studentBatchRows=r.data||[];document.getElementById('hoaV643BatchCount').textContent=studentBatchRows.length+' '+(studentBatchRows.length===1?'BATCH':'BATCHES');
+  box.innerHTML=studentBatchRows.length?studentBatchRows.map(function(x){return '<article class="hoa643-card"><h4>'+esc(x.name)+'</h4><div class="hoa643-meta">'+esc(x.batch_code||'Batch')+'</div><p>'+esc(x.description||'Live classes and recorded lessons from HUB OF ASPIRANTS.')+'</p><div class="hoa643-actions"><button class="primary" type="button" data-batch="'+esc(x.id)+'">OPEN BATCH</button></div></article>'}).join(''):'<div class="hoa643-empty">No published batches are available for your account.</div>';
   box.querySelectorAll('[data-batch]').forEach(function(btn){btn.onclick=function(){openBatch(btn.dataset.batch)}});
- }catch(e){console.error(V+' batches',e);box.innerHTML='<div class="hoa643-empty">Unable to load your batches. Please refresh and try again.</div>'}
+ }catch(e){console.error(V+' batches',e);box.innerHTML='<div class="hoa643-empty">Unable to load your assigned batches. Please refresh and try again.</div>'}
 }
-async function openBatch(id){var c=S(),player=document.getElementById('hoaV643BatchPlayer');if(!c||!player)return;player.innerHTML='<div class="hoa643-panel">Loading classes…</div>';try{var r=await c.from('batch_lectures').select('id,lecture_no,title,description,youtube_video_id,scheduled_at,duration_seconds,sort_order').eq('batch_id',id).eq('is_published',true).order('sort_order',{ascending:true}).order('lecture_no',{ascending:true});if(r.error)throw r.error;var batch=studentBatchRows.find(function(x){return x.id===id});var rows=r.data||[];player.innerHTML='<div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>'+esc(batch?.name||'Batch')+'</h3><p>'+rows.length+' published classes</p></div></div>'+ (rows.length?rows.map(function(x,i){return '<div class="hoa643-lecture"><b>Class '+esc(x.lecture_no||i+1)+': '+esc(x.title)+'</b><div class="hoa643-meta">'+esc(x.description||'')+'</div><div class="hoa643-actions"><button class="secondary" type="button" data-play="'+esc(x.id)+'">▶ PLAY CLASS</button></div><div id="hoa643Player_'+esc(x.id)+'"></div></div>'}).join(''):'<div class="hoa643-empty">No classes have been published yet.</div>')+'</div>';
-  rows.forEach(function(x){var btn=player.querySelector('[data-play="'+x.id+'"]');if(btn)btn.onclick=function(){var h=document.getElementById('hoa643Player_'+x.id);h.innerHTML='<div class="hoa643-player"><iframe src="https://www.youtube.com/embed/'+encodeURIComponent(x.youtube_video_id)+'?rel=0&modestbranding=1&playsinline=1" title="'+esc(x.title)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>'}});
+
+async function openBatch(id){var c=S(),player=document.getElementById('hoaV643BatchPlayer');if(!c||!player)return;player.innerHTML='<div class="hoa643-panel">Loading classes…</div>';try{var allowed=studentBatchRows.some(function(x){return x.id===id});if(!allowed){player.innerHTML='<div class="hoa643-panel"><div class="hoa643-empty">This batch is not assigned to your account.</div></div>';return}var r=await c.from('batch_lectures').select('id,lecture_no,title,description,youtube_video_id,scheduled_at,duration_seconds,sort_order').eq('batch_id',id).eq('is_published',true).order('sort_order',{ascending:true}).order('lecture_no',{ascending:true});if(r.error)throw r.error;var batch=studentBatchRows.find(function(x){return x.id===id});var rows=r.data||[];player.innerHTML='<div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>'+esc(batch?.name||'Batch')+'</h3><p>'+rows.length+' published classes</p></div><div class="hoa644-toolbar"><button class="secondary" type="button" id="hoa644CloseBatch">CLOSE</button></div></div>'+ (rows.length?rows.map(function(x,i){return '<div class="hoa643-lecture"><b>Class '+esc(x.lecture_no||i+1)+': '+esc(x.title)+'</b><div class="hoa643-meta">'+esc(x.description||'')+(x.scheduled_at?' · '+esc(new Date(x.scheduled_at).toLocaleString()):'')+'</div><div class="hoa643-actions"><button class="secondary" type="button" data-play="'+esc(x.id)+'">▶ PLAY CLASS</button></div><div id="hoa643Player_'+esc(x.id)+'"></div></div>'}).join(''):'<div class="hoa643-empty">No classes have been published yet.</div>')+'</div>';
+ var close=document.getElementById('hoa644CloseBatch');if(close)close.onclick=function(){player.innerHTML=''};
+ rows.forEach(function(x){var btn=player.querySelector('[data-play="'+x.id+'"]');if(btn)btn.onclick=function(){var h=document.getElementById('hoa643Player_'+x.id);h.innerHTML='<div class="hoa643-player"><iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(x.youtube_video_id)+'?rel=0&modestbranding=1&playsinline=1" title="'+esc(x.title)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="hoa644-player-note">Video is provided inside the HUB OF ASPIRANTS platform. The YouTube address is not displayed in the student interface.</div>'}})
  }catch(e){console.error(V+' batch lectures',e);player.innerHTML='<div class="hoa643-panel"><div class="hoa643-empty">Unable to load classes.</div></div>'}}
+
 function addAdminModules(){
  var root=document.getElementById('adminOnlyDashboard'),nav=root&&root.querySelector('.adminSectionNav');if(!root||!nav||document.getElementById('hoaV643AdminNotes'))return;
  function navBtn(id,text,sec){var b=document.createElement('button');b.id=id;b.type='button';b.textContent=text;b.onclick=function(){showAdmin(sec)};nav.appendChild(b)}
  navBtn('hoaV643AdminNotesBtn','📚 Exam Notes','notes');navBtn('hoaV643AdminBatchesBtn','🎥 Batches','batches');navBtn('hoaV643AdminAccessBtn','🎟 Access','access');
  var holder=document.createElement('div');holder.id='hoaV643AdminModules';holder.innerHTML='<div class="adminSectionPanel" id="hoaV643AdminNotes"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>📚 Exam Notes Management</h3><p>Upload and publish study materials. Students only see notes assigned to their account.</p></div></div><div class="hoa643-admin-form"><label>Title<input id="hoa643NoteTitle" placeholder="e.g. SOM Complete Notes"></label><label>Subject<input id="hoa643NoteSubject" placeholder="e.g. Strength of Materials"></label><label>Exam<input id="hoa643NoteExam" placeholder="e.g. TES JE 2026"></label><label>Order<input id="hoa643NoteOrder" type="number" value="0"></label><label class="full">Description<textarea id="hoa643NoteDesc" placeholder="Short description"></textarea></label><label>PDF / Document<input id="hoa643NoteFile" type="file" accept="application/pdf,.pdf"></label><label>Publish<select id="hoa643NotePublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveNote">UPLOAD NOTE</button><span id="hoa643NoteMsg" class="hoa643-meta"></span></div><div id="hoa643NotesAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminBatches"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎥 Batch Management</h3><p>Create multiple batches and add YouTube lectures to each batch.</p></div></div><div class="hoa643-admin-form"><label>Batch Name<input id="hoa643BatchName" placeholder="TES JE 2026 – Civil Engineering"></label><label>Batch Code<input id="hoa643BatchCode" placeholder="TESJE26"></label><label class="full">Description<textarea id="hoa643BatchDesc" placeholder="Batch description"></textarea></label><label>Publish<select id="hoa643BatchPublish"><option value="false">Draft</option><option value="true">Published</option></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643SaveBatch">CREATE BATCH</button><span id="hoa643BatchMsg" class="hoa643-meta"></span></div><div id="hoa643BatchAdminList" class="hoa643-admin-list"></div></div></div><div class="adminSectionPanel" id="hoaV643AdminAccess"><div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>🎟 Student Access Management</h3><p>Assign individual mock tests, study notes or complete batches to each student.</p></div></div><div class="hoa643-admin-form"><label>Student<select id="hoa643AccessStudent"></select></label><label>Resource Type<select id="hoa643AccessType"><option value="test">Mock Test</option><option value="note">Exam Note</option><option value="batch">Batch</option></select></label><label class="full">Resource<select id="hoa643AccessResource"></select></label></div><div class="hoa643-actions" style="margin-top:12px"><button class="primary" type="button" id="hoa643GrantAccess">GRANT ACCESS</button><button class="secondary" type="button" id="hoa643RefreshAccess">REFRESH</button></div><div id="hoa643AccessMsg" class="hoa643-meta" style="margin-top:8px"></div><div id="hoa643AccessList" class="hoa643-admin-list"></div></div></div>';
  root.appendChild(holder);
+ var af=document.getElementById('hoa643AccessResource')?.parentElement; if(af && !document.getElementById('hoa644AccessStarts')){var dates=document.createElement('div');dates.className='hoa644-access-dates';dates.innerHTML='<label>Access Starts (optional)<input id="hoa644AccessStarts" type="datetime-local"></label><label>Access Expires (optional)<input id="hoa644AccessExpires" type="datetime-local"></label>';af.parentElement.appendChild(dates)}
  document.getElementById('hoa643SaveNote').onclick=saveNote;document.getElementById('hoa643SaveBatch').onclick=saveBatch;document.getElementById('hoa643GrantAccess').onclick=grantAccess;document.getElementById('hoa643RefreshAccess').onclick=loadAccessModule;document.getElementById('hoa643AccessType').onchange=loadAccessResources;
  loadAdminNotes();loadAdminBatches();loadAccessModule();
 }
@@ -19739,15 +19755,18 @@ function showAdmin(sec){
 }
 async function loadAdminNotes(){var c=S(),box=document.getElementById('hoa643NotesAdminList');if(!c||!box)return;try{var r=await c.from('exam_notes').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;box.innerHTML=(r.data||[]).map(function(x){return '<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(x.title)+'</b><small>'+esc(x.subject||'General')+' · '+(x.is_published?'PUBLISHED':'DRAFT')+'</small></div><div class="hoa643-actions"><button class="secondary" data-note-pub="'+x.id+'">'+(x.is_published?'UNPUBLISH':'PUBLISH')+'</button><button class="danger" data-note-del="'+x.id+'">DELETE</button></div></div>'}).join('')||'<div class="hoa643-empty">No notes created yet.</div>';box.querySelectorAll('[data-note-pub]').forEach(function(b){b.onclick=async function(){var id=b.dataset.notePub;var row=(r.data||[]).find(function(x){return x.id===id});await c.from('exam_notes').update({is_published:!row.is_published,updated_at:new Date().toISOString()}).eq('id',id);loadAdminNotes()}});box.querySelectorAll('[data-note-del]').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this note?'))return;var id=b.dataset.noteDel;var row=(r.data||[]).find(function(x){return x.id===id});await c.from('exam_notes').delete().eq('id',id);if(row?.storage_path)await c.storage.from('exam-notes').remove([row.storage_path]);loadAdminNotes()}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load notes.</div>'}}
 async function saveNote(){var c=S(),f=document.getElementById('hoa643NoteFile')?.files?.[0],msg=document.getElementById('hoa643NoteMsg');if(!c||!f){if(msg)msg.textContent='Select a PDF first.';return}var title=document.getElementById('hoa643NoteTitle').value.trim();if(!title){if(msg)msg.textContent='Title is required.';return}var safe=f.name.replace(/[^A-Za-z0-9._-]/g,'_');var path='notes/'+crypto.randomUUID()+'-'+safe;if(msg)msg.textContent='Uploading…';try{var u=await c.storage.from('exam-notes').upload(path,f,{contentType:f.type||'application/pdf',upsert:false});if(u.error)throw u.error;var ins=await c.from('exam_notes').insert({title:title,subject:document.getElementById('hoa643NoteSubject').value.trim()||null,exam:document.getElementById('hoa643NoteExam').value.trim()||null,description:document.getElementById('hoa643NoteDesc').value.trim()||null,storage_path:path,file_name:f.name,mime_type:f.type||'application/pdf',is_published:document.getElementById('hoa643NotePublish').value==='true',sort_order:Number(document.getElementById('hoa643NoteOrder').value||0),created_by:(await c.auth.getUser()).data.user?.id||null});if(ins.error){await c.storage.from('exam-notes').remove([path]);throw ins.error}if(msg)msg.textContent='Saved.';['hoa643NoteTitle','hoa643NoteSubject','hoa643NoteExam','hoa643NoteDesc','hoa643NoteFile'].forEach(function(id){var e=document.getElementById(id);if(e)e.value=''});loadAdminNotes()}catch(e){if(msg)msg.textContent='Failed: '+(e.message||e)}}
-async function loadAdminBatches(){var c=S(),box=document.getElementById('hoa643BatchAdminList');if(!c||!box)return;try{var r=await c.from('batches').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;box.innerHTML=(r.data||[]).map(function(x){return '<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(x.name)+'</b><small>'+esc(x.batch_code||'')+' · '+(x.is_published?'PUBLISHED':'DRAFT')+'</small><div id="hoa643LectureForm_'+x.id+'" style="margin-top:9px;display:none"><div class="hoa643-admin-form"><label>Lecture No<input id="hoa643Ln_'+x.id+'" type="number" value="1"></label><label>Title<input id="hoa643Lt_'+x.id+'" placeholder="Lecture title"></label><label class="full">YouTube URL / Video ID<input id="hoa643Lu_'+x.id+'" placeholder="https://www.youtube.com/watch?v=..."></label><label class="full">Description<textarea id="hoa643Ld_'+x.id+'" placeholder="Short description"></textarea></label></div><div class="hoa643-actions" style="margin-top:8px"><button class="primary" data-save-lecture="'+x.id+'">ADD LECTURE</button></div></div></div><div class="hoa643-actions"><button class="secondary" data-add-lecture="'+x.id+'">ADD CLASS</button><button class="secondary" data-batch-pub="'+x.id+'">'+(x.is_published?'UNPUBLISH':'PUBLISH')+'</button><button class="danger" data-batch-del="'+x.id+'">DELETE</button></div></div>'}).join('')||'<div class="hoa643-empty">No batches created yet.</div>';box.querySelectorAll('[data-add-lecture]').forEach(function(b){b.onclick=function(){var f=document.getElementById('hoa643LectureForm_'+b.dataset.addLecture);if(f)f.style.display=f.style.display==='none'?'block':'none'}});box.querySelectorAll('[data-save-lecture]').forEach(function(b){b.onclick=function(){saveLecture(b.dataset.saveLecture)}});box.querySelectorAll('[data-batch-pub]').forEach(function(b){b.onclick=async function(){var row=(r.data||[]).find(function(x){return x.id===b.dataset.batchPub});await c.from('batches').update({is_published:!row.is_published,status:!row.is_published?'published':'draft',updated_at:new Date().toISOString()}).eq('id',row.id);loadAdminBatches()}});box.querySelectorAll('[data-batch-del]').forEach(function(b){b.onclick=async function(){if(confirm('Delete this batch and its lectures?')){await c.from('batches').delete().eq('id',b.dataset.batchDel);loadAdminBatches()}}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load batches.</div>'}}
+async function loadAdminBatches(){var c=S(),box=document.getElementById('hoa643BatchAdminList');if(!c||!box)return;try{var r=await c.from('batches').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});if(r.error)throw r.error;var rows=r.data||[];if(!rows.length){box.innerHTML='<div class="hoa643-empty">No batches created yet.</div>';return}var html=await Promise.all(rows.map(async function(x){var lr=await c.from('batch_lectures').select('id,lecture_no,title,is_published,sort_order,scheduled_at').eq('batch_id',x.id).order('sort_order',{ascending:true}).order('lecture_no',{ascending:true});var lectures=lr.error?[]:(lr.data||[]);return '<div class="hoa643-admin-row"><div class="hoa643-admin-row-main" style="flex:1"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><b>'+esc(x.name)+'</b><span class="hoa644-status '+(x.is_published?'live':'draft')+'">'+(x.is_published?'PUBLISHED':'DRAFT')+'</span></div><small>'+esc(x.batch_code||'')+' · '+lectures.length+' class'+(lectures.length===1?'':'es')+'</small><div id="hoa643LectureForm_'+x.id+'" style="margin-top:10px;display:none"><div class="hoa643-admin-form"><label>Lecture No<input id="hoa643Ln_'+x.id+'" type="number" min="1" value="'+(lectures.length+1)+'"></label><label>Title<input id="hoa643Lt_'+x.id+'" placeholder="Lecture title"></label><label class="full">YouTube URL / Video ID<input id="hoa643Lu_'+x.id+'" placeholder="https://www.youtube.com/watch?v=..."></label><label class="full">Description<textarea id="hoa643Ld_'+x.id+'" placeholder="Short description"></textarea></label></div><div class="hoa643-actions" style="margin-top:8px"><button class="primary" data-save-lecture="'+x.id+'">ADD LECTURE</button></div></div><div id="hoa644Lectures_'+x.id+'" style="margin-top:10px">'+(lectures.length?lectures.map(function(l){return '<div class="hoa644-lecture-admin"><div class="hoa644-lecture-admin-head"><div><b>Class '+esc(l.lecture_no)+': '+esc(l.title)+'</b><small>'+ (l.scheduled_at?esc(new Date(l.scheduled_at).toLocaleString()):'No schedule')+'</small></div><div class="hoa643-actions"><span class="hoa644-status '+(l.is_published?'live':'draft')+'">'+(l.is_published?'PUBLISHED':'DRAFT')+'</span><button class="secondary" data-lecture-pub="'+l.id+'">'+(l.is_published?'UNPUBLISH':'PUBLISH')+'</button><button class="danger" data-lecture-del="'+l.id+'">DELETE</button></div></div></div>'}).join(''):'<div class="hoa643-empty" style="margin-top:8px">No lectures added yet.</div>')+'</div></div><div class="hoa643-actions"><button class="secondary" data-add-lecture="'+x.id+'">ADD CLASS</button><button class="secondary" data-batch-pub="'+x.id+'">'+(x.is_published?'UNPUBLISH':'PUBLISH')+'</button><button class="danger" data-batch-del="'+x.id+'">DELETE</button></div></div>'}));box.innerHTML=html.join('');box.querySelectorAll('[data-add-lecture]').forEach(function(b){b.onclick=function(){var f=document.getElementById('hoa643LectureForm_'+b.dataset.addLecture);if(f)f.style.display=f.style.display==='none'?'block':'none'}});box.querySelectorAll('[data-save-lecture]').forEach(function(b){b.onclick=function(){saveLecture(b.dataset.saveLecture)}});box.querySelectorAll('[data-batch-pub]').forEach(function(b){b.onclick=async function(){var row=rows.find(function(x){return x.id===b.dataset.batchPub});if(!row)return;var z=await c.from('batches').update({is_published:!row.is_published,status:!row.is_published?'published':'draft',updated_at:new Date().toISOString()}).eq('id',row.id);if(z.error){alert(z.error.message);return}loadAdminBatches()}});box.querySelectorAll('[data-batch-del]').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this batch and all of its lectures?'))return;var z=await c.from('batches').delete().eq('id',b.dataset.batchDel);if(z.error){alert(z.error.message);return}loadAdminBatches()}});box.querySelectorAll('[data-lecture-pub]').forEach(function(b){b.onclick=async function(){var z=await c.from('batch_lectures').update({is_published:b.textContent==='PUBLISH',updated_at:new Date().toISOString()}).eq('id',b.dataset.lecturePub);if(z.error){alert(z.error.message);return}loadAdminBatches()}});box.querySelectorAll('[data-lecture-del]').forEach(function(b){b.onclick=async function(){if(!confirm('Delete this lecture?'))return;var z=await c.from('batch_lectures').delete().eq('id',b.dataset.lectureDel);if(z.error){alert(z.error.message);return}loadAdminBatches()}})}catch(e){console.error(V+' admin batches',e);box.innerHTML='<div class="hoa643-empty">Unable to load batches.</div>'}}
+
 async function saveBatch(){var c=S(),msg=document.getElementById('hoa643BatchMsg');var name=document.getElementById('hoa643BatchName').value.trim();if(!name){msg.textContent='Batch name is required.';return}try{var u=(await c.auth.getUser()).data.user;var r=await c.from('batches').insert({name:name,batch_code:document.getElementById('hoa643BatchCode').value.trim()||null,description:document.getElementById('hoa643BatchDesc').value.trim()||null,is_published:document.getElementById('hoa643BatchPublish').value==='true',status:document.getElementById('hoa643BatchPublish').value==='true'?'published':'draft',created_by:u?.id||null});if(r.error)throw r.error;msg.textContent='Batch created.';document.getElementById('hoa643BatchName').value='';document.getElementById('hoa643BatchCode').value='';document.getElementById('hoa643BatchDesc').value='';loadAdminBatches()}catch(e){msg.textContent='Failed: '+(e.message||e)}}
 function extractYouTubeId(v){v=String(v||'').trim();var m=v.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,20})/);return m?m[1]:(/^[A-Za-z0-9_-]{6,20}$/.test(v)?v:'')}
-async function saveLecture(batchId){var c=S(),id=extractYouTubeId(document.getElementById('hoa643Lu_'+batchId).value);if(!id){alert('Enter a valid YouTube URL or video ID.');return}var title=document.getElementById('hoa643Lt_'+batchId).value.trim();if(!title){alert('Lecture title is required.');return}var r=await c.from('batch_lectures').insert({batch_id:batchId,lecture_no:Number(document.getElementById('hoa643Ln_'+batchId).value||1),title:title,description:document.getElementById('hoa643Ld_'+batchId).value.trim()||null,youtube_video_id:id,is_published:false});if(r.error){alert('Lecture save failed: '+r.error.message);return}loadAdminBatches()}
-var accessStudents=[],accessResources=[];
+async function saveLecture(batchId){var c=S(),id=extractYouTubeId(document.getElementById('hoa643Lu_'+batchId).value);if(!id){alert('Enter a valid YouTube URL or video ID.');return}var title=document.getElementById('hoa643Lt_'+batchId).value.trim();if(!title){alert('Lecture title is required.');return}var no=Math.max(1,Number(document.getElementById('hoa643Ln_'+batchId).value||1));var r=await c.from('batch_lectures').insert({batch_id:batchId,lecture_no:no,title:title,description:document.getElementById('hoa643Ld_'+batchId).value.trim()||null,youtube_video_id:id,is_published:false,sort_order:no});if(r.error){alert('Lecture save failed: '+r.error.message);return}loadAdminBatches()}
+
 async function loadAccessModule(){var c=S(),sel=document.getElementById('hoa643AccessStudent');if(!c||!sel)return;try{var r=await c.from('students').select('id,full_name,email,status').order('full_name',{ascending:true});if(r.error)throw r.error;accessStudents=r.data||[];sel.innerHTML=accessStudents.map(function(x){return '<option value="'+x.id+'">'+esc(x.full_name)+' — '+esc(x.email||'')+' ('+esc(x.status)+')</option>'}).join('')||'<option value="">No students</option>';await loadAccessResources();await loadAccessList()}catch(e){document.getElementById('hoa643AccessMsg').textContent='Unable to load access data.'}}
 async function loadAccessResources(){var c=S(),type=document.getElementById('hoa643AccessType')?.value,sel=document.getElementById('hoa643AccessResource');if(!c||!sel)return;var table=type==='test'?'tests':type==='note'?'exam_notes':'batches';var r=type==='test'?await c.from(table).select('id,title,is_published').order('created_at',{ascending:false}):type==='note'?await c.from(table).select('id,title,is_published').order('created_at',{ascending:false}):await c.from(table).select('id,name,is_published').order('created_at',{ascending:false});if(r.error){sel.innerHTML='<option value="">Unable to load</option>';return}accessResources=r.data||[];sel.innerHTML=accessResources.map(function(x){return '<option value="'+x.id+'">'+esc(type==='batch'?x.name:x.title)+' '+(x.is_published?'':'[DRAFT]')+'</option>'}).join('')||'<option value="">No resources</option>'}
-async function grantAccess(){var c=S(),student=document.getElementById('hoa643AccessStudent').value,type=document.getElementById('hoa643AccessType').value,res=document.getElementById('hoa643AccessResource').value,msg=document.getElementById('hoa643AccessMsg');if(!student||!res){msg.textContent='Select a student and resource.';return}var table=type==='test'?'student_test_access':type==='note'?'student_note_access':'student_batch_access';var key=type==='test'?'test_id':type==='note'?'note_id':'batch_id';try{var u=(await c.auth.getUser()).data.user;var payload={student_id:student,granted_by:u?.id||null};payload[key]=res;var r=await c.from(table).upsert(payload,{onConflict:'student_id,'+key});if(r.error)throw r.error;msg.textContent='Access granted.';loadAccessList()}catch(e){msg.textContent='Grant failed: '+(e.message||e)}}
-async function loadAccessList(){var c=S(),box=document.getElementById('hoa643AccessList'),student=document.getElementById('hoa643AccessStudent')?.value;if(!c||!box||!student)return;var out=[];for(const spec of [['test','student_test_access','test_id','tests','title'],['note','student_note_access','note_id','exam_notes','title'],['batch','student_batch_access','batch_id','batches','name']]){var r=await c.from(spec[1]).select(spec[2]+','+spec[4]+':'+spec[3]+'('+spec[4]+')').eq('student_id',student);if(r.error)continue;(r.data||[]).forEach(function(x){var item=x[spec[2]],obj=item&&item[spec[4]];out.push('<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(obj||'Assigned resource')+'</b><small>'+spec[0].toUpperCase()+'</small></div><button class="danger" data-revoke="'+spec[1]+'|'+spec[2]+'|'+esc(x[spec[2]]?.id||'')+'">REVOKE</button></div>')})}box.innerHTML=out.join('')||'<div class="hoa643-empty">No individual access grants for this student.</div>';box.querySelectorAll('[data-revoke]').forEach(function(b){b.onclick=async function(){var a=b.dataset.revoke.split('|');await c.from(a[0]).delete().eq('student_id',student).eq(a[1],a[2]);loadAccessList()}})}
+async function grantAccess(){var c=S(),student=document.getElementById('hoa643AccessStudent').value,type=document.getElementById('hoa643AccessType').value,res=document.getElementById('hoa643AccessResource').value,msg=document.getElementById('hoa643AccessMsg');if(!student||!res){msg.textContent='Select a student and resource.';return}var table=type==='test'?'student_test_access':type==='note'?'student_note_access':'student_batch_access';var key=type==='test'?'test_id':type==='note'?'note_id':'batch_id';try{var u=(await c.auth.getUser()).data.user;var payload={student_id:student,granted_by:u?.id||null};payload[key]=res;var st=document.getElementById('hoa644AccessStarts').value;var ex=document.getElementById('hoa644AccessExpires').value;if(st)payload.starts_at=new Date(st).toISOString();if(ex)payload.expires_at=new Date(ex).toISOString();if(payload.starts_at&&payload.expires_at&&new Date(payload.expires_at)<=new Date(payload.starts_at)){msg.textContent='Expiry must be after the start time.';return}var r=await c.from(table).upsert(payload,{onConflict:'student_id,'+key});if(r.error)throw r.error;msg.textContent='Access granted successfully.';loadAccessList()}catch(e){msg.textContent='Grant failed: '+(e.message||e)}}
+
+async function loadAccessList(){var c=S(),box=document.getElementById('hoa643AccessList'),student=document.getElementById('hoa643AccessStudent')?.value;if(!c||!box||!student)return;box.innerHTML='<div class="hoa643-empty">Loading access…</div>';var out=[];var specs=[['test','student_test_access','test_id','tests','title'],['note','student_note_access','note_id','exam_notes','title'],['batch','student_batch_access','batch_id','batches','name']];try{for(const spec of specs){var r=await c.from(spec[1]).select('id,'+spec[2]+',starts_at,expires_at').eq('student_id',student);if(r.error)throw r.error;var ids=(r.data||[]).map(function(x){return x[spec[2]]});if(!ids.length)continue;var rr=await c.from(spec[3]).select('id,'+spec[4]).in('id',ids);if(rr.error)throw rr.error;var map={};(rr.data||[]).forEach(function(x){map[x.id]=x[spec[4]]});(r.data||[]).forEach(function(x){var name=map[x[spec[2]]]||'Assigned resource';var when=(x.starts_at||x.expires_at)?'<small>'+esc(x.starts_at?'From '+new Date(x.starts_at).toLocaleString():'')+(x.expires_at?' · Until '+new Date(x.expires_at).toLocaleString():'')+'</small>':'';out.push('<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(name)+'</b><small>'+spec[0].toUpperCase()+'</small>'+when+'</div><button class="danger" data-revoke="'+spec[1]+'|'+spec[2]+'|'+esc(x[spec[2]])+'">REVOKE</button></div>')})}box.innerHTML=out.join('')||'<div class="hoa643-empty">No individual access grants for this student.</div>';box.querySelectorAll('[data-revoke]').forEach(function(b){b.onclick=async function(){var a=b.dataset.revoke.split('|');if(!confirm('Revoke this access?'))return;var z=await c.from(a[0]).delete().eq('student_id',student).eq(a[1],a[2]);if(z.error){alert(z.error.message);return}loadAccessList()}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load access: '+esc(e.message||e)+'</div>'}}
+
 async function applyAdminRole(){var c=S();if(!c)return;try{var r=await c.rpc('get_admin_role');adminRole=r.data||'none';window.hoaAdminRole=adminRole;var btn=document.getElementById('openHoaDevConsole');if(btn)btn.classList.toggle('hoa-admin-console-hidden',adminRole!=='owner');var root=document.getElementById('adminOnlyDashboard');if(root&&!document.getElementById('hoaV643RoleBadge')){var head=root.querySelector('.dashPanel');if(head){var badge=document.createElement('span');badge.id='hoaV643RoleBadge';badge.className='hoa643-role';badge.textContent=adminRole==='owner'?'Owner Administrator':'Administrator';head.appendChild(badge)}}var adminSection=document.getElementById('adminSectionAdminPanel');if(adminSection&&adminRole!=='owner'){var note=adminSection.querySelector('p');if(note)note.textContent='Administrator account controls are restricted to the Owner Administrator.';var controls=adminSection.querySelectorAll('input,button');controls.forEach(function(e){e.disabled=true})}}
 catch(e){console.warn(V+' admin role load failed',e)}}
 function wrapAuth(){
@@ -19761,7 +19780,7 @@ setTimeout(wrapAuth,500);setTimeout(wrapAuth,1500);
 window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=showAdmin;
 })();
 </script>
-<script id="hoa-v643-owner-admin-js">
+<script id="hoa-v644-owner-admin-js">
 (function(){'use strict';
 function C(){return window.supabaseClient||window.supabase||null}
 function esc(v){return String(v??'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])})}
@@ -19772,7 +19791,7 @@ async function renderOwnerAdminManager(){
  host.querySelector('.dashPanel')?.appendChild(d);document.getElementById('hoa643CreateAdmin').onclick=createAdmin;loadAdmins();
 }
 async function call(action,body){var c=C();if(!c)throw new Error('Supabase is not connected.');var r=await c.functions.invoke('admin-manage-admin',{body:Object.assign({action:action},body||{})});if(r.error)throw r.error;if(r.data?.error)throw new Error(r.data.error);return r.data}
-async function loadAdmins(){var box=document.getElementById('hoaV643AdminManagerList');if(!box)return;try{var r=await call('list');box.innerHTML=(r.admins||[]).map(function(a){return '<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(a.role==='owner'?'Owner Administrator':'Administrator')+'</b><small>'+esc(a.auth_user_id)+' · '+esc(a.created_at||'')+'</small></div><div class="hoa643-actions">'+(a.role==='owner'?'<span class="hoa643-role">OWNER</span>':'<button class="secondary" data-admin-role="'+esc(a.auth_user_id)+'">REMOVE ADMIN</button>')+'</div></div>'}).join('')||'<div class="hoa643-empty">No administrator accounts.</div>';box.querySelectorAll('[data-admin-role]').forEach(function(b){b.onclick=async function(){if(!confirm('Remove this Administrator account from the HOA Admin Portal?'))return;try{await call('remove',{auth_user_id:b.dataset.adminRole});loadAdmins()}catch(e){alert(e.message||e)}}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load administrator accounts.</div>'}}
+async function loadAdmins(){var box=document.getElementById('hoaV643AdminManagerList');if(!box)return;try{var r=await call('list');box.innerHTML=(r.admins||[]).map(function(a){return '<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(a.role==='owner'?'Owner Administrator':'Administrator')+'</b><small>'+esc(a.email||a.auth_user_id||'')+' · '+esc(a.created_at||'')+'</small></div><div class="hoa643-actions">'+(a.role==='owner'?'<span class="hoa643-role">OWNER</span>':'<button class="secondary" data-admin-role="'+esc(a.auth_user_id)+'">REMOVE ADMIN</button>')+'</div></div>'}).join('')||'<div class="hoa643-empty">No administrator accounts.</div>';box.querySelectorAll('[data-admin-role]').forEach(function(b){b.onclick=async function(){if(!confirm('Remove this Administrator account from the HOA Admin Portal?'))return;try{await call('remove',{auth_user_id:b.dataset.adminRole});loadAdmins()}catch(e){alert(e.message||e)}}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load administrator accounts.</div>'}}
 async function createAdmin(){var msg=document.getElementById('hoa643AdminManagerMsg');var email=document.getElementById('hoa643NewAdminEmail').value.trim();var password=document.getElementById('hoa643NewAdminPassword').value;if(!email||password.length<8){msg.textContent='Enter a valid email and password of at least 8 characters.';return}try{msg.textContent='Creating Administrator…';await call('create',{email:email,password:password,role:'admin'});msg.textContent='Administrator created successfully.';document.getElementById('hoa643NewAdminEmail').value='';document.getElementById('hoa643NewAdminPassword').value='';loadAdmins()}catch(e){msg.textContent='Failed: '+(e.message||e)}}
 function boot(){if(window.hoaAdminRole==='owner')renderOwnerAdminManager()}
 var oldLogin=window.loginAdmin;if(oldLogin&&!oldLogin.__v643owner){var wrapped=async function(){var r=await oldLogin.apply(this,arguments);setTimeout(renderOwnerAdminManager,50);return r};wrapped.__v643owner=true;window.loginAdmin=wrapped}
