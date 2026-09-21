@@ -11283,7 +11283,7 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 
 
 <style id="hoa-v619-social-final-css">
-/* V6.0.66 — Refined public bottom bar; social logos use their actual brand colours. */
+/* V6.0.67 — Refined public bottom bar; social logos use their actual brand colours. */
 #hoaFrontSocialFooter.hoa-front-social-footer{
   display:block !important;
   width:100% !important;
@@ -13675,34 +13675,31 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 
-<style id="hoa-v6066-poster-carousel-polish">
-/* V6.0.66 — full-poster, icon-only carousel controls */
+<style id="hoa-v6067-poster-visible-fix">
+/* V6.0.67 — restore a real poster stage; keep full poster visible */
 #hoaV643PosterWrap.hoa643-poster-wrap{
   position:relative !important;
   width:100% !important;
-  min-height:0 !important;
-  height:auto !important;
+  height:clamp(440px,58vw,680px) !important;
+  min-height:440px !important;
   margin:0 !important;
-  padding:22px 62px !important;
+  padding:22px 68px !important;
   box-sizing:border-box !important;
   overflow:hidden !important;
-  display:flex !important;
-  align-items:center !important;
-  justify-content:center !important;
+  display:block !important;
   background:linear-gradient(180deg,#eef4fb 0%,#e8f0f9 100%) !important;
-  perspective:1200px !important;
   isolation:isolate !important;
 }
 
-/* All three cards occupy the same visual stage.
-   Their height is based on the image's natural aspect ratio. */
+/* The cards have a real stage height again. The loaded image determines the
+   card aspect ratio; contain ensures that no part of the poster is cropped. */
 #hoaV643PosterWrap .hoa643-poster-slide{
   position:absolute !important;
   top:50% !important;
   left:50% !important;
-  width:min(38vw,390px) !important;
-  aspect-ratio:1 / 1 !important;
+  width:min(38vw,420px) !important;
   height:auto !important;
+  aspect-ratio:1 / 1 !important;
   margin:0 !important;
   border-radius:16px !important;
   overflow:hidden !important;
@@ -13710,11 +13707,8 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   background:#fff !important;
   border:1px solid rgba(255,255,255,.9) !important;
   box-shadow:0 16px 38px rgba(15,39,68,.18) !important;
-  transition:transform .55s cubic-bezier(.22,.8,.24,1),
-             opacity .45s ease,
-             filter .45s ease !important;
+  transition:transform .55s cubic-bezier(.22,.8,.24,1),opacity .45s ease,filter .45s ease !important;
   will-change:transform,opacity,filter !important;
-  cursor:pointer !important;
 }
 
 #hoaV643PosterWrap .hoa643-poster-slide img{
@@ -13728,25 +13722,21 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   object-fit:contain !important;
   object-position:center !important;
   background:#fff !important;
-  user-select:none !important;
-  -webkit-user-drag:none !important;
 }
 
+/* Center and side positioning. */
 #hoaV643PosterWrap .hoa643-poster-left{
   transform:translate3d(-86%,-50%,0) scale(.80) !important;
   opacity:.42 !important;
   filter:blur(2.5px) saturate(.72) !important;
   z-index:1 !important;
 }
-
 #hoaV643PosterWrap .hoa643-poster-center{
   transform:translate3d(-50%,-50%,0) scale(1) !important;
   opacity:1 !important;
   filter:none !important;
   z-index:3 !important;
-  cursor:default !important;
 }
-
 #hoaV643PosterWrap .hoa643-poster-right{
   transform:translate3d(-14%,-50%,0) scale(.80) !important;
   opacity:.42 !important;
@@ -13754,8 +13744,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   z-index:1 !important;
 }
 
-/* Icon-only controls. They sit outside the poster cards but INSIDE
-   the poster section. No text labels. */
+/* Icon-only controls: outside the poster cards, but inside the section. */
 #hoaV643PosterWrap .hoa643-carousel-arrow{
   position:absolute !important;
   top:50% !important;
@@ -13774,50 +13763,29 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   background:rgba(255,255,255,.97) !important;
   color:#123f70 !important;
   font-size:0 !important;
-  line-height:1 !important;
   box-shadow:0 7px 18px rgba(15,39,68,.16) !important;
   cursor:pointer !important;
-  user-select:none !important;
-  transition:transform .18s ease,box-shadow .18s ease,background .18s ease !important;
 }
-
 #hoaV643PosterWrap .hoa643-carousel-arrow::before{
   display:block !important;
   font-family:Arial,sans-serif !important;
   font-size:28px !important;
   line-height:1 !important;
-  font-weight:400 !important;
 }
-
-#hoaV643PosterWrap .hoa643-carousel-prev{
-  left:14px !important;
-}
-#hoaV643PosterWrap .hoa643-carousel-prev::before{
-  content:"‹" !important;
-}
-
-#hoaV643PosterWrap .hoa643-carousel-next{
-  right:14px !important;
-}
-#hoaV643PosterWrap .hoa643-carousel-next::before{
-  content:"›" !important;
-}
-
+#hoaV643PosterWrap .hoa643-carousel-prev{left:14px !important}
+#hoaV643PosterWrap .hoa643-carousel-prev::before{content:"‹" !important}
+#hoaV643PosterWrap .hoa643-carousel-next{right:14px !important}
+#hoaV643PosterWrap .hoa643-carousel-next::before{content:"›" !important}
 #hoaV643PosterWrap .hoa643-carousel-arrow:hover{
   transform:translateY(-50%) scale(1.07) !important;
   background:#fff !important;
-  box-shadow:0 9px 22px rgba(15,39,68,.22) !important;
 }
-
-#hoaV643PosterWrap .hoa643-carousel-arrow:active{
-  transform:translateY(-50%) scale(.95) !important;
-}
-
 #hoaV643PosterWrap .hoa643-carousel-arrow:focus-visible{
   outline:3px solid rgba(37,99,235,.25) !important;
   outline-offset:3px !important;
 }
 
+/* Navigation dots remain below the visual stage. */
 #hoaV643PosterNav{
   position:relative !important;
   z-index:12 !important;
@@ -13828,32 +13796,22 @@ body:has(#studentOnlyDashboard:not(.hidden)){
   min-height:30px !important;
 }
 
-/* Prevent the carousel from forcing a fixed poster height. */
-#hoaV643PosterWrap .hoa643-poster-slide,
-#hoaV643PosterWrap .hoa643-poster-slide img{
-  box-sizing:border-box !important;
-}
-
-/* Tablet */
 @media (max-width:900px){
   #hoaV643PosterWrap.hoa643-poster-wrap{
+    height:clamp(400px,62vw,520px) !important;
+    min-height:400px !important;
     padding:18px 54px !important;
   }
-  #hoaV643PosterWrap .hoa643-poster-slide{
-    width:min(46vw,360px) !important;
-  }
-  #hoaV643PosterWrap .hoa643-poster-left{
-    transform:translate3d(-84%,-50%,0) scale(.76) !important;
-  }
-  #hoaV643PosterWrap .hoa643-poster-right{
-    transform:translate3d(-16%,-50%,0) scale(.76) !important;
-  }
+  #hoaV643PosterWrap .hoa643-poster-slide{width:min(46vw,360px) !important}
+  #hoaV643PosterWrap .hoa643-poster-left{transform:translate3d(-84%,-50%,0) scale(.76) !important}
+  #hoaV643PosterWrap .hoa643-poster-right{transform:translate3d(-16%,-50%,0) scale(.76) !important}
 }
 
-/* Mobile */
 @media (max-width:600px){
   #hoaV643PosterWrap.hoa643-poster-wrap{
-    padding:16px 46px !important;
+    height:clamp(330px,92vw,430px) !important;
+    min-height:330px !important;
+    padding:14px 46px !important;
   }
   #hoaV643PosterWrap .hoa643-poster-slide{
     width:min(62vw,300px) !important;
@@ -13868,23 +13826,15 @@ body:has(#studentOnlyDashboard:not(.hidden)){
     opacity:.34 !important;
   }
   #hoaV643PosterWrap .hoa643-carousel-arrow{
-    width:36px !important;
-    height:36px !important;
-    min-width:36px !important;
-    min-height:36px !important;
+    width:36px !important;height:36px !important;
+    min-width:36px !important;min-height:36px !important;
   }
-  #hoaV643PosterWrap .hoa643-carousel-arrow::before{
-    font-size:24px !important;
-  }
+  #hoaV643PosterWrap .hoa643-carousel-arrow::before{font-size:24px !important}
   #hoaV643PosterWrap .hoa643-carousel-prev{left:7px !important}
   #hoaV643PosterWrap .hoa643-carousel-next{right:7px !important}
 }
-
 @media (prefers-reduced-motion:reduce){
-  #hoaV643PosterWrap .hoa643-poster-slide,
-  #hoaV643PosterWrap .hoa643-carousel-arrow{
-    transition:none !important;
-  }
+  #hoaV643PosterWrap .hoa643-poster-slide{transition:none !important}
 }
 </style>
 
@@ -13897,6 +13847,13 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 #hoaV643PosterWrap .hoa643-poster-slide img{
   position:absolute !important;
   inset:0 !important;
+}
+</style>
+
+
+<style id="hoa-v6067-poster-safety">
+#hoaV643PosterWrap .hoa643-poster-slide{
+  max-height:calc(100% - 30px) !important;
 }
 </style>
 
