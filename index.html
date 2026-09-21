@@ -13302,6 +13302,84 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 #adminOnlyDashboard #hoaV643AdminModules>.adminSectionPanel.active{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
 @media(max-width:700px){#adminOnlyDashboard .hoaV643AdminNavExtra{grid-template-columns:1fr}}
 </style>
+<style id="hoa-v649-front-polish">
+/* V6.0.49 — Front page visual polish: redesigned top/bottom bars + subtle motion */
+#hoaFrontPage{overflow:hidden;background:linear-gradient(180deg,#f8fbff 0%,#f1f6fc 48%,#fff 100%)}
+#hoaFrontPage .hoa-front-nav{
+  position:sticky!important;top:10px!important;width:min(1180px,calc(100% - 24px))!important;margin:10px auto 0!important;
+  min-height:64px!important;padding:9px 14px!important;border:1px solid rgba(148,163,184,.24)!important;
+  border-radius:18px!important;background:rgba(255,255,255,.84)!important;box-shadow:0 10px 30px rgba(15,39,68,.08)!important;
+  backdrop-filter:blur(18px)!important;-webkit-backdrop-filter:blur(18px)!important;transition:box-shadow .25s ease,transform .25s ease!important;
+}
+#hoaFrontPage .hoa-front-nav:hover{box-shadow:0 14px 38px rgba(15,39,68,.12)!important}
+#hoaFrontPage .hoa-front-brand{gap:12px!important}
+#hoaFrontPage .hoa-front-brand img{width:48px!important;height:48px!important;border-radius:14px!important;padding:4px!important;box-shadow:0 5px 14px rgba(23,63,107,.12)!important}
+#hoaFrontPage .hoa-front-brand-name{font-size:15px!important;letter-spacing:.045em!important}
+#hoaFrontPage .hoa-front-brand-tag{font-size:10px!important;letter-spacing:.02em!important}
+#hoaFrontPage .hoa-front-navlinks{gap:4px!important}
+#hoaFrontPage .hoa-front-navlinks button{min-height:38px!important;padding:0 13px!important;border-radius:10px!important;transition:background .2s ease,color .2s ease,transform .2s ease!important}
+#hoaFrontPage .hoa-front-navlinks button:hover{transform:translateY(-1px)!important}
+
+/* entrance and hover motion */
+#hoaFrontPage .hoa-front-hero{animation:hoaHeroIn .7s cubic-bezier(.2,.75,.25,1) both}
+#hoaFrontPage .hoa-front-eyebrow{animation:hoaFadeUp .55s .08s both}
+#hoaFrontPage .hoa-front-title{animation:hoaFadeUp .65s .14s both}
+#hoaFrontPage .hoa-front-copy{animation:hoaFadeUp .65s .22s both}
+#hoaFrontPage .hoa-front-card-stack .hoa-front-feature{animation:hoaFadeUp .6s both;transition:transform .22s ease,box-shadow .22s ease}
+#hoaFrontPage .hoa-front-card-stack .hoa-front-feature:nth-child(1){animation-delay:.16s}
+#hoaFrontPage .hoa-front-card-stack .hoa-front-feature:nth-child(2){animation-delay:.25s}
+#hoaFrontPage .hoa-front-card-stack .hoa-front-feature:nth-child(3){animation-delay:.34s}
+#hoaFrontPage .hoa-front-card-stack .hoa-front-feature:hover{transform:translateY(-5px)!important;box-shadow:0 18px 38px rgba(15,39,68,.12)!important}
+#hoaFrontPage .hoa-front-orb{animation:hoaOrbFloat 7s ease-in-out infinite}
+
+/* Poster block */
+#hoaFrontPage .hoa-v648-poster-section{animation:hoaFadeUp .7s .18s both;box-shadow:0 16px 42px rgba(15,39,68,.07)!important}
+#hoaFrontPage .hoa-v648-option-card{transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease!important}
+#hoaFrontPage .hoa-v648-option-card:hover{transform:translateY(-6px)!important;box-shadow:0 18px 38px rgba(15,39,68,.12)!important;border-color:#b9cde4!important}
+#hoaFrontPage .hoa-v648-free-card{transition:transform .2s ease,box-shadow .2s ease!important}
+#hoaFrontPage .hoa-v648-free-card:hover{transform:translateY(-3px)!important;box-shadow:0 12px 26px rgba(15,39,68,.1)!important}
+
+/* Compact modern bottom bar: branding is secondary to social actions */
+#hoaFrontSocialFooter.hoa-front-social-footer{
+  margin-top:48px!important;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px))!important;
+  background:linear-gradient(135deg,#07182c,#102b4e 58%,#173f6b)!important;border-top:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:0 -10px 28px rgba(8,26,49,.14)!important;
+}
+#hoaFrontSocialFooter .hoa-v619-social-bar{min-height:58px!important;gap:14px!important}
+#hoaFrontSocialFooter .hoa-v619-brand{min-width:190px!important;gap:9px!important;opacity:.92!important}
+#hoaFrontSocialFooter .hoa-v619-brand img{width:34px!important;height:34px!important;border-radius:8px!important;padding:2px!important}
+#hoaFrontSocialFooter .hoa-v619-brand-name{font-size:12px!important;letter-spacing:.025em!important}
+#hoaFrontSocialFooter .hoa-v619-brand-tag{font-size:9px!important;margin-top:2px!important;opacity:.72!important}
+#hoaFrontSocialFooter .hoa-v619-actions{gap:6px!important}
+#hoaFrontSocialFooter .hoa-v619-social,#hoaFrontSocialFooter .hoa-v619-admin{
+  height:36px!important;min-height:36px!important;padding:0 10px!important;border-radius:10px!important;
+  font-size:10px!important;transition:transform .2s ease,background .2s ease,border-color .2s ease,box-shadow .2s ease!important;
+}
+#hoaFrontSocialFooter .hoa-v619-social:hover,#hoaFrontSocialFooter .hoa-v619-admin:hover{transform:translateY(-2px)!important;box-shadow:0 7px 18px rgba(0,0,0,.18)!important}
+#hoaFrontSocialFooter .hoa-v619-admin{margin-left:3px!important;background:rgba(37,99,235,.38)!important}
+#hoaFrontSocialFooter .hoa-v619-social svg,#hoaFrontSocialFooter .hoa-v619-admin svg{width:17px!important;height:17px!important}
+
+@keyframes hoaFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hoaHeroIn{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes hoaOrbFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(max-width:800px){
+  #hoaFrontPage .hoa-front-nav{top:6px!important;margin-top:6px!important;width:calc(100% - 14px)!important}
+  #hoaFrontPage .hoa-front-navlinks button{padding:0 9px!important;font-size:11px!important}
+  #hoaFrontSocialFooter .hoa-v619-social-bar{min-height:0!important}
+}
+@media(max-width:500px){
+  #hoaFrontPage .hoa-front-nav{padding:8px 10px!important;border-radius:15px!important}
+  #hoaFrontPage .hoa-front-brand img{width:40px!important;height:40px!important}
+  #hoaFrontPage .hoa-front-brand-name{font-size:12px!important}
+  #hoaFrontPage .hoa-front-brand-tag{font-size:9px!important}
+  #hoaFrontPage .hoa-front-navlinks{display:none!important}
+  #hoaFrontSocialFooter .hoa-v619-brand{min-width:0!important}
+  #hoaFrontSocialFooter .hoa-v619-social,#hoaFrontSocialFooter .hoa-v619-admin{font-size:9px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  #hoaFrontPage *,#hoaFrontSocialFooter *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
