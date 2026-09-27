@@ -1,10 +1,10 @@
-<!-- HUB OF ASPIRANTS V6.0.81 — Scroll-linked hero animation -->
-<!-- HUB OF ASPIRANTS V6.0.105 — Mobile navigation polish -->
-<!-- HUB OF ASPIRANTS V6.0.79 — Animated non-clickable hero section -->
-<!-- HUB OF ASPIRANTS V6.0.78 — Student Area full-card button polish -->
-<!-- HOA V6.0.0 — Production Ready hardening from confirmed V5.9.9 MASTER -->
+<!-- HUB OF ASPIRANTS V6.0.123 — Scroll-linked hero animation -->
+<!-- HUB OF ASPIRANTS V6.0.123 — Mobile navigation polish -->
+<!-- HUB OF ASPIRANTS V6.0.123 — Animated non-clickable hero section -->
+<!-- HUB OF ASPIRANTS V6.0.123 — Student Area full-card button polish -->
+<!-- HOA V6.0.123 — Production Ready hardening from confirmed V5.9.9 MASTER -->
 <!-- HOA V5.9.7 — surgical professional mock-test UX upgrade from confirmed V5.9.6 MASTER -->
-<!-- HUB OF ASPIRANTS V6.0.47 — Production build -->
+<!-- HUB OF ASPIRANTS V6.0.123 — Production build -->
 <!-- HUB OF ASPIRANTS V5.9.2 — Fixed Supabase Client Binding -->
 <!-- HUB OF ASPIRANTS V5.9.1 — Poster Upload Diagnostic & Auth Fix -->
 <!-- HUB OF ASPIRANTS V5.9 — Supabase Dynamic Poster Showcase -->
@@ -24,7 +24,7 @@
 <!-- HUB OF ASPIRANTS V5.0 — separated HTML/CSS/JS/logo; V4.8 logic preserved -->
 <!-- HUB OF ASPIRANTS V4.8: Admin logout fully exits Admin UI mode; V4.7 base preserved -->
 <!DOCTYPE html>
-<!-- HOA V6.0.72 — large poster section; existing poster images/data preserved -->
+<!-- HOA V6.0.123 — large poster section; existing poster images/data preserved -->
 
 <html lang="en">
 <!-- HUB OF ASPIRANTS V4.2 — Automatic Result Management Workflow: no result publish/approval step. -->
@@ -8527,12 +8527,12 @@ body:has(#exam:not(.hidden)) #authScreen{
   /* ADMIN: use exactly one logout control. Do not allow the old global
      header to create a second/overlapping visual layer. The existing JS
      may move #adminHeaderLogout to <!--
-V6.0.44 DOM safety:
+V6.0.123 DOM safety:
 Legacy V5.7/V5.8 management controls that previously reused identical IDs
 are now uniquely identified in the DOM. Existing JavaScript selectors remain
 untouched for the first/active controls; secondary legacy copies are isolated.
 -->
-<body>; this rule handles that node. */
+<body class="hoa-admin-page">; this rule handles that node. */
   body.admin-ui > .header{
     position:fixed !important;
     top:14px !important;
@@ -9862,19 +9862,66 @@ body.v13-exam-active #exam .ui21-palette-btn.current{outline:3px solid #111827 !
 /* --- Original style block 52 --- */
 
 /* V4.2 — Result Management belongs ONLY to Admin > Result Section. */
-body.admin-ui #adminOnlyDashboard > .adminSectionPanel:not(.v37-selected-admin-panel){
+/* V6.0.3: the authoritative Admin controller uses .active.
+   Retire the historical v37-selected-admin-panel dependency. */
+body.admin-ui #adminOnlyDashboard > .adminSectionPanel:not(.active){
   display:none !important;
   visibility:hidden !important;
   opacity:0 !important;
   pointer-events:none !important;
 }
-body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-panel{
+body.admin-ui #adminOnlyDashboard > .adminSectionPanel.active{
   display:block !important;
   visibility:visible !important;
   opacity:1 !important;
   pointer-events:auto !important;
 }
 
+
+
+/* HOA V6.0.4 — Admin video preview */
+#hoaAdminVideoPreviewModal{
+  position:fixed;inset:0;z-index:100000;display:none;
+  align-items:center;justify-content:center;
+  padding:20px;background:rgba(15,23,42,.78);
+  backdrop-filter:blur(5px);
+}
+#hoaAdminVideoPreviewModal.is-open{display:flex}
+.hoa-video-preview-dialog{
+  width:min(980px,100%);max-height:calc(100vh - 40px);
+  overflow:auto;background:#fff;border-radius:18px;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+.hoa-video-preview-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:14px;padding:16px 18px;border-bottom:1px solid #e5e7eb;
+}
+.hoa-video-preview-title{font-size:16px;font-weight:800;color:#0f172a}
+.hoa-video-preview-close{
+  border:0!important;background:#f1f5f9!important;color:#334155!important;
+  width:38px;height:38px;padding:0!important;border-radius:10px;
+  font-size:22px;line-height:1;cursor:pointer;
+}
+.hoa-video-preview-frame{
+  position:relative;width:100%;aspect-ratio:16/9;background:#020617;
+}
+.hoa-video-preview-frame iframe{
+  width:100%;height:100%;border:0;display:block;
+}
+.hoa-video-preview-meta{
+  padding:14px 18px 18px;color:#64748b;font-size:13px;
+}
+.hoa-video-preview-meta b{color:#334155}
+.hoa-video-preview-btn{
+  display:inline-flex!important;align-items:center;gap:6px;
+}
+@media(max-width:640px){
+  #hoaAdminVideoPreviewModal{padding:10px}
+  .hoa-video-preview-dialog{border-radius:14px}
+  .hoa-video-preview-head{padding:13px 14px}
+  .hoa-video-preview-title{font-size:14px}
+  .hoa-video-preview-meta{padding:11px 14px 14px}
+}
 
 </style>
 <!-- V4.2: Real student data isolation. Auth identity is authoritative; final scoring uses submit_test_v4; student question reads omit answer keys. -->
@@ -10621,7 +10668,7 @@ body.admin-ui #adminOnlyDashboard > #adminSectionResultPanel.v37-selected-admin-
 
 
 <style id="hoa-v600-production-css">
-/* HOA V6.0.0 — production UX/accessibility/performance layer. Existing layouts and workflows are preserved. */
+/* HOA V6.0.123 — production UX/accessibility/performance layer. Existing layouts and workflows are preserved. */
 :root{--hoa-focus:#2563eb;--hoa-danger:#b42318;--hoa-success:#087443;--hoa-panel:#ffffff;--hoa-border:#dbe4ef}
 *:focus-visible{outline:3px solid color-mix(in srgb,var(--hoa-focus) 72%,transparent);outline-offset:2px}
 button,[role="button"],a,input,select,textarea{touch-action:manipulation}
@@ -10641,12 +10688,12 @@ img[width][height]{height:auto}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}}
 @media(max-width:650px){.hoa-v600-status{bottom:10px;font-size:11px}.hoa-v600-loading .hoa-v600-spinner{width:30px;height:30px}}
 </style>
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://pnzhtiwwqiqnnkecogcc.supabase.co; font-src 'self' data:; connect-src 'self' https://pnzhtiwwqiqnnkecogcc.supabase.co wss://pnzhtiwwqiqnnkecogcc.supabase.co; media-src 'self' blob: https://pnzhtiwwqiqnnkecogcc.supabase.co;"
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; form-action 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://pnzhtiwwqiqnnkecogcc.supabase.co; font-src 'self' data:; connect-src 'self' https://pnzhtiwwqiqnnkecogcc.supabase.co wss://pnzhtiwwqiqnnkecogcc.supabase.co; media-src 'self' blob: https://pnzhtiwwqiqnnkecogcc.supabase.co;"
 <meta name="referrer" content="strict-origin-when-cross-origin">
 
 
 <style id="hoa-v602-ui-final-polish">
-/* HOA V6.0.2 — final UI/UX polish layer. Existing workflows/styles remain untouched. */
+/* HOA V6.0.123 — final UI/UX polish layer. Existing workflows/styles remain untouched. */
 html{box-sizing:border-box;scroll-behavior:smooth;overflow-x:clip}
 *,*::before,*::after{box-sizing:inherit}
 body{max-width:100%;overflow-x:clip;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility}
@@ -10759,7 +10806,7 @@ body.admin-ui,body.mission-exam-active{max-width:100%;overflow-x:clip}
 
 
 <style id="hoa-v610-admin-logout-final">
-/* V6.0.10 — authoritative Admin Logout visibility.
+/* V6.0.123 — authoritative Admin Logout visibility.
    Reuses the existing #adminHeaderLogout; no duplicate control is created. */
 body.admin-ui > .header {
   display:flex !important;
@@ -10812,7 +10859,7 @@ body.admin-ui > .header #adminHeaderLogout {
 }
 </style>
 <style>
-/* HOA V6.0.11 — Front Page Social Footer */
+/* HOA V6.0.123 — Front Page Social Footer */
 .hoa-front-social-footer{
   width:100%;
   margin:42px 0 0;
@@ -10925,7 +10972,7 @@ body.admin-ui > .header #adminHeaderLogout {
 </style>
 <style id="hoa-v612-front-page-css">
 /* ============================================================
-   HOA V6.0.12 — REAL PUBLIC FRONT PAGE
+   HOA V6.0.123 — REAL PUBLIC FRONT PAGE
    This is a presentation layer only. Existing auth/CBT/admin
    workflows remain intact and are shown after their CTA actions.
    ============================================================ */
@@ -11112,7 +11159,7 @@ body.hoa-front-page .missionBrandFooter{
 
 
 <style id="hoa-v617-login-page-css">
-/* V6.0.17 — Dedicated Page 2 login experience */
+/* V6.0.123 — Dedicated Page 2 login experience */
 body.hoa-login-page{
   background:linear-gradient(135deg,#eef5fc 0%,#f8fbff 48%,#e8f1fb 100%) !important;
 }
@@ -11288,7 +11335,7 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 
 
 <style id="hoa-v619-social-final-css">
-/* V6.0.70 — Refined public bottom bar; social logos use their actual brand colours. */
+/* V6.0.123 — Refined public bottom bar; social logos use their actual brand colours. */
 #hoaFrontSocialFooter.hoa-front-social-footer{
   display:block !important;
   width:100% !important;
@@ -11378,7 +11425,7 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 
 
 <style id="hoa-v620-no-header-student-login">
-/* V6.0.20 — Student Login is intentionally not shown in the public header bar. */
+/* V6.0.123 — Student Login is intentionally not shown in the public header bar. */
 .hoa-front-header a[aria-label="Student Login"],
 .hoa-front-header button[aria-label="Student Login"],
 .hoa-front-header a[title="Student Login"],
@@ -11391,7 +11438,7 @@ body.hoa-login-page #authScreen > .dashPanel:first-of-type{
 
 
 <style id="hoa-v621-remove-public-student-login">
-/* V6.0.21 — Public header must not expose Student Login. */
+/* V6.0.123 — Public header must not expose Student Login. */
 body:not(.hoa-login-page) header a[href*="student" i],
 body:not(.hoa-login-page) header button[onclick*="student" i],
 body:not(.hoa-login-page) nav a[href*="student" i],
@@ -11430,7 +11477,7 @@ body:not(.hoa-login-page) nav button{
 
 
 <style id="hoa-v622-no-public-student-login">
-/* V6.0.22 — Student Login is accessed from the dedicated Page-2 portal only.
+/* V6.0.123 — Student Login is accessed from the dedicated Page-2 portal only.
    It is intentionally absent from the public front-page navigation/hero. */
 #hoaFrontPage .hoa-front-cta[onclick*="hoaOpenLogin('login')"],
 #hoaFrontPage .hoa-front-cta[onclick*="hoaOpenLogin(&quot;login&quot;)"]{
@@ -11440,7 +11487,7 @@ body:not(.hoa-login-page) nav button{
 
 
 <style id="hoa-v624-student-login-cta">
-/* V6.0.24 — Student Login belongs with the student Register / Free Test actions. */
+/* V6.0.123 — Student Login belongs with the student Register / Free Test actions. */
 .hoa-student-login-cta{
   display:inline-flex !important;
   align-items:center !important;
@@ -11455,7 +11502,7 @@ body:not(.hoa-login-page) nav button{
 
 
 <style id="hoa-v625-student-login-public-cta">
-/* V6.0.25: Student Login is intentionally visible in the public front-page
+/* V6.0.123: Student Login is intentionally visible in the public front-page
    student action group. The dedicated Student Login workflow is unchanged. */
 #hoaFrontPage #hoaFrontStudentLogin {
   display: inline-flex !important;
@@ -11469,7 +11516,7 @@ body:not(.hoa-login-page) nav button{
 
 
 <style id="hoa-v628-navigation-css">
-/* V6.0.28 — single authoritative public-page navigation layer */
+/* V6.0.123 — single authoritative public-page navigation layer */
 body.hoa-public-front #hoaFrontPage{display:flex !important}
 body.hoa-public-front #hoaLoginPage{display:none !important}
 body.hoa-public-front #authScreen{display:none !important}
@@ -11592,7 +11639,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
     if(state === S.FRONT){
       b.classList.add("hoa-public-front");
     }else if(state === S.PORTAL){
-      // V6.0.44: the intermediate portal-selection page no longer exists.
+      // V6.0.123: the intermediate portal-selection page no longer exists.
       state = S.FRONT;
       b.classList.add("hoa-public-front");
     }else if(state === S.STUDENT){
@@ -11753,7 +11800,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !importan
 
 
 <style id="hoa-v629-admin-login-host-fix">
-/* V6.0.29 — the real existing admin credentials form is #homeAdminPanel. */
+/* V6.0.123 — the real existing admin credentials form is #homeAdminPanel. */
 body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
   display:block !important;
   visibility:visible !important;
@@ -11768,7 +11815,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .dashPanel{
 
 
 <style id="hoa-v630-admin-login-design">
-/* V6.0.30 — Admin Login page visual treatment, based on the approved reference. */
+/* V6.0.123 — Admin Login page visual treatment, based on the approved reference. */
 body.hoa-public-auth.hoa-admin-auth{
   background:#eef5fc !important;
   min-height:100vh !important;
@@ -11992,7 +12039,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
 
 
 <style id="hoa-v631-navigation-final-guard">
-/* V6.0.44: V6.0.28 remains the sole public navigation controller.
+/* V6.0.123: V6.0.123 remains the sole public navigation controller.
    Legacy authScreen remains only as an implementation container for the
    established authentication functions. */
 body.hoa-public-front #hoaFrontPage{display:flex !important;}
@@ -12028,8 +12075,8 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
 
 
 <style id="hoa-v633-integrated-navigation-css">
-/* V6.0.44 — one public/authenticated navigation lifecycle.
-   The V6.0.28 router owns browser history. */
+/* V6.0.123 — one public/authenticated navigation lifecycle.
+   The V6.0.123 router owns browser history. */
 body.hoa-public-front > .header,
 body.hoa-public-portal > .header,
 body.hoa-public-auth > .header { display:none !important; }
@@ -12073,7 +12120,7 @@ body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidde
 
 
 <style id="hoa-v634-ui-hardening">
-/* V6.0.44 — UI hardening. No application workflow is replaced. */
+/* V6.0.123 — UI hardening. No application workflow is replaced. */
 
 /* ---------- Global rendering / overflow ---------- */
 html {
@@ -12341,7 +12388,7 @@ textarea:focus-visible,
 
 
 <style id="hoa-v635-no-portal-page">
-/* V6.0.44
+/* V6.0.123
    The intermediate "Access Your Portal" page has been removed.
    Login is opened directly from the public front page. */
 #hoaLoginChoiceView {
@@ -12357,7 +12404,7 @@ body.hoa-public-portal #hoaFrontPage {
 
 
 <style id="hoa-v636-remove-portal-screen">
-/* V6.0.44 — definitive removal of the intermediate portal-selection UI. */
+/* V6.0.123 — definitive removal of the intermediate portal-selection UI. */
 #hoaLoginChoiceView { display:none !important; }
 body.hoa-public-portal #hoaLoginPage { display:none !important; }
 body.hoa-public-portal #hoaFrontPage { display:block !important; }
@@ -12369,7 +12416,7 @@ body.hoa-public-portal #hoaAdminPortalPanel { display:none !important; }
 
 
 <style id="hoa-v637-student-login-ui">
-/* V6.0.44 — Student Login UI correction.
+/* V6.0.123 — Student Login UI correction.
    Existing authentication IDs/functions are preserved. */
 
 body.hoa-public-auth.hoa-student-auth {
@@ -12589,7 +12636,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost #studentAuthMessage {
 
 
 <style id="hoa-v638-student-login-ui-final">
-/* V6.0.44 — Student Login visual correction.
+/* V6.0.123 — Student Login visual correction.
    The existing #authScreen/.dashPanel is still the functional source for
    Student authentication. It is hosted inside #hoaStudentLoginHost.
    This layer removes the redundant nested card without changing workflows. */
@@ -12740,7 +12787,7 @@ body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .hoa-student-login-su
 
 <style id="hoa-v639-student-dashboard-background-fix">
 /*
-  HOA V6.0.44 — Student Dashboard Background/UI correction.
+  HOA V6.0.123 — Student Dashboard Background/UI correction.
   Visual-only correction. Existing authentication, test, result, logout,
   navigation and Supabase logic are intentionally untouched.
 */
@@ -12937,7 +12984,7 @@ body.hoa-app-student #studentOnlyDashboard .profileCard{
 
 <style id="hoa-v640-student-dashboard-authoritative-fix">
 /*
-  HOA V6.0.44 — authoritative Student Dashboard background/header fix.
+  HOA V6.0.123 — authoritative Student Dashboard background/header fix.
   This block intentionally targets the ACTUAL dashboard state selector used
   by the application. No authentication, test, result, or database logic
   is modified.
@@ -13158,7 +13205,7 @@ body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboar
 
 <style id="hoa-v641-remove-student-ghost-brand">
 /*
-  HOA V6.0.44 — definitive fix for the ghost top-left header branding
+  HOA V6.0.123 — definitive fix for the ghost top-left header branding
   visible on the Student Dashboard.
   The screenshot identifies the elements as .header > div > .brand and .sub.
   This is a presentation-only change.
@@ -13221,7 +13268,7 @@ body.hoa-student-auth .header > div:first-child{
 
 
 <style id="hoa-v642-student-header-edge-fix">
-/* HOA V6.0.44 — final Student Dashboard top-right logout positioning fix.
+/* HOA V6.0.123 — final Student Dashboard top-right logout positioning fix.
    Prevent the utility header from becoming wider than the viewport. */
 body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header{
   box-sizing:border-box !important;
@@ -13258,7 +13305,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 <style id="hoa-v643-content-access-css">
-/* HOA V6.0.44 — content/access foundation UI */
+/* HOA V6.0.123 — content/access foundation UI */
 #hoaV643PosterSection,#hoaV643NotesPanel,#hoaV643BatchesPanel,#hoaV643AdminNotes,#hoaV643AdminBatches,#hoaV643AdminAccess{margin-top:18px}
 .hoa643-panel{background:#fff;border:1px solid #dbe5f0;border-radius:16px;box-shadow:0 10px 30px rgba(15,39,68,.06);padding:18px}
 .hoa643-section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
@@ -13290,7 +13337,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 <style id="hoa-v644-owner-admin-css">#hoaV643AdminManager{margin-top:16px;padding-top:16px;border-top:1px solid #e2e8f0}#hoaV643AdminManager h4{margin:0 0 6px;color:#173f6b}.hoa643-admin-manager-grid{display:grid;grid-template-columns:1fr 1fr 180px auto;gap:9px;align-items:end}.hoa643-admin-manager-grid label{display:grid;gap:5px;font-size:12px;font-weight:800;color:#173f6b}.hoa643-admin-manager-grid input,.hoa643-admin-manager-grid select{padding:10px;border:1px solid #cbd8e6;border-radius:9px}.hoa643-admin-manager-list{display:grid;gap:8px;margin-top:12px}@media(max-width:850px){.hoa643-admin-manager-grid{grid-template-columns:1fr 1fr}.hoa643-admin-manager-grid button{grid-column:1/-1}}</style>
 
 <style id="hoa-v647-admin-nav-fix">
-/* V6.0.47 — admin feature navigation visibility. */
+/* V6.0.123 — admin feature navigation visibility. */
 #adminOnlyDashboard .adminSectionNav{grid-template-columns:repeat(4,minmax(0,1fr)) !important;}
 @media(max-width:1000px){#adminOnlyDashboard .adminSectionNav{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}}
 @media(max-width:700px){#adminOnlyDashboard .adminSectionNav{grid-template-columns:1fr !important;}}
@@ -13312,7 +13359,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 @media(max-width:700px){#adminOnlyDashboard .hoaV643AdminNavExtra{grid-template-columns:1fr}}
 </style>
 <style id="hoa-v649-front-polish">
-/* V6.0.52 — Front page visual polish: redesigned top/bottom bars + subtle motion */
+/* V6.0.123 — Front page visual polish: redesigned top/bottom bars + subtle motion */
 #hoaFrontPage{overflow:hidden;background:linear-gradient(180deg,#f8fbff 0%,#f1f6fc 48%,#fff 100%)}
 #hoaFrontPage .hoa-front-nav{
   position:sticky!important;top:10px!important;width:min(1180px,calc(100% - 24px))!important;margin:10px auto 0!important;
@@ -13393,7 +13440,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v653-connect-widget">
-/* V6.0.53 — Corner Connect Us widget. Admin is intentionally excluded. */
+/* V6.0.123 — Corner Connect Us widget. Admin is intentionally excluded. */
 .hoa-v653-connect-wrap{position:fixed;right:22px;bottom:22px;z-index:10050;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
 .hoa-v653-connect-toggle{border:1px solid rgba(255,255,255,.72);background:rgba(15,47,80,.96);color:#fff;border-radius:999px;padding:11px 16px;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:800;letter-spacing:.01em;box-shadow:0 10px 28px rgba(15,47,80,.24);cursor:pointer;transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
 .hoa-v653-connect-toggle:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(15,47,80,.30);background:#163f68}
@@ -13412,7 +13459,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 <style id="hoa-v6055-bottom-bar-polish">
-/* V6.0.55 — Bottom social bar polish */
+/* V6.0.123 — Bottom social bar polish */
 #hoa-v650-socialbar,
 .hoa-v650-socialbar,
 .hoa-socialbar,
@@ -13469,12 +13516,12 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6056-branding-cleanup">
-/* V6.0.56 — platform is no longer mock-test-only */
+/* V6.0.123 — platform is no longer mock-test-only */
 </style>
 
 
 <style id="hoa-v6057-bottom-bar-final-polish">
-/* V6.0.57 — bottom bar: rounded corners + properly embedded visible HOA logo */
+/* V6.0.123 — bottom bar: rounded corners + properly embedded visible HOA logo */
 #hoa-v650-socialbar,
 .hoa-v650-socialbar,
 .hoa-socialbar,
@@ -13532,7 +13579,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6058-topbar-polish">
-/* V6.0.58 — polished public top navigation */
+/* V6.0.123 — polished public top navigation */
 #hoaFrontPage .hoa-front-nav {
   min-height: 62px !important;
   padding: 10px 18px !important;
@@ -13681,7 +13728,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6067-poster-visible-fix">
-/* V6.0.67 — restore a real poster stage; keep full poster visible */
+/* V6.0.123 — restore a real poster stage; keep full poster visible */
 #hoaV643PosterWrap.hoa643-poster-wrap{
   position:relative !important;
   width:100% !important;
@@ -13864,8 +13911,8 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6068-poster-display-fix">
-/* V6.0.68 — final visibility fix
-   Older V6.0.48 poster CSS hides every .hoa643-poster-slide with display:none.
+/* V6.0.123 — final visibility fix
+   Older V6.0.123 poster CSS hides every .hoa643-poster-slide with display:none.
    The current tab-style carousel must explicitly restore the slides. */
 #hoaV643PosterWrap .hoa643-poster-slide{
   display:block !important;
@@ -13906,7 +13953,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6069-icon-only-social-bar">
-/* V6.0.69 — icon-only social/connect buttons */
+/* V6.0.123 — icon-only social/connect buttons */
 #hoaBottomBar a,
 #hoaBottomBar button,
 .hoa-social-bar a,
@@ -13982,7 +14029,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6070-poster-polish">
-/* V6.0.70 — polished poster carousel
+/* V6.0.123 — polished poster carousel
    Keep the section compact, give the carousel a deliberate visual hierarchy,
    and contain posters of ANY aspect ratio without cropping. */
 #hoaV643PosterSection.hoa-v648-poster-section{
@@ -14253,7 +14300,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
     transition:none !important;
   }
 }
-/* V6.0.72 — large poster stage / all-format display refinement.
+/* V6.0.123 — large poster stage / all-format display refinement.
    Existing poster records, URLs, upload workflow and carousel logic are preserved.
    Only the presentation frame is enlarged and the image is allowed to use the
    available space without cropping. */
@@ -14350,7 +14397,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 <script id="hoa-v6070-poster-autoplay">
-/* V6.0.70 — gentle carousel motion.
+/* V6.0.123 — gentle carousel motion.
    Auto-advance is paused while the user hovers/focuses the poster area. */
 (function(){
   'use strict';
@@ -14391,7 +14438,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 <style>
 
-/* V6.0.78 — Student Area: clear full-card button controls */
+/* V6.0.123 — Student Area: clear full-card button controls */
 #hoaFrontPage .hoa-v648-option-grid{
   display:grid!important;
   grid-template-columns:repeat(3,minmax(0,1fr))!important;
@@ -14567,7 +14614,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 <style>
 
-/* V6.0.79 — Hero section: informational/animated, NOT clickable */
+/* V6.0.123 — Hero section: informational/animated, NOT clickable */
 #hoaFrontPage .hoa-front-hero{
   position:relative!important;
   overflow:hidden!important;
@@ -14662,7 +14709,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 <style>
 
-/* V6.0.81 — Hero scroll-linked animation */
+/* V6.0.123 — Hero scroll-linked animation */
 #hoaFrontPage .hoa-front-hero{
   --hoa-scroll-progress:0;
   --hoa-scroll-shift:0px;
@@ -14749,7 +14796,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 <style id="hoa-v6083-everything-animation">
-/* V6.0.83 — slow scroll animation for Everything in one place */
+/* V6.0.123 — slow scroll animation for Everything in one place */
 #hoaFrontFeatures.hoa-v6083-features-animate .hoa-front-section-title,
 #hoaFrontFeatures.hoa-v6083-features-animate .hoa-front-section-sub,
 #hoaFrontFeatures.hoa-v6083-features-animate .hoa-front-feature-box{
@@ -14803,7 +14850,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6084-front-mobile">
-/* V6.0.84 — Front page mobile-first polish.
+/* V6.0.123 — Front page mobile-first polish.
    Presentation/layout only. Existing data, auth, poster URLs and workflows
    are intentionally untouched. */
 
@@ -15324,7 +15371,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6085-staircase-feature-cards">
-/* V6.0.85 — Hero feature cards:
+/* V6.0.123 — Hero feature cards:
    equal dimensions + deliberate staircase alignment.
    Uses CSS translate (separate from transform) so the existing slow
    animation/parallax transforms continue to work. */
@@ -15428,7 +15475,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6086-mobile-nav-polish">
-/* V6.0.86 — Mobile top navigation polish.
+/* V6.0.123 — Mobile top navigation polish.
    Keeps LOGIN, FEATURES and CONNECT inside the rounded navigation bar,
    with equal touch targets and no clipping/overflow. */
 
@@ -15615,7 +15662,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6089-home-final-polish">
-/* V6.0.89 — final home-page polish */
+/* V6.0.123 — final home-page polish */
 .hoa-front-hero,
 .hoa-hero {
   overflow: hidden;
@@ -15653,7 +15700,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 </style>
 
 <style id="hoa-v6090-final-home-hero">
-/* V6.0.90 — verified home-page hero polish */
+/* V6.0.123 — verified home-page hero polish */
 #hoaFrontPage .hoa-front-hero .hoa-front-feature{
   pointer-events:none;
   box-sizing:border-box;
@@ -15674,7 +15721,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6091-contact-us">
-/* V6.0.91 — Connect Us currently limited to Telegram, WhatsApp, Email and Call. */
+/* V6.0.123 — Connect Us currently limited to Telegram, WhatsApp, Email and Call. */
 .hoa-v653-connect-link.hoa-v653-connect-disabled{
   opacity:.55 !important;
   cursor:not-allowed !important;
@@ -15688,7 +15735,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6092-contact-actual-icons">
-/* V6.0.92 — actual inline SVG icons for Connect Us */
+/* V6.0.123 — actual inline SVG icons for Connect Us */
 .hoa-v653-placeholder-icon{
   width:24px !important;
   height:24px !important;
@@ -15710,7 +15757,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6094-professional-footer">
-/* V6.0.94 — polished compact public-site footer */
+/* V6.0.123 — polished compact public-site footer */
 .hoa-professional-footer{
   width:100%;
   margin-top:44px;
@@ -15797,7 +15844,7 @@ body:has(#studentOnlyDashboard:not(.hidden)){
 
 
 <style id="hoa-v6095-bottom-polish">
-/* V6.0.95 — final bottom-area polish */
+/* V6.0.123 — final bottom-area polish */
 
 /* The old test-era branding block is redundant on the public page. */
 body.hoa-front-page .missionBrandFooter,
@@ -15885,7 +15932,7 @@ body:has(#hoaFrontPage) .missionBrandFooter{
 
 
 <style id="hoa-v6098-connect-polish">
-/* V6.0.98 — polished Connect Us control */
+/* V6.0.123 — polished Connect Us control */
 #hoaV653ConnectWrap{
   right:18px !important;
   bottom:18px !important;
@@ -15956,7 +16003,7 @@ body:has(#hoaFrontPage) .missionBrandFooter{
 
 
 <style id="hoa-v6099-follow-us">
-/* V6.0.99 — subtle social-follow label */
+/* V6.0.123 — subtle social-follow label */
 #hoaFrontSocialFooter .hoa-v619-actions{
   display:flex !important;
   align-items:center !important;
@@ -15992,7 +16039,7 @@ body:has(#hoaFrontPage) .missionBrandFooter{
 
 
 <style id="hoa-v6100-original-social-colors">
-/* V6.0.100 — original brand colours for social icons */
+/* V6.0.123 — original brand colours for social icons */
 #hoaFrontSocialFooter .hoa-v619-social[data-platform="youtube"] svg,
 #hoaFrontSocialFooter .hoa-v619-social[aria-label="YouTube"] svg{
   color:#FF0000 !important;
@@ -16017,7 +16064,7 @@ body:has(#hoaFrontPage) .missionBrandFooter{
 
 
 <style id="hoa-v6101-final-mobile-audit">
-/* V6.0.101 — final home-page and mobile release polish */
+/* V6.0.123 — final home-page and mobile release polish */
 html, body{
   max-width:100%;
   overflow-x:hidden !important;
@@ -16200,7 +16247,7 @@ body *{box-sizing:border-box;}
 
 
 <style id="hoa-v6103-follow-us-polish">
-/* V6.0.103 — stronger Follow us on label */
+/* V6.0.123 — stronger Follow us on label */
 #hoaFrontSocialFooter .hoa-v619-follow-label{
   display:inline-flex !important;
   align-items:center;
@@ -16222,7 +16269,7 @@ body *{box-sizing:border-box;}
 
 
 <style id="hoa-v6104-follow-us-visible">
-/* V6.0.104 — make Follow us on unmistakably visible */
+/* V6.0.123 — make Follow us on unmistakably visible */
 #hoaFrontSocialFooter .hoa-v619-actions{
   align-items:center !important;
 }
@@ -16292,6 +16339,968 @@ body *{box-sizing:border-box;}
 }
 </style>
 
+
+<style id="hoa-v6106-admin-login-polish">
+/* V6.0.123 — Admin Login polish + responsive/mobile layout.
+   Existing authentication IDs, handlers and workflow are intentionally preserved. */
+
+body.hoa-public-auth.hoa-admin-auth{
+  overflow-x:hidden !important;
+  background:#f3f7fc !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaLoginPage{
+  min-height:100svh !important;
+  display:flex !important;
+  flex-direction:column !important;
+  background:
+    radial-gradient(circle at 50% 22%,rgba(43,105,180,.08),transparent 34%),
+    linear-gradient(180deg,#f3f7fc 0%,#f8fbff 55%,#eef4fa 100%) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
+  width:calc(100% - 32px) !important;
+  max-width:1180px !important;
+  height:68px !important;
+  min-height:68px !important;
+  margin:10px auto 0 !important;
+  padding:0 22px !important;
+  border:1px solid #dce6f1 !important;
+  border-radius:14px !important;
+  background:rgba(255,255,255,.96) !important;
+  box-shadow:0 7px 24px rgba(15,39,68,.07) !important;
+  gap:18px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand{
+  min-width:0 !important;
+  gap:11px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand img{
+  width:42px !important;
+  height:42px !important;
+  min-width:42px !important;
+  object-fit:contain !important;
+  border-radius:50% !important;
+  background:transparent !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand strong{
+  color:#102f52 !important;
+  font-size:14px !important;
+  font-weight:850 !important;
+  letter-spacing:.15px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top::after{
+  content:"ADMIN PORTAL  •  CONTROL PANEL" !important;
+  color:#64748b !important;
+  font-size:12px !important;
+  font-weight:800 !important;
+  letter-spacing:.75px !important;
+  white-space:nowrap !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-page-content{
+  flex:1 0 auto !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:58px 16px 70px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:flex-start !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaStudentPortalPanel{
+  display:none !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+  display:block !important;
+  width:min(520px,100%) !important;
+  max-width:520px !important;
+  margin:0 !important;
+  padding:30px !important;
+  box-sizing:border-box !important;
+  border:1px solid #dbe5f0 !important;
+  border-radius:22px !important;
+  background:rgba(255,255,255,.98) !important;
+  box-shadow:
+    0 24px 60px rgba(15,39,68,.10),
+    0 3px 10px rgba(15,39,68,.04) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head{
+  margin:0 0 24px !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:13px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head .icon{
+  flex:0 0 48px !important;
+  width:48px !important;
+  height:48px !important;
+  display:grid !important;
+  place-items:center !important;
+  border-radius:14px !important;
+  background:#eaf3ff !important;
+  font-size:22px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head h2{
+  margin:0 !important;
+  color:#102f52 !important;
+  font-size:27px !important;
+  font-weight:850 !important;
+  line-height:1.1 !important;
+  letter-spacing:-.35px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head p{
+  margin:5px 0 0 !important;
+  color:#718096 !important;
+  font-size:12px !important;
+  line-height:1.4 !important;
+}
+
+/* Use the real existing authentication form; remove the redundant nested
+   "Admin / Close" presentation used by the legacy home panel. */
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost{
+  width:100% !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .homeAdminHeader{
+  display:none !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
+  display:block !important;
+  padding:0 !important;
+  border:0 !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody[hidden]{
+  display:block !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup{
+  margin:0 0 18px !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup label{
+  display:block !important;
+  margin:0 0 8px !important;
+  color:#1e293b !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1.3 !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername,
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword{
+  width:100% !important;
+  min-height:50px !important;
+  box-sizing:border-box !important;
+  padding:13px 14px !important;
+  border:1px solid #cbd8e6 !important;
+  border-radius:11px !important;
+  background:#fff !important;
+  color:#172033 !important;
+  font-size:14px !important;
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername::placeholder,
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword::placeholder{
+  color:#94a3b8 !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername:focus,
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword:focus{
+  outline:none !important;
+  border-color:#2d6dcc !important;
+  background:#fff !important;
+  box-shadow:0 0 0 4px rgba(45,109,204,.11) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername{
+  background:#f8fbff !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
+  width:100% !important;
+  min-height:50px !important;
+  margin-top:2px !important;
+  padding:12px 16px !important;
+  border:1px solid #194a7c !important;
+  border-radius:11px !important;
+  background:linear-gradient(180deg,#205687 0%,#173f6b 100%) !important;
+  color:#fff !important;
+  font-size:14px !important;
+  font-weight:850 !important;
+  letter-spacing:.15px !important;
+  box-shadow:0 7px 16px rgba(23,63,107,.18) !important;
+  transition:transform .18s ease,box-shadow .18s ease,filter .18s ease !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary:hover{
+  filter:brightness(1.04) !important;
+  box-shadow:0 9px 20px rgba(23,63,107,.23) !important;
+  transform:translateY(-1px) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary:active{
+  transform:translateY(0) !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminAuthMessage{
+  min-height:18px !important;
+  margin-top:12px !important;
+  line-height:1.4 !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel::after{
+  content:"Authorized HUB OF ASPIRANTS administrators only" !important;
+  display:block !important;
+  margin-top:20px !important;
+  padding-top:15px !important;
+  border-top:1px solid #edf2f7 !important;
+  color:#94a3b8 !important;
+  text-align:center !important;
+  font-size:11px !important;
+  line-height:1.4 !important;
+}
+
+/* Tablet */
+@media(max-width:760px){
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
+    width:calc(100% - 24px) !important;
+    margin-top:8px !important;
+    padding:0 16px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top::after{
+    font-size:10px !important;
+    letter-spacing:.45px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-content{
+    padding:36px 12px 46px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+    padding:26px 20px !important;
+    border-radius:18px !important;
+  }
+}
+
+/* Phone */
+@media(max-width:520px){
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
+    height:auto !important;
+    min-height:62px !important;
+    padding:10px 13px !important;
+    border-radius:12px !important;
+    gap:10px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand img{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand strong{
+    font-size:13px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top::after{
+    content:"ADMIN PORTAL" !important;
+    margin-left:auto !important;
+    font-size:9px !important;
+    letter-spacing:.55px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-content{
+    padding:26px 10px 36px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+    padding:23px 16px 22px !important;
+    border-radius:17px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head{
+    margin-bottom:22px !important;
+    gap:11px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head .icon{
+    flex-basis:44px !important;
+    width:44px !important;
+    height:44px !important;
+    border-radius:12px !important;
+    font-size:20px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head h2{
+    font-size:23px !important;
+  }
+
+  body.hoa.public-auth.hoa-admin-auth .hoa-login-panel-head p,
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head p{
+    font-size:11px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername,
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword{
+    min-height:49px !important;
+    font-size:16px !important; /* avoids iOS zoom */
+  }
+
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup{
+    margin-bottom:16px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
+    min-height:50px !important;
+  }
+}
+
+/* Very small phones */
+@media(max-width:360px){
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top::after{
+    display:none !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand strong{
+    font-size:12px !important;
+  }
+
+  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+    padding:20px 13px !important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6107-admin-dashboard-polish">
+/* =========================================================
+   HOA V6.0.123 — Admin Dashboard Professional Polish
+   UI/performance layer only. Existing data, Supabase calls,
+   authentication and admin workflows remain unchanged.
+   ========================================================= */
+
+body.admin-ui{
+  --admin-navy:#082544;
+  --admin-navy-2:#0d3158;
+  --admin-blue:#1674e8;
+  --admin-blue-2:#2b82ed;
+  --admin-bg:#f4f7fb;
+  --admin-card:#ffffff;
+  --admin-border:#dce5ef;
+  --admin-text:#102a49;
+  --admin-muted:#6b7c91;
+  background:var(--admin-bg)!important;
+  color:var(--admin-text)!important;
+}
+
+/* Keep the admin shell visually stable and lightweight. */
+body.admin-ui .adminReferenceSidebar{
+  background:linear-gradient(180deg,#082544 0%,#06203d 100%)!important;
+  border-right:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:4px 0 22px rgba(7,31,57,.10)!important;
+  contain:layout paint style;
+}
+
+body.admin-ui .adminReferenceBrand{
+  min-height:108px!important;
+  padding:20px 14px 18px!important;
+  border-bottom:1px solid rgba(255,255,255,.10)!important;
+}
+
+body.admin-ui .adminReferenceBrand img{
+  width:48px!important;
+  height:48px!important;
+  background:#fff!important;
+  border:0!important;
+  box-shadow:0 3px 12px rgba(0,0,0,.18)!important;
+}
+
+body.admin-ui .adminReferenceBrandTitle{
+  font-size:18px!important;
+  line-height:1.08!important;
+  letter-spacing:.2px!important;
+}
+
+body.admin-ui .adminReferenceBrandSub{
+  font-size:11px!important;
+  margin-top:6px!important;
+  color:rgba(255,255,255,.68)!important;
+}
+
+body.admin-ui .adminReferenceNav{
+  padding:18px 10px!important;
+  gap:7px!important;
+}
+
+body.admin-ui .adminReferenceNav button{
+  min-height:47px!important;
+  border-radius:10px!important;
+  color:#eaf2fc!important;
+  transition:background .14s ease,transform .14s ease!important;
+}
+
+body.admin-ui .adminReferenceNav button:hover:not(.active){
+  background:rgba(255,255,255,.075)!important;
+  transform:translateX(1px)!important;
+}
+
+body.admin-ui .adminReferenceNav button.active{
+  background:linear-gradient(90deg,#1674e8,#2a83ed)!important;
+  box-shadow:0 6px 14px rgba(0,91,190,.20)!important;
+}
+
+body.admin-ui .adminReferenceBottom{
+  padding:12px 10px 14px!important;
+  border-top:1px solid rgba(255,255,255,.10)!important;
+}
+
+body.admin-ui .adminReferenceAdminCard{
+  padding:10px!important;
+  border-color:rgba(255,255,255,.25)!important;
+  border-radius:11px!important;
+  background:rgba(255,255,255,.045)!important;
+}
+
+/* Top header */
+body.admin-ui > .header{
+  background:rgba(255,255,255,.97)!important;
+  border-bottom:1px solid #dce5ef!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.07)!important;
+  backdrop-filter:none!important;
+}
+
+body.admin-ui > .header #adminHeaderLogout,
+body.admin-ui > .header #openHoaDevConsole{
+  min-height:38px!important;
+  border-radius:9px!important;
+  font-weight:850!important;
+  box-shadow:none!important;
+}
+
+body.admin-ui > .header #openHoaDevConsole{
+  border:1px solid #d8e2ed!important;
+  background:#fff!important;
+  color:#173f6b!important;
+}
+
+body.admin-ui > .header #adminHeaderLogout{
+  border:1px solid #d8e2ed!important;
+  background:#fff!important;
+  color:#173f6b!important;
+}
+
+/* Main workspace */
+body.admin-ui .adminReferenceMain{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(41,124,230,.045),transparent 28%),
+    var(--admin-bg)!important;
+  padding-bottom:40px!important;
+}
+
+body.admin-ui .adminReferenceMain > #adminOnlyDashboard{
+  max-width:1380px!important;
+}
+
+/* Dashboard title/refresh strip */
+body.admin-ui .adminReferenceMain #adminOnlyDashboard > .dashPanel:first-of-type{
+  min-height:86px!important;
+  padding:17px 20px!important;
+  border-radius:14px!important;
+  border:1px solid var(--admin-border)!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.055)!important;
+}
+
+/* Navigation is already relocated to sidebar; keep the original hidden. */
+body.admin-ui .adminReferenceMain #adminOnlyDashboard > .adminSectionNav{
+  display:none!important;
+}
+
+/* Content cards */
+body.admin-ui .adminReferenceMain .dashPanel,
+body.admin-ui .adminReferenceMain .testWisePanel{
+  border:1px solid var(--admin-border)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.052)!important;
+  contain:layout paint style;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel{
+  padding:18px!important;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel > h3:first-child{
+  font-size:19px!important;
+  line-height:1.25!important;
+  margin-bottom:7px!important;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel > p{
+  color:var(--admin-muted)!important;
+  line-height:1.5!important;
+}
+
+/* Candidate sections */
+body.admin-ui .adminReferenceMain .candidateAdminSection{
+  margin-top:15px!important;
+  padding-top:2px!important;
+}
+
+body.admin-ui .adminReferenceMain .candidateAdminSection + .candidateAdminSection{
+  margin-top:18px!important;
+  border-top:1px solid #e5ebf2!important;
+  padding-top:18px!important;
+}
+
+body.admin-ui .adminReferenceMain .candidateAdminSection h4{
+  font-size:16px!important;
+  letter-spacing:.05px!important;
+}
+
+/* Candidate rows generated dynamically */
+body.admin-ui .adminReferenceMain .studentItem,
+body.admin-ui .adminReferenceMain .candidateItem,
+body.admin-ui .adminReferenceMain .testItem{
+  border:1px solid #dce5ef!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease!important;
+}
+
+body.admin-ui .adminReferenceMain .studentItem:hover,
+body.admin-ui .adminReferenceMain .candidateItem:hover,
+body.admin-ui .adminReferenceMain .testItem:hover{
+  border-color:#bfd2e6!important;
+  box-shadow:0 5px 14px rgba(15,39,68,.055)!important;
+  transform:translateY(-1px)!important;
+}
+
+/* Inputs and action buttons */
+body.admin-ui .adminReferenceMain input,
+body.admin-ui .adminReferenceMain select,
+body.admin-ui .adminReferenceMain textarea{
+  border-color:#cfdbe8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+body.admin-ui .adminReferenceMain input:focus,
+body.admin-ui .adminReferenceMain select:focus,
+body.admin-ui .adminReferenceMain textarea:focus{
+  outline:none!important;
+  border-color:#3d82d3!important;
+  box-shadow:0 0 0 3px rgba(61,130,211,.10)!important;
+}
+
+body.admin-ui .adminReferenceMain button{
+  touch-action:manipulation;
+}
+
+body.admin-ui .adminReferenceMain button.primary,
+body.admin-ui .adminReferenceMain button.btn-primary{
+  border-radius:9px!important;
+  background:linear-gradient(180deg,#1b5b93,#123f6b)!important;
+  border-color:#123f6b!important;
+  box-shadow:0 4px 10px rgba(18,63,107,.13)!important;
+}
+
+body.admin-ui .adminReferenceMain button.secondary,
+body.admin-ui .adminReferenceMain button.btn.secondary{
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+/* Poster Management */
+body.admin-ui .adminReferenceMain .hoa-v59-admin{
+  margin-top:16px!important;
+  padding:18px!important;
+  border:1px solid var(--admin-border)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.052)!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-admin input{
+  min-height:43px!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-admin button{
+  min-height:43px!important;
+  padding:0 13px!important;
+  border-radius:9px!important;
+  font-weight:800!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-list{
+  border:1px solid #e1e8f0!important;
+  border-radius:10px!important;
+  overflow:hidden!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-list th{
+  background:#f7f9fc!important;
+  color:#52657b!important;
+  font-size:11px!important;
+  text-transform:uppercase!important;
+  letter-spacing:.04em!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-list th,
+body.admin-ui .adminReferenceMain .hoa-v59-list td{
+  padding:10px 11px!important;
+  border-bottom:1px solid #e8edf3!important;
+}
+
+/* Results cards */
+body.admin-ui .adminReferenceMain .adminResultCards{
+  gap:12px!important;
+}
+
+body.admin-ui .adminReferenceMain .adminResultCard{
+  min-height:96px!important;
+  padding:14px!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+}
+
+/* Performance: avoid expensive visual effects inside the admin workspace. */
+body.admin-ui .adminReferenceMain,
+body.admin-ui .adminReferenceMain *{
+  -webkit-tap-highlight-color:transparent;
+}
+
+body.admin-ui .adminReferenceMain *{
+  backdrop-filter:none!important;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel,
+body.admin-ui .adminReferenceMain .candidateItem,
+body.admin-ui .adminReferenceMain .studentItem,
+body.admin-ui .adminReferenceMain .testItem{
+  will-change:auto!important;
+}
+
+/* Mobile admin workspace */
+@media(max-width:768px){
+  body.admin-ui .adminReferenceMain{
+    padding:74px 10px calc(80px + env(safe-area-inset-bottom))!important;
+  }
+
+  body.admin-ui .adminReferenceMain #adminOnlyDashboard > .dashPanel:first-of-type{
+    min-height:74px!important;
+    padding:14px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .dashPanel{
+    padding:14px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-admin{
+    padding:14px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-admin > div:first-of-type{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-admin input,
+  body.admin-ui .adminReferenceMain .hoa-v59-admin button{
+    width:100%!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-list{
+    display:block!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-list table{
+    min-width:620px!important;
+  }
+}
+
+@media(max-width:600px){
+  body.admin-ui .adminReferenceMain{
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .adminSectionPanel.active{
+    width:100%!important;
+  }
+
+  body.admin-ui .adminReferenceMain .candidateAdminSection{
+    overflow:hidden!important;
+  }
+
+  body.admin-ui .adminReferenceMain .studentItem,
+  body.admin-ui .adminReferenceMain .candidateItem{
+    width:100%!important;
+    overflow:hidden!important;
+  }
+
+  body.admin-ui .adminReferenceMain .adminResultCards{
+    grid-template-columns:1fr!important;
+  }
+}
+
+/* Respect accessibility without sacrificing the normal fast UI. */
+@media(prefers-reduced-motion:reduce){
+  body.admin-ui .adminReferenceMain *,
+  body.admin-ui .adminReferenceSidebar *{
+    transition:none!important;
+    animation:none!important;
+  }
+}
+</style>
+
+
+<style id="hoa-v6108-admin-content-management">
+/* V6.0.123 — Admin content-management workspace */
+body.admin-ui .hoa-admin-content-panel{padding:20px!important}
+body.admin-ui .hoa-admin-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+body.admin-ui .hoa-admin-section-head h3{margin:0 0 5px!important;color:#123b67!important;font-size:19px!important}
+body.admin-ui .hoa-admin-section-head p{margin:0!important;color:#718096!important;font-size:12.5px!important;line-height:1.5!important}
+body.admin-ui .hoa-admin-count{min-width:34px;height:28px;padding:0 9px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#edf4ff;color:#175aa3;font-size:12px;font-weight:850}
+body.admin-ui .hoa-admin-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+body.admin-ui .hoa-admin-form-grid label{display:flex;flex-direction:column;gap:6px;color:#334155;font-size:12px;font-weight:800}
+body.admin-ui .hoa-admin-form-grid .hoa-admin-wide{grid-column:1/-1}
+body.admin-ui .hoa-admin-form-grid input,
+body.admin-ui .hoa-admin-form-grid select,
+body.admin-ui .hoa-admin-form-grid textarea{width:100%;min-height:42px;padding:10px 11px;border:1px solid #cfdbe8;border-radius:9px;background:#fff;color:#172033;box-sizing:border-box}
+body.admin-ui .hoa-admin-form-grid textarea{resize:vertical;min-height:78px}
+body.admin-ui .hoa-admin-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:14px}
+body.admin-ui .hoa-admin-actions button{min-height:42px;padding:0 13px}
+body.admin-ui .hoa-admin-actions span{font-size:12px;color:#64748b}
+body.admin-ui .hoa-admin-list{margin-top:18px;border:1px solid #e0e7ef;border-radius:11px;overflow:auto;background:#fff}
+body.admin-ui .hoa-admin-list table{width:100%;border-collapse:collapse;min-width:720px}
+body.admin-ui .hoa-admin-list th{padding:10px 11px;text-align:left;background:#f7f9fc;color:#607287;font-size:10px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+body.admin-ui .hoa-admin-list td{padding:11px;border-top:1px solid #e8edf3;color:#263c56;font-size:12px;vertical-align:middle}
+body.admin-ui .hoa-admin-list tr:hover td{background:#fbfdff}
+body.admin-ui .hoa-admin-row-actions{display:flex;gap:6px;flex-wrap:wrap}
+body.admin-ui .hoa-admin-row-actions button{min-height:32px;padding:0 9px;border-radius:7px;border:1px solid #d6e0ea;background:#fff;color:#173f6b;font-weight:800;font-size:11px}
+body.admin-ui .hoa-admin-row-actions button.danger{color:#b42318;border-color:#f1c5c0}
+body.admin-ui .hoa-admin-empty{padding:28px 16px;text-align:center;color:#8a99aa;font-size:12px}
+body.admin-ui #adminReferenceSidebar .adminReferenceNav{overflow-y:auto;scrollbar-width:thin}
+body.admin-ui #adminReferenceSidebar .adminReferenceNav button{font-size:12px!important}
+body:not(.admin-ui) #adminReferenceSidebar #adminNavCourse,
+body:not(.admin-ui) #adminReferenceSidebar #adminNavVideo,
+body:not(.admin-ui) #adminReferenceSidebar #adminNavNotes,
+body:not(.admin-ui) #adminReferenceSidebar #adminNavAccess{display:none!important}
+body:not(.admin-ui) #adminNavCourse,
+body:not(.admin-ui) #adminNavVideo,
+body:not(.admin-ui) #adminNavNotes,
+body:not(.admin-ui) #adminNavAccess{display:none!important}
+@media(max-width:760px){
+  body.admin-ui .hoa-admin-form-grid{grid-template-columns:1fr}
+  body.admin-ui .hoa-admin-form-grid .hoa-admin-wide{grid-column:auto}
+  body.admin-ui .hoa-admin-section-head{align-items:flex-start}
+  body.admin-ui .hoa-admin-content-panel{padding:14px!important}
+}
+</style>
+
+
+
+<style id="hoa-authenticated-chrome-policy">
+/* =========================================================
+   HOA PUBLIC CHROME POLICY
+   Footer + Connect Us belong to the public site.
+   They are hidden only on login screens and authenticated
+   Student/Admin dashboards.
+   ========================================================= */
+
+/* Default: public footer and Connect Us are visible. */
+#hoaProfessionalFooter,
+#hoaV653ConnectWrap {
+  display: block;
+}
+
+/* Authentication screens: keep the login experience clean. */
+body.hoa-public-auth #hoaProfessionalFooter,
+body.hoa-public-auth #hoaV653ConnectWrap,
+body.hoa-student-auth #hoaProfessionalFooter,
+body.hoa-student-auth #hoaV653ConnectWrap,
+body.hoa-admin-auth #hoaProfessionalFooter,
+body.hoa-admin-auth #hoaV653ConnectWrap,
+body:has(#authScreen:not(.hidden)) #hoaProfessionalFooter,
+body:has(#authScreen:not(.hidden)) #hoaV653ConnectWrap {
+  display: none !important;
+}
+
+/* After Student/Admin login: no public footer or floating Connect Us. */
+body.hoa-app-student #hoaProfessionalFooter,
+body.hoa-app-student #hoaV653ConnectWrap,
+body.hoa-app-admin #hoaProfessionalFooter,
+body.hoa-app-admin #hoaV653ConnectWrap,
+body.admin-ui #hoaProfessionalFooter,
+body.admin-ui #hoaV653ConnectWrap {
+  display: none !important;
+}
+
+/* Defensive: if an authenticated dashboard is rendered without
+   the newer body classes, the visible dashboard itself still wins. */
+body:has(#studentOnlyDashboard:not(.hidden)) #hoaProfessionalFooter,
+body:has(#studentOnlyDashboard:not(.hidden)) #hoaV653ConnectWrap,
+body:has(#adminOnlyDashboard:not(.hidden)) #hoaProfessionalFooter,
+body:has(#adminOnlyDashboard:not(.hidden)) #hoaV653ConnectWrap {
+  display: none !important;
+}
+</style>
+
+
+<style id="hoa-v645-permissions-css">
+#hoaV645AccessManager{margin-top:18px;padding-top:18px;border-top:1px solid #e2e8f0}
+.hoa645-access-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+.hoa645-access-head h4{margin:0;color:#173f6b;font-size:18px}
+.hoa645-access-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}
+.hoa645-role-pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;white-space:nowrap}
+.hoa645-admin-list{display:grid;gap:10px}
+.hoa645-admin-card{border:1px solid #dbe5ef;border-radius:14px;background:#fff;padding:13px 14px}
+.hoa645-admin-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hoa645-admin-card-main{min-width:0}
+.hoa645-admin-card-main strong{display:block;color:#173f6b;font-size:14px}
+.hoa645-admin-card-main small{display:block;color:#64748b;margin-top:3px;overflow:hidden;text-overflow:ellipsis}
+.hoa645-access-actions{display:flex;gap:7px;flex-wrap:wrap}
+.hoa645-access-editor{display:none;margin-top:13px;padding-top:13px;border-top:1px solid #e2e8f0}
+.hoa645-access-editor.open{display:block}
+.hoa645-role-row{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:14px}
+.hoa645-role-row label{display:grid;gap:5px;font-size:11px;font-weight:800;color:#173f6b}
+.hoa645-role-row select{min-width:220px;padding:9px 10px;border:1px solid #cbd8e6;border-radius:9px;background:#fff}
+.hoa645-perm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.hoa645-perm-group{border:1px solid #e2e8f0;border-radius:12px;padding:11px;background:#f8fafc}
+.hoa645-perm-group h5{margin:0 0 8px;color:#173f6b;font-size:12px}
+.hoa645-perm-check{display:flex;align-items:center;gap:7px;margin:6px 0;font-size:12px;color:#334155}
+.hoa645-perm-check input{accent-color:#1d4ed8}
+.hoa645-locked{opacity:.65}
+.hoa645-msg{margin-top:8px;font-size:12px;color:#64748b}
+@media(max-width:700px){
+  .hoa645-access-head{display:block}
+  .hoa645-role-pill{margin-top:8px}
+  .hoa645-perm-grid{grid-template-columns:1fr}
+  .hoa645-admin-card-head{align-items:flex-start;flex-direction:column}
+}
+</style>
+
+<style id="hoa-v645-legacy-manager-hide">#hoaV643AdminManager{display:none!important}</style>
+
+<style id="hoa-v646-two-tier-admin-css">
+.hoa645-two-tier-note{
+  margin:10px 0 14px;padding:10px 12px;border-radius:10px;
+  background:#f7fbff;border:1px solid #d9e8f7;color:#38526b;
+  font-size:12px;line-height:1.5;
+}
+</style>
+
+<style id="hoa-v646-owner-access-css">
+#hoaV646OwnerAccessBanner{
+  display:block;margin:0 0 16px;padding:16px 18px;border-radius:14px;
+  border:1px solid #bfdbfe;background:linear-gradient(135deg,#eff6ff,#f8fbff);
+  box-shadow:0 5px 18px rgba(30,64,175,.08);
+}
+#hoaV646OwnerAccessBanner strong{display:block;color:#123f73;font-size:14px;letter-spacing:.4px}
+#hoaV646OwnerAccessBanner span{display:block;margin:5px 0 12px;color:#52677c;font-size:12px;line-height:1.5}
+#hoaV646OwnerAccessBanner button{
+  border:0;border-radius:9px;padding:9px 13px;background:#1d4ed8;color:#fff;
+  font-weight:800;font-size:11px;cursor:pointer;
+}
+body:not(.hoa-owner-mode) #hoaV646OwnerAccessBanner{display:none!important}
+</style>
+
+
+
+
+
+
+
+<style id="hoa-v619-poster-runtime-guard">
+/* Runtime guard: the existing poster carousel remains the sole renderer.
+   This only prevents an accidental ancestor visibility rule from blanking
+   the public poster section. */
+body.hoa-public-front #hoaFrontPage #hoaV643PosterSection{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body.hoa-public-front #hoaFrontPage #hoaV643PosterWrap{
+  visibility:visible !important;
+  opacity:1 !important;
+}
+</style>
+
+<script id="hoa-v621-admin-password-policy">
+(function(){
+  const RE=/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{6,}$/;
+  window.hoaAdminPasswordPolicy={
+    minLength:6,
+    validate:function(password){
+      const p=String(password||"");
+      return {valid:RE.test(p),length:p.length>=6,upper:/[A-Z]/.test(p),lower:/[a-z]/.test(p),special:/[^A-Za-z0-9]/.test(p)};
+    }
+  };
+  window.hoaValidateAdminPassword=function(password){
+    const r=window.hoaAdminPasswordPolicy.validate(password);
+    return r.valid ? {ok:true,message:""} : {
+      ok:false,
+      message:"Admin password must be at least 6 characters and contain at least 1 uppercase letter, 1 lowercase letter and 1 special character."
+    };
+  };
+  window.hoaOwnerCredentialsAreSupabaseManaged=true;
+})();
+</script>
+
+<style id="hoa-v621-admin-security-css">
+.hoa-admin-password-rule-note{margin:0 0 14px;padding:12px 14px;border-radius:10px;background:#f8fafc;border:1px solid #dbe4ee;color:#536579;font-size:12px;line-height:1.5}
+.hoa-admin-password-rule-note strong{color:#173b63}
+.hoa-admin-password-rule-note span{display:block;margin-top:3px;color:#6b7d90}
+</style>
+
+<style id="hoa-v622-admin-manager-polish">
+#hoaV645AccessManager{
+ display:block!important;visibility:visible!important;
+ margin:18px 0!important;padding:20px!important;
+ border:1px solid #d8e3ef!important;border-radius:14px!important;
+ background:#fff!important;box-shadow:0 6px 22px rgba(15,23,42,.06)!important;
+}
+#hoaV645AccessManager .hoa645-admin-manager-grid{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px!important;
+}
+#hoaV645AccessManager .hoa645-admin-manager-grid .primary{grid-column:1/-1;min-height:42px}
+@media(max-width:700px){
+ #hoaV645AccessManager .hoa645-admin-manager-grid{grid-template-columns:1fr!important}
+}
+</style>
 </head>
 <body>
 <a id="hoa-v601-skip-link" href="#home">Skip to main content</a>
@@ -16472,12 +17481,12 @@ body *{box-sizing:border-box;}
 
 
 <!--
-V6.0.44:
+V6.0.123:
 The former intermediate "Access Your Portal" screen has intentionally been
 removed. Student/Admin login pages remain separate and are reached directly
 from the front page. Existing login hosts and authentication workflows remain.
 -->
-<!-- V6.0.44: Intermediate "Access Your Portal" screen removed permanently.
+<!-- V6.0.123: Intermediate "Access Your Portal" screen removed permanently.
      Front Page -> Student Login or Admin Login directly. -->
 <section id="hoaLoginPage" class="hoa-login-page-shell" aria-label="HUB OF ASPIRANTS login page">
   <header class="hoa-login-page-top">
@@ -16571,7 +17580,7 @@ from the front page. Existing login hosts and authentication workflows remain.
 <div id="studentAuthMessage" style="margin-top:12px;font-size:13px;text-align:center"></div>
 </div>
 <div style="height:18px"></div>
-<div class="dashPanel homeAdminPanel" id="homeAdminPanel">
+<div class="dashPanel homeAdminPanel hoa-admin-shell" id="homeAdminPanel">
 <div class="homeAdminHeader">
   <div>
     <h2 style="margin:0">🔐 Admin</h2>
@@ -16639,10 +17648,14 @@ from the front page. Existing login hosts and authentication workflows remain.
 <!-- Admin dashboard is never shown to a student. It is only entered after Admin Login. -->
 <div class="hidden" id="adminOnlyDashboard">
 <div aria-label="Admin dashboard sections" class="adminSectionNav">
-<button class="active" id="adminNavStudent" onclick="showAdminSection('student')">👥 Student Section</button>
-<button id="adminNavTest" onclick="showAdminSection('test')">📝 Test Making</button>
-<button id="adminNavResult" onclick="showAdminSection('result')">📊 Result Section</button>
-<button id="adminNavAdmin" onclick="showAdminSection('admin')">⚙️ Admin Section</button>
+<button class="active" id="adminNavStudent" onclick="showAdminSection('student')">👥 Students</button>
+<button id="adminNavTest" onclick="showAdminSection('test')">📝 Mock Tests</button>
+<button id="adminNavCourse" onclick="showAdminSection('course')">🎓 Courses</button>
+<button id="adminNavVideo" onclick="showAdminSection('video')">🎥 Classes & Videos</button>
+<button id="adminNavNotes" onclick="showAdminSection('notes')">📚 Notes</button>
+<button id="adminNavAccess" onclick="showAdminSection('access')">🔐 Student Access</button>
+<button id="adminNavResult" onclick="showAdminSection('result')">📊 Results</button>
+<button id="adminNavAdmin" onclick="showAdminSection('admin')">👑 Admin Access & Permissions</button>
 </div>
 <div class="dashPanel" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
 <div style="display:flex;align-items:center;gap:12px">
@@ -16650,20 +17663,120 @@ from the front page. Existing login hosts and authentication workflows remain.
 <div><b>⚙️ Admin Dashboard</b><div style="font-size:12px;color:#64748b">Manage students and mock tests</div></div>
 </div>
 </div>
+
+<div class="adminSectionPanel" id="adminSectionCoursePanel">
+  <div class="dashPanel hoa-admin-content-panel">
+    <div class="hoa-admin-section-head">
+      <div><h3>🎓 Course / Batch Management</h3><p>Create and publish preparation batches. Students can be granted access to published batches.</p></div>
+      <span class="hoa-admin-count" id="hoaCourseCount">0</span>
+    </div>
+    <div class="hoa-admin-form-grid">
+      <label>Course / Batch Name<input id="hoaCourseName" placeholder="e.g. TES Degree 2026"/></label>
+      <label>Batch Code<input id="hoaCourseCode" placeholder="e.g. TES-D-26"/></label>
+      <label class="hoa-admin-wide">Description<textarea id="hoaCourseDescription" rows="3" placeholder="Short description for students"></textarea></label>
+      <label>Status<select id="hoaCourseStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label>
+      <label>Sort Order<input id="hoaCourseSort" type="number" value="0"/></label>
+    </div>
+    <div class="hoa-admin-actions">
+      <button class="primary" onclick="hoaCreateCourse()">＋ Create Course</button>
+      <button class="secondary" onclick="hoaLoadCourses()">↻ Refresh</button>
+      <span id="hoaCourseStatusMsg"></span>
+    </div>
+    <div id="hoaCourseList" class="hoa-admin-list"></div>
+  </div>
+</div>
+
+<div class="adminSectionPanel" id="adminSectionVideoPanel">
+  <div class="dashPanel hoa-admin-content-panel">
+    <div class="hoa-admin-section-head">
+      <div><h3>🎥 Classes & Video Management</h3><p>Add live/recorded class entries to a course using YouTube video IDs. Publishing controls student visibility.</p></div>
+      <span class="hoa-admin-count" id="hoaVideoCount">0</span>
+    </div>
+    <div class="hoa-admin-form-grid">
+      <label>Course / Batch<select id="hoaVideoBatch"></select></label>
+      <label>Lecture No.<input id="hoaVideoLectureNo" type="number" min="1" value="1"/></label>
+      <label>Class Title<input id="hoaVideoTitle" placeholder="e.g. Structural Analysis — Lecture 01"/></label>
+      <label>YouTube Video ID<input id="hoaVideoYoutubeId" placeholder="e.g. dQw4w9WgXcQ" maxlength="20"/></label>
+      <label class="hoa-admin-wide">Description<textarea id="hoaVideoDescription" rows="3" placeholder="What students will learn"></textarea></label>
+      <label>Scheduled At<input id="hoaVideoScheduled" type="datetime-local"/></label>
+      <label>Duration (seconds)<input id="hoaVideoDuration" type="number" min="0" placeholder="Optional"/></label>
+      <label>Status<select id="hoaVideoPublished"><option value="false">Draft</option><option value="true">Published</option></select></label>
+      <label>Sort Order<input id="hoaVideoSort" type="number" value="0"/></label>
+    </div>
+    <div class="hoa-admin-actions">
+      <button class="primary" onclick="hoaCreateVideo()">＋ Add Class / Video</button>
+      <button class="secondary" onclick="hoaLoadVideos()">↻ Refresh</button>
+      <span id="hoaVideoStatusMsg"></span>
+    </div>
+    <div id="hoaAdminInlineVideoPlayer" class="hoa-admin-inline-video-player" style="display:none;margin:14px 0 16px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">
+        <div>
+          <strong id="hoaAdminInlineVideoTitle">Video Preview</strong>
+          <div id="hoaAdminInlineVideoMeta" style="font-size:12px;color:#64748b;margin-top:2px;"></div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;"><button type="button" class="secondary" id="hoaAdminInlineVideoOpen">Open Player</button><button type="button" class="secondary" id="hoaAdminInlineVideoClose">Close Preview</button></div>
+      </div>
+      <div id="hoaAdminInlineVideoFrame"></div>
+    </div>
+    <div id="hoaVideoList" class="hoa-admin-list"></div>
+  </div>
+</div>
+
+<div class="adminSectionPanel" id="adminSectionNotesPanel">
+  <div class="dashPanel hoa-admin-content-panel">
+    <div class="hoa-admin-section-head">
+      <div><h3>📚 Notes / Study Material</h3><p>Manage PDF and study-material records already supported by the database. File upload/storage can be connected without changing this management workflow.</p></div>
+      <span class="hoa-admin-count" id="hoaNotesCount">0</span>
+    </div>
+    <div class="hoa-admin-form-grid">
+      <label>Title<input id="hoaNoteTitle" placeholder="e.g. Environmental Engineering Notes"/></label>
+      <label>Subject<input id="hoaNoteSubject" placeholder="e.g. Environment"/></label>
+      <label>Exam<input id="hoaNoteExam" placeholder="e.g. RRB JE"/></label>
+      <label>File Name<input id="hoaNoteFileName" placeholder="notes.pdf"/></label>
+      <label class="hoa-admin-wide">Description<textarea id="hoaNoteDescription" rows="3" placeholder="Short description"></textarea></label>
+      <label class="hoa-admin-wide">Storage Path<input id="hoaNoteStoragePath" placeholder="Supabase Storage path"/></label>
+      <label>Published<select id="hoaNotePublished"><option value="false">Draft</option><option value="true">Published</option></select></label>
+      <label>Sort Order<input id="hoaNoteSort" type="number" value="0"/></label>
+    </div>
+    <div class="hoa-admin-actions">
+      <button class="primary" onclick="hoaCreateNote()">＋ Add Note</button>
+      <button class="secondary" onclick="hoaLoadNotes()">↻ Refresh</button>
+      <span id="hoaNoteStatusMsg"></span>
+    </div>
+    <div id="hoaNoteList" class="hoa-admin-list"></div>
+  </div>
+</div>
+
+<div class="adminSectionPanel" id="adminSectionAccessPanel">
+  <div class="dashPanel hoa-admin-content-panel">
+    <div class="hoa-admin-section-head">
+      <div><h3>🔐 Student Access Management</h3><p>Grant or revoke access to courses, mock tests and notes for individual students. Access uses the existing RLS-protected access tables.</p></div>
+    </div>
+    <div class="hoa-admin-form-grid">
+      <label>Student<select id="hoaAccessStudent"></select></label>
+      <label>Access Type<select id="hoaAccessType" onchange="hoaAccessTypeChanged()"><option value="batch">Course / Batch</option><option value="test">Mock Test</option><option value="note">Note</option></select></label>
+      <label class="hoa-admin-wide">Resource<select id="hoaAccessResource"></select></label>
+      <label>Starts At<input id="hoaAccessStarts" type="datetime-local"/></label>
+      <label>Expires At<input id="hoaAccessExpires" type="datetime-local"/></label>
+    </div>
+    <div class="hoa-admin-actions">
+      <button class="primary" onclick="hoaGrantAccess()">＋ Grant Access</button>
+      <button class="secondary" onclick="hoaLoadAccess()">↻ Refresh</button>
+      <span id="hoaAccessStatusMsg"></span>
+    </div>
+    <div id="hoaAccessList" class="hoa-admin-list"></div>
+  </div>
+</div>
+
 <div class="adminSectionPanel" id="adminSectionAdminPanel">
 <div class="dashPanel">
-<h3 style="margin-top:0">🔐 Admin Account</h3>
-<p style="font-size:13px;color:#64748b">Change the Admin username and password used to enter this application. Student passwords are never displayed; use Set/Update Password when needed. <b>Note:</b> the current Admin login is app-level, so this setting is stored in this browser until we migrate Admin authentication to Supabase Auth.</p>
-<div class="accountGrid">
-<label>Admin Username / Email<input autocomplete="username" id="accountUsername" placeholder="Admin username" type="text"/></label>
-<label>Current Password<input autocomplete="current-password" id="accountCurrentPassword" placeholder="Current password" type="password"/></label>
-<label>New Password<input autocomplete="new-password" id="accountNewPassword" placeholder="Minimum 6 characters" type="password"/></label>
-<label>Confirm New Password<input autocomplete="new-password" id="accountConfirmPassword" placeholder="Re-enter new password" type="password"/></label>
+<h3 style="margin-top:0">🔐 Admin Account Settings</h3>
+<div id="hoaV646OwnerAccessBanner" class="hoaV646-owner-access-banner">
+<strong>👑 SUPER ADMIN / OWNER — ADMIN ACCESS CONTROL</strong>
+<span>Create Admin accounts, set their email and password, choose exactly what they can access, change their credentials later, or delete them.</span>
+<button type="button" onclick="document.getElementById('hoaV645AccessManager')?.scrollIntoView({behavior:'smooth',block:'start'})">OPEN ADMIN ACCESS & PERMISSIONS</button>
 </div>
-<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:14px">
-<button class="primary" onclick="changeAdminAccount()">🔐 CHANGE ADMIN ACCOUNT</button>
-<span id="accountStatus" style="font-size:13px"></span>
-</div>
+<p style="font-size:13px;color:#64748b">This area is for the Super Admin / Owner. Admin login credentials are managed through Supabase Auth. Use the Admin Access & Permissions panel above to create Admin accounts, set their email/password, control permissions, change credentials, or delete an Admin.</p>
 </div>
 </div>
 <div class="adminSectionPanel active" id="adminSectionStudentPanel">
@@ -16784,7 +17897,6 @@ Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;
 <p id="testWiseTemplateDate">Date: —</p>
 </div>
 <div id="testWiseTable"></div>
-</div>
 </div>
 </div>
 </div>
@@ -17431,7 +18543,7 @@ const ADMIN_AUTH_EMAIL="dwipjoy2d@gmail.com";
 function getAdminAccount(){
   // Admin authentication is handled by Supabase Auth.
   // Keep this helper only for displaying the current Auth email.
-  return {username:ADMIN_AUTH_EMAIL};
+  return {username:ADMIN_AUTH_EMAIL || ""};
 }
 function saveAdminAccount(account){
   // Kept for backward compatibility; Admin credentials are no longer stored locally.
@@ -17447,8 +18559,8 @@ async function renderAdminAccount(){
   if(u){
     try{
       const {data}=await supabaseClient.auth.getUser();
-      u.value=data?.user?.email || ADMIN_AUTH_EMAIL;
-    }catch(e){ u.value=ADMIN_AUTH_EMAIL; }
+      u.value=data?.user?.email || "";
+    }catch(e){ u.value=""; }
     u.readOnly=true;
   }
   ["accountCurrentPassword","accountNewPassword","accountConfirmPassword"].forEach(id=>{const el=document.getElementById(id);if(el)el.value=""});
@@ -17666,22 +18778,21 @@ async function registerStudent(){
   }
 }
 async function loginAdmin(){
-  const username=document.getElementById("adminUsername").value.trim();
-  const password=document.getElementById("adminPassword").value;
+  const username=(document.getElementById("adminUsername")?.value||"").trim().toLowerCase();
+  const password=document.getElementById("adminPassword")?.value||"";
   if(!supabaseClient){setMessage("Supabase is not connected. Please try again when Supabase is available.",false,"admin");return}
   if(!username || !password){setMessage("Enter the Admin email and password.",false,"admin");return}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)){setMessage("Use the Admin email address.",false,"admin");return}
 
-  // Backward-friendly shortcut: the old local username “admin” maps to the
-  // real Supabase Auth email for the existing Admin account.
-  const email=username.toLowerCase()==="admin" ? ADMIN_AUTH_EMAIL : username;
-  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-    setMessage("Use the Admin email address.",false,"admin");return;
-  }
-
+  /* AUTHENTICATION BOUNDARY — only actual Auth/RBAC failures are reported as
+     login failures. Dashboard loading errors must never invalidate a valid
+     Supabase session or falsely tell the Owner that the password is wrong. */
+  let authUser=null;
   try{
-    const {data,error}=await supabaseClient.auth.signInWithPassword({email,password});
+    const {data,error}=await supabaseClient.auth.signInWithPassword({email:username,password});
     if(error) throw error;
-    if(!data?.user){throw new Error("Supabase did not return an authenticated user.");}
+    authUser=data?.user||null;
+    if(!authUser) throw new Error("Supabase did not return an authenticated user.");
 
     const {data:isAdmin,error:adminError}=await supabaseClient.rpc("is_app_admin");
     if(adminError) throw adminError;
@@ -17689,27 +18800,46 @@ async function loginAdmin(){
       await supabaseClient.auth.signOut();
       throw new Error("This account is not registered as an Admin.");
     }
+  }catch(e){
+    console.error("Admin authentication error",e);
+    setMessage("Admin login failed: "+supaError("admin login",e),false,"admin");
+    return;
+  }
 
-    adminLoggedIn=true;
-    currentStudent=null;
-    document.getElementById("studentHeaderLogout").classList.add("hidden");
-    document.getElementById("adminHeaderLogout").classList.remove("hidden");
-    setAuthScreenVisible(false);
-    document.getElementById("home").classList.remove("hidden");
-    document.getElementById("adminUsername").value=email;
-    document.getElementById("adminPassword").value="";
-    hideStudentExamScreens();
-    document.getElementById("home").classList.remove("hidden");
-    showDashboardTab("admin");
-    showAdminSection("student");
+  /* AUTHENTICATED UI BOUNDARY — the session is valid from this point. */
+  adminLoggedIn=true;
+  currentStudent=null;
+  document.body.classList.remove("hoa-public-auth","hoa-admin-auth","hoa-student-auth");
+  document.body.classList.add("admin-ui");
+  document.getElementById("studentHeaderLogout")?.classList.add("hidden");
+  document.getElementById("adminHeaderLogout")?.classList.remove("hidden");
+  setAuthScreenVisible(false);
+  document.getElementById("home")?.classList.remove("hidden");
+  document.getElementById("adminUsername").value=authUser.email||username;
+  document.getElementById("adminPassword").value="";
+  hideStudentExamScreens();
+  document.getElementById("adminOnlyDashboard")?.classList.remove("hidden");
+  document.getElementById("studentOnlyDashboard")?.classList.add("hidden");
+  showDashboardTab("admin");
+
+  /* POST-LOGIN INITIALISATION — never reports an authentication failure. */
+  try{
+    if(typeof window.hoaEnterAuthenticated === "function") window.hoaEnterAuthenticated("admin");
     await renderAdminAccount();
     await loadAdminData();
-    if(typeof window.hoaEnterAuthenticated === 'function') window.hoaEnterAuthenticated('admin');
+    if(typeof window.showAdminSection === "function") await window.showAdminSection("student");
+    if(typeof window.hoaV643LoadPermissions === "function") await window.hoaV643LoadPermissions();
+    if(window.hoaAdminRole==="owner" && typeof window.hoaV643RenderOwnerAdminManager === "function"){
+      window.hoaV643RenderOwnerAdminManager();
+    }
   }catch(e){
-    console.error("Admin login error",e);
-    setMessage("Admin login failed: "+supaError("admin login",e),false,"admin");
+    console.error("Admin dashboard initialisation warning",e);
+    /* Keep the authenticated Admin session alive. Show a dashboard warning,
+       not an authentication failure. */
+    setMessage("Admin login successful. Some dashboard data could not be loaded; refresh the dashboard to retry.",true,"admin");
   }
 }
+
 async function loginStudent(){
   const identifier=document.getElementById("loginId").value.trim();
   const pass=document.getElementById("loginPassword").value;
@@ -19763,6 +20893,10 @@ updateRegistrationTypeUI();
         await renderAdminAccount();
         await loadAdminData();
         if(typeof window.hoaEnterAuthenticated === 'function') window.hoaEnterAuthenticated('admin');
+        document.getElementById("adminOnlyDashboard")?.classList.remove("hidden");
+        document.getElementById("studentOnlyDashboard")?.classList.add("hidden");
+        document.body.classList.add("admin-ui");
+        if(typeof window.showAdminSection==="function") await window.showAdminSection("student");
         return;
       }
     }
@@ -21388,81 +22522,7 @@ function violation(reason){
 })();
 
 
-/* ===== Original inline script 17 — id: mission-v37-result-section-only-controller ===== */
-
-(function(){
-  'use strict';
-  const panelIds={
-    student:'adminSectionStudentPanel',
-    test:'adminSectionTestPanel',
-    result:'adminSectionResultPanel',
-    admin:'adminSectionAdminPanel'
-  };
-  const navIds={
-    student:'adminNavStudent',
-    test:'adminNavTest',
-    result:'adminNavResult',
-    admin:'adminNavAdmin'
-  };
-
-  function isAdminVisible(){
-    const root=document.getElementById('adminOnlyDashboard');
-    return !!(document.body.classList.contains('admin-ui') && root && !root.classList.contains('hidden'));
-  }
-
-  function activeSection(){
-    for(const key of Object.keys(navIds)){
-      const b=document.getElementById(navIds[key]);
-      if(b && b.classList.contains('active')) return key;
-    }
-    return 'student';
-  }
-
-  function enforce(){
-    if(!isAdminVisible()) return;
-    const section=activeSection();
-    Object.entries(panelIds).forEach(([key,id])=>{
-      const el=document.getElementById(id);
-      if(!el) return;
-      const active=key===section;
-      el.classList.toggle('v37-selected-admin-panel',active);
-      if(active){
-        el.style.setProperty('display','block','important');
-        el.style.setProperty('visibility','visible','important');
-        el.style.setProperty('opacity','1','important');
-        el.style.setProperty('pointer-events','auto','important');
-      }else{
-        el.style.setProperty('display','none','important');
-        el.style.setProperty('visibility','hidden','important');
-        el.style.setProperty('opacity','0','important');
-        el.style.setProperty('pointer-events','none','important');
-      }
-    });
-  }
-
-  function bind(){
-    document.addEventListener('click',function(e){
-      const b=e.target.closest('#adminOnlyDashboard #adminNavStudent,#adminOnlyDashboard #adminNavTest,#adminOnlyDashboard #adminNavResult,#adminOnlyDashboard #adminNavAdmin');
-      if(!b) return;
-      // The existing inline handler changes the active panel; enforce after it runs.
-      setTimeout(enforce,0);
-      setTimeout(enforce,30);
-      setTimeout(enforce,150);
-      setTimeout(enforce,500);
-    },true);
-
-    const root=document.getElementById('adminOnlyDashboard');
-    if(root){
-      new MutationObserver(function(){ enforce(); }).observe(root,{subtree:true,childList:true,attributes:true,attributeFilter:['class','style']});
-    }
-    new MutationObserver(function(){ enforce(); }).observe(document.body,{attributes:true,attributeFilter:['class']});
-    enforce();
-  }
-
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',bind);
-  else bind();
-})();
-
+/* V6.0.3: legacy result-section MutationObserver retired; authoritative Admin controller owns navigation. */
 
 /* ===== Original inline script 18 — id: mission-v38-admin-attempt-back-fix ===== */
 
@@ -21993,7 +23053,7 @@ function violation(reason){
 
   function sync(){install();var b=document.getElementById("hoaV58Crud");if(b&&!adminFlag())b.classList.add("hidden");}
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",sync);else sync();
-  setInterval(sync,1800);
+  setInterval(sync,5000);
 })();
 </script>
 
@@ -22125,7 +23185,7 @@ if(document.readyState==="loading"){
 }else{
   waitForSupabase();
 }
-setInterval(boot,2500);
+setInterval(boot,8000);
 })();
 </script>
 
@@ -22298,7 +23358,7 @@ setInterval(boot,2500);
 
 
 <style id="hoa-v601-ui-production-css">
-/* HOA V6.0.1 — UI/UX production polish. Layout-only: no workflow changes. */
+/* HOA V6.0.123 — UI/UX production polish. Layout-only: no workflow changes. */
 :root{
   --hoa-bg:#f5f8fc;--hoa-surface:#fff;--hoa-text:#172033;--hoa-muted:#66758a;
   --hoa-border:#dbe4ef;--hoa-primary:#155eef;--hoa-primary-dark:#0d47b8;
@@ -22387,7 +23447,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v600-production-guard">
 (function(){
   "use strict";
-  const VERSION="V6.0.48";
+  const VERSION="V6.0.123";
   window.__HOA_PRODUCTION_VERSION=VERSION;
   let toastTimer=0;
   function ensureUi(){
@@ -22490,8 +23550,8 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 
 <script id="hoa-v633-integrated-navigation-controller">
 /*
- * V6.0.44
- * One history owner: V6.0.28 public router.
+ * V6.0.123
+ * One history owner: V6.0.123 public router.
  * Authentication lifecycle is coordinated through the existing public router;
  * no second popstate listener is installed.
  */
@@ -22702,7 +23762,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 </script>
 
 <style id="hoa-v6072-poster-heading-fix">
-/* V6.0.72 — poster cards must never overlap the Featured Posters heading. */
+/* V6.0.123 — poster cards must never overlap the Featured Posters heading. */
 #hoaV643PosterSection .hoa-v648-section-head{
   position:relative !important;
   z-index:50 !important;
@@ -22740,7 +23800,7 @@ button,.btn,.tab,[role="button"]{-webkit-user-select:none;user-select:none;}
 <script id="hoa-v644-content-access-js">
 (function(){
 'use strict';
-var V='V6.0.48';
+var V='V6.0.123';
 var posterIndex=0, posterRows=[];
 var adminRole='none';
 var studentNoteRows=[], studentBatchRows=[];
@@ -22905,7 +23965,7 @@ async function loadStudentBatches(){
 
 async function openBatch(id){var c=S(),player=document.getElementById('hoaV643BatchPlayer');if(!c||!player)return;player.innerHTML='<div class="hoa643-panel">Loading classes…</div>';try{var allowed=studentBatchRows.some(function(x){return x.id===id});if(!allowed){player.innerHTML='<div class="hoa643-panel"><div class="hoa643-empty">This batch is not assigned to your account.</div></div>';return}var r=await c.from('batch_lectures').select('id,lecture_no,title,description,youtube_video_id,scheduled_at,duration_seconds,sort_order').eq('batch_id',id).eq('is_published',true).order('sort_order',{ascending:true}).order('lecture_no',{ascending:true});if(r.error)throw r.error;var batch=studentBatchRows.find(function(x){return x.id===id});var rows=r.data||[];player.innerHTML='<div class="hoa643-panel"><div class="hoa643-section-head"><div><h3>'+esc(batch?.name||'Batch')+'</h3><p>'+rows.length+' published classes</p></div><div class="hoa644-toolbar"><button class="secondary" type="button" id="hoa644CloseBatch">CLOSE</button></div></div>'+ (rows.length?rows.map(function(x,i){return '<div class="hoa643-lecture"><b>Class '+esc(x.lecture_no||i+1)+': '+esc(x.title)+'</b><div class="hoa643-meta">'+esc(x.description||'')+(x.scheduled_at?' · '+esc(new Date(x.scheduled_at).toLocaleString()):'')+'</div><div class="hoa643-actions"><button class="secondary" type="button" data-play="'+esc(x.id)+'">▶ PLAY CLASS</button></div><div id="hoa643Player_'+esc(x.id)+'"></div></div>'}).join(''):'<div class="hoa643-empty">No classes have been published yet.</div>')+'</div>';
  var close=document.getElementById('hoa644CloseBatch');if(close)close.onclick=function(){player.innerHTML=''};
- rows.forEach(function(x){var btn=player.querySelector('[data-play="'+x.id+'"]');if(btn)btn.onclick=function(){var h=document.getElementById('hoa643Player_'+x.id);h.innerHTML='<div class="hoa643-player"><iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(x.youtube_video_id)+'?rel=0&modestbranding=1&playsinline=1" title="'+esc(x.title)+'" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="hoa644-player-note">Video is provided inside the HUB OF ASPIRANTS platform. The YouTube address is not displayed in the student interface.</div>'}})
+ rows.forEach(function(x){var btn=player.querySelector('[data-play="'+x.id+'"]');if(btn)btn.onclick=function(){var h=document.getElementById('hoa643Player_'+x.id);h.innerHTML='<div class="hoa643-player"><iframe src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(x.youtube_video_id)+'?rel=0&playsinline=1&origin='+(window.location.origin&&window.location.origin!=='null'?encodeURIComponent(window.location.origin):'')+'" title="'+esc(x.title)+'" loading="lazy" referrerpolicy="origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><div class="hoa644-player-note">Video is provided inside the HUB OF ASPIRANTS platform. The YouTube address is not displayed in the student interface.</div>'}})
  }catch(e){console.error(V+' batch lectures',e);player.innerHTML='<div class="hoa643-panel"><div class="hoa643-empty">Unable to load classes.</div></div>'}}
 
 function addAdminModules(){
@@ -22943,60 +24003,34 @@ async function grantAccess(){var c=S(),student=document.getElementById('hoa643Ac
 
 async function loadAccessList(){var c=S(),box=document.getElementById('hoa643AccessList'),student=document.getElementById('hoa643AccessStudent')?.value;if(!c||!box||!student)return;box.innerHTML='<div class="hoa643-empty">Loading access…</div>';var out=[];var specs=[['test','student_test_access','test_id','tests','title'],['note','student_note_access','note_id','exam_notes','title'],['batch','student_batch_access','batch_id','batches','name']];try{for(const spec of specs){var r=await c.from(spec[1]).select('id,'+spec[2]+',starts_at,expires_at').eq('student_id',student);if(r.error)throw r.error;var ids=(r.data||[]).map(function(x){return x[spec[2]]});if(!ids.length)continue;var rr=await c.from(spec[3]).select('id,'+spec[4]).in('id',ids);if(rr.error)throw rr.error;var map={};(rr.data||[]).forEach(function(x){map[x.id]=x[spec[4]]});(r.data||[]).forEach(function(x){var name=map[x[spec[2]]]||'Assigned resource';var when=(x.starts_at||x.expires_at)?'<small>'+esc(x.starts_at?'From '+new Date(x.starts_at).toLocaleString():'')+(x.expires_at?' · Until '+new Date(x.expires_at).toLocaleString():'')+'</small>':'';out.push('<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(name)+'</b><small>'+spec[0].toUpperCase()+'</small>'+when+'</div><button class="danger" data-revoke="'+spec[1]+'|'+spec[2]+'|'+esc(x[spec[2]])+'">REVOKE</button></div>')})}box.innerHTML=out.join('')||'<div class="hoa643-empty">No individual access grants for this student.</div>';box.querySelectorAll('[data-revoke]').forEach(function(b){b.onclick=async function(){var a=b.dataset.revoke.split('|');if(!confirm('Revoke this access?'))return;var z=await c.from(a[0]).delete().eq('student_id',student).eq(a[1],a[2]);if(z.error){alert(z.error.message);return}loadAccessList()}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load access: '+esc(e.message||e)+'</div>'}}
 
-async function applyAdminRole(){var c=S();if(!c)return;try{var r=await c.rpc('get_admin_role');adminRole=r.data||'none';window.hoaAdminRole=adminRole;var btn=document.getElementById('openHoaDevConsole');if(btn)btn.classList.toggle('hoa-admin-console-hidden',adminRole!=='owner');var root=document.getElementById('adminOnlyDashboard');if(root&&!document.getElementById('hoaV643RoleBadge')){var head=root.querySelector('.dashPanel');if(head){var badge=document.createElement('span');badge.id='hoaV643RoleBadge';badge.className='hoa643-role';badge.textContent=adminRole==='owner'?'Owner Administrator':'Administrator';head.appendChild(badge)}}var adminSection=document.getElementById('adminSectionAdminPanel');if(adminSection&&adminRole!=='owner'){var note=adminSection.querySelector('p');if(note)note.textContent='Administrator account controls are restricted to the Owner Administrator.';var controls=adminSection.querySelectorAll('input,button');controls.forEach(function(e){e.disabled=true})}}
+async function applyAdminRole(){var c=S();if(!c)return;try{var r=await c.rpc('get_admin_role');adminRole=r.data||'none';window.hoaAdminRole=adminRole;document.body.classList.toggle("hoa-owner-mode",adminRole==="owner");if(window.hoaV645LoadPermissions) await window.hoaV645LoadPermissions();var btn=document.getElementById('openHoaDevConsole');if(btn)btn.classList.toggle('hoa-admin-console-hidden',adminRole!=='owner');var root=document.getElementById('adminOnlyDashboard');if(root&&!document.getElementById('hoaV643RoleBadge')){var head=root.querySelector('.dashPanel');if(head){var badge=document.createElement('span');badge.id='hoaV643RoleBadge';badge.className='hoa643-role';badge.textContent=adminRole==='owner'?'Super Admin / Owner':'Administrator';head.appendChild(badge)}}var adminSection=document.getElementById('adminSectionAdminPanel');if(adminSection&&adminRole!=='owner'){var note=adminSection.querySelector('p');if(note)note.textContent='Administrator account controls are restricted to the Super Admin / Owner.';var controls=adminSection.querySelectorAll('input,button');controls.forEach(function(e){e.disabled=true})}}
 catch(e){console.warn(V+' admin role load failed',e)}}
 function wrapAuth(){
- if(typeof window.loginAdmin==='function'&&!window.loginAdmin.__v643){var oldA=window.loginAdmin;var f=async function(){var r=await oldA.apply(this,arguments);await applyAdminRole();addAdminModules();return r};f.__v643=true;window.loginAdmin=f}
+ if(typeof window.loginAdmin==='function'&&!window.loginAdmin.__v643){var oldA=window.loginAdmin;var f=async function(){var r=await oldA.apply(this,arguments);await applyAdminRole();if(window.hoaAdminRole==="owner"){setTimeout(function(){if(window.showAdminSection)window.showAdminSection("admin");if(window.hoaV643RenderOwnerAdminManager)window.hoaV643RenderOwnerAdminManager();},150)}return r};f.__v643=true;window.loginAdmin=f}
  if(typeof window.loginStudent==='function'&&!window.loginStudent.__v643){var oldS=window.loginStudent;var f2=async function(){var r=await oldS.apply(this,arguments);addStudentPanels();await loadStudentTestAccess();return r};f2.__v643=true;window.loginStudent=f2}
- if(typeof window.logoutAdmin==='function'&&!window.logoutAdmin.__v643){var oldL=window.logoutAdmin;var f3=async function(){adminRole='none';window.hoaAdminRole='none';var b=document.getElementById('openHoaDevConsole');if(b)b.classList.remove('hoa-admin-console-hidden');return oldL.apply(this,arguments)};f3.__v643=true;window.logoutAdmin=f3}
+ if(typeof window.logoutAdmin==='function'&&!window.logoutAdmin.__v643){var oldL=window.logoutAdmin;var f3=async function(){adminRole='none';window.hoaAdminRole='none';document.body.classList.remove('admin-ui','hoa-owner-mode','hoa-public-auth','hoa-admin-auth','hoa-student-auth');var b=document.getElementById('openHoaDevConsole');if(b)b.classList.remove('hoa-admin-console-hidden');return oldL.apply(this,arguments)};f3.__v643=true;window.logoutAdmin=f3}
 }
 function ensureAdminModules(){
+  /* V6.0.3: legacy dynamic Admin modules are retired.
+     The static Admin Dashboard panels and hoa-v6108 controller are authoritative.
+     Keep this compatibility hook so older callers do not break, but never inject
+     another Notes/Batches/Student Access dashboard. */
   try{
-    var root=document.getElementById('adminOnlyDashboard');
-    var nav=root&&root.querySelector('.adminSectionNav');
-    if(!root||!nav)return;
-    addAdminModules();
-    var extras=['hoaV643AdminNotesBtn','hoaV643AdminBatchesBtn','hoaV643AdminAccessBtn'];
-    extras.forEach(function(id){var b=document.getElementById(id);if(b){b.style.setProperty('display','inline-flex','important');b.style.setProperty('visibility','visible','important');b.style.setProperty('pointer-events','auto','important')}});
-    if(window.hoaAdminRole) applyAdminRole();
-    if(window.hoaAdminRole==='owner'&&window.hoaV643RenderOwnerAdminManager) window.hoaV643RenderOwnerAdminManager();
-  }catch(e){console.warn(V+' admin modules init failed',e)}
+    if(window.hoaAdminRole && typeof applyAdminRole==='function') applyAdminRole();
+  }catch(e){ console.warn(V+' admin role sync failed',e); }
 }
-function boot(){addFrontPoster();addStudentPanels();ensureAdminModules();wrapAuth();if(document.body.classList.contains('admin-ui'))applyAdminRole();}
+function boot(){addFrontPoster();addStudentPanels();wrapAuth();if(document.body.classList.contains('admin-ui'))applyAdminRole();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 setTimeout(wrapAuth,300);setTimeout(ensureAdminModules,500);setTimeout(wrapAuth,900);setTimeout(ensureAdminModules,1200);setTimeout(ensureAdminModules,2000);
-setInterval(function(){try{addFrontPoster();ensureAdminModules();if(document.getElementById('hoaV643PosterSection')&&posterRows.length===0&&S())loadFrontPosters();}catch(e){console.warn(V+' maintenance pass failed',e)}},3000);
-var hoaAdminObserver=new MutationObserver(function(){
-  var root=document.getElementById('adminOnlyDashboard');
-  if(root&&!root.classList.contains('hidden')&&root.querySelector('.adminSectionNav')){ensureAdminModules();}
-});
-hoaAdminObserver.observe(document.body,{subtree:true,attributes:true,attributeFilter:['class']});
+setInterval(function(){try{addFrontPoster();if(document.getElementById('hoaV643PosterSection')&&posterRows.length===0&&S())loadFrontPosters();}catch(e){console.warn(V+' poster maintenance pass failed',e)}},3000);
 window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=showAdmin;window.hoaV643EnsureAdminModules=ensureAdminModules;
 })();
 </script>
-<script id="hoa-v644-owner-admin-js">
-(function(){'use strict';
-function C(){return window.supabaseClient||window.supabase||null}
-function esc(v){return String(v??'').replace(/[&<>"']/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])})}
-async function renderOwnerAdminManager(){
- if(window.hoaAdminRole!=='owner')return;
- var host=document.getElementById('adminSectionAdminPanel');if(!host||document.getElementById('hoaV643AdminManager'))return;
- var d=document.createElement('div');d.id='hoaV643AdminManager';d.innerHTML='<h4>👑 Administrator Management</h4><p style="font-size:13px;color:#64748b;margin:0 0 12px">Owner Administrator only. Create and manage other Administrator accounts. Administrators do not receive backend/developer-console access.</p><div class="hoa643-admin-manager-grid"><label>Email<input id="hoa643NewAdminEmail" type="email" placeholder="admin@example.com"></label><label>Password<input id="hoa643NewAdminPassword" type="password" placeholder="Minimum 8 characters"></label><label>Role<select id="hoa643NewAdminRole"><option value="admin">Administrator</option></select></label><button class="primary" id="hoa643CreateAdmin" type="button">ADD ADMIN</button></div><div id="hoa643AdminManagerMsg" class="hoa643-meta" style="margin-top:8px"></div><div id="hoa643AdminManagerList" class="hoa643-admin-manager-list"></div>';
- host.querySelector('.dashPanel')?.appendChild(d);document.getElementById('hoa643CreateAdmin').onclick=createAdmin;loadAdmins();
-}
-async function call(action,body){var c=C();if(!c)throw new Error('Supabase is not connected.');var r=await c.functions.invoke('admin-manage-admin',{body:Object.assign({action:action},body||{})});if(r.error)throw r.error;if(r.data?.error)throw new Error(r.data.error);return r.data}
-async function loadAdmins(){var box=document.getElementById('hoaV643AdminManagerList');if(!box)return;try{var r=await call('list');box.innerHTML=(r.admins||[]).map(function(a){return '<div class="hoa643-admin-row"><div class="hoa643-admin-row-main"><b>'+esc(a.role==='owner'?'Owner Administrator':'Administrator')+'</b><small>'+esc(a.email||a.auth_user_id||'')+' · '+esc(a.created_at||'')+'</small></div><div class="hoa643-actions">'+(a.role==='owner'?'<span class="hoa643-role">OWNER</span>':'<button class="secondary" data-admin-role="'+esc(a.auth_user_id)+'">REMOVE ADMIN</button>')+'</div></div>'}).join('')||'<div class="hoa643-empty">No administrator accounts.</div>';box.querySelectorAll('[data-admin-role]').forEach(function(b){b.onclick=async function(){if(!confirm('Remove this Administrator account from the HOA Admin Portal?'))return;try{await call('remove',{auth_user_id:b.dataset.adminRole});loadAdmins()}catch(e){alert(e.message||e)}}})}catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load administrator accounts.</div>'}}
-async function createAdmin(){var msg=document.getElementById('hoa643AdminManagerMsg');var email=document.getElementById('hoa643NewAdminEmail').value.trim();var password=document.getElementById('hoa643NewAdminPassword').value;if(!email||password.length<8){msg.textContent='Enter a valid email and password of at least 8 characters.';return}try{msg.textContent='Creating Administrator…';await call('create',{email:email,password:password,role:'admin'});msg.textContent='Administrator created successfully.';document.getElementById('hoa643NewAdminEmail').value='';document.getElementById('hoa643NewAdminPassword').value='';loadAdmins()}catch(e){msg.textContent='Failed: '+(e.message||e)}}
-function boot(){if(window.hoaAdminRole==='owner')renderOwnerAdminManager()}
-var oldLogin=window.loginAdmin;if(oldLogin&&!oldLogin.__v643owner){var wrapped=async function(){var r=await oldLogin.apply(this,arguments);setTimeout(renderOwnerAdminManager,50);return r};wrapped.__v643owner=true;window.loginAdmin=wrapped}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();setTimeout(boot,700);setTimeout(boot,1800);
-window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
-})();
-</script>
 
 
 
-<!-- V6.0.53 Connect Us widget -->
+
+<!-- V6.0.3 Connect Us widget -->
 
 <footer class="hoa-professional-footer" id="hoaProfessionalFooter">
   <div class="hoa-footer-inner">
@@ -23081,7 +24115,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 </script>
 
 
-<!-- V6.0.59 — Bottom bar corner + original logo rendering fix -->
+<!-- V6.0.123 — Bottom bar corner + original logo rendering fix -->
 <style id="hoa-v6059-bottom-bar-logo-fix">
 /* The actual public bottom bar — override earlier legacy selectors. */
 #hoaFrontSocialFooter.hoa-front-social-footer {
@@ -23145,7 +24179,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 </style>
 
 
-<!-- V6.0.60 — authoritative top navigation LOGIN card -->
+<!-- V6.0.123 — authoritative top navigation LOGIN card -->
 <style id="hoa-v6060-top-login-card">
 #hoaFrontPage .hoa-front-navlinks {
   display:flex !important;
@@ -23249,7 +24283,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 </script>
 
 
-<!-- V6.0.61 — bottom brand mark correction -->
+<!-- V6.0.123 — bottom brand mark correction -->
 <style id="hoa-v6061-bottom-logo-polish">
 /* Keep the page/footer area neutral; the rounded blue element is the actual bar. */
 #hoaFrontSocialFooter.hoa-front-social-footer{
@@ -23325,7 +24359,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 </style>
 
 
-<!-- V6.0.62 — top LOGIN routes to the Student Area on the same front page -->
+<!-- V6.0.123 — top LOGIN routes to the Student Area on the same front page -->
 <style id="hoa-v6062-student-area-scroll">
   html { scroll-behavior:smooth; }
   #hoaV648StudentOptions {
@@ -23403,7 +24437,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 
 
 <style id="hoa-v6073-poster-section-large">
-/* V6.0.73 — enlarge the existing poster stage.
+/* V6.0.123 — enlarge the existing poster stage.
    Existing poster records, URLs, images, upload workflow and carousel logic
    are intentionally untouched. No poster is recreated or regenerated. */
 
@@ -23521,10 +24555,10 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 }
 </style>
 
-<style id="hoa-v6074-poster-max-visibility">/* V6.0.75 — larger poster presentation stage. Existing poster assets/data are untouched. */#hoaV643PosterWrap.hoa643-poster-wrap{  height:clamp(680px,68vw,820px) !important;  min-height:680px !important;  padding:30px 118px !important;  overflow:hidden !important;  border-radius:28px !important;}#hoaV643PosterWrap .hoa643-poster-slide{  width:min(72vw,860px) !important;  height:calc(100% - 60px) !important;  max-width:860px !important;  max-height:none !important;  border-radius:24px !important;}#hoaV643PosterWrap .hoa643-poster-slide img{  display:block !important;  width:100% !important;  height:100% !important;  max-width:100% !important;  max-height:100% !important;  object-fit:contain !important;  object-position:center center !important;  padding:12px !important;  background:#fff !important;}#hoaV643PosterWrap .hoa643-poster-center{  transform:translate3d(-50%,-50%,0) scale(1) !important;  z-index:10 !important;}#hoaV643PosterWrap .hoa643-poster-left{  transform:translate3d(-110%,-50%,0) scale(.72) !important;  opacity:.25 !important;  filter:blur(3px) saturate(.65) !important;}#hoaV643PosterWrap .hoa643-poster-right{  transform:translate3d(10%,-50%,0) scale(.72) !important;  opacity:.25 !important;  filter:blur(3px) saturate(.65) !important;}@media (max-width:1100px){  #hoaV643PosterWrap.hoa643-poster-wrap{    height:clamp(620px,76vw,740px) !important;    min-height:620px !important;    padding:28px 92px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide{    width:min(72vw,740px) !important;    height:calc(100% - 56px) !important;    max-width:740px !important;  }}@media (max-width:700px){  #hoaV643PosterWrap.hoa643-poster-wrap{    height:clamp(520px,125vw,650px) !important;    min-height:520px !important;    padding:22px 60px !important;    border-radius:22px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide{    width:min(82vw,540px) !important;    height:calc(100% - 44px) !important;    max-width:540px !important;    border-radius:20px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide img{padding:8px !important;}  #hoaV643PosterWrap .hoa643-poster-left{    transform:translate3d(-88%,-50%,0) scale(.62) !important;    opacity:.18 !important;  }  #hoaV643PosterWrap .hoa643-poster-right{    transform:translate3d(-12%,-50%,0) scale(.62) !important;    opacity:.18 !important;  }}</style>
+<style id="hoa-v6074-poster-max-visibility">/* V6.0.123 — larger poster presentation stage. Existing poster assets/data are untouched. */#hoaV643PosterWrap.hoa643-poster-wrap{  height:clamp(680px,68vw,820px) !important;  min-height:680px !important;  padding:30px 118px !important;  overflow:hidden !important;  border-radius:28px !important;}#hoaV643PosterWrap .hoa643-poster-slide{  width:min(72vw,860px) !important;  height:calc(100% - 60px) !important;  max-width:860px !important;  max-height:none !important;  border-radius:24px !important;}#hoaV643PosterWrap .hoa643-poster-slide img{  display:block !important;  width:100% !important;  height:100% !important;  max-width:100% !important;  max-height:100% !important;  object-fit:contain !important;  object-position:center center !important;  padding:12px !important;  background:#fff !important;}#hoaV643PosterWrap .hoa643-poster-center{  transform:translate3d(-50%,-50%,0) scale(1) !important;  z-index:10 !important;}#hoaV643PosterWrap .hoa643-poster-left{  transform:translate3d(-110%,-50%,0) scale(.72) !important;  opacity:.25 !important;  filter:blur(3px) saturate(.65) !important;}#hoaV643PosterWrap .hoa643-poster-right{  transform:translate3d(10%,-50%,0) scale(.72) !important;  opacity:.25 !important;  filter:blur(3px) saturate(.65) !important;}@media (max-width:1100px){  #hoaV643PosterWrap.hoa643-poster-wrap{    height:clamp(620px,76vw,740px) !important;    min-height:620px !important;    padding:28px 92px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide{    width:min(72vw,740px) !important;    height:calc(100% - 56px) !important;    max-width:740px !important;  }}@media (max-width:700px){  #hoaV643PosterWrap.hoa643-poster-wrap{    height:clamp(520px,125vw,650px) !important;    min-height:520px !important;    padding:22px 60px !important;    border-radius:22px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide{    width:min(82vw,540px) !important;    height:calc(100% - 44px) !important;    max-width:540px !important;    border-radius:20px !important;  }  #hoaV643PosterWrap .hoa643-poster-slide img{padding:8px !important;}  #hoaV643PosterWrap .hoa643-poster-left{    transform:translate3d(-88%,-50%,0) scale(.62) !important;    opacity:.18 !important;  }  #hoaV643PosterWrap .hoa643-poster-right{    transform:translate3d(-12%,-50%,0) scale(.62) !important;    opacity:.18 !important;  }}</style>
 
 <style id="hoa-v6076-poster-section-extra-large">
-/* V6.0.76 — extra-large existing poster presentation.
+/* V6.0.123 — extra-large existing poster presentation.
    No poster asset, URL, database record, upload workflow or poster content
    is created/replaced/modified by these rules. */
 
@@ -23672,7 +24706,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 
 
 <style id="hoa-v6077-poster-section-balanced">
-/* V6.0.77 — balanced poster sizing.
+/* V6.0.123 — balanced poster sizing.
    Keeps the existing posters and carousel intact; presentation only. */
 
 #hoaV643PosterSection.hoa-v648-poster-section{
@@ -23785,7 +24819,7 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 
 
 <script>
-/* V6.0.82 — slow, refined scroll-linked hero animation */
+/* V6.0.123 — slow, refined scroll-linked hero animation */
 (function(){
   function initHOAHeroScroll(){
     const hero = document.querySelector('#hoaFrontPage .hoa-front-hero');
@@ -23879,5 +24913,758 @@ window.hoaV643RenderOwnerAdminManager=renderOwnerAdminManager;
 })();
 </script>
 
+
+<script id="hoa-v6108-admin-content-js">
+(function(){
+  'use strict';
+
+  const $ = id => document.getElementById(id);
+  const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const fmtDate = v => v ? new Date(v).toLocaleString() : '—';
+  const val = id => ($(id)?.value || '').trim();
+  const boolVal = id => String($(id)?.value) === 'true';
+
+  function client(){ return window.supabaseClient || window.supabase || null; }
+  async function adminUserId(){
+    const c=client();
+    if(!c?.auth?.getUser) return null;
+    const r=await c.auth.getUser();
+    if(r.error) throw r.error;
+    return r.data?.user?.id || null;
+  }
+  function msg(id,text,error=false){
+    const e=$(id); if(!e)return;
+    e.textContent=text||'';
+    e.style.color=error?'#b42318':'#52708f';
+  }
+  function adminGuard(){
+    if(typeof isAdminMode==='function' && !isAdminMode()) throw new Error('Admin session required.');
+  }
+  function renderEmpty(id,text){
+    const e=$(id); if(e)e.innerHTML='<div class="hoa-admin-empty">'+esc(text)+'</div>';
+  }
+
+  async function loadCourses(){
+    const c=client(); if(!c?.from) throw new Error('Supabase is not ready.');
+    const r=await c.from('batches').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+    if(r.error) throw r.error;
+    const rows=r.data||[];
+    $('hoaCourseCount').textContent=rows.length;
+    const select=$('hoaVideoBatch');
+    if(select) select.innerHTML='<option value="">Select course / batch</option>'+rows.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}${x.batch_code?' · '+esc(x.batch_code):''}</option>`).join('');
+    const list=$('hoaCourseList');
+    if(!list)return;
+    if(!rows.length){renderEmpty('hoaCourseList','No courses/batches created yet.');return;}
+    list.innerHTML=`<table><thead><tr><th>Course</th><th>Code</th><th>Status</th><th>Published</th><th>Sort</th><th>Actions</th></tr></thead><tbody>${rows.map(x=>`
+      <tr><td><b>${esc(x.name)}</b><br><span style="color:#7b8a9b">${esc(x.description||'')}</span></td>
+      <td>${esc(x.batch_code||'—')}</td><td>${esc(x.status||'draft')}</td><td>${x.is_published?'Yes':'No'}</td><td>${esc(x.sort_order)}</td>
+      <td><div class="hoa-admin-row-actions">
+        <button onclick="hoaToggleCoursePublish('${x.id}',${!x.is_published})">${x.is_published?'Unpublish':'Publish'}</button>
+        <button class="danger" onclick="hoaDeleteCourse('${x.id}')">Delete</button>
+      </div></td></tr>`).join('')}</tbody></table>`;
+  }
+
+  window.hoaLoadCourses=async function(){
+    adminGuard(); msg('hoaCourseStatusMsg','Loading…');
+    try{await loadCourses();msg('hoaCourseStatusMsg','Updated.');}catch(e){console.error(e);msg('hoaCourseStatusMsg',e.message||'Could not load courses.',true);}
+  };
+
+  window.hoaCreateCourse=async function(){
+    adminGuard();
+    const name=val('hoaCourseName'); if(!name){msg('hoaCourseStatusMsg','Course name is required.',true);return;}
+    try{
+      const uid=await adminUserId(); const c=client();
+      const status=val('hoaCourseStatus')||'draft';
+      const isPublished=status==='published';
+      const r=await c.from('batches').insert({name,batch_code:val('hoaCourseCode')||null,description:val('hoaCourseDescription')||null,status,is_published:isPublished,sort_order:Number(val('hoaCourseSort')||0),created_by:uid}).select().single();
+      if(r.error)throw r.error;
+      ['hoaCourseName','hoaCourseCode','hoaCourseDescription'].forEach(id=>$(id).value='');
+      msg('hoaCourseStatusMsg','Course created.');
+      await loadCourses();
+    }catch(e){console.error(e);msg('hoaCourseStatusMsg',e.message||'Could not create course.',true);}
+  };
+
+  window.hoaToggleCoursePublish=async function(id,publish){
+    adminGuard();
+    try{
+      const c=client();
+      const r=await c.from('batches').update({is_published:publish,status:publish?'published':'draft',updated_at:new Date().toISOString()}).eq('id',id);
+      if(r.error)throw r.error;
+      await loadCourses();
+    }catch(e){alert(e.message||'Could not update course.');}
+  };
+
+  window.hoaDeleteCourse=async function(id){
+    adminGuard();
+    if(!confirm('Delete this course/batch? Its lecture/access records may prevent deletion.'))return;
+    try{
+      const c=client(); const r=await c.from('batches').delete().eq('id',id);
+      if(r.error)throw r.error; await loadCourses(); await loadVideos();
+    }catch(e){alert(e.message||'Could not delete course.');}
+  };
+
+  async function loadVideos(){
+    const c=client(); if(!c?.from) throw new Error('Supabase is not ready.');
+    const r=await c.from('batch_lectures').select('*, batches(name,batch_code)').order('sort_order',{ascending:true}).order('lecture_no',{ascending:true});
+    if(r.error)throw r.error;
+    const rows=r.data||[]; $('hoaVideoCount').textContent=rows.length;
+    const list=$('hoaVideoList'); if(!list)return;
+    if(!rows.length){renderEmpty('hoaVideoList','No classes/videos created yet.');return;}
+    list.innerHTML=`<table><thead><tr><th>Course</th><th>#</th><th>Class</th><th>Video</th><th>Status</th><th>Scheduled</th><th>Actions</th></tr></thead><tbody>${rows.map(x=>`
+      <tr><td>${esc(x.batches?.name||'—')}</td><td>${esc(x.lecture_no)}</td><td><b>${esc(x.title)}</b><br><span style="color:#7b8a9b">${esc(x.description||'')}</span></td>
+      <td>${esc(x.youtube_video_id)}</td><td>${x.is_published?'Published':'Draft'}</td><td>${esc(fmtDate(x.scheduled_at))}</td>
+      <td><div class="hoa-admin-row-actions"><button type="button" class="hoa-video-preview-btn" data-video-preview-id="${esc(x.youtube_video_id)}" data-video-preview-title="${esc(x.title||'Video Preview')}" data-video-preview-batch="${esc(x.batches?.name||'')}">▶ Preview</button><button onclick="hoaToggleVideoPublish('${x.id}',${!x.is_published})">${x.is_published?'Unpublish':'Publish'}</button><button class="danger" onclick="hoaDeleteVideo('${x.id}')">Delete</button></div></td></tr>`).join('')}</tbody></table>`;
+      list.querySelectorAll('[data-video-preview-id]').forEach(function(btn){
+        btn.addEventListener('click',function(){
+          window.hoaPreviewVideo(
+            btn.getAttribute('data-video-preview-id') || '',
+            btn.getAttribute('data-video-preview-title') || 'Video Preview',
+            btn.getAttribute('data-video-preview-batch') || ''
+          );
+        });
+      });
+  }
+  window.hoaLoadVideos=async function(){
+    adminGuard(); msg('hoaVideoStatusMsg','Loading…');
+    try{await loadCourses();await loadVideos();msg('hoaVideoStatusMsg','Updated.');}catch(e){console.error(e);msg('hoaVideoStatusMsg',e.message||'Could not load videos.',true);}
+  };
+  window.hoaCreateVideo=async function(){
+    adminGuard();
+    const batch=val('hoaVideoBatch'), title=val('hoaVideoTitle'), yt=val('hoaVideoYoutubeId');
+    if(!batch||!title||!yt){msg('hoaVideoStatusMsg','Course, class title and YouTube video ID are required.',true);return;}
+    if(!/^[A-Za-z0-9_-]{6,20}$/.test(yt)){msg('hoaVideoStatusMsg','Enter a valid YouTube video ID.',true);return;}
+    try{
+      const c=client();
+      const r=await c.from('batch_lectures').insert({
+        batch_id:batch,lecture_no:Number(val('hoaVideoLectureNo')||1),title,
+        description:val('hoaVideoDescription')||null,youtube_video_id:yt,
+        scheduled_at:val('hoaVideoScheduled')?new Date(val('hoaVideoScheduled')).toISOString():null,
+        duration_seconds:val('hoaVideoDuration')?Number(val('hoaVideoDuration')):null,
+        is_published:boolVal('hoaVideoPublished'),sort_order:Number(val('hoaVideoSort')||0)
+      });
+      if(r.error)throw r.error;
+      ['hoaVideoTitle','hoaVideoYoutubeId','hoaVideoDescription','hoaVideoScheduled','hoaVideoDuration'].forEach(id=>$(id).value='');
+      msg('hoaVideoStatusMsg','Class/video added.'); await loadVideos();
+    }catch(e){console.error(e);msg('hoaVideoStatusMsg',e.message||'Could not add video.',true);}
+  };
+
+  window.hoaPreviewVideo=function(videoId,title,batchName){
+    const player=document.getElementById('hoaAdminInlineVideoPlayer');
+    const frame=document.getElementById('hoaAdminInlineVideoFrame');
+    const titleEl=document.getElementById('hoaAdminInlineVideoTitle');
+    const meta=document.getElementById('hoaAdminInlineVideoMeta');
+    if(!player||!frame)return;
+
+    let id=String(videoId||'').trim();
+    const match=id.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
+    if(match) id=match[1];
+
+    if(!/^[A-Za-z0-9_-]{11}$/.test(id)){
+      msg('hoaVideoStatusMsg','Invalid YouTube video ID.',true);
+      return;
+    }
+
+    titleEl.textContent=title||'Video Preview';
+    meta.textContent=batchName ? ('Course / Batch: '+batchName+' • Admin Preview') : 'Admin Preview';
+
+    const appOrigin=(window.location.origin&&window.location.origin!=='null'&&/^https?:$/i.test(window.location.protocol))
+      ?window.location.origin:'';
+    const embedParams='rel=0&playsinline=1'+
+      (appOrigin?'&origin='+encodeURIComponent(appOrigin):'')+
+      (appOrigin?'&widget_referrer='+encodeURIComponent(window.location.href):'');
+    hoaAdminPreviewUrl='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?'+embedParams;
+
+    frame.innerHTML='<div class="hoa643-player" style="width:100%;max-width:980px;margin:0 auto;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9;">'
+      +'<iframe src="'+hoaPreviewEsc(hoaAdminPreviewUrl)+'"'
+      +' title="'+hoaPreviewEsc(title||'Video Preview')+'" loading="eager"'
+      +' referrerpolicy="strict-origin-when-cross-origin"'
+      +' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"'
+      +' allowfullscreen style="width:100%;height:100%;border:0;display:block;"></iframe>'
+      +'</div>';
+
+    player.style.display='block';
+    player.scrollIntoView({behavior:'smooth',block:'nearest'});
+  };
+
+  function hoaPreviewEsc(v){
+    return String(v||'').replace(/[&<>"']/g,function(c){
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  let hoaAdminPreviewUrl='';
+  document.addEventListener('DOMContentLoaded',function(){
+    const close=document.getElementById('hoaAdminInlineVideoClose');
+    const open=document.getElementById('hoaAdminInlineVideoOpen');
+    if(close)close.addEventListener('click',function(){
+      const player=document.getElementById('hoaAdminInlineVideoPlayer');
+      const frame=document.getElementById('hoaAdminInlineVideoFrame');
+      if(frame)frame.innerHTML='';
+      if(player)player.style.display='none';
+      hoaAdminPreviewUrl='';
+    });
+    if(open)open.addEventListener('click',function(){
+      if(!hoaAdminPreviewUrl)return;
+      // Do not use "noreferrer": YouTube requires a Referer for embedded playback.
+      window.open(hoaAdminPreviewUrl,'_blank','noopener');
+    });
+  });
+
+  window.hoaToggleVideoPublish=async function(id,publish){
+    adminGuard(); try{const r=await client().from('batch_lectures').update({is_published:publish,updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await loadVideos();}catch(e){alert(e.message||'Could not update video.');}
+  };
+  window.hoaDeleteVideo=async function(id){
+    adminGuard(); if(!confirm('Delete this class/video entry?'))return;
+    try{const r=await client().from('batch_lectures').delete().eq('id',id);if(r.error)throw r.error;await loadVideos();}catch(e){alert(e.message||'Could not delete video.');}
+  };
+
+  async function loadNotes(){
+    const c=client(); const r=await c.from('exam_notes').select('*').order('sort_order',{ascending:true}).order('created_at',{ascending:false});
+    if(r.error)throw r.error;
+    const rows=r.data||[]; $('hoaNotesCount').textContent=rows.length;
+    const list=$('hoaNoteList'); if(!list)return;
+    if(!rows.length){renderEmpty('hoaNoteList','No notes/study materials created yet.');return;}
+    list.innerHTML=`<table><thead><tr><th>Title</th><th>Subject</th><th>Exam</th><th>File</th><th>Status</th><th>Actions</th></tr></thead><tbody>${rows.map(x=>`
+      <tr><td><b>${esc(x.title)}</b><br><span style="color:#7b8a9b">${esc(x.description||'')}</span></td><td>${esc(x.subject||'—')}</td><td>${esc(x.exam||'—')}</td><td>${esc(x.file_name||x.storage_path||'—')}</td><td>${x.is_published?'Published':'Draft'}</td>
+      <td><div class="hoa-admin-row-actions"><button onclick="hoaToggleNotePublish('${x.id}',${!x.is_published})">${x.is_published?'Unpublish':'Publish'}</button><button class="danger" onclick="hoaDeleteNote('${x.id}')">Delete</button></div></td></tr>`).join('')}</tbody></table>`;
+  }
+  window.hoaLoadNotes=async function(){
+    adminGuard(); msg('hoaNoteStatusMsg','Loading…');
+    try{await loadNotes();msg('hoaNoteStatusMsg','Updated.');}catch(e){console.error(e);msg('hoaNoteStatusMsg',e.message||'Could not load notes.',true);}
+  };
+  window.hoaCreateNote=async function(){
+    adminGuard(); const title=val('hoaNoteTitle'); if(!title){msg('hoaNoteStatusMsg','Note title is required.',true);return;}
+    try{
+      const uid=await adminUserId(), c=client();
+      const r=await c.from('exam_notes').insert({
+        title,subject:val('hoaNoteSubject')||null,exam:val('hoaNoteExam')||null,description:val('hoaNoteDescription')||null,
+        storage_path:val('hoaNoteStoragePath'),file_name:val('hoaNoteFileName')||null,mime_type:'application/pdf',
+        is_published:boolVal('hoaNotePublished'),sort_order:Number(val('hoaNoteSort')||0),created_by:uid
+      });
+      if(r.error)throw r.error;
+      ['hoaNoteTitle','hoaNoteSubject','hoaNoteExam','hoaNoteFileName','hoaNoteDescription','hoaNoteStoragePath'].forEach(id=>$(id).value='');
+      msg('hoaNoteStatusMsg','Note record created.'); await loadNotes();
+    }catch(e){console.error(e);msg('hoaNoteStatusMsg',e.message||'Could not create note.',true);}
+  };
+  window.hoaToggleNotePublish=async function(id,publish){
+    adminGuard();try{const r=await client().from('exam_notes').update({is_published:publish,updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await loadNotes();}catch(e){alert(e.message||'Could not update note.');}
+  };
+  window.hoaDeleteNote=async function(id){
+    adminGuard();if(!confirm('Delete this note record?'))return;
+    try{const r=await client().from('exam_notes').delete().eq('id',id);if(r.error)throw r.error;await loadNotes();}catch(e){alert(e.message||'Could not delete note.');}
+  };
+
+  async function loadAccessResources(){
+    const c=client();
+    const [s,b,t,n]=await Promise.all([
+      c.from('students').select('id,full_name,email,access_type').order('full_name'),
+      c.from('batches').select('id,name,batch_code,is_published').order('sort_order'),
+      c.from('tests').select('id,title,is_published,access_type').order('created_at',{ascending:false}),
+      c.from('exam_notes').select('id,title,is_published').order('sort_order')
+    ]);
+    for(const r of [s,b,t,n])if(r.error)throw r.error;
+    $('hoaAccessStudent').innerHTML='<option value="">Select student</option>'+(s.data||[]).map(x=>`<option value="${esc(x.id)}">${esc(x.full_name)} · ${esc(x.email)}</option>`).join('');
+    window.__hoaAccessCache={batches:b.data||[],tests:t.data||[],notes:n.data||[]};
+    hoaAccessTypeChanged();
+  }
+  window.hoaAccessTypeChanged=function(){
+    const type=val('hoaAccessType'), c=window.__hoaAccessCache||{};
+    const rows=type==='batch'?c.batches||[]:type==='test'?c.tests||[]:c.notes||[];
+    $('hoaAccessResource').innerHTML='<option value="">Select resource</option>'+rows.map(x=>`<option value="${esc(x.id)}">${esc(x.name||x.title)}${x.batch_code?' · '+esc(x.batch_code):''}</option>`).join('');
+  };
+  window.hoaLoadAccess=async function(){
+    adminGuard(); msg('hoaAccessStatusMsg','Loading…');
+    try{await loadAccessResources();await loadAccessList();msg('hoaAccessStatusMsg','Updated.');}catch(e){console.error(e);msg('hoaAccessStatusMsg',e.message||'Could not load access data.',true);}
+  };
+  async function loadAccessList(){
+    const c=client(), [ba,te,no]=await Promise.all([
+      c.from('student_batch_access').select('id,starts_at,expires_at,students(full_name,email),batches(name,batch_code)').order('created_at',{ascending:false}).limit(100),
+      c.from('student_test_access').select('id,starts_at,expires_at,students(full_name,email),tests(title)').order('created_at',{ascending:false}).limit(100),
+      c.from('student_note_access').select('id,starts_at,expires_at,students(full_name,email),exam_notes(title)').order('created_at',{ascending:false}).limit(100)
+    ]);
+    for(const r of [ba,te,no])if(r.error)throw r.error;
+    const rows=[
+      ...(ba.data||[]).map(x=>({id:x.id,type:'Course',student:x.students?.full_name,resource:x.batches?.name||'—',starts:x.starts_at,expires:x.expires_at,table:'student_batch_access'})),
+      ...(te.data||[]).map(x=>({id:x.id,type:'Mock Test',student:x.students?.full_name,resource:x.tests?.title||'—',starts:x.starts_at,expires:x.expires_at,table:'student_test_access'})),
+      ...(no.data||[]).map(x=>({id:x.id,type:'Note',student:x.students?.full_name,resource:x.exam_notes?.title||'—',starts:x.starts_at,expires:x.expires_at,table:'student_note_access'}))
+    ];
+    const list=$('hoaAccessList');
+    if(!rows.length){renderEmpty('hoaAccessList','No access grants found.');return;}
+    list.innerHTML=`<table><thead><tr><th>Type</th><th>Student</th><th>Resource</th><th>Starts</th><th>Expires</th><th>Action</th></tr></thead><tbody>${rows.map(x=>`<tr><td>${esc(x.type)}</td><td>${esc(x.student||'—')}</td><td>${esc(x.resource)}</td><td>${esc(fmtDate(x.starts))}</td><td>${esc(fmtDate(x.expires))}</td><td><div class="hoa-admin-row-actions"><button class="danger" onclick="hoaRevokeAccess('${x.table}','${x.id}')">Revoke</button></div></td></tr>`).join('')}</tbody></table>`;
+  }
+  window.hoaGrantAccess=async function(){
+    adminGuard();
+    const student=val('hoaAccessStudent'), type=val('hoaAccessType'), resource=val('hoaAccessResource');
+    if(!student||!resource){msg('hoaAccessStatusMsg','Student and resource are required.',true);return;}
+    try{
+      const uid=await adminUserId(), c=client();
+      const base={student_id:student,granted_by:uid,starts_at:val('hoaAccessStarts')?new Date(val('hoaAccessStarts')).toISOString():null,expires_at:val('hoaAccessExpires')?new Date(val('hoaAccessExpires')).toISOString():null};
+      const table=type==='batch'?'student_batch_access':type==='test'?'student_test_access':'student_note_access';
+      const payload={...base,[type==='batch'?'batch_id':type==='test'?'test_id':'note_id']:resource};
+      const r=await c.from(table).insert(payload);
+      if(r.error)throw r.error;
+      msg('hoaAccessStatusMsg','Access granted.'); await loadAccessResources(); await loadAccessList();
+    }catch(e){console.error(e);msg('hoaAccessStatusMsg',e.message||'Could not grant access.',true);}
+  };
+  window.hoaRevokeAccess=async function(table,id){
+    adminGuard();if(!confirm('Revoke this access?'))return;
+    try{const r=await client().from(table).delete().eq('id',id);if(r.error)throw r.error;await loadAccessList();}catch(e){alert(e.message||'Could not revoke access.');}
+  };
+
+  const original = window.showAdminSection;
+  window.showAdminSection = async function(section){
+    const r = original ? original(section) : undefined;
+    if(section==='course') await loadCourses().catch(e=>console.error(e));
+    if(section==='video'){await loadCourses().catch(e=>console.error(e));await loadVideos().catch(e=>console.error(e));}
+    if(section==='notes') await loadNotes().catch(e=>console.error(e));
+    if(section==='access') await loadAccessResources().then(loadAccessList).catch(e=>console.error(e));
+    return r;
+  };
+
+  // Make the new panels visible using the same activation mechanism as existing sections.
+  const originalActivate = window.showAdminSection;
+  window.showAdminSection = async function(section){
+    const ids={student:'adminSectionStudentPanel',test:'adminSectionTestPanel',course:'adminSectionCoursePanel',video:'adminSectionVideoPanel',notes:'adminSectionNotesPanel',access:'adminSectionAccessPanel',result:'adminSectionResultPanel',admin:'adminSectionAdminPanel'};
+    const nav={student:'adminNavStudent',test:'adminNavTest',course:'adminNavCourse',video:'adminNavVideo',notes:'adminNavNotes',access:'adminNavAccess',result:'adminNavResult',admin:'adminNavAdmin'};
+    if(!adminLoggedIn){alert('Please login as Admin first.');return;}
+    Object.entries(ids).forEach(([k,id])=>{const e=$(id);if(e)e.classList.toggle('active',k===section);});
+    Object.entries(nav).forEach(([k,id])=>$(id)?.classList.toggle('active',k===section));
+    if(section==='student' && typeof renderAdminStudents==='function') return renderAdminStudents();
+    if(section==='test' && typeof renderLibrary==='function') return renderLibrary();
+    if(section==='result' && typeof activateAdminPanel==='function') return activateAdminPanel('result');
+    if(section==='admin' && typeof renderAdminAccount==='function') { var rr=await renderAdminAccount(); if(window.hoaV643RenderOwnerAdminManager)window.hoaV643RenderOwnerAdminManager(); return rr; } if(section==='admin'){if(window.hoaV643RenderOwnerAdminManager) window.hoaV643RenderOwnerAdminManager();}
+    if(section==='course') return loadCourses();
+    if(section==='video'){await loadCourses();return loadVideos();}
+    if(section==='notes') return loadNotes();
+    if(section==='access'){await loadAccessResources();return loadAccessList();}
+  };
+
+  window.hoaAdminContentReady=true;
+})();
+</script>
+
+
+
+
+
+<script id="hoa-public-chrome-state-sync">
+(function () {
+  "use strict";
+
+  function syncPublicChrome() {
+    var body = document.body;
+    var footer = document.getElementById("hoaProfessionalFooter");
+    var connect = document.getElementById("hoaV653ConnectWrap");
+    if (!body) return;
+
+    var authVisible = !!document.getElementById("authScreen:not(.hidden)");
+    var authenticated =
+      body.classList.contains("hoa-app-admin") ||
+      body.classList.contains("hoa-app-student") ||
+      body.classList.contains("admin-ui") ||
+      !!document.querySelector("#adminOnlyDashboard:not(.hidden), #studentOnlyDashboard:not(.hidden)");
+
+    var hide = authVisible || authenticated;
+
+    [footer, connect].forEach(function (el) {
+      if (!el) return;
+      el.style.display = hide ? "none" : "";
+      el.setAttribute("aria-hidden", hide ? "true" : "false");
+    });
+  }
+
+  function boot() {
+    syncPublicChrome();
+
+    new MutationObserver(function () {
+      syncPublicChrome();
+    }).observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+      childList: true,
+      subtree: true
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+})();
+</script>
+
+
+<script id="hoa-v645-permissions-js">
+(function(){
+"use strict";
+const V="HOA V6.0.4";
+const ROLE_LABELS={
+ owner:"Super Admin / Owner",admin:"Admin"
+};
+const PERMS=[
+ ["students","Students",["students.view","students.manage"]],
+ ["tests","Mock Tests",["tests.view","tests.manage"]],
+ ["courses","Courses",["courses.view","courses.manage"]],
+ ["classes","Classes & Videos",["classes.view","classes.manage"]],
+ ["notes","Notes",["notes.view","notes.manage"]],
+ ["student_access","Student Access",["student_access.view","student_access.manage"]],
+ ["results","Results",["results.view","results.manage"]],
+ ["posters","Posters",["posters.view","posters.manage"]]
+];
+const ALL=PERMS.flatMap(x=>x[2]);
+const C=()=>window.supabaseClient||window.supabase||null;
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const call=async(action,body)=>{
+ const c=C();if(!c)throw Error("Supabase is not connected.");
+ const r=await c.functions.invoke("admin-manage-admin",{body:Object.assign({action},body||{})});
+ if(r.error)throw r.error;if(r.data?.error)throw Error(r.data.error);return r.data;
+};
+function labelPerm(p){
+ const parts=p.split(".");
+ const names={view:"View",manage:"Manage"};
+ return names[parts[1]]||p;
+}
+function roleLabel(r){return ROLE_LABELS[r]||r||"Admin";}
+function has(p){return window.hoaAdminRole==="owner"||((window.hoaAdminPermissions||[]).indexOf(p)>=0)}
+
+async function loadOwnPermissions(){
+ const c=C();if(!c)return;
+ try{
+   const role=(await c.rpc("get_admin_role")).data||"none";
+   window.hoaAdminRole=role;
+   if(role==="owner") window.hoaAdminPermissions=ALL.concat(["admin.manage","developer_console"]);
+   else{
+     const r=await c.rpc("get_admin_permissions");
+     window.hoaAdminPermissions=(r.data||[]).map(x=>typeof x==="string"?x:x.permission);
+   }
+ }catch(e){console.warn(V+" permission load failed",e);window.hoaAdminPermissions=[]}
+ applyPermissionUI();
+}
+
+function panelPermission(panelId, viewPerm, managePerm){
+ const panel=document.getElementById(panelId);if(!panel)return;
+ const canView=has(viewPerm)||has(managePerm);
+ const canManage=has(managePerm);
+ const nav=document.querySelector("#adminOnlyDashboard .adminSectionNav");
+ if(nav){
+   const btn=nav.querySelector(`[data-perm-panel="${panelId}"]`);
+   if(btn)btn.style.display=canView?"":"none";
+ }
+ panel.style.display=canView?"":"none";
+ if(!canView)return;
+ panel.querySelectorAll("input,select,textarea,button").forEach(el=>{
+   if(el.closest(".hoa645-access-editor"))return;
+   if(el.dataset.permissionControl==="view")return;
+   const isRefresh=/refresh/i.test(el.textContent||"")||/refresh/i.test(el.id||"");
+   const isSafe=/close|cancel/i.test(el.textContent||"");
+   if(!canManage && !isRefresh && !isSafe) el.disabled=true;
+ });
+}
+
+function applyPermissionUI(){
+ const root=document.getElementById("adminOnlyDashboard");if(!root)return;
+ const maps=[
+  ["adminSectionStudentPanel","students.view","students.manage","adminNavStudent"],
+  ["adminSectionTestPanel","tests.view","tests.manage","adminNavTest"],
+  ["adminSectionCoursePanel","courses.view","courses.manage","adminNavCourse"],
+  ["adminSectionVideoPanel","classes.view","classes.manage","adminNavVideo"],
+  ["adminSectionNotesPanel","notes.view","notes.manage","adminNavNotes"],
+  ["adminSectionAccessPanel","student_access.view","student_access.manage","adminNavAccess"],
+  ["adminSectionResultPanel","results.view","results.manage","adminNavResult"]
+ ];
+ maps.forEach(x=>{
+   const panel=document.getElementById(x[0]),btn=document.getElementById(x[3]);
+   if(btn){btn.dataset.permPanel=x[0];btn.style.display=(has(x[1])||has(x[2]))?"":"none";}
+   if(panel){
+     const can=has(x[1])||has(x[2]);panel.style.display=can?"":"none";
+     if(can&&!has(x[2])){
+       panel.querySelectorAll("input,select,textarea").forEach(el=>el.disabled=true);
+       panel.querySelectorAll("button").forEach(el=>{
+         const t=(el.textContent||"").trim();
+         if(!/refresh|close|cancel/i.test(t))el.disabled=true;
+       });
+     }
+   }
+ });
+ const adminPanel=document.getElementById("adminSectionAdminPanel");
+ const adminBtn=document.getElementById("adminNavAdmin");
+ const adminCan=has("admin.manage");
+ if(adminBtn)adminBtn.style.display=adminCan?"":"none";
+ if(adminPanel)adminPanel.style.display=adminCan?"":"none";
+ document.querySelectorAll("#adminOnlyDashboard [id*='Poster'],#adminOnlyDashboard [id*='poster']").forEach(el=>{
+   if(el.id!=="adminOnlyDashboard")el.style.display=(has("posters.view")||has("posters.manage"))?"":"none";
+ });
+ const dev=document.getElementById("openHoaDevConsole");
+ if(dev)dev.classList.toggle("hoa-admin-console-hidden",!has("developer_console"));
+ const badge=document.getElementById("hoaV643RoleBadge");
+ if(badge)badge.textContent=roleLabel(window.hoaAdminRole);
+}
+
+function ensureNavTags(){
+ const root=document.getElementById("adminOnlyDashboard");if(!root)return;
+ const pairs={
+  adminNavStudent:"adminSectionStudentPanel",adminNavTest:"adminSectionTestPanel",
+  adminNavCourse:"adminSectionCoursePanel",adminNavVideo:"adminSectionVideoPanel",
+  adminNavNotes:"adminSectionNotesPanel",adminNavAccess:"adminSectionAccessPanel",
+  adminNavResult:"adminSectionResultPanel",adminNavAdmin:"adminSectionAdminPanel"
+ };
+ Object.keys(pairs).forEach(id=>{const b=document.getElementById(id);if(b)b.dataset.permPanel=pairs[id]});
+}
+
+function renderAccessManager(){
+ const role=window.hoaAdminRole;
+ const host=document.getElementById("adminSectionAdminPanel");if(!host)return;
+ if(role!=="owner")return;
+ let box=document.getElementById("hoaV645AccessManager");
+ if(!box){
+  box=document.createElement("div");box.id="hoaV645AccessManager";
+  const target=host.querySelector(".dashPanel");(target||host).prepend(box);
+ }
+ box.innerHTML=
+ '<div class="hoa645-access-head"><div><h4>👑 Super Admin / Owner — Admin Management</h4>'+
+ '<p>You control every Admin account. Create the Admin email/password, decide exactly what that Admin can access, change the credentials later, or delete the Admin account.</p></div>'+
+ '<span class="hoa645-role-pill">SUPER ADMIN CONTROL</span></div>'+
+ '<div class="hoa643-admin-manager-grid">'+
+ '<label>Admin Email<input id="hoaV645NewEmail" type="email" placeholder="admin@hubofaspirants.com"></label>'+
+ '<label>Admin Password<input id="hoaV645NewPassword" type="password" placeholder="Min 6: uppercase + lowercase + special"></label>'+
+ '<button class="primary" id="hoaV645Create" type="button">CREATE ADMIN ACCOUNT</button>'+
+ '</div>'+
+ '<div id="hoaV645Msg" class="hoa645-msg"></div>'+
+ '<div id="hoaV645AdminList" class="hoa645-admin-list"></div>';
+ document.getElementById("hoaV645Create").onclick=createAdmin;
+ loadStaff();
+}
+
+async function loadStaff(){
+ const box=document.getElementById("hoaV645AdminList");if(!box)return;
+ box.innerHTML='<div class="hoa643-empty">Loading Admin accounts…</div>';
+ try{
+  const r=await call("list");
+  box.innerHTML=(r.admins||[]).map(a=>{
+   const owner=a.role==="owner";
+   return '<article class="hoa645-admin-card" data-admin-card="'+esc(a.auth_user_id)+'">'+
+    '<div class="hoa645-admin-card-head"><div class="hoa645-admin-card-main"><strong>'+
+    esc(a.label||roleLabel(a.role))+'</strong><small>'+esc(a.email||a.auth_user_id)+'</small></div>'+
+    '<div class="hoa645-access-actions">'+
+    (owner?'<span class="hoa645-role-pill">SUPER ADMIN / OWNER</span>':
+      '<button type="button" class="secondary" data-edit-access="'+esc(a.auth_user_id)+'">MANAGE ACCESS</button>'+
+      '<button type="button" class="secondary" data-credentials-access="'+esc(a.auth_user_id)+'">CHANGE EMAIL / PASSWORD</button>'+
+      '<button type="button" class="danger" data-remove-access="'+esc(a.auth_user_id)+'">DELETE ADMIN</button>')+
+    '</div></div>'+
+    (owner?"":'<div class="hoa645-access-editor" id="hoa645Editor_'+esc(a.auth_user_id)+'"></div>')+
+    '</article>';
+  }).join("")||'<div class="hoa643-empty">No Admin accounts have been created yet.</div>';
+
+  box.querySelectorAll("[data-edit-access]").forEach(b=>b.onclick=()=>openEditor(b.dataset.editAccess));
+  box.querySelectorAll("[data-credentials-access]").forEach(b=>b.onclick=()=>openCredentialsEditor(b.dataset.credentialsAccess));
+  box.querySelectorAll("[data-remove-access]").forEach(b=>b.onclick=async()=>{
+    if(!confirm("Delete this Admin account permanently? The Admin will no longer be able to log in."))return;
+    try{await call("remove",{auth_user_id:b.dataset.removeAccess});loadStaff()}
+    catch(e){alert(e.message||e)}
+  });
+ }catch(e){box.innerHTML='<div class="hoa643-empty">Unable to load Admin accounts: '+esc(e.message||e)+'</div>'}
+}
+
+async function openEditor(id){
+ const host=document.getElementById("hoa645Editor_"+id);if(!host)return;
+ host.classList.add("open");host.innerHTML='<div class="hoa643-empty">Loading access permissions…</div>';
+ try{
+  const r=await call("get_permissions",{auth_user_id:id});
+  const checks=new Set(r.permissions||[]);
+  host.innerHTML=
+   '<div class="hoa645-role-row"><span class="hoa645-role-pill">ADMIN</span>'+
+   '<button type="button" class="primary" data-save-access>SAVE ACCESS</button>'+
+   '<button type="button" class="secondary" data-close-access>CLOSE</button></div>'+
+   '<div class="hoa645-perm-grid">'+
+   PERMS.map(g=>'<div class="hoa645-perm-group"><h5>'+g[1]+'</h5>'+
+     g[2].map(p=>'<label class="hoa645-perm-check"><input type="checkbox" value="'+p+'" '+
+       (checks.has(p)?"checked":"")+'>'+labelPerm(p)+'</label>').join("")+
+   '</div>').join("")+
+   '</div><div class="hoa645-msg" data-editor-msg></div>';
+
+  host.querySelector("[data-close-access]").onclick=()=>host.classList.remove("open");
+  host.querySelector("[data-save-access]").onclick=async()=>{
+   const msg=host.querySelector("[data-editor-msg]");
+   try{
+    msg.textContent="Saving Admin access…";
+    const permissions=[...host.querySelectorAll('input[type="checkbox"]:checked')].map(x=>x.value);
+    await call("set_permissions",{auth_user_id:id,permissions});
+    msg.textContent="Admin access updated successfully.";
+    setTimeout(loadStaff,500);
+   }catch(e){msg.textContent="Failed: "+(e.message||e)}
+  };
+ }catch(e){host.innerHTML='<div class="hoa643-empty">Unable to load permissions.</div>'}
+}
+
+async function openCredentialsEditor(id){
+ const host=document.getElementById("hoa645Editor_"+id);if(!host)return;
+ host.classList.add("open");host.innerHTML='<div class="hoa643-empty">Loading Admin account…</div>';
+ try{
+  const r=await call("list");
+  const a=(r.admins||[]).find(x=>x.auth_user_id===id);
+  if(!a)throw new Error("Admin account not found.");
+  host.innerHTML=
+   '<div class="hoa645-role-row"><span class="hoa645-role-pill">ADMIN CREDENTIALS</span>'+
+   '<button type="button" class="primary" data-save-credentials>SAVE CREDENTIALS</button>'+
+   '<button type="button" class="secondary" data-close-credentials>CLOSE</button></div>'+
+   '<div class="hoa643-admin-manager-grid">'+
+   '<label>Admin Email<input data-admin-email type="email" value="'+esc(a.email||"")+'"></label>'+
+   '<label>New Password<input data-admin-password type="password" placeholder="Leave blank to keep current password"></label>'+
+   '</div><div class="hoa645-msg" data-credentials-msg></div>';
+
+  host.querySelector("[data-close-credentials]").onclick=()=>host.classList.remove("open");
+  host.querySelector("[data-save-credentials]").onclick=async()=>{
+   const msg=host.querySelector("[data-credentials-msg]");
+   try{
+    msg.textContent="Saving credentials…";
+    const email=host.querySelector("[data-admin-email]").value.trim();
+    const password=host.querySelector("[data-admin-password]").value;
+    await (()=>{const v=window.hoaValidateAdminPassword(password);if(!v.ok){alert(v.message);return null;}return call("update_credentials",{auth_user_id:id,email,password})})();
+    msg.textContent="Admin email/password updated successfully.";
+    setTimeout(loadStaff,500);
+   }catch(e){msg.textContent="Failed: "+(e.message||e)}
+  };
+ }catch(e){host.innerHTML='<div class="hoa643-empty">Unable to load Admin account.</div>'}
+}
+
+async function createAdmin(){
+ const msg=document.getElementById("hoaV645Msg");
+ const email=document.getElementById("hoaV645NewEmail")?.value.trim().toLowerCase();
+ const password=document.getElementById("hoaV645NewPassword")?.value;
+ if(!email||!password){
+   msg.textContent="Enter the Admin email and password.";return;
+ }
+ const policy=window.hoaValidateAdminPassword(password);
+ if(!policy.ok){msg.textContent=policy.message;return;}
+ try{
+  msg.textContent="Creating Admin account…";
+  await (()=>{const v=window.hoaValidateAdminPassword(password);if(!v.ok){alert(v.message);return null;}return call("create",{email,password,permissions:[]})})();
+  msg.textContent="Admin account created. Open Manage Access to assign permissions.";
+  document.getElementById("hoaV645NewEmail").value="";
+  document.getElementById("hoaV645NewPassword").value="";
+  loadStaff();
+ }catch(e){msg.textContent="Failed: "+(e.message||e)}
+}
+
+window.hoaV645LoadPermissions=loadOwnPermissions;window.hoaV643RenderOwnerAdminManager=renderAccessManager;ensureNavTags();
+})();
+</script>
+
+
+<script id="hoa-v622-admin-manager-mount">
+(function(){
+  function mount(){
+    if(window.hoaAdminRole==="owner" && typeof window.hoaV643RenderOwnerAdminManager==="function"){
+      window.hoaV643RenderOwnerAdminManager();
+    }
+  }
+  function wrap(){
+    if(typeof window.showAdminSection!=="function" || window.showAdminSection.__hoaV622Mounted) return;
+    const original=window.showAdminSection;
+    const wrapped=async function(section){
+      const r=await original.apply(this,arguments);
+      if(section==="admin") mount();
+      return r;
+    };
+    wrapped.__hoaV622Mounted=true;
+    wrapped.__hoaV622Original=original;
+    window.showAdminSection=wrapped;
+  }
+  function boot(){wrap();mount();}
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot);
+  else boot();
+  setTimeout(boot,300);
+  setTimeout(boot,1000);
+})();
+</script>
+<script id="hoa-v603-final-admin-controller">
+(function(){
+  "use strict";
+  /* V6.0.3: single authoritative Admin navigation controller.
+     Uses only public module APIs. Do not call private functions from other IIFEs. */
+  const panels={
+    student:"adminSectionStudentPanel", test:"adminSectionTestPanel",
+    course:"adminSectionCoursePanel", video:"adminSectionVideoPanel",
+    notes:"adminSectionNotesPanel", access:"adminSectionAccessPanel",
+    result:"adminSectionResultPanel", admin:"adminSectionAdminPanel"
+  };
+  const nav={
+    student:"adminNavStudent", test:"adminNavTest",
+    course:"adminNavCourse", video:"adminNavVideo", notes:"adminNavNotes",
+    access:"adminNavAccess", result:"adminNavResult", admin:"adminNavAdmin"
+  };
+  function show(el,on){
+    if(!el)return;
+    el.classList.toggle("active",on);
+    if(on){
+      el.classList.add("v13-active");
+      el.style.setProperty("display","block","important");
+      el.style.setProperty("visibility","visible","important");
+      el.style.setProperty("opacity","1","important");
+      el.style.setProperty("pointer-events","auto","important");
+    }else{
+      el.classList.remove("v13-active");
+      el.style.setProperty("display","none","important");
+      el.style.removeProperty("visibility");
+      el.style.removeProperty("opacity");
+      el.style.removeProperty("pointer-events");
+    }
+  }
+  async function controller(section){
+    if(!panels[section]) section="student";
+    if(typeof adminLoggedIn!=="undefined" && adminLoggedIn!==true){
+      alert("Please login as Admin first."); return;
+    }
+    Object.entries(panels).forEach(([k,id])=>show(document.getElementById(id),k===section));
+    Object.entries(nav).forEach(([k,id])=>document.getElementById(id)?.classList.toggle("active",k===section));
+    try{
+      if(section==="student"){
+        if(typeof window.loadStudentsFromSupabase==="function") await window.loadStudentsFromSupabase();
+        if(typeof window.renderAdminStudents==="function") window.renderAdminStudents();
+        return;
+      }
+      if(section==="test"){
+        if(typeof window.loadTestsFromSupabase==="function") await window.loadTestsFromSupabase();
+        if(typeof window.renderLibrary==="function") window.renderLibrary();
+        return;
+      }
+      if(section==="course"){
+        if(typeof window.hoaLoadCourses==="function") await window.hoaLoadCourses();
+        return;
+      }
+      if(section==="video"){
+        if(typeof window.hoaLoadVideos==="function") await window.hoaLoadVideos();
+        return;
+      }
+      if(section==="notes"){
+        if(typeof window.hoaLoadNotes==="function") await window.hoaLoadNotes();
+        return;
+      }
+      if(section==="access"){
+        if(typeof window.hoaLoadAccess==="function") await window.hoaLoadAccess();
+        return;
+      }
+      if(section==="result"){
+        if(typeof window.loadAdminResultsFromSupabase==="function") await window.loadAdminResultsFromSupabase();
+        if(typeof window.renderAdminResultSummary==="function") window.renderAdminResultSummary();
+        if(typeof window.populateTestWiseSelector==="function") window.populateTestWiseSelector();
+        if(typeof window.renderTestWiseResults==="function") window.renderTestWiseResults();
+        return;
+      }
+      if(section==="admin"){
+        if(window.hoaV643RenderOwnerAdminManager) await window.hoaV643RenderOwnerAdminManager();
+        return;
+      }
+    }catch(e){
+      console.error("HOA Admin section load failed:",section,e);
+      const msg=e?.message||String(e);
+      alert((section.charAt(0).toUpperCase()+section.slice(1))+" section could not be loaded: "+msg);
+    }
+  }
+  window.showAdminSection=controller;
+  window.__HOA_V603_ADMIN_CONTROLLER__=controller;
+})();
+</script>
 </body>
 </html>
