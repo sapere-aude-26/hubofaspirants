@@ -9939,8 +9939,8 @@ body.admin-ui #adminOnlyDashboard > .adminSectionPanel.active{
 .hoa-player-btn:hover{background:rgba(255,255,255,.22)}
 .hoa-player-time{font-size:11px;white-space:nowrap;min-width:76px;text-align:center}
 .hoa-player-progress{flex:1;min-width:70px;accent-color:#fff;cursor:pointer}
-.hoa-player-speed{height:34px;border:0;border-radius:9px;background:rgba(255,255,255,.12);color:#fff;padding:0 7px;font-size:11px}
-.hoa-player-speed option{color:#111}
+.hoa-player-speed{height:34px;min-width:58px;border:0;border-radius:9px;background:rgba(255,255,255,.12);color:#fff;padding:0 7px;font-size:11px;font-weight:700;text-align:center;cursor:pointer;outline:none}
+.hoa-player-speed option{color:#111;background:#fff;font-weight:600}
 .hoa-player-center-play{position:absolute;inset:0;margin:auto;width:62px;height:62px;border:0;border-radius:50%;background:rgba(0,0,0,.62);color:#fff;font-size:25px;display:none;align-items:center;justify-content:center;cursor:pointer}
 .hoa-custom-player.hoa-show-center-play .hoa-player-center-play{display:flex}
 .hoa-player-note{position:absolute;right:10px;top:10px;padding:5px 8px;border-radius:7px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;opacity:0;transition:opacity .2s}
@@ -25104,7 +25104,7 @@ window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=show
       '<span class="hoa-player-time" data-time>0:00 / 0:00</span>'+
       '<input class="hoa-player-progress" data-progress type="range" min="0" max="100" value="0" step="0.1" aria-label="Video progress">'+
       '<button type="button" class="hoa-player-btn" data-act="mute">🔊</button>'+
-      '<select class="hoa-player-speed" data-speed aria-label="Playback speed"><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option><option>1.75</option><option>2</option></select>'+
+      '<select class="hoa-player-speed" data-speed aria-label="Playback speed" title="Playback speed"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="1.75">1.75×</option><option value="2">2×</option></select>'+
       '<button type="button" class="hoa-player-btn" data-act="fullscreen">⛶</button>'+
       '</div>';
 
