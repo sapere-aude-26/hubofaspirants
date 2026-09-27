@@ -9923,6 +9923,38 @@ body.admin-ui #adminOnlyDashboard > .adminSectionPanel.active{
   .hoa-video-preview-meta{padding:11px 14px 14px}
 }
 
+
+/* HOA V6.0.4 — Custom HOA video player */
+.hoa-custom-player{position:relative;width:100%;background:#000;border-radius:14px;overflow:hidden;aspect-ratio:16/9;touch-action:manipulation;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.hoa-custom-player iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.hoa-player-overlay{position:absolute;inset:0;pointer-events:none;display:flex;align-items:flex-start;justify-content:center;padding:16px;opacity:0;transition:opacity .28s ease;background:linear-gradient(180deg,rgba(0,0,0,.62),rgba(0,0,0,0) 42%)}
+.hoa-custom-player.hoa-ui-visible .hoa-player-overlay{opacity:1}
+.hoa-player-brand{display:flex;align-items:center;gap:10px;max-width:90%;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.7)}
+.hoa-player-brand img{width:42px;height:42px;object-fit:contain;border-radius:10px;background:rgba(255,255,255,.94);padding:4px}
+.hoa-player-title{font-weight:800;font-size:15px;line-height:1.25;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hoa-player-subtitle{font-size:11px;opacity:.86;margin-top:2px}
+.hoa-player-controls{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:7px;padding:10px 11px;color:#fff;background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,0));opacity:0;transform:translateY(4px);transition:opacity .22s,transform .22s;pointer-events:none}
+.hoa-custom-player.hoa-ui-visible .hoa-player-controls{opacity:1;transform:none;pointer-events:auto}
+.hoa-player-btn{border:0;background:rgba(255,255,255,.12);color:#fff;width:34px;height:34px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px}
+.hoa-player-btn:hover{background:rgba(255,255,255,.22)}
+.hoa-player-time{font-size:11px;white-space:nowrap;min-width:76px;text-align:center}
+.hoa-player-progress{flex:1;min-width:70px;accent-color:#fff;cursor:pointer}
+.hoa-player-speed{height:34px;border:0;border-radius:9px;background:rgba(255,255,255,.12);color:#fff;padding:0 7px;font-size:11px}
+.hoa-player-speed option{color:#111}
+.hoa-player-center-play{position:absolute;inset:0;margin:auto;width:62px;height:62px;border:0;border-radius:50%;background:rgba(0,0,0,.62);color:#fff;font-size:25px;display:none;align-items:center;justify-content:center;cursor:pointer}
+.hoa-custom-player.hoa-show-center-play .hoa-player-center-play{display:flex}
+.hoa-player-note{position:absolute;right:10px;top:10px;padding:5px 8px;border-radius:7px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;opacity:0;transition:opacity .2s}
+.hoa-custom-player.hoa-ui-visible .hoa-player-note{opacity:.85}
+@media(max-width:600px){
+ .hoa-player-overlay{padding:10px}
+ .hoa-player-brand img{width:34px;height:34px}
+ .hoa-player-title{font-size:13px}
+ .hoa-player-subtitle{font-size:10px}
+ .hoa-player-btn{width:31px;height:31px}
+ .hoa-player-time{min-width:62px;font-size:10px}
+ .hoa-player-speed{display:none}
+}
+
 </style>
 <!-- V4.2: Real student data isolation. Auth identity is authoritative; final scoring uses submit_test_v4; student question reads omit answer keys. -->
 
@@ -25048,40 +25080,127 @@ window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=show
     }catch(e){console.error(e);msg('hoaVideoStatusMsg',e.message||'Could not add video.',true);}
   };
 
+  window.hoaCreateCustomPlayer=function(opts){
+    opts=opts||{};
+    const id=String(opts.videoId||'').trim();
+    if(!/^[A-Za-z0-9_-]{11}$/.test(id)) return null;
+
+    const root=document.createElement('div');
+    root.className='hoa-custom-player hoa-ui-visible hoa-show-center-play';
+    root.innerHTML=
+      '<div class="hoa-player-overlay"><div class="hoa-player-brand">'+
+      (opts.logo?'<img src="'+opts.logo.replace(/"/g,'&quot;')+'" alt="HOA">':'')+
+      '<div><div class="hoa-player-title">'+hoaPreviewEsc(opts.title||'Lecture')+'</div>'+
+      '<div class="hoa-player-subtitle">'+hoaPreviewEsc(opts.subtitle||'HUB OF ASPIRANTS')+'</div></div></div></div>'+
+      '<iframe title="'+hoaPreviewEsc(opts.title||'HOA Video')+'" loading="eager" '+
+      'referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen '+
+      'src="https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?enablejsapi=1&origin='+encodeURIComponent(window.location.origin)+'&rel=0&playsinline=1&modestbranding=1"></iframe>'+
+      '<button type="button" class="hoa-player-center-play" aria-label="Play">▶</button>'+
+      '<div class="hoa-player-note">HUB OF ASPIRANTS</div>'+
+      '<div class="hoa-player-controls">'+
+      '<button type="button" class="hoa-player-btn" data-act="back">↶</button>'+
+      '<button type="button" class="hoa-player-btn" data-act="play">▶</button>'+
+      '<button type="button" class="hoa-player-btn" data-act="forward">↷</button>'+
+      '<span class="hoa-player-time" data-time>0:00 / 0:00</span>'+
+      '<input class="hoa-player-progress" data-progress type="range" min="0" max="100" value="0" step="0.1" aria-label="Video progress">'+
+      '<button type="button" class="hoa-player-btn" data-act="mute">🔊</button>'+
+      '<select class="hoa-player-speed" data-speed aria-label="Playback speed"><option>0.75</option><option selected>1</option><option>1.25</option><option>1.5</option><option>1.75</option><option>2</option></select>'+
+      '<button type="button" class="hoa-player-btn" data-act="fullscreen">⛶</button>'+
+      '</div>';
+
+    const iframe=root.querySelector('iframe');
+    const playBtn=root.querySelector('[data-act="play"]');
+    const center=root.querySelector('.hoa-player-center-play');
+    const progress=root.querySelector('[data-progress]');
+    const timeEl=root.querySelector('[data-time]');
+    const speed=root.querySelector('[data-speed]');
+    let yt=null, ready=false, timer=null, hideTimer=null;
+
+    function showUI(){
+      root.classList.add('hoa-ui-visible');
+      clearTimeout(hideTimer);
+      hideTimer=setTimeout(()=>root.classList.remove('hoa-ui-visible'),3500);
+    }
+    function fmt(t){
+      t=Math.max(0,Math.floor(Number(t)||0));
+      const m=Math.floor(t/60), sec=String(t%60).padStart(2,'0');
+      return m+':'+sec;
+    }
+    function command(func,args){
+      if(!ready)return;
+      iframe.contentWindow.postMessage(JSON.stringify({event:'command',func:func,args:args||[]}), '*');
+    }
+    function sync(){
+      if(!ready)return;
+      command('getCurrentTime');
+      command('getDuration');
+    }
+    function onMessage(e){
+      if(e.source!==iframe.contentWindow)return;
+      let d;
+      try{d=typeof e.data==='string'?JSON.parse(e.data):e.data}catch(_){return}
+      if(!d||d.event!=='infoDelivery'||!d.info)return;
+      if(typeof d.info.currentTime==='number'){
+        const dur=Number(d.info.duration)||0;
+        progress.value=dur?(d.info.currentTime/dur*100):0;
+        timeEl.textContent=fmt(d.info.currentTime)+' / '+fmt(dur);
+      }
+      if(d.info.playerState===1){playBtn.textContent='Ⅱ';center.style.display='none'}
+      if(d.info.playerState===2){playBtn.textContent='▶';center.style.display='flex'}
+    }
+    window.addEventListener('message',onMessage);
+
+    iframe.addEventListener('load',()=>{
+      ready=true;
+      command('addEventListener',['onReady']);
+      command('addEventListener',['onStateChange']);
+      sync();
+    });
+
+    root.addEventListener('pointerdown',showUI);
+    root.addEventListener('touchstart',showUI,{passive:true});
+    root.addEventListener('mousemove',showUI);
+
+    playBtn.onclick=()=>{command('playVideo');showUI()};
+    center.onclick=()=>{command('playVideo');showUI()};
+    root.querySelector('[data-act="back"]').onclick=()=>command('seekTo',[Math.max(0,0),true]);
+    root.querySelector('[data-act="forward"]').onclick=()=>{command('getCurrentTime');setTimeout(()=>command('seekTo',[10,true]),50)};
+    root.querySelector('[data-act="mute"]').onclick=()=>command('mute');
+    speed.onchange=()=>command('setPlaybackRate',[Number(speed.value)]);
+    root.querySelector('[data-act="fullscreen"]').onclick=()=>{
+      if(root.requestFullscreen)root.requestFullscreen();
+    };
+    progress.oninput=()=>{
+      if(!ready)return;
+      const pct=Number(progress.value)/100;
+      command('getDuration');
+      setTimeout(()=>command('seekTo',[pct*100,true]),50);
+    };
+
+    timer=setInterval(sync,1000);
+    root._hoaDestroy=()=>{
+      clearInterval(timer);
+      clearTimeout(hideTimer);
+      window.removeEventListener('message',onMessage);
+      root.innerHTML='';
+    };
+    return root;
+  };
+
   window.hoaPreviewVideo=function(videoId,title,batchName){
     const player=document.getElementById('hoaAdminInlineVideoPlayer');
     const frame=document.getElementById('hoaAdminInlineVideoFrame');
-    const titleEl=document.getElementById('hoaAdminInlineVideoTitle');
-    const meta=document.getElementById('hoaAdminInlineVideoMeta');
     if(!player||!frame)return;
-
-    let id=String(videoId||'').trim();
-    const match=id.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
-    if(match) id=match[1];
-
-    if(!/^[A-Za-z0-9_-]{11}$/.test(id)){
-      msg('hoaVideoStatusMsg','Invalid YouTube video ID.',true);
-      return;
-    }
-
-    titleEl.textContent=title||'Video Preview';
-    meta.textContent=batchName ? ('Course / Batch: '+batchName+' • Admin Preview') : 'Admin Preview';
-
-    const appOrigin=(window.location.origin&&window.location.origin!=='null'&&/^https?:$/i.test(window.location.protocol))
-      ?window.location.origin:'';
-    const embedParams='rel=0&playsinline=1'+
-      (appOrigin?'&origin='+encodeURIComponent(appOrigin):'')+
-      (appOrigin?'&widget_referrer='+encodeURIComponent(window.location.href):'');
-    hoaAdminPreviewUrl='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(id)+'?'+embedParams;
-
-    frame.innerHTML='<div class="hoa643-player" style="width:100%;max-width:980px;margin:0 auto;background:#000;border-radius:12px;overflow:hidden;aspect-ratio:16/9;">'
-      +'<iframe src="'+hoaPreviewEsc(hoaAdminPreviewUrl)+'"'
-      +' title="'+hoaPreviewEsc(title||'Video Preview')+'" loading="eager"'
-      +' referrerpolicy="strict-origin-when-cross-origin"'
-      +' allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"'
-      +' allowfullscreen style="width:100%;height:100%;border:0;display:block;"></iframe>'
-      +'</div>';
-
+    frame.innerHTML='';
+    const logo=(document.querySelector('img[src*="logo"], img[alt*="HOA" i]')||{}).src||'';
+    const p=window.hoaCreateCustomPlayer({
+      videoId:videoId,
+      title:title||'Video Preview',
+      subtitle:batchName||'HUB OF ASPIRANTS • Admin Preview',
+      logo:logo
+    });
+    if(!p)return;
+    frame.appendChild(p);
     player.style.display='block';
     player.scrollIntoView({behavior:'smooth',block:'nearest'});
   };
@@ -25092,21 +25211,17 @@ window.hoaV643ShowStudentSection=showStudent;window.hoaV643ShowAdminSection=show
     });
   }
 
-  let hoaAdminPreviewUrl='';
   document.addEventListener('DOMContentLoaded',function(){
     const close=document.getElementById('hoaAdminInlineVideoClose');
-    const open=document.getElementById('hoaAdminInlineVideoOpen');
     if(close)close.addEventListener('click',function(){
-      const player=document.getElementById('hoaAdminInlineVideoPlayer');
       const frame=document.getElementById('hoaAdminInlineVideoFrame');
-      if(frame)frame.innerHTML='';
+      const player=document.getElementById('hoaAdminInlineVideoPlayer');
+      if(frame){
+        const p=frame.firstElementChild;
+        if(p&&p._hoaDestroy)p._hoaDestroy();
+        frame.innerHTML='';
+      }
       if(player)player.style.display='none';
-      hoaAdminPreviewUrl='';
-    });
-    if(open)open.addEventListener('click',function(){
-      if(!hoaAdminPreviewUrl)return;
-      // Do not use "noreferrer": YouTube requires a Referer for embedded playback.
-      window.open(hoaAdminPreviewUrl,'_blank','noopener');
     });
   });
 
