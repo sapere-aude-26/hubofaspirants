@@ -1,0 +1,171 @@
+
+/*
+  HOA V6.0.123 — authoritative Student Dashboard background/header fix.
+  This block intentionally targets the ACTUAL dashboard state selector used
+  by the application. No authentication, test, result, or database logic
+  is modified.
+*/
+
+/* ---------- Page foundation ---------- */
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)){
+  background:#eef3f8 !important;
+  color:#10233f !important;
+  min-height:100vh !important;
+  overflow-x:hidden !important;
+}
+
+/* ---------- Remove the ghost legacy header branding ----------
+   The screenshot showed the old white-on-light brand text at the
+   upper-left. Keep only the existing Student Logout control. */
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header{
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  width:100% !important;
+  height:58px !important;
+  min-height:58px !important;
+  margin:0 !important;
+  padding:0 28px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  background:transparent !important;
+  background-image:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  z-index:10000 !important;
+  pointer-events:none !important;
+  box-sizing:border-box !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header > div:first-child,
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header > .brand{
+  display:none !important;
+  visibility:hidden !important;
+  width:0 !important;
+  height:0 !important;
+  overflow:hidden !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header > .headerRight{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  width:auto !important;
+  min-width:0 !important;
+  margin:0 !important;
+  pointer-events:auto !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header #studentHeaderLogout{
+  display:inline-flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  position:static !important;
+  width:auto !important;
+  min-width:156px !important;
+  height:40px !important;
+  min-height:40px !important;
+  margin:0 !important;
+  padding:0 16px !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:#ffffff !important;
+  color:#123f73 !important;
+  border:1px solid #d2deea !important;
+  border-radius:10px !important;
+  box-shadow:0 4px 14px rgba(18,63,115,.10) !important;
+  font-size:13px !important;
+  font-weight:800 !important;
+  line-height:1 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+  cursor:pointer !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header #studentHeaderLogout:hover{
+  background:#f8fbff !important;
+  border-color:#b8cbe0 !important;
+}
+
+/* ---------- Main/dashboard shell ----------
+   No second giant white background behind the dashboard. */
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > main.container{
+  width:100% !important;
+  max-width:1180px !important;
+  margin:0 auto !important;
+  padding:72px 20px 42px !important;
+  background:transparent !important;
+  box-sizing:border-box !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #home{
+  width:100% !important;
+  max-width:1180px !important;
+  margin:0 auto !important;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  box-sizing:border-box !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard{
+  width:100% !important;
+  max-width:1180px !important;
+  margin:0 auto !important;
+  padding:0 !important;
+  background:transparent !important;
+  box-sizing:border-box !important;
+}
+
+/* ---------- Navigation/profile/stat/panel cards ----------
+   Keep the content white while the page remains light grey. */
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard .candidateSectionNav,
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard .profileCard,
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard .dashStat,
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard .dashPanel{
+  background:#ffffff !important;
+}
+
+body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard .candidateSectionNav{
+  border:1px solid #dce5ef !important;
+  box-shadow:0 4px 14px rgba(15,35,60,.04) !important;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width:767px){
+  body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header{
+    height:52px !important;
+    min-height:52px !important;
+    padding:0 10px !important;
+  }
+
+  body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > .header #studentHeaderLogout{
+    min-width:0 !important;
+    width:auto !important;
+    height:38px !important;
+    min-height:38px !important;
+    padding:0 11px !important;
+    font-size:11px !important;
+  }
+
+  body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > main.container{
+    max-width:none !important;
+    padding:62px 10px 30px !important;
+  }
+
+  body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #home,
+  body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) #studentOnlyDashboard{
+    max-width:none !important;
+  }
+}
+
+@media (max-width:420px){
+  body:not(.admin-ui):has(#studentOnlyDashboard:not(.hidden)) > main.container{
+    padding-left:7px !important;
+    padding-right:7px !important;
+  }
+}

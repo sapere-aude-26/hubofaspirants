@@ -1,0 +1,12 @@
+
+/* V6.0.123 — the real existing admin credentials form is #homeAdminPanel. */
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost .dashPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}

@@ -1,0 +1,263 @@
+<div class="hidden" id="adminOnlyDashboard">
+<div aria-label="Admin dashboard sections" class="adminSectionNav">
+<button class="active" id="adminNavStudent" onclick="showAdminSection('student')">👥 Students</button>
+<button id="adminNavTest" onclick="showAdminSection('test')">📝 Mock Tests</button>
+<button id="adminNavCourse" onclick="showAdminSection('course')">🎓 Courses</button>
+<button id="adminNavVideo" onclick="showAdminSection('video')">🎥 Classes &amp; Videos</button>
+<button id="adminNavNotes" onclick="showAdminSection('notes')">📚 Notes</button>
+<button id="adminNavPoster" onclick="showAdminSection('poster')">🖼️ Poster</button>
+<button id="adminNavAccess" onclick="showAdminSection('access')">🔐 Student Access</button>
+<button id="adminNavResult" onclick="showAdminSection('result')">📊 Results</button>
+<button id="adminNavAdmin" onclick="showAdminSection('admin')">👑 Admin Access</button>
+</div>
+<div class="dashPanel" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+<div style="display:flex;align-items:center;gap:12px">
+<img alt="HUB OF ASPIRANTS" class="brand-logo" src="hoa-logo.png"/>
+<div><b>⚙️ Admin Dashboard</b><div style="font-size:12px;color:#64748b">Manage students and mock tests</div></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionCoursePanel">
+<div class="dashPanel hoa-admin-content-panel">
+<div class="hoa-admin-section-head">
+<div><h3>🎓 Course / Batch Management</h3><p>Create and publish preparation batches. Students can be granted access to published batches.</p></div>
+<span class="hoa-admin-count" id="hoaCourseCount">0</span>
+</div>
+<div class="hoa-admin-form-grid">
+<label>Course / Batch Name<input id="hoaCourseName" placeholder="e.g. TES Degree 2026"/></label>
+<label>Batch Code<input id="hoaCourseCode" placeholder="e.g. TES-D-26"/></label>
+<label class="hoa-admin-wide">Description<textarea id="hoaCourseDescription" placeholder="Short description for students" rows="3"></textarea></label>
+<label>Status<select id="hoaCourseStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label>
+<label>Sort Order<input id="hoaCourseSort" type="number" value="0"/></label>
+</div>
+<div class="hoa-admin-actions">
+<button class="primary" onclick="hoaCreateCourse()">＋ Create Course</button>
+<button class="secondary" onclick="hoaLoadCourses()">↻ Refresh</button>
+<span id="hoaCourseStatusMsg"></span>
+</div>
+<div class="hoa-admin-list" id="hoaCourseList"></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionVideoPanel">
+<div class="dashPanel hoa-admin-content-panel">
+<div class="hoa-admin-section-head">
+<div><h3>🎥 Classes &amp; Video Management</h3><p>Add live/recorded class entries to a course using YouTube video IDs. Publishing controls student visibility.</p></div>
+<span class="hoa-admin-count" id="hoaVideoCount">0</span>
+</div>
+<div class="hoa-admin-form-grid">
+<label>Course / Batch<select id="hoaVideoBatch"></select></label>
+<label>Lecture No.<input id="hoaVideoLectureNo" min="1" type="number" value="1"/></label>
+<label>Class Title<input id="hoaVideoTitle" placeholder="e.g. Structural Analysis — Lecture 01"/></label>
+<label>YouTube Video ID<input id="hoaVideoYoutubeId" maxlength="20" placeholder="e.g. dQw4w9WgXcQ"/></label>
+<label class="hoa-admin-wide">Description<textarea id="hoaVideoDescription" placeholder="What students will learn" rows="3"></textarea></label>
+<label>Scheduled At<input id="hoaVideoScheduled" type="datetime-local"/></label>
+<label>Duration (seconds)<input id="hoaVideoDuration" min="0" placeholder="Optional" type="number"/></label>
+<label>Status<select id="hoaVideoPublished"><option value="false">Draft</option><option value="true">Published</option></select></label>
+<label>Sort Order<input id="hoaVideoSort" type="number" value="0"/></label>
+</div>
+<div class="hoa-admin-actions">
+<button class="primary" onclick="hoaCreateVideo()">＋ Add Class / Video</button>
+<button class="secondary" onclick="hoaLoadVideos()">↻ Refresh</button>
+<span id="hoaVideoStatusMsg"></span>
+</div>
+<div class="hoa-admin-inline-video-player" id="hoaAdminInlineVideoPlayer" style="display:none;margin:14px 0 16px;">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px;">
+<div>
+<strong id="hoaAdminInlineVideoTitle">Video Preview</strong>
+<div id="hoaAdminInlineVideoMeta" style="font-size:12px;color:#64748b;margin-top:2px;"></div>
+</div>
+<div style="display:flex;gap:8px;align-items:center;"><button class="secondary" id="hoaAdminInlineVideoOpen" type="button">Open Player</button><button class="secondary" id="hoaAdminInlineVideoClose" type="button">Close Preview</button></div>
+</div>
+<div id="hoaAdminInlineVideoFrame"></div>
+</div>
+<div class="hoa-admin-list" id="hoaVideoList"></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionNotesPanel">
+<div class="dashPanel hoa-admin-content-panel">
+<div class="hoa-admin-section-head">
+<div><h3>📚 Notes / Study Material</h3><p>Manage PDF and study-material records already supported by the database. File upload/storage can be connected without changing this management workflow.</p></div>
+<span class="hoa-admin-count" id="hoaNotesCount">0</span>
+</div>
+<div class="hoa-admin-form-grid">
+<label>Title<input id="hoaNoteTitle" placeholder="e.g. Environmental Engineering Notes"/></label>
+<label>Subject<input id="hoaNoteSubject" placeholder="e.g. Environment"/></label>
+<label>Exam<input id="hoaNoteExam" placeholder="e.g. RRB JE"/></label>
+<label>File Name<input id="hoaNoteFileName" placeholder="notes.pdf"/></label>
+<label class="hoa-admin-wide">Description<textarea id="hoaNoteDescription" placeholder="Short description" rows="3"></textarea></label>
+<label class="hoa-admin-wide">Storage Path<input id="hoaNoteStoragePath" placeholder="Supabase Storage path"/></label>
+<label>Published<select id="hoaNotePublished"><option value="false">Draft</option><option value="true">Published</option></select></label>
+<label>Sort Order<input id="hoaNoteSort" type="number" value="0"/></label>
+</div>
+<div class="hoa-admin-actions">
+<button class="primary" onclick="hoaCreateNote()">＋ Add Note</button>
+<button class="secondary" onclick="hoaLoadNotes()">↻ Refresh</button>
+<span id="hoaNoteStatusMsg"></span>
+</div>
+<div class="hoa-admin-list" id="hoaNoteList"></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionPosterPanel">
+<div class="dashPanel hoa-admin-content-panel">
+<div class="hoa-admin-section-head">
+<div>
+<h3>🖼️ Poster Management</h3>
+<p>Upload, activate, deactivate and delete the posters used by HUB OF ASPIRANTS.</p>
+</div>
+<span class="hoa-admin-count">POSTER</span>
+</div>
+<div id="hoaPosterAdminHost"></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionAccessPanel">
+<div class="dashPanel hoa-admin-content-panel">
+<div class="hoa-admin-section-head">
+<div><h3>🔐 Student Access Management</h3><p>Grant or revoke access to courses, mock tests and notes for individual students. Access uses the existing RLS-protected access tables.</p></div>
+</div>
+<div class="hoa-admin-form-grid">
+<label>Student<select id="hoaAccessStudent"></select></label>
+<label>Access Type<select id="hoaAccessType" onchange="hoaAccessTypeChanged()"><option value="batch">Course / Batch</option><option value="test">Mock Test</option><option value="note">Note</option></select></label>
+<label class="hoa-admin-wide">Resource<select id="hoaAccessResource"></select></label>
+<label>Starts At<input id="hoaAccessStarts" type="datetime-local"/></label>
+<label>Expires At<input id="hoaAccessExpires" type="datetime-local"/></label>
+</div>
+<div class="hoa-admin-actions">
+<button class="primary" onclick="hoaGrantAccess()">＋ Grant Access</button>
+<button class="secondary" onclick="hoaLoadAccess()">↻ Refresh</button>
+<span id="hoaAccessStatusMsg"></span>
+</div>
+<div class="hoa-admin-list" id="hoaAccessList"></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionAdminPanel">
+<div class="dashPanel">
+<h3 style="margin-top:0">🔐 Admin Access</h3>
+<div class="hoaV646-owner-access-banner" id="hoaV646OwnerAccessBanner">
+<strong>👑 SUPER ADMIN / OWNER — ADMIN ACCESS CONTROL</strong>
+<span>Create Admin accounts, set their email and password, choose exactly what they can access, change their credentials later, or delete them.</span>
+<button onclick="document.getElementById('hoaV645AccessManager')?.scrollIntoView({behavior:'smooth',block:'start'})" type="button">OPEN ADMIN ACCESS &amp; PERMISSIONS</button>
+</div>
+<p style="font-size:13px;color:#64748b">This area is for the Super Admin / Owner. Admin login credentials are managed through Supabase Auth. Use the Admin Access &amp; Permissions panel above to create Admin accounts, set their email/password, control permissions, change credentials, or delete an Admin.</p>
+</div>
+</div>
+<div class="adminSectionPanel active" id="adminSectionStudentPanel">
+<div class="dashPanel">
+<h3 style="margin-top:0">👥 Candidates</h3>
+<p style="font-size:13px;color:#64748b">Manage Paid Candidates and Free Test Candidates separately. Free candidates enter through MISSIONTES / TES@2026, then complete registration here automatically.</p>
+<div class="candidateAdminSection" style="margin-top:16px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+<h4 style="margin:0;color:#173f6b;font-size:18px">💰 Paid Candidates <span class="statusBadge paidBadge" id="paidCandidateCount">0</span></h4>
+</div>
+<div id="paidStudentAdminList"></div>
+</div>
+<div class="candidateAdminSection" style="margin-top:18px;border-top:2px solid #e2e8f0;padding-top:18px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap">
+<h4 style="margin:0;color:#173f6b;font-size:18px">🎁 Free Test Candidates <span class="statusBadge freeBadge" id="freeCandidateCount">0</span></h4>
+</div>
+<div id="freeStudentAdminList"></div>
+</div>
+<!-- Hidden compatibility container: older code can still find studentAdminList. -->
+<div class="hidden" id="studentAdminList"></div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionTestPanel">
+<div class="adminGrid">
+<div class="dashPanel">
+<h3 style="margin-top:0">📚 Test Library</h3>
+<div id="testLibrary"></div>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
+<button class="secondary" onclick="showCreator()">➕ Create / Import Test</button>
+</div>
+</div>
+<div class="dashPanel" id="creatorPanel">
+<h3 style="margin-top:0">Create / Import Test</h3>
+<p style="font-size:13px;color:#64748b">Use your Telegram CSV format.</p>
+<input accept=".csv,text/csv" id="csvFile" style="width:100%;padding:10px" type="file"/>
+<div id="fileStatus" style="margin-top:10px;font-size:13px;color:#64748b">No CSV selected. Sample questions are loaded.</div>
+<hr style="border:0;border-top:1px solid #e2e8f0;margin:18px 0"/>
+<label style="display:block;text-align:left;font-weight:700">Or paste CSV data</label>
+<textarea id="csvPaste" placeholder="Question,Option 1,Option 2,Option 3,Option 4,Correct Option,Explanation
+Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;border:1px solid #cbd5e1;border-radius:8px;margin-top:7px;resize:vertical;font:13px monospace"></textarea>
+<div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+<button class="secondary" onclick="loadPastedCSV()">LOAD PASTED CSV</button>
+<button class="secondary" onclick="clearPastedCSV()">CLEAR</button>
+</div>
+<div id="pasteStatus" style="margin-top:8px;font-size:13px;color:#64748b"></div>
+<div class="dashPanel hidden" id="csvPreviewPanel" style="margin-top:14px;padding:14px;background:#f8fafc;border:1px solid #dbe4ef;box-shadow:none">
+<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+<h4 style="margin:0">🔎 Question Preview</h4>
+<span class="resultBadge" id="csvPreviewCount"></span>
+</div>
+<p style="margin:7px 0 12px;font-size:12px;color:#64748b">Review every question, the correct option and explanation before saving the mock test.</p>
+<div id="csvPreviewList"></div>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left;margin-top:16px">
+<label>Test Title<input id="titleInput" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-top:5px" value="TES Mock Test 01"/></label>
+<label>Duration (min)<input id="durationInput" min="1" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-top:5px" type="number" value="10"/></label>
+<label>Marks / Correct<input id="marksInput" min="0" step="0.25" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-top:5px" type="number" value="1"/></label>
+<label>Negative Marks<input id="negativeInput" min="0" step="0.05" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-top:5px" type="number" value="0.25"/></label>
+<label>Access Type<select id="accessTypeInput" style="width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;margin-top:5px"><option value="paid">💰 Paid Test</option><option value="free">🎁 Free Test</option></select></label>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+<button class="primary" onclick="saveCurrentAsTest()">💾 SAVE AS DRAFT</button>
+<button class="secondary" onclick="downloadSampleCSV()">Download Sample CSV</button>
+</div>
+</div>
+</div>
+</div>
+<div class="adminSectionPanel" id="adminSectionResultPanel">
+<div class="dashPanel">
+<h3 style="margin-top:0">📊 Result Management</h3>
+<p style="font-size:13px;color:#64748b">
+      Search, filter and inspect candidate test results.
+      Results are generated automatically when a student submits a test.
+    </p>
+<div class="adminResultCards">
+<div class="adminResultCard">
+<b id="adminResultTotal">0</b>
+<span>Total Attempts</span>
+</div>
+<div class="adminResultCard">
+<b id="adminResultCompleted">0</b>
+<span>Completed</span>
+</div>
+<div class="adminResultCard">
+<b id="adminResultCandidates">0</b>
+<span>Candidates</span>
+</div>
+</div>
+<div class="resultToolbar">
+<input id="resultSearch" oninput="renderAdminResultSummary()" placeholder="Search candidate / email / test" type="text"/>
+<select id="resultAccessFilter" onchange="renderAdminResultSummary()">
+<option value="all">All Candidates</option>
+<option value="free">Free Candidates</option>
+<option value="paid">Paid Candidates</option>
+</select>
+<button class="btn" onclick="exportAdminResultsCSV()">⬇ Export CSV</button>
+<button class="btn secondary" onclick="v13RefreshResults()">↻ Refresh</button>
+</div>
+<div class="resultTableWrap" id="adminResultList"></div>
+<div id="adminResultDetail"></div>
+<div class="testWisePanel" id="testWiseResultPanel">
+<h3 style="margin:0">📝 Test-Wise Result</h3>
+<p style="font-size:13px;color:#64748b;margin-bottom:8px">
+        Select a test to generate a clean candidate-wise result list for export or printing.
+      </p>
+<div class="testWiseToolbar">
+<select id="testWiseTestSelect" onchange="renderTestWiseResults()">
+<option value="">Select Test</option>
+</select>
+<input id="testWiseDate" onchange="renderTestWiseResults()" type="date"/>
+<button class="btn" onclick="exportTestWiseCSV()">⬇ Export Excel/CSV</button>
+<button class="btn secondary" onclick="printTestWiseResult()">🖨 Print Template</button>
+</div>
+<div class="testWiseTemplatePreview" id="testWisePrintArea">
+<div class="testWiseTemplateHeader">
+<h2 id="testWiseTemplateTestName">Test-Wise Result</h2>
+<p id="testWiseTemplateSubject">Subject: —</p>
+<p id="testWiseTemplateDate">Date: —</p>
+</div>
+<div id="testWiseTable"></div>
+</div>
+</div>
+</div>
+</div></div>

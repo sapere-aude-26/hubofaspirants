@@ -1,0 +1,110 @@
+
+/* V6.0.123 — balanced poster sizing.
+   Keeps the existing posters and carousel intact; presentation only. */
+
+#hoaV643PosterSection.hoa-v648-poster-section{
+  max-width:1180px !important;
+  padding:28px !important;
+}
+
+#hoaV643PosterSection .hoa-v648-section-head{
+  margin-bottom:20px !important;
+}
+
+#hoaV643PosterWrap.hoa-v648-poster-wrap{
+  height:clamp(600px,58vw,700px) !important;
+  min-height:600px !important;
+  padding:28px 105px !important;
+  border-radius:28px !important;
+  overflow:hidden !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-slide{
+  width:min(62vw,760px) !important;
+  height:calc(100% - 56px) !important;
+  max-width:760px !important;
+  border-radius:24px !important;
+  overflow:hidden !important;
+  background:#fff !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-slide img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  padding:10px !important;
+  background:#fff !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-center{
+  transform:translate3d(-50%,-50%,0) scale(1) !important;
+  z-index:10 !important;
+  opacity:1 !important;
+  filter:none !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-left{
+  transform:translate3d(-108%,-50%,0) scale(.70) !important;
+  opacity:.24 !important;
+  filter:blur(3px) saturate(.65) !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-right{
+  transform:translate3d(8%,-50%,0) scale(.70) !important;
+  opacity:.24 !important;
+  filter:blur(3px) saturate(.65) !important;
+}
+
+#hoaV643PosterNav{
+  margin-top:12px !important;
+  min-height:32px !important;
+}
+
+@media (max-width:900px){
+  #hoaV643PosterWrap.hoa-v648-poster-wrap{
+    height:clamp(520px,66vw,620px) !important;
+    min-height:520px !important;
+    padding:24px 82px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-slide{
+    width:min(68vw,620px) !important;
+    height:calc(100% - 48px) !important;
+    max-width:620px !important;
+  }
+}
+
+@media (max-width:600px){
+  #hoaV643PosterSection.hoa-v648-poster-section{
+    padding:18px !important;
+  }
+
+  #hoaV643PosterWrap.hoa-v648-poster-wrap{
+    height:clamp(440px,105vw,540px) !important;
+    min-height:440px !important;
+    padding:20px 52px !important;
+    border-radius:20px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-slide{
+    width:min(78vw,430px) !important;
+    height:calc(100% - 40px) !important;
+    max-width:430px !important;
+    border-radius:18px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-slide img{
+    padding:7px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-left{
+    transform:translate3d(-88%,-50%,0) scale(.60) !important;
+    opacity:.16 !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-right{
+    transform:translate3d(-12%,-50%,0) scale(.60) !important;
+    opacity:.16 !important;
+  }
+}

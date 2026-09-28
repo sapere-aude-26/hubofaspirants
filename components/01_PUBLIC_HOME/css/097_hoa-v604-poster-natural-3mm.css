@@ -1,0 +1,46 @@
+
+/* =========================================================
+   HOA V6.0.4 — POSTER NATURAL SIZE + 3mm WHITE SURROUND
+   Critical fix:
+   - NEVER stretch/squeeze the uploaded poster.
+   - Preserve its exact natural aspect ratio.
+   - Add only a small ~3mm white surround around it.
+   ========================================================= */
+
+#hoaV643PosterWrap .hoa643-poster-slide{
+  box-sizing:border-box !important;
+  padding:11px !important; /* ≈3mm at 96dpi */
+  background:#fff !important;
+  overflow:hidden !important;
+  border-radius:18px !important;
+  display:block !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-slide img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  background:#fff !important;
+  border-radius:0 !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-center{
+  box-shadow:
+    0 20px 48px rgba(15,39,68,.20),
+    0 0 0 1px rgba(203,213,225,.60) !important;
+}
+
+@media(max-width:700px){
+  #hoaV643PosterWrap .hoa643-poster-slide{
+    padding:8px !important;
+    border-radius:14px !important;
+  }
+}

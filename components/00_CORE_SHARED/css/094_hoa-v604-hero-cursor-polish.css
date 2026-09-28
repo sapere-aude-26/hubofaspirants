@@ -1,0 +1,124 @@
+
+/* =========================================================
+   HOA V6.0.4 — HERO FEATURE CARDS
+   Cursor-reactive motion + refined HOA golden-yellow glow.
+   Existing scroll/parallax motion remains intact.
+   ========================================================= */
+
+@media (pointer:fine){
+  #hoaFrontPage .hoa-front-visual{
+    position:relative !important;
+    isolation:isolate !important;
+    perspective:900px !important;
+  }
+
+  /* A soft golden spotlight follows the cursor behind the cards. */
+  #hoaFrontPage .hoa-front-visual::before{
+    content:"" !important;
+    position:absolute !important;
+    width:280px !important;
+    height:280px !important;
+    left:calc(50% + var(--hoa-cursor-x, 0px)) !important;
+    top:calc(50% + var(--hoa-cursor-y, 0px)) !important;
+    transform:translate(-50%,-50%) !important;
+    border-radius:50% !important;
+    pointer-events:none !important;
+    z-index:-1 !important;
+    background:radial-gradient(
+      circle,
+      rgb(242 183 5 / var(--hoa-cursor-glow, 0)) 0%,
+      rgb(242 183 5 / calc(var(--hoa-cursor-glow, 0) * .42)) 27%,
+      transparent 70%
+    ) !important;
+    filter:blur(12px) !important;
+    transition:
+      left .12s ease-out,
+      top .12s ease-out,
+      opacity .25s ease !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature{
+    position:relative !important;
+    overflow:visible !important;
+    will-change:translate,box-shadow,filter !important;
+    transition:
+      translate .16s cubic-bezier(.22,.61,.36,1),
+      box-shadow .18s ease,
+      border-color .18s ease,
+      filter .18s ease !important;
+
+    border-color:rgb(148 163 184 / calc(.28 - var(--hoa-card-gold,0) * .08)) !important;
+
+    box-shadow:
+      0 14px 34px rgb(15 39 68 / .08),
+      0 0 0 1px rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .30)),
+      0 0 34px rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .30)),
+      0 0 70px rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .10)) !important;
+  }
+
+  /* Golden light spills outside the card rather than colouring the card itself. */
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature::after{
+    content:"" !important;
+    position:absolute !important;
+    inset:-9px !important;
+    border-radius:23px !important;
+    pointer-events:none !important;
+    z-index:-1 !important;
+    background:radial-gradient(
+      circle at var(--hoa-light-x,50%) var(--hoa-light-y,50%),
+      rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .25)) 0%,
+      rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .10)) 25%,
+      transparent 68%
+    ) !important;
+    filter:blur(8px) !important;
+    opacity:var(--hoa-card-gold,0) !important;
+    transition:opacity .16s ease !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature-icon{
+    transition:
+      transform .18s cubic-bezier(.22,.61,.36,1),
+      box-shadow .18s ease,
+      background .18s ease !important;
+    box-shadow:
+      0 0 0 1px rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .20)),
+      0 0 20px rgb(242 183 5 / calc(var(--hoa-card-gold,0) * .20)) !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature b{
+    transition:color .18s ease !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:hover{
+    filter:saturate(1.03) !important;
+    border-color:rgb(242 183 5 / .52) !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:hover b{
+    color:#9a7100 !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:hover .hoa-front-feature-icon{
+    background:#fff8d9 !important;
+  }
+
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(1){
+    --hoa-depth:1;
+  }
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(2){
+    --hoa-depth:1.15;
+  }
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature:nth-child(3){
+    --hoa-depth:1.3;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  #hoaFrontPage .hoa-front-visual::before{
+    transition:none !important;
+  }
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature,
+  #hoaFrontPage .hoa-front-hero .hoa-front-feature-icon{
+    transition:none !important;
+  }
+}

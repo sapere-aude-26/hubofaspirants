@@ -1,0 +1,398 @@
+{
+  "stage": 7,
+  "name": "Paid Student / Application Adapter",
+  "mode": "compatibility",
+  "production_replacement": false,
+  "responsibilities": [
+    "Paid student application UI",
+    "Course/enrollment application flows",
+    "Paid-access state presentation",
+    "Application/payment entry orchestration",
+    "Application-local data presentation"
+  ],
+  "dependencies": [
+    "Core Runtime V3",
+    "Navigation Adapter V3",
+    "Authentication Adapter V4",
+    "Existing Supabase/data contracts",
+    "Existing payment/application provider contracts if present"
+  ],
+  "function_definitions": [
+    "apply",
+    "applyAdminRole",
+    "applyPermissionUI",
+    "applySettings",
+    "applyStudentTabState",
+    "bindCourseContent",
+    "courseFolderSections",
+    "ensureCourseWorkspace",
+    "hoa606CourseChanged",
+    "hoa606EditCourse",
+    "hoa606LoadCourses",
+    "hoa606PublishCourse",
+    "hoa606StudentCourseTab",
+    "hoaStudentCourseTab",
+    "hoaStudentLoadCourses",
+    "hoaStudentOpenCourse",
+    "loadCourseData",
+    "loadCourses",
+    "openCourse",
+    "openMockCourse"
+  ],
+  "ids": [
+    "adminNavCourse",
+    "adminSectionCoursePanel",
+    "candidateNavCourses",
+    "hoa-v604-premium-blue-gold-theme",
+    "hoa-v640-paid-registration-state-final",
+    "hoa-v640-paid-registration-visibility",
+    "hoa-v650-paid-course-mock-portals",
+    "hoa-v650-paid-learning-portals-css",
+    "hoa-v653-paid-dashboard-branding",
+    "hoa606CourseMsg",
+    "hoa606CourseSelect",
+    "hoa606CourseWorkspace",
+    "hoa606MoveCourse",
+    "hoa606RefreshCourse",
+    "hoa606ReuseCourse",
+    "hoa606SaveCourse",
+    "hoa643NoteOrder",
+    "hoaCourseCode",
+    "hoaCourseCount",
+    "hoaCourseDescription",
+    "hoaCourseList",
+    "hoaCourseName",
+    "hoaCourseSort",
+    "hoaCourseStatus",
+    "hoaCourseStatusMsg",
+    "hoaStudentBackCourses",
+    "hoaStudentCourseTabContent",
+    "hoaV59Order",
+    "hoaV650CourseCount",
+    "hoaV650CourseDetail",
+    "hoaV650CourseList",
+    "hoaV650CoursePortalBody",
+    "hoaV650MockCourseGrid",
+    "hoaV650PaidLearningPortal",
+    "hoaV650StudentCoursesPanel",
+    "paidCandidateCount",
+    "paidStudentAdminList"
+  ],
+  "classes": [
+    "hoa-student-course-body",
+    "hoa-student-course-card",
+    "hoa-student-course-detail",
+    "hoa-student-course-hero",
+    "hoa-student-course-icon",
+    "hoa-student-course-list",
+    "hoa-student-course-meta",
+    "hoa-student-course-pills",
+    "hoa-student-course-tabs",
+    "hoa-student-open-course",
+    "paidBadge",
+    "paidStudentDashboardBrand",
+    "paidStudentDashboardBrandMark",
+    "paidStudentDashboardBrandText",
+    "paidStudentDashboardSubtitle",
+    "paidStudentDashboardTitle"
+  ],
+  "provider_reference_counts": {
+    "razorpay": 0,
+    "stripe": 0,
+    "cashfree": 0,
+    "phonepe": 0,
+    "payu": 0,
+    "instamojo": 0,
+    "supabase": 280
+  },
+  "symbol_counts": {
+    "paid student": 8,
+    "paidStudent": 24,
+    "paid-student": 2,
+    "application": 26,
+    "apply": 34,
+    "payment": 0,
+    "subscription": 0,
+    "course": 487,
+    "enrollment": 0,
+    "purchase": 0,
+    "order": 1849,
+    "razorpay": 0,
+    "stripe": 0,
+    "transaction": 0,
+    "invoice": 0,
+    "receipt": 0,
+    "premium": 5,
+    "hoaOpenPortal": 4,
+    "hoaOpenLogin": 7,
+    "hoa-app-authenticated": 34,
+    "hoa-app-student": 22,
+    "supabase": 280,
+    "storage": 86,
+    "database": 21
+  },
+  "script_blocks": [
+    {
+      "script_index": 0,
+      "chars": 2870,
+      "matched": [
+        "apply"
+      ]
+    },
+    {
+      "script_index": 1,
+      "chars": 2355,
+      "matched": [
+        "application",
+        "supabase",
+        "storage"
+      ]
+    },
+    {
+      "script_index": 2,
+      "chars": 815,
+      "matched": [
+        "database"
+      ]
+    },
+    {
+      "script_index": 5,
+      "chars": 6709,
+      "matched": [
+        "hoaOpenPortal",
+        "hoaOpenLogin"
+      ]
+    },
+    {
+      "script_index": 6,
+      "chars": 729,
+      "matched": [
+        "supabase"
+      ]
+    },
+    {
+      "script_index": 8,
+      "chars": 204151,
+      "matched": [
+        "paidStudent",
+        "application",
+        "apply",
+        "order",
+        "supabase",
+        "storage",
+        "database"
+      ]
+    },
+    {
+      "script_index": 9,
+      "chars": 964,
+      "matched": [
+        "supabase"
+      ]
+    },
+    {
+      "script_index": 10,
+      "chars": 4501,
+      "matched": [
+        "supabase",
+        "database"
+      ]
+    },
+    {
+      "script_index": 11,
+      "chars": 6225,
+      "matched": [
+        "supabase"
+      ]
+    },
+    {
+      "script_index": 12,
+      "chars": 15033,
+      "matched": [
+        "order",
+        "supabase",
+        "database"
+      ]
+    },
+    {
+      "script_index": 14,
+      "chars": 7442,
+      "matched": [
+        "order",
+        "supabase",
+        "storage",
+        "database"
+      ]
+    },
+    {
+      "script_index": 18,
+      "chars": 3637,
+      "matched": [
+        "application"
+      ]
+    },
+    {
+      "script_index": 20,
+      "chars": 412,
+      "matched": [
+        "hoaOpenPortal",
+        "hoaOpenLogin"
+      ]
+    },
+    {
+      "script_index": 21,
+      "chars": 3860,
+      "matched": [
+        "hoa-app-authenticated",
+        "hoa-app-student"
+      ]
+    },
+    {
+      "script_index": 22,
+      "chars": 1113,
+      "matched": [
+        "application"
+      ]
+    },
+    {
+      "script_index": 26,
+      "chars": 51102,
+      "matched": [
+        "application",
+        "apply",
+        "course",
+        "order",
+        "supabase",
+        "storage",
+        "database"
+      ]
+    },
+    {
+      "script_index": 33,
+      "chars": 28504,
+      "matched": [
+        "application",
+        "course",
+        "order",
+        "supabase",
+        "storage"
+      ]
+    },
+    {
+      "script_index": 34,
+      "chars": 13431,
+      "matched": [
+        "apply",
+        "course",
+        "supabase"
+      ]
+    },
+    {
+      "script_index": 35,
+      "chars": 824,
+      "matched": [
+        "apply"
+      ]
+    },
+    {
+      "script_index": 36,
+      "chars": 4360,
+      "matched": [
+        "course",
+        "supabase"
+      ]
+    },
+    {
+      "script_index": 40,
+      "chars": 1114,
+      "matched": [
+        "apply"
+      ]
+    },
+    {
+      "script_index": 43,
+      "chars": 1895,
+      "matched": [
+        "apply",
+        "supabase"
+      ]
+    },
+    {
+      "script_index": 44,
+      "chars": 2314,
+      "matched": [
+        "apply"
+      ]
+    },
+    {
+      "script_index": 46,
+      "chars": 39407,
+      "matched": [
+        "paid student",
+        "apply",
+        "order",
+        "supabase",
+        "storage"
+      ]
+    },
+    {
+      "script_index": 48,
+      "chars": 1876,
+      "matched": [
+        "apply"
+      ]
+    },
+    {
+      "script_index": 49,
+      "chars": 53835,
+      "matched": [
+        "application",
+        "apply",
+        "course",
+        "order",
+        "supabase",
+        "storage"
+      ]
+    },
+    {
+      "script_index": 50,
+      "chars": 19363,
+      "matched": [
+        "supabase",
+        "storage",
+        "database"
+      ]
+    },
+    {
+      "script_index": 51,
+      "chars": 6641,
+      "matched": [
+        "supabase",
+        "storage",
+        "database"
+      ]
+    },
+    {
+      "script_index": 54,
+      "chars": 24376,
+      "matched": [
+        "paid student",
+        "paid-student",
+        "apply",
+        "course",
+        "order",
+        "supabase",
+        "storage"
+      ]
+    }
+  ],
+  "rules": [
+    "Do not duplicate Supabase client initialization.",
+    "Do not create a second payment SDK initialization.",
+    "Authentication remains the source of identity/session truth.",
+    "Navigation remains the source of routing truth.",
+    "Application data access remains behind an adapter.",
+    "No payment/application behavior is rewritten in Stage 7.",
+    "Global footer remains protected."
+  ]
+}

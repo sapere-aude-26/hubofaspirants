@@ -1,0 +1,278 @@
+
+/* =========================================================
+   HOA V6.0.4 — ADMIN DASHBOARD BLUE + GOLD POLISH
+   Visual-only layer. No data, authentication, permissions,
+   Supabase, video-player or existing workflow logic changed.
+   HOA brand colours:
+     Primary Blue  : #0B3B73 / #145A9C
+     Accent Gold   : #F2B705
+   ========================================================= */
+
+body.admin-ui{
+  --hoa-blue:#0B3B73;
+  --hoa-blue-2:#145A9C;
+  --hoa-blue-3:#1D6FB8;
+  --hoa-gold:#F2B705;
+  --hoa-gold-soft:#FFF6D8;
+  --hoa-bg:#F4F7FB;
+  --hoa-card:#FFFFFF;
+  --hoa-border:#D8E3EF;
+  --hoa-text:#102A49;
+  --hoa-muted:#64748B;
+  background:
+    radial-gradient(circle at 85% 0%,rgba(242,183,5,.055),transparent 27%),
+    var(--hoa-bg)!important;
+}
+
+/* Admin brand/header */
+body.admin-ui .adminReferenceBrand{
+  background:linear-gradient(180deg,#082F5F 0%,#0B3B73 100%)!important;
+  border-bottom:2px solid rgba(242,183,5,.42)!important;
+}
+body.admin-ui .adminReferenceBrandTitle{
+  color:#fff!important;
+  font-weight:900!important;
+}
+body.admin-ui .adminReferenceBrandSub{
+  color:rgba(255,255,255,.78)!important;
+}
+
+/* Sidebar navigation: blue base + gold active marker */
+body.admin-ui .adminReferenceNav button{
+  position:relative!important;
+  background:transparent!important;
+  border:1px solid transparent!important;
+  color:#EAF3FF!important;
+  font-weight:800!important;
+}
+body.admin-ui .adminReferenceNav button:hover:not(.active){
+  background:rgba(242,183,5,.10)!important;
+  border-color:rgba(242,183,5,.18)!important;
+}
+body.admin-ui .adminReferenceNav button.active{
+  background:linear-gradient(90deg,#145A9C 0%,#0B3B73 100%)!important;
+  border-color:rgba(242,183,5,.55)!important;
+  color:#fff!important;
+  box-shadow:0 7px 18px rgba(3,31,65,.28)!important;
+}
+body.admin-ui .adminReferenceNav button.active::before{
+  content:""!important;
+  position:absolute!important;
+  left:-10px!important;
+  top:8px!important;
+  bottom:8px!important;
+  width:4px!important;
+  border-radius:0 4px 4px 0!important;
+  background:var(--hoa-gold)!important;
+}
+
+/* Admin workspace */
+body.admin-ui #adminOnlyDashboard{
+  color:var(--hoa-text)!important;
+}
+body.admin-ui #adminOnlyDashboard > .dashPanel:first-of-type{
+  border-top:3px solid var(--hoa-gold)!important;
+}
+
+/* Main dashboard section navigation */
+body.admin-ui #adminOnlyDashboard .adminSectionNav{
+  background:#fff!important;
+  border:1px solid var(--hoa-border)!important;
+  border-top:3px solid var(--hoa-blue)!important;
+  box-shadow:0 8px 24px rgba(11,59,115,.08)!important;
+  padding:9px!important;
+}
+body.admin-ui #adminOnlyDashboard .adminSectionNav button{
+  min-height:48px!important;
+  background:#F8FAFD!important;
+  color:var(--hoa-blue)!important;
+  border:1px solid #D7E1EC!important;
+  border-radius:10px!important;
+  font-weight:900!important;
+  transition:all .16s ease!important;
+}
+body.admin-ui #adminOnlyDashboard .adminSectionNav button:hover:not(.active){
+  background:var(--hoa-gold-soft)!important;
+  border-color:rgba(242,183,5,.58)!important;
+  color:var(--hoa-blue)!important;
+  transform:translateY(-1px)!important;
+}
+body.admin-ui #adminOnlyDashboard .adminSectionNav button.active{
+  background:linear-gradient(135deg,#0B3B73 0%,#145A9C 100%)!important;
+  border-color:var(--hoa-blue)!important;
+  color:#fff!important;
+  box-shadow:0 6px 15px rgba(11,59,115,.22)!important;
+  position:relative!important;
+}
+body.admin-ui #adminOnlyDashboard .adminSectionNav button.active::after{
+  content:""!important;
+  position:absolute!important;
+  left:12%!important;
+  right:12%!important;
+  bottom:-9px!important;
+  height:3px!important;
+  border-radius:3px!important;
+  background:var(--hoa-gold)!important;
+}
+
+/* Dashboard title panel */
+body.admin-ui #adminOnlyDashboard > .dashPanel{
+  border:1px solid var(--hoa-border)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:0 7px 22px rgba(11,59,115,.07)!important;
+}
+body.admin-ui #adminOnlyDashboard .brand-logo{
+  border:2px solid var(--hoa-gold)!important;
+  border-radius:10px!important;
+  padding:2px!important;
+  background:#fff!important;
+}
+
+/* Content panels */
+body.admin-ui #adminOnlyDashboard .hoa-admin-content-panel,
+body.admin-ui #adminOnlyDashboard .adminSectionPanel > .dashPanel{
+  border:1px solid var(--hoa-border)!important;
+  border-top:3px solid var(--hoa-blue)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:0 7px 22px rgba(11,59,115,.065)!important;
+}
+body.admin-ui #adminOnlyDashboard .hoa-admin-section-head{
+  border-bottom:1px solid #E7EDF4!important;
+  padding-bottom:14px!important;
+  margin-bottom:16px!important;
+}
+body.admin-ui #adminOnlyDashboard .hoa-admin-section-head h3{
+  color:var(--hoa-blue)!important;
+  font-weight:900!important;
+}
+body.admin-ui #adminOnlyDashboard .hoa-admin-section-head p{
+  color:var(--hoa-muted)!important;
+}
+
+/* Section counters / badges */
+body.admin-ui #adminOnlyDashboard .hoa-admin-count,
+body.admin-ui #adminOnlyDashboard .testCountBadge{
+  background:var(--hoa-gold-soft)!important;
+  color:#765600!important;
+  border:1px solid rgba(242,183,5,.58)!important;
+  font-weight:900!important;
+}
+
+/* Form fields */
+body.admin-ui #adminOnlyDashboard .hoa-admin-form-grid label{
+  color:var(--hoa-blue)!important;
+  font-weight:850!important;
+}
+body.admin-ui #adminOnlyDashboard input,
+body.admin-ui #adminOnlyDashboard select,
+body.admin-ui #adminOnlyDashboard textarea{
+  border-color:#CFDBE8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+}
+body.admin-ui #adminOnlyDashboard input:focus,
+body.admin-ui #adminOnlyDashboard select:focus,
+body.admin-ui #adminOnlyDashboard textarea:focus{
+  border-color:var(--hoa-blue-3)!important;
+  box-shadow:0 0 0 3px rgba(20,90,156,.11),0 0 0 1px rgba(242,183,5,.28)!important;
+}
+
+/* Buttons — blue primary, gold as restrained accent */
+body.admin-ui #adminOnlyDashboard button.primary,
+body.admin-ui #adminOnlyDashboard .primary{
+  background:linear-gradient(135deg,#0B3B73,#145A9C)!important;
+  border:1px solid #0B3B73!important;
+  color:#fff!important;
+  font-weight:900!important;
+  box-shadow:0 5px 13px rgba(11,59,115,.18)!important;
+}
+body.admin-ui #adminOnlyDashboard button.primary:hover,
+body.admin-ui #adminOnlyDashboard .primary:hover{
+  background:linear-gradient(135deg,#145A9C,#0B3B73)!important;
+  box-shadow:0 7px 17px rgba(11,59,115,.24)!important;
+}
+body.admin-ui #adminOnlyDashboard button.secondary,
+body.admin-ui #adminOnlyDashboard .secondary{
+  background:#fff!important;
+  color:var(--hoa-blue)!important;
+  border:1px solid #C8D6E5!important;
+  font-weight:850!important;
+}
+body.admin-ui #adminOnlyDashboard button.secondary:hover,
+body.admin-ui #adminOnlyDashboard .secondary:hover{
+  background:var(--hoa-gold-soft)!important;
+  border-color:rgba(242,183,5,.65)!important;
+}
+
+/* Lists / tables */
+body.admin-ui #adminOnlyDashboard .hoa-admin-list,
+body.admin-ui #adminOnlyDashboard .resultTableWrap,
+body.admin-ui #adminOnlyDashboard .testWiseTableWrap{
+  border-color:var(--hoa-border)!important;
+  border-radius:11px!important;
+}
+body.admin-ui #adminOnlyDashboard table th{
+  background:#F4F8FC!important;
+  color:var(--hoa-blue)!important;
+  border-bottom:2px solid rgba(242,183,5,.42)!important;
+}
+body.admin-ui #adminOnlyDashboard table tbody tr:hover td{
+  background:#FFFBEE!important;
+}
+
+/* Gold treatment for important status/selection indicators */
+body.admin-ui #adminOnlyDashboard .hoa-admin-list .active,
+body.admin-ui #adminOnlyDashboard .status-active{
+  border-color:rgba(242,183,5,.45)!important;
+}
+body.admin-ui #adminOnlyDashboard .hoa-admin-actions{
+  border-top:1px solid #E8EEF5!important;
+  padding-top:14px!important;
+}
+
+/* Admin Access: keep it visually distinct without changing permissions */
+body.admin-ui #adminSectionAdminPanel .dashPanel{
+  border-top-color:var(--hoa-gold)!important;
+}
+body.admin-ui #adminSectionAdminPanel h3{
+  color:var(--hoa-blue)!important;
+}
+
+/* Poster section */
+body.admin-ui #adminSectionPosterPanel .hoa-admin-content-panel{
+  border-top-color:var(--hoa-gold)!important;
+}
+body.admin-ui #adminSectionPosterPanel h3{
+  color:var(--hoa-blue)!important;
+}
+
+/* Bottom/sidebar utility area */
+body.admin-ui .adminReferenceBottom{
+  border-top:1px solid rgba(242,183,5,.28)!important;
+}
+body.admin-ui .adminReferenceBottom button:hover{
+  background:rgba(242,183,5,.10)!important;
+}
+
+/* Gold focus/selection without changing layout */
+body.admin-ui button:focus-visible,
+body.admin-ui a:focus-visible,
+body.admin-ui input:focus-visible,
+body.admin-ui select:focus-visible,
+body.admin-ui textarea:focus-visible{
+  outline:2px solid var(--hoa-gold)!important;
+  outline-offset:2px!important;
+}
+
+/* Responsive: keep the brand hierarchy clean */
+@media(max-width:700px){
+  body.admin-ui #adminOnlyDashboard .adminSectionNav{
+    border-top-width:3px!important;
+  }
+  body.admin-ui #adminOnlyDashboard .adminSectionNav button.active::after{
+    left:25%!important;
+    right:25%!important;
+  }
+}

@@ -1,0 +1,61 @@
+name: Unpack HOA staging package
+
+on:
+  push:
+    branches:
+      - staging-v12-componentized
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    if: github.ref == 'refs/heads/staging-v12-componentized'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: staging-v12-componentized
+
+      - name: Locate staging package
+        id: package
+        shell: bash
+        run: |
+          set -e
+          if [ -f "HOA_V12_GITHUB_PAGES_STAGING.zip" ]; then
+            echo "package=HOA_V12_GITHUB_PAGES_STAGING.zip" >> "$GITHUB_OUTPUT"
+          elif [ -f ".github/workflows/HOA_V12_GITHUB_PAGES_STAGING.zip" ]; then
+            echo "package=.github/workflows/HOA_V12_GITHUB_PAGES_STAGING.zip" >> "$GITHUB_OUTPUT"
+          else
+            echo "No staging package found. Nothing to unpack."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "found=true" >> "$GITHUB_OUTPUT"
+
+      - name: Unpack staging package
+        if: steps.package.outputs.found == 'true'
+        run: |
+          set -e
+          rm -rf components runtime services state
+          rm -f STAGING-README.txt STAGING-MANIFEST.json
+          unzip -o "${{ steps.package.outputs.package }}" -d _staging
+          cp -a _staging/. .
+          rm -rf _staging HOA_V12_GITHUB_PAGES_STAGING.zip .github/workflows/HOA_V12_GITHUB_PAGES_STAGING.zip
+
+      - name: Commit unpacked staging website
+        if: steps.package.outputs.found == 'true'
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Build staging website from HOA V12 package"
+          git push origin staging-v12-componentized
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Build staging website from HOA V12 package"
+          git push origin staging-v12-componentized

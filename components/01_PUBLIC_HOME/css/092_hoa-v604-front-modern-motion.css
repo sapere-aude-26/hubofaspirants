@@ -1,0 +1,302 @@
+
+/* =========================================================
+   HOA V6.0.4 — MODERN FRONT PAGE + MOTION SYSTEM
+   Visual enhancement layer only.
+   Existing application logic and sections are preserved.
+   ========================================================= */
+
+:root{
+  --hoa-modern-blue:#0B3B73;
+  --hoa-modern-deep:#061F40;
+  --hoa-modern-blue2:#145A9C;
+  --hoa-modern-gold:#F2B705;
+  --hoa-modern-gold2:#FFD45A;
+  --hoa-modern-white:#FFFFFF;
+  --hoa-modern-bg:#F6F9FD;
+  --hoa-modern-line:#DCE6F0;
+}
+
+/* ---------- GLOBAL ---------- */
+body:not(.admin-ui){
+  background:
+    radial-gradient(circle at 7% 4%,rgba(20,90,156,.075),transparent 25%),
+    radial-gradient(circle at 94% 10%,rgba(242,183,5,.075),transparent 21%),
+    var(--hoa-modern-bg)!important;
+  overflow-x:hidden;
+}
+
+body:not(.admin-ui)::selection{
+  background:rgba(242,183,5,.30);
+  color:var(--hoa-modern-deep);
+}
+
+/* ---------- HEADER GLASS EFFECT ---------- */
+body:not(.admin-ui) header,
+body:not(.admin-ui) .site-header,
+body:not(.admin-ui) .home-header{
+  background:rgba(255,255,255,.90)!important;
+  backdrop-filter:blur(14px) saturate(140%);
+  -webkit-backdrop-filter:blur(14px) saturate(140%);
+  box-shadow:0 4px 24px rgba(6,31,64,.055)!important;
+  z-index:100;
+}
+
+/* ---------- HERO MODERNIZATION ---------- */
+body:not(.admin-ui) .hero,
+body:not(.admin-ui) .home-hero,
+body:not(.admin-ui) .hero-section{
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 78% 18%,rgba(242,183,5,.16),transparent 18%),
+    radial-gradient(circle at 18% 90%,rgba(29,111,184,.22),transparent 28%),
+    linear-gradient(125deg,#061F40 0%,#0B3B73 55%,#145A9C 100%)!important;
+  box-shadow:0 18px 50px rgba(6,31,64,.20)!important;
+}
+
+/* Decorative moving light */
+body:not(.admin-ui) .hero::after,
+body:not(.admin-ui) .home-hero::after,
+body:not(.admin-ui) .hero-section::after{
+  content:"";
+  position:absolute;
+  width:430px;
+  height:430px;
+  right:-170px;
+  top:-230px;
+  border-radius:50%;
+  border:1px solid rgba(242,183,5,.22);
+  box-shadow:
+    0 0 0 28px rgba(242,183,5,.035),
+    0 0 0 58px rgba(242,183,5,.025);
+  animation:hoaHeroOrbit 12s ease-in-out infinite alternate;
+  pointer-events:none;
+}
+
+@keyframes hoaHeroOrbit{
+  0%{transform:translate3d(0,0,0) rotate(0deg)}
+  100%{transform:translate3d(-28px,18px,0) rotate(7deg)}
+}
+
+/* ---------- HERO CONTENT ---------- */
+body:not(.admin-ui) .hero h1,
+body:not(.admin-ui) .home-hero h1,
+body:not(.admin-ui) .hero-section h1{
+  animation:hoaHeroTextIn .65s cubic-bezier(.22,.61,.36,1) both;
+}
+
+body:not(.admin-ui) .hero p,
+body:not(.admin-ui) .home-hero p,
+body:not(.admin-ui) .hero-section p{
+  animation:hoaHeroTextIn .65s .10s cubic-bezier(.22,.61,.36,1) both;
+}
+
+@keyframes hoaHeroTextIn{
+  from{opacity:0;transform:translateY(14px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ---------- MODERN SECTION REVEAL ---------- */
+@keyframes hoaSectionReveal{
+  from{
+    opacity:0;
+    transform:translateY(18px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+body:not(.admin-ui) section{
+  animation:hoaSectionReveal .55s cubic-bezier(.22,.61,.36,1) both;
+}
+
+/* ---------- MODERN CARDS ---------- */
+body:not(.admin-ui) .course-card,
+body:not(.admin-ui) .courseCard,
+body:not(.admin-ui) .content-card,
+body:not(.admin-ui) .home-card,
+body:not(.admin-ui) .material-card{
+  transform:translateZ(0);
+  will-change:transform,box-shadow;
+  transition:
+    transform .28s cubic-bezier(.22,.61,.36,1),
+    box-shadow .28s ease,
+    border-color .22s ease!important;
+}
+
+body:not(.admin-ui) .course-card:hover,
+body:not(.admin-ui) .courseCard:hover,
+body:not(.admin-ui) .content-card:hover,
+body:not(.admin-ui) .home-card:hover,
+body:not(.admin-ui) .material-card:hover{
+  transform:translateY(-6px)!important;
+  box-shadow:
+    0 18px 38px rgba(6,31,64,.12),
+    0 2px 0 rgba(242,183,5,.35)!important;
+}
+
+body:not(.admin-ui) .course-card::after,
+body:not(.admin-ui) .courseCard::after,
+body:not(.admin-ui) .content-card::after,
+body:not(.admin-ui) .home-card::after,
+body:not(.admin-ui) .material-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255,255,255,.35) 48%,
+    transparent 65%
+  );
+  transform:translateX(-120%);
+  transition:transform .65s ease;
+  pointer-events:none;
+}
+
+body:not(.admin-ui) .course-card:hover::after,
+body:not(.admin-ui) .courseCard:hover::after,
+body:not(.admin-ui) .content-card:hover::after,
+body:not(.admin-ui) .home-card:hover::after,
+body:not(.admin-ui) .material-card:hover::after{
+  transform:translateX(120%);
+}
+
+/* ---------- MODERN POSTER STAGE ---------- */
+body:not(.admin-ui) .poster-container,
+body:not(.admin-ui) .poster-section,
+body:not(.admin-ui) .poster-slider{
+  box-shadow:
+    0 14px 38px rgba(6,31,64,.10),
+    0 0 0 1px rgba(255,255,255,.70) inset!important;
+}
+
+body:not(.admin-ui) .poster-prev,
+body:not(.admin-ui) .poster-next,
+body:not(.admin-ui) .poster-nav button{
+  transform:translateZ(0);
+  transition:
+    transform .22s cubic-bezier(.22,.61,.36,1),
+    box-shadow .22s ease,
+    background-color .22s ease!important;
+}
+
+body:not(.admin-ui) .poster-prev:hover,
+body:not(.admin-ui) .poster-next:hover,
+body:not(.admin-ui) .poster-nav button:hover{
+  transform:scale(1.08)!important;
+}
+
+/* ---------- MODERN CTA ---------- */
+body:not(.admin-ui) .btn-primary,
+body:not(.admin-ui) .primary-btn,
+body:not(.admin-ui) .cta-primary,
+body:not(.admin-ui) .btn-gold,
+body:not(.admin-ui) .gold-btn,
+body:not(.admin-ui) .cta-gold{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+}
+
+body:not(.admin-ui) .btn-primary::after,
+body:not(.admin-ui) .primary-btn::after,
+body:not(.admin-ui) .cta-primary::after,
+body:not(.admin-ui) .btn-gold::after,
+body:not(.admin-ui) .gold-btn::after,
+body:not(.admin-ui) .cta-gold::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:45%;
+  left:-60%;
+  background:linear-gradient(
+    100deg,
+    transparent,
+    rgba(255,255,255,.24),
+    transparent
+  );
+  transform:skewX(-18deg);
+  transition:left .55s ease;
+  pointer-events:none;
+}
+
+body:not(.admin-ui) .btn-primary:hover::after,
+body:not(.admin-ui) .primary-btn:hover::after,
+body:not(.admin-ui) .cta-primary:hover::after,
+body:not(.admin-ui) .btn-gold:hover::after,
+body:not(.admin-ui) .gold-btn:hover::after,
+body:not(.admin-ui) .cta-gold:hover::after{
+  left:120%;
+}
+
+/* ---------- MODERN CONTACT / SOCIAL ---------- */
+body:not(.admin-ui) .contact-section a,
+body:not(.admin-ui) .social-section a{
+  transform:translateZ(0);
+  will-change:transform;
+}
+
+body:not(.admin-ui) .contact-section a:hover,
+body:not(.admin-ui) .social-section a:hover{
+  transform:translateY(-4px)!important;
+  box-shadow:0 12px 25px rgba(0,0,0,.15)!important;
+}
+
+/* ---------- SCROLLBAR ---------- */
+body:not(.admin-ui)::-webkit-scrollbar{
+  width:9px;
+}
+body:not(.admin-ui)::-webkit-scrollbar-track{
+  background:#EDF2F7;
+}
+body:not(.admin-ui)::-webkit-scrollbar-thumb{
+  background:linear-gradient(
+    180deg,
+    var(--hoa-modern-blue),
+    var(--hoa-modern-blue2)
+  );
+  border-radius:10px;
+  border:2px solid #EDF2F7;
+}
+body:not(.admin-ui)::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(
+    180deg,
+    var(--hoa-modern-blue2),
+    var(--hoa-modern-gold)
+  );
+}
+
+/* ---------- MOBILE ---------- */
+@media(max-width:700px){
+  body:not(.admin-ui) .hero::after,
+  body:not(.admin-ui) .home-hero::after,
+  body:not(.admin-ui) .hero-section::after{
+    width:300px;
+    height:300px;
+    right:-145px;
+    top:-160px;
+  }
+
+  body:not(.admin-ui) .course-card:hover,
+  body:not(.admin-ui) .courseCard:hover,
+  body:not(.admin-ui) .content-card:hover,
+  body:not(.admin-ui) .home-card:hover,
+  body:not(.admin-ui) .material-card:hover{
+    transform:translateY(-3px)!important;
+  }
+}
+
+/* ---------- ACCESSIBILITY ---------- */
+@media(prefers-reduced-motion:reduce){
+  body:not(.admin-ui) *,
+  body:not(.admin-ui) *::before,
+  body:not(.admin-ui) *::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+  }
+}

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOA V12 — Component Wiring & Regression Harness</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;margin:0;background:#f6f8fb;color:#172033}
+header{padding:18px 22px;background:#172033;color:#fff}
+main{padding:20px;max-width:1200px;margin:auto}
+.card{background:#fff;border:1px solid #d9e0ea;border-radius:12px;padding:16px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;background:#eef2f7}
+.pass{color:#137333}.fail{color:#b3261e}.warn{color:#8a5a00}
+button{padding:9px 14px;border:1px solid #ccd5e2;border-radius:8px;background:#fff;cursor:pointer}
+iframe{width:100%;height:700px;border:1px solid #ccd5e2;border-radius:10px;background:#fff}
+pre{white-space:pre-wrap;word-break:break-word;background:#10151d;color:#d8e0ea;padding:12px;border-radius:8px;max-height:360px;overflow:auto}
+small{color:#667085}
+</style>
+</head>
+<body>
+<header>
+  <strong>HUB OF ASPIRANTS — V12 Component Wiring & Regression Harness</strong>
+  <div><small style="color:#cbd5e1">Safe staging tool — production index.html is not replaced.</small></div>
+</header>
+<main>
+  <div class="card">
+    <strong>Purpose</strong>
+    <p>This page loads the existing staging <code>index.html</code> unchanged in an iframe, then injects the V12 compatibility adapters into that same document. It validates wiring and protected contracts without physically replacing production code.</p>
+    <button id="run">Run audit</button>
+  </div>
+  <div class="card">
+    <strong>Component boundary status</strong>
+    <div id="components" class="grid"></div>
+  </div>
+  <div class="card">
+    <strong>Runtime audit</strong>
+    <div id="runtime"></div>
+  </div>
+  <div class="card">
+    <strong>Protected footer audit</strong>
+    <div id="footer"></div>
+  </div>
+  <div class="card">
+    <strong>Console</strong>
+    <pre id="log">Waiting for staging index.html to load…</pre>
+  </div>
+  <div class="card">
+    <strong>Staging application</strong>
+    <iframe id="app" src="./index.html" title="HOA staging application"></iframe>
+  </div>
+</main>
+<script>
+const scripts=[
+  './runtime/hoa-core-runtime-v2.js',
+  './runtime/hoa-component-registry.js',
+  './runtime/hoa-navigation-runtime-v2.js',
+  './runtime/hoa-auth-runtime-v3.js',
+  './runtime/hoa-student-auth-bridge-v4.js',
+  './runtime/hoa-student-auth-bootstrap-v4.js',
+  './runtime/hoa-exam-runtime-v5.js',
+  './runtime/hoa-result-runtime-v6.js',
+  './runtime/hoa-admin-runtime-v7.js',
+  './runtime/hoa-developer-runtime-v8.js',
+  './runtime/hoa-footer-runtime-v9.js',
+  './runtime/hoa-header-runtime-v10.js',
+  './runtime/hoa-regression-runtime-v11.js',
+  './runtime/hoa-release-runtime-v12.js',
+  './runtime/hoa-component-runtime.js',
+  './runtime/hoa-component-bootstrap-v2.js'
+];
+
+const componentInfo=[
+ ['00_CORE_SHARED','Shared runtime, state, navigation and Supabase/session bridge'],
+ ['01_PUBLIC_HOME','Public home and presentation'],
+ ['02_AUTHENTICATION','Authentication UI/state boundary'],
+ ['03_FREE_STUDENT_PORTAL','Free student portal lifecycle'],
+ ['04_PAID_STUDENT_APPLICATION','Paid student/application boundary'],
+ ['05_EXAM_ENGINE','Exam runtime boundary'],
+ ['06_RESULT_SYSTEM','Result boundary'],
+ ['07_ADMIN','Admin boundary'],
+ ['08_DEVELOPER_CONSOLE','Developer console boundary'],
+ ['09_GLOBAL_PUBLIC_FOOTER','Protected global footer'],
+ ['10_HEADER_PROTECTED','Protected header']
+];
+
+function log(s){document.querySelector('#log').textContent+=`\n${s}`}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+
+document.querySelector('#components').innerHTML=componentInfo.map(x=>
+ `<div class="card"><b>${x[0]}</b><br><span class="badge">boundary-extracted</span><p>${x[1]}</p></div>`).join('');
+
+async function inject(frame){
+ const doc=frame.contentDocument;
+ for(const src of scripts){
+   await new Promise((resolve,reject)=>{
+     const s=doc.createElement('script');
+     s.src=src;
+     s.onload=resolve;
+     s.onerror=()=>reject(new Error('Failed to load '+src));
+     doc.head.appendChild(s);
+   });
+ }
+}
+
+function runAudit(){
+ const frame=document.querySelector('#app');
+ const w=frame.contentWindow, d=frame.contentDocument;
+ const names=['HOA_CORE_V2','HOA_NAVIGATION_V2','HOA_AUTH_V3','HOA_STUDENT_AUTH_V4','HOA_EXAM_V5','HOA_RESULT_V6','HOA_ADMIN_V7','HOA_DEVELOPER_V8','HOA_FOOTER_V9','HOA_HEADER_V10'];
+ const rows=names.map(n=>({name:n,pass:!!w[n]}));
+ document.querySelector('#runtime').innerHTML=rows.map(r=>`<div class="${r.pass?'pass':'fail'}">${r.pass?'✓':'✗'} ${r.name}</div>`).join('');
+ const ids=['hoaGlobalPublicFooter','hoaFrontSocialFooter','hoaProfessionalFooter','hoaV653ConnectWrap'];
+ const f=ids.map(id=>({id,pass:!!d.getElementById(id)}));
+ document.querySelector('#footer').innerHTML=f.map(r=>`<div class="${r.pass?'pass':'fail'}">${r.pass?'✓':'✗'} #${r.id}</div>`).join('');
+ log('Runtime adapters injected and audited.');
+ log(JSON.stringify({runtime:rows,footer:f},null,2));
+}
+
+document.querySelector('#app').addEventListener('load',async()=>{
+ try{
+   log('Staging index.html loaded.');
+   await inject(document.querySelector('#app'));
+   log('V12 compatibility adapters loaded.');
+   runAudit();
+ }catch(e){
+   log('ERROR: '+e.message);
+   document.querySelector('#runtime').innerHTML='<div class="fail">Adapter injection failed. See console.</div>';
+ }
+});
+document.querySelector('#run').addEventListener('click',runAudit);
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+
+/* V6.0.123: V6.0.123 remains the sole public navigation controller.
+   Legacy authScreen remains only as an implementation container for the
+   established authentication functions. */
+body.hoa-public-front #hoaFrontPage{display:flex !important;}
+body.hoa-public-front #hoaLoginPage,
+body.hoa-public-front #authScreen{display:none !important;}
+
+body.hoa-public-portal #hoaFrontPage,
+body.hoa-public-auth #hoaFrontPage{display:none !important;}
+body.hoa-public-portal #hoaLoginPage,
+body.hoa-public-auth #hoaLoginPage{display:block !important;}
+body.hoa-public-portal #authScreen,
+body.hoa-public-auth #authScreen{display:none !important;}
+
+body.hoa-public-portal #hoaLoginChoiceView{display:block !important;}
+body.hoa-public-portal #hoaStudentPortalPanel,
+body.hoa-public-portal #hoaAdminPortalPanel{display:none !important;}
+
+body.hoa-public-auth #hoaLoginChoiceView{display:none !important;}
+body.hoa-public-auth.hoa-student-auth #hoaStudentPortalPanel{display:block !important;}
+body.hoa-public-auth.hoa-student-auth #hoaAdminPortalPanel{display:none !important;}
+body.hoa-public-auth.hoa-admin-auth #hoaStudentPortalPanel{display:none !important;}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{display:block !important;}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
+  display:block !important;
+  visibility:visible !important;
+  opacity:1 !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
+  display:block !important;
+}

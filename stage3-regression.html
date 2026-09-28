@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOA V12 — Stage 3 Functional Regression</title>
+<style>
+body{font-family:Arial,sans-serif;background:#f4f7fb;color:#172033;margin:0}
+header{background:#10213b;color:#fff;padding:18px 24px}
+main{max-width:1180px;margin:22px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #dbe4ef;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 5px 18px rgba(15,23,42,.06)}
+button{border:1px solid #173f6b;background:#173f6b;color:#fff;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer}
+button.secondary{background:#fff;color:#173f6b}
+#status{margin:12px 0;font-weight:700}
+table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:9px;border-bottom:1px solid #e5e7eb}
+.pass{color:#16803c;font-weight:700}.fail{color:#b42318;font-weight:700}.warn{color:#a16207;font-weight:700}
+iframe{width:100%;height:620px;border:1px solid #cbd5e1;border-radius:10px;background:#fff}
+small{color:#64748b}
+code{background:#eef2f7;padding:2px 5px;border-radius:4px}
+.check{margin:7px 0}
+</style>
+</head>
+<body>
+<header>
+  <strong>HUB OF ASPIRANTS — V12 Stage 3 Functional Regression</strong><br>
+  <small style="color:#dbe7f5">Safe staging test harness — production index.html is not modified.</small>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1. Automated smoke audit</h2>
+    <p>This loads the staging <code>index.html</code> in an iframe and checks required production contracts without changing application state.</p>
+    <button id="run">Run smoke audit</button>
+    <button class="secondary" id="clear">Clear</button>
+    <div id="status">Waiting for audit…</div>
+    <table>
+      <thead><tr><th>Area</th><th>Check</th><th>Result</th></tr></thead>
+      <tbody id="results"></tbody>
+    </table>
+  </section>
+
+  <section class="card">
+    <h2>2. Manual functional regression</h2>
+    <div class="check">☐ Public Home loads normally and navigation works.</div>
+    <div class="check">☐ Public poster/content area loads normally.</div>
+    <div class="check">☐ Student authentication screen opens and remains usable.</div>
+    <div class="check">☐ Student login/logout works with a real test account.</div>
+    <div class="check">☐ Free Student Portal opens after authentication.</div>
+    <div class="check">☐ Paid Student/Application flow remains reachable.</div>
+    <div class="check">☐ Exam/test list loads.</div>
+    <div class="check">☐ A test can open, timer/countdown behaves normally, and navigation works.</div>
+    <div class="check">☐ Test submission/result flow works.</div>
+    <div class="check">☐ Student result/history section loads.</div>
+    <div class="check">☐ Admin login works with a real admin test account.</div>
+    <div class="check">☐ Admin dashboard navigation and management panels load.</div>
+    <div class="check">☐ Developer Console opens and remains functional.</div>
+    <div class="check">☐ Existing header looks unchanged.</div>
+    <div class="check">☐ Existing global footer looks unchanged on public pages.</div>
+    <div class="check">☐ Mobile layout is usable at approximately 390px width.</div>
+    <p><strong>Important:</strong> do not test destructive admin actions against production data. Use staging/test records only.</p>
+  </section>
+
+  <section class="card">
+    <h2>3. Staging application</h2>
+    <iframe id="app" src="index.html" title="HOA staging application"></iframe>
+  </section>
+</main>
+
+<script>
+const required = [
+  ["Core / Home","body","#home"],
+  ["Authentication","auth screen","#authScreen"],
+  ["Student portal","student dashboard","#studentOnlyDashboard"],
+  ["Paid/student application","candidate test panel","#candidateSectionTestPanel"],
+  ["Result system","candidate result panel","#candidateSectionResultPanel"],
+  ["Exam engine","countdown overlay","#testCountdownOverlay"],
+  ["Exam engine","header timer","#headerTimer"],
+  ["Admin","admin dashboard","#adminOnlyDashboard"],
+  ["Developer Console","console trigger","#openHoaDevConsole"],
+  ["Header","header",".header"],
+  ["Footer","global public footer","#hoaGlobalPublicFooter"],
+  ["Footer","social footer","#hoaFrontSocialFooter"],
+  ["Footer","professional footer","#hoaProfessionalFooter"],
+  ["Footer","connect wrapper","#hoaV653ConnectWrap"]
+];
+
+const runtimeNames = [
+  "HOA_CORE_V2","HOA_NAVIGATION_V2","HOA_AUTH_V3","HOA_STUDENT_AUTH_V4",
+  "HOA_EXAM_V5","HOA_RESULT_V6","HOA_ADMIN_V7","HOA_DEVELOPER_V8",
+  "HOA_FOOTER_V9","HOA_HEADER_V10"
+];
+
+function row(area, check, ok, detail=""){
+  const tr=document.createElement("tr");
+  tr.innerHTML=`<td>${area}</td><td>${check}</td><td class="${ok?'pass':'fail'}">${ok?'PASS':'FAIL'}${detail?` — ${detail}`:""}</td>`;
+  document.getElementById("results").appendChild(tr);
+  return ok;
+}
+function clearResults(){
+  document.getElementById("results").innerHTML="";
+  document.getElementById("status").textContent="Waiting for audit…";
+}
+document.getElementById("clear").onclick=clearResults;
+
+document.getElementById("run").onclick=()=>{
+  clearResults();
+  const frame=document.getElementById("app");
+  const win=frame.contentWindow;
+  const doc=frame.contentDocument;
+  if(!doc){document.getElementById("status").textContent="FAIL — staging index could not be read.";return;}
+
+  let pass=0,total=0;
+  const add=(...args)=>{total++; if(row(...args))pass++;};
+
+  add("Application","document loaded",!!doc.documentElement);
+  add("Application","body present",!!doc.body);
+
+  required.forEach(([area,check,sel])=>{
+    add(area,check,!!doc.querySelector(sel),sel);
+  });
+
+  runtimeNames.forEach(name=>{
+    const marker = [...doc.scripts].some(s=>
+      (s.src||"").includes(name.toLowerCase().replaceAll("_","-")) ||
+      (s.textContent||"").includes(name)
+    );
+    // Runtime adapters may expose the marker through the global object rather than script text.
+    const globalMarker = !!(win.HOA_RUNTIME && win.HOA_RUNTIME[name]);
+    if(marker || globalMarker){
+      add("Runtime",name,true);
+    }else{
+      // This is a warning-level contract check because adapters may be injected by the Stage 2 harness.
+      total++;
+      const tr=document.createElement("tr");
+      tr.innerHTML=`<td>Runtime</td><td>${name}</td><td class="warn">NOT DIRECTLY OBSERVED — verify in Stage 2 audit</td>`;
+      document.getElementById("results").appendChild(tr);
+    }
+  });
+
+  ["#hoaGlobalPublicFooter","#hoaFrontSocialFooter","#hoaProfessionalFooter","#hoaV653ConnectWrap"].forEach(sel=>{
+    const el=doc.querySelector(sel);
+    add("Protected footer",sel,!!el,"presence only; no footer mutation performed");
+  });
+
+  const visibleFooter = ["#hoaProfessionalFooter","#hoaV653ConnectWrap"].every(sel=>{
+    const el=doc.querySelector(sel);
+    return el && getComputedStyle(el).display !== "none";
+  });
+  add("Protected footer","public footer/connect visible in initial public state",visibleFooter);
+
+  const errors = [];
+  // Stage 3 does not intercept application console errors; it reports errors exposed on window if present.
+  if(Array.isArray(win.__HOA_RUNTIME_ERRORS__)) errors.push(...win.__HOA_RUNTIME_ERRORS__);
+  add("Runtime","no exposed HOA runtime error list",errors.length===0,errors.length?errors.join(" | "):"");
+
+  document.getElementById("status").textContent=`Automated smoke audit complete: ${pass} passed / ${total} checks (warnings excluded from pass count).`;
+};
+</script>
+</body>
+</html>

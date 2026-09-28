@@ -1,0 +1,111 @@
+
+/* HOA PUBLIC SOCIAL FOOTER — single authoritative base styles. */
+/* V6.0.123 — Refined public bottom bar; social logos use their actual brand colours. */
+#hoaFrontSocialFooter.hoa-front-social-footer{
+  display:block !important;
+  width:100% !important;
+  margin:38px 0 0 !important;
+  padding:14px 18px !important;
+  background:#0b2341 !important;
+  border-top:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:0 -6px 22px rgba(8,26,49,.14) !important;
+  position:relative !important;
+  z-index:20 !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social-bar{
+  width:min(1180px,100%) !important;
+  min-height:66px !important;
+  margin:0 auto !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:18px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  min-width:220px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand img{
+  width:42px !important;height:42px !important;object-fit:contain !important;
+  border-radius:10px !important;background:#fff !important;padding:3px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand-name{
+  color:#fff !important;font-size:15px !important;font-weight:900 !important;line-height:1.1 !important;
+}
+#hoaFrontSocialFooter .hoa-v619-brand-tag{
+  color:rgba(255,255,255,.68) !important;font-size:10px !important;margin-top:3px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-actions{
+  display:flex !important;align-items:center !important;justify-content:flex-end !important;
+  gap:7px !important;flex-wrap:wrap !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social,
+#hoaFrontSocialFooter .hoa-v619-admin{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  gap:7px !important;height:38px !important;min-height:38px !important;
+  padding:0 12px !important;border-radius:10px !important;
+  color:#fff !important;text-decoration:none !important;
+  background:rgba(255,255,255,.075) !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  font:800 11px/1 Arial,sans-serif !important;
+  cursor:pointer !important;white-space:nowrap !important;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social:hover,
+#hoaFrontSocialFooter .hoa-v619-admin:hover{
+  transform:translateY(-2px) !important;
+  background:rgba(255,255,255,.13) !important;
+  border-color:rgba(255,255,255,.28) !important;
+  box-shadow:0 7px 18px rgba(0,0,0,.18) !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social svg,
+#hoaFrontSocialFooter .hoa-v619-admin svg{
+  width:19px !important;height:19px !important;display:block !important;
+  fill:currentColor !important;
+}
+/* Actual platform brand colours for the logos. */
+#hoaFrontSocialFooter .hoa-v619-social:nth-child(1) svg{color:#FF0000 !important}
+#hoaFrontSocialFooter .hoa-v619-social:nth-child(2) svg{color:#229ED9 !important}
+#hoaFrontSocialFooter .hoa-v619-social:nth-child(3) svg{color:#1877F2 !important}
+#hoaFrontSocialFooter .hoa-v619-social:nth-child(4) svg{color:#25D366 !important}
+#hoaFrontSocialFooter .hoa-v619-admin{
+  background:#173f6b !important;
+  border-color:rgba(255,255,255,.30) !important;
+  margin-left:4px !important;
+}
+#hoaFrontSocialFooter .hoa-v619-admin svg{color:#fff !important}
+@media(max-width:800px){
+  #hoaFrontSocialFooter .hoa-v619-social-bar{flex-direction:column !important;padding:5px 0 !important}
+  #hoaFrontSocialFooter .hoa-v619-brand{justify-content:center !important}
+  #hoaFrontSocialFooter .hoa-v619-actions{justify-content:center !important}
+}
+@media(max-width:500px){
+  #hoaFrontSocialFooter .hoa-v619-actions{width:100% !important;display:grid !important;grid-template-columns:repeat(2,1fr) !important}
+  #hoaFrontSocialFooter .hoa-v619-social,#hoaFrontSocialFooter .hoa-v619-admin{width:100% !important}
+  #hoaFrontSocialFooter .hoa-v619-admin{margin-left:0 !important}
+}
+
+/* Native platform colours for the social icons. */
+/* V6.0.123 — original brand colours for social icons */
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="youtube"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="YouTube"] svg{
+  color:#FF0000 !important;
+  fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="telegram"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="Telegram"] svg{
+  color:#229ED9 !important;
+  fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="facebook"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="Facebook"] svg{
+  color:#1877F2 !important;
+  fill:currentColor !important;
+}
+#hoaFrontSocialFooter .hoa-v619-social[data-platform="whatsapp"] svg,
+#hoaFrontSocialFooter .hoa-v619-social[aria-label="WhatsApp"] svg{
+  color:#25D366 !important;
+  fill:currentColor !important;
+}

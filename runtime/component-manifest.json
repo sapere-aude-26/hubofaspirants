@@ -1,0 +1,155 @@
+{
+  "project": "HUB OF ASPIRANTS",
+  "architecture_version": "Componentized Source V1",
+  "production_baseline": {
+    "path": "PRODUCTION_BASELINE/index.html",
+    "bytes": 1751721,
+    "sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f",
+    "immutable": true
+  },
+  "components": {
+    "00_CORE_SHARED": {
+      "role": "shared runtime/state",
+      "controls": [
+        "global state",
+        "shared utilities"
+      ],
+      "controlled_by": []
+    },
+    "01_PUBLIC_HOME": {
+      "role": "public landing page",
+      "controls": [
+        "poster",
+        "student options",
+        "free content"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "02_AUTHENTICATION",
+        "09_GLOBAL_PUBLIC_FOOTER"
+      ]
+    },
+    "02_AUTHENTICATION": {
+      "role": "identity/session UI",
+      "controls": [
+        "login",
+        "registration",
+        "free access gate"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "07_ADMIN"
+      ]
+    },
+    "03_FREE_STUDENT_PORTAL": {
+      "role": "free student experience",
+      "controls": [
+        "free portal UI",
+        "free content lifecycle"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "02_AUTHENTICATION",
+        "01_PUBLIC_HOME",
+        "09_GLOBAL_PUBLIC_FOOTER"
+      ]
+    },
+    "04_PAID_STUDENT_APPLICATION": {
+      "role": "paid student/application",
+      "controls": [
+        "paid dashboard",
+        "application/enrollment"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "02_AUTHENTICATION",
+        "07_ADMIN"
+      ]
+    },
+    "05_EXAM_ENGINE": {
+      "role": "exam execution",
+      "controls": [
+        "questions",
+        "answers",
+        "timer",
+        "submission"
+      ],
+      "controlled_by": [
+        "04_PAID_STUDENT_APPLICATION",
+        "03_FREE_STUDENT_PORTAL",
+        "02_AUTHENTICATION"
+      ]
+    },
+    "06_RESULT_SYSTEM": {
+      "role": "results",
+      "controls": [
+        "scores",
+        "attempt results",
+        "result views"
+      ],
+      "controlled_by": [
+        "05_EXAM_ENGINE",
+        "02_AUTHENTICATION"
+      ]
+    },
+    "07_ADMIN": {
+      "role": "administration",
+      "controls": [
+        "content",
+        "users",
+        "permissions",
+        "tests",
+        "courses"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "02_AUTHENTICATION",
+        "08_DEVELOPER_CONSOLE"
+      ]
+    },
+    "08_DEVELOPER_CONSOLE": {
+      "role": "developer operations",
+      "controls": [
+        "diagnostics",
+        "developer controls"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "02_AUTHENTICATION"
+      ]
+    },
+    "09_GLOBAL_PUBLIC_FOOTER": {
+      "role": "global public footer",
+      "controls": [
+        "social footer",
+        "professional footer",
+        "connect"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "01_PUBLIC_HOME",
+        "03_FREE_STUDENT_PORTAL"
+      ]
+    },
+    "10_HEADER_PROTECTED": {
+      "role": "protected header",
+      "controls": [
+        "header presentation"
+      ],
+      "controlled_by": [
+        "00_CORE_SHARED",
+        "02_AUTHENTICATION",
+        "07_ADMIN"
+      ]
+    }
+  },
+  "protected_footer_ids": [
+    "#hoaGlobalPublicFooter",
+    "#hoaFrontSocialFooter",
+    "#hoaProfessionalFooter",
+    "#hoaV653ConnectWrap"
+  ],
+  "protected_header": true,
+  "runtime_status": "source-separated, production runtime not switched",
+  "rollback": "PRODUCTION_BASELINE/index.html"
+}

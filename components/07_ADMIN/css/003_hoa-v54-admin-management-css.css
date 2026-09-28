@@ -1,0 +1,17 @@
+
+.hoa-v54-management{margin:18px 0;padding:18px}
+.hoa-v54-head{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.hoa-v54-head h2{margin:0 0 4px}
+.hoa-v54-head p{margin:0;opacity:.72}
+.hoa-v54-head button,.hoa-v54-tabs button{
+  border:1px solid rgba(0,0,0,.12);background:#fff;border-radius:9px;
+  padding:9px 13px;cursor:pointer
+}
+.hoa-v54-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.hoa-v54-tabs button.active{font-weight:700}
+.hoa-v54-empty{padding:18px;border:1px solid rgba(0,0,0,.10);border-radius:12px}
+.hoa-v54-empty p{margin-bottom:0;opacity:.76}
+@media(max-width:600px){
+ .hoa-v54-head{align-items:flex-start;flex-direction:column}
+ .hoa-v54-head button{width:100%}
+}

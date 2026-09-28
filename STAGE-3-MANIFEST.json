@@ -1,0 +1,17 @@
+{
+  "stage": 3,
+  "name": "HOA_V12_FUNCTIONAL_REGRESSION",
+  "production_untouched": true,
+  "files": [
+    "stage3-regression.html",
+    "STAGE-3-README.txt"
+  ],
+  "protected_contracts": [
+    "#hoaGlobalPublicFooter",
+    "#hoaFrontSocialFooter",
+    "#hoaProfessionalFooter",
+    "#hoaV653ConnectWrap"
+  ],
+  "requires": "staging-v12-componentized",
+  "next_stage": "Stage 4 \u2014 controlled component cutover only after regression passes"
+}

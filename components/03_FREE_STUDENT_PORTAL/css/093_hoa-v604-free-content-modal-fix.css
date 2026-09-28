@@ -1,0 +1,102 @@
+
+/* =========================================================
+   HOA V6.0.4 — FREE CONTENT MODAL POSITION FIX
+   Always opens as a true viewport overlay, centered on the
+   current screen instead of appearing at the document top.
+   ========================================================= */
+
+#hoaV648FreeContentModal{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  height:100dvh !important;
+  margin:0 !important;
+  padding:
+    max(20px,env(safe-area-inset-top))
+    max(20px,env(safe-area-inset-right))
+    max(20px,env(safe-area-inset-bottom))
+    max(20px,env(safe-area-inset-left)) !important;
+  display:grid !important;
+  place-items:center !important;
+  overflow:hidden !important;
+  z-index:2147483000 !important;
+}
+
+#hoaV648FreeContentModal.hidden{
+  display:none !important;
+}
+
+#hoaV648FreeContentModal .hoa-v648-modal-backdrop{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  margin:0 !important;
+  background:rgba(4,20,40,.68) !important;
+  backdrop-filter:blur(7px) !important;
+  -webkit-backdrop-filter:blur(7px) !important;
+}
+
+#hoaV648FreeContentModal .hoa-v648-modal-card{
+  position:relative !important;
+  z-index:1 !important;
+  width:min(720px,calc(100vw - 40px)) !important;
+  max-width:720px !important;
+  max-height:min(760px,calc(100dvh - 40px)) !important;
+  margin:0 !important;
+  overflow:auto !important;
+  transform:none !important;
+  opacity:1 !important;
+  background:#fff !important;
+  border:1px solid rgba(242,183,5,.35) !important;
+  box-shadow:
+    0 30px 90px rgba(2,20,45,.32),
+    0 0 0 1px rgba(255,255,255,.55) inset !important;
+  animation:hoaFreeModalIn .25s cubic-bezier(.22,.61,.36,1) both !important;
+}
+
+@keyframes hoaFreeModalIn{
+  from{
+    opacity:0;
+    transform:translateY(10px) scale(.985);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0) scale(1);
+  }
+}
+
+/* Keep the modal above any sticky navigation or floating controls. */
+#hoaV648FreeContentModal .hoa-v648-modal-close{
+  z-index:2 !important;
+}
+
+html.hoa-free-modal-open,
+body.hoa-free-modal-open{
+  overflow:hidden !important;
+  overscroll-behavior:none !important;
+}
+
+@media(max-width:760px){
+  #hoaV648FreeContentModal{
+    padding:
+      max(12px,env(safe-area-inset-top))
+      max(12px,env(safe-area-inset-right))
+      max(12px,env(safe-area-inset-bottom))
+      max(12px,env(safe-area-inset-left)) !important;
+  }
+
+  #hoaV648FreeContentModal .hoa-v648-modal-card{
+    width:100% !important;
+    max-width:none !important;
+    max-height:calc(100dvh - 24px) !important;
+    border-radius:18px !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #hoaV648FreeContentModal .hoa-v648-modal-card{
+    animation:none !important;
+  }
+}

@@ -1,0 +1,15 @@
+
+/* V6.0.123 — Public header must not expose Student Login. */
+body:not(.hoa-login-page) header a[href*="student" i],
+body:not(.hoa-login-page) header button[onclick*="student" i],
+body:not(.hoa-login-page) nav a[href*="student" i],
+body:not(.hoa-login-page) nav button[onclick*="student" i]{
+  display:none !important;
+}
+/* Text-label guard for common header containers. */
+body:not(.hoa-login-page) header a,
+body:not(.hoa-login-page) header button,
+body:not(.hoa-login-page) nav a,
+body:not(.hoa-login-page) nav button{
+  --hoa-student-login-label-check: initial;
+}

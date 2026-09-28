@@ -1,0 +1,10 @@
+# Exam Engine
+
+## Purpose
+Exam runtime, timer, question navigation, answer state, review, submit and integrity controls.
+
+## Production status
+This is a boundary/source artifact only. The production baseline was not modified.
+
+## Safe rule
+Preserve production IDs, shared state selectors, public navigation contracts and Supabase/session contracts unless an explicit integration migration is performed.

@@ -1,0 +1,1 @@
+(function(w){'use strict';const a=w.HOA_COMPONENT_ADAPTERS=w.HOA_COMPONENT_ADAPTERS||{};const x={version:'HEADER-V10',mode:'protected',find(s){return s?document.querySelector(s):null},audit(){return ['header','.header','.navbar','.hoa-header','#header'].map(selector=>({selector,exists:!!document.querySelector(selector)}))}};a.header=x;w.HOA_HEADER_V10=x})(window);

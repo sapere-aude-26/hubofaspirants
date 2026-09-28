@@ -1,0 +1,102 @@
+<section aria-label="HUB OF ASPIRANTS public front page" id="hoaFrontPage">
+<nav aria-label="Main navigation" class="hoa-front-nav">
+<div class="hoa-front-brand">
+<img alt="HUB OF ASPIRANTS" src="hoa-logo.png"/>
+<div>
+<div class="hoa-front-brand-name">HUB OF ASPIRANTS</div>
+<div class="hoa-front-brand-tag">Dream. Prepare. Conquer.</div>
+</div>
+</div>
+<div class="hoa-front-navlinks">
+<button aria-label="Login" class="hoa-v6058-nav-login hoa-v6060-login-card" onclick="hoaScrollToStudentArea()" title="Go to Student Area" type="button">
+<span class="hoa-v6058-login-icon">🎓</span><span>LOGIN</span>
+</button>
+<button onclick="document.getElementById('hoaFrontFeatures').scrollIntoView({behavior:'smooth',block:'start'})" type="button">Features</button>
+<button onclick="document.getElementById('hoaFrontSocialFooter').scrollIntoView({behavior:'smooth',block:'start'})" type="button">Connect</button>
+</div>
+</nav>
+<main>
+<section class="hoa-front-hero">
+<div>
+<h1 class="hoa-front-title">Prepare smarter.<br/><span>Learn better.<br/>Perform stronger.</span></h1>
+<p class="hoa-front-copy">
+          A complete preparation platform for Mock Tests, Live &amp; Recorded Classes,
+          Notes, Career Guidance and your learning journey with HUB OF ASPIRANTS.
+        </p>
+</div>
+<div aria-hidden="true" class="hoa-front-visual">
+<div class="hoa-front-orb"></div>
+<div class="hoa-front-card-stack">
+<div class="hoa-front-feature">
+<div class="hoa-front-feature-icon">📝</div>
+<div><b>Mock Tests</b><span>Structured practice for competitive-exam preparation.</span></div>
+</div>
+<div class="hoa-front-feature">
+<div class="hoa-front-feature-icon">🎥</div>
+<div><b>Live &amp; Recorded Classes</b><span>Learn through live sessions and recorded lectures.</span></div>
+</div>
+<div class="hoa-front-feature">
+<div class="hoa-front-feature-icon">📚</div>
+<div><b>Notes &amp; Career Guidance</b><span>Access study materials and useful career guidance in one place.</span></div>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="hoaV648PosterTitle" class="hoa-v648-poster-section" id="hoaV643PosterSection">
+<div class="hoa-v648-section-head">
+<div>
+<span class="hoa-v648-kicker">HUB OF ASPIRANTS</span>
+<h2 id="hoaV648PosterTitle">Featured Posters</h2>
+<p>Latest courses, study materials, mock tests and important announcements.</p>
+</div>
+<span class="hoa-v648-live-badge">LIVE UPDATES</span>
+</div>
+<div class="hoa-v648-poster-wrap" id="hoaV643PosterWrap"><div class="hoa643-poster-empty">Loading posters…</div></div>
+<div aria-label="Poster navigation" class="hoa-v648-poster-nav" id="hoaV643PosterNav"></div>
+</section>
+<section aria-labelledby="hoaV648StudentOptionsTitle" class="hoa-v648-student-options" id="hoaV648StudentOptions">
+<div class="hoa-v648-section-head centered">
+<div>
+<span class="hoa-v648-kicker">STUDENT AREA</span>
+<h2 id="hoaV648StudentOptionsTitle">Start Your Preparation</h2>
+<p>Choose how you want to continue with HUB OF ASPIRANTS.</p>
+</div>
+</div>
+<div class="hoa-v648-option-grid">
+<button aria-label="Student Login" class="hoa-v648-option-card" onclick="hoaOpenPortal('student')" type="button">
+<span class="hoa-v648-option-icon">🎓</span><span class="hoa-v648-option-title">Student Login</span><span class="hoa-v648-option-copy">Access your tests, results, notes and batches.</span><span class="hoa-v648-option-link">LOGIN →</span>
+</button>
+<button aria-label="Register" class="hoa-v648-option-card" onclick="hoaOpenLogin('register')" type="button">
+<span class="hoa-v648-option-icon">📝</span><span class="hoa-v648-option-title">Register</span><span class="hoa-v648-option-copy">Create your student account and start your preparation.</span><span class="hoa-v648-option-link">REGISTER →</span>
+</button>
+<button aria-label="Free Content" class="hoa-v648-option-card" onclick="hoaOpenFreeContent()" type="button">
+<span class="hoa-v648-option-icon">🎁</span><span class="hoa-v648-option-title">Free Content</span><span class="hoa-v648-option-copy">Explore free tests, notes and videos available for everyone.</span><span class="hoa-v648-option-link">EXPLORE →</span>
+</button>
+</div>
+</section>
+<div aria-labelledby="hoaV648FreeContentTitle" aria-modal="true" class="hoa-v648-modal hidden" id="hoaV648FreeContentModal" role="dialog">
+<div class="hoa-v648-modal-backdrop" onclick="hoaCloseFreeContent()"></div>
+<div class="hoa-v648-modal-card">
+<button aria-label="Close" class="hoa-v648-modal-close" onclick="hoaCloseFreeContent()" type="button">×</button>
+<span class="hoa-v648-kicker">FREE ACCESS</span>
+<h2 id="hoaV648FreeContentTitle">Free Content</h2>
+<p>Choose from free learning resources. Additional free resources can be added from the Admin system later.</p>
+<div class="hoa-v648-free-grid">
+<button class="hoa-v648-free-card" onclick="hoaOpenLogin('free');hoaCloseFreeContent()" type="button"><span>📝</span><b>Free Test</b><small>Attempt available free tests.</small></button>
+<button class="hoa-v648-free-card" onclick="hoaShowFreeComingSoon('notes')" type="button"><span>📚</span><b>Free Notes</b><small>Free study materials.</small></button>
+<button class="hoa-v648-free-card" onclick="hoaShowFreeComingSoon('videos')" type="button"><span>🎥</span><b>Free Videos</b><small>Free video classes.</small></button>
+</div>
+</div>
+</div>
+<section class="hoa-front-section" id="hoaFrontFeatures">
+<h2 class="hoa-front-section-title">Everything in one place</h2>
+<p class="hoa-front-section-sub">A focused preparation environment for students preparing through HUB OF ASPIRANTS.</p>
+<div class="hoa-front-features">
+<article class="hoa-front-feature-box"><div class="icon">🎯</div><h3>Mock Tests</h3><p>Practice with structured mock tests designed for competitive-exam preparation.</p></article>
+<article class="hoa-front-feature-box"><div class="icon">🎥</div><h3>Live &amp; Recorded Classes</h3><p>Attend live classes and access recorded lectures through your assigned batches.</p></article>
+<article class="hoa-front-feature-box"><div class="icon">📚</div><h3>Notes</h3><p>Access organized exam notes and study materials provided for your preparation.</p></article>
+<article class="hoa-front-feature-box"><div class="icon">🧭</div><h3>Career Guidance</h3><p>Get guidance and useful information to plan your competitive-exam preparation and career.</p></article>
+</div>
+</section>
+</main>
+</section>

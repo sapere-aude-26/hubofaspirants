@@ -1,0 +1,67 @@
+
+.hoa-dev-console-modal{
+  position:fixed!important;
+  inset:0!important;
+  z-index:2147483000!important;
+  display:none!important;
+  background:rgba(3,8,18,.80)!important;
+  backdrop-filter:blur(3px)!important;
+  padding:14px!important;
+  box-sizing:border-box!important;
+}
+.hoa-dev-console-modal.open{display:block!important}
+.hoa-dev-console-window{
+  position:relative!important;
+  width:100%!important;
+  height:100%!important;
+  background:#08111f!important;
+  border:1px solid #29415f!important;
+  border-radius:14px!important;
+  overflow:hidden!important;
+  box-shadow:0 25px 90px rgba(0,0,0,.55)!important;
+}
+.hoa-dev-console-topbar{
+  position:relative!important;
+  z-index:10!important;
+  height:52px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  padding:0 10px 0 16px!important;
+  box-sizing:border-box!important;
+  background:#0c1728!important;
+  border-bottom:1px solid #263b55!important;
+  color:#e7eef9!important;
+  font:700 13px/1 Arial,sans-serif!important;
+}
+.hoa-dev-console-close{
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  min-width:92px!important;
+  height:36px!important;
+  padding:0 12px!important;
+  border:1px solid #6b7890!important;
+  border-radius:8px!important;
+  background:#17243a!important;
+  color:#fff!important;
+  font:800 12px/1 Arial,sans-serif!important;
+  cursor:pointer!important;
+}
+.hoa-dev-console-close:hover{
+  background:#273954!important;
+  border-color:#9aabc2!important;
+}
+#hoaDevConsoleFrame{
+  display:block!important;
+  width:100%!important;
+  height:calc(100% - 52px)!important;
+  border:0!important;
+  background:#08111f!important;
+}
+@media(max-width:700px){
+  .hoa-dev-console-modal{padding:0!important}
+  .hoa-dev-console-window{border-radius:0!important}
+  .hoa-dev-console-topbar{height:50px!important}
+  #hoaDevConsoleFrame{height:calc(100% - 50px)!important}
+}

@@ -1,0 +1,19 @@
+
+/* V6.0.123 — stronger Follow us on label */
+#hoaFrontSocialFooter .hoa-v619-follow-label{
+  display:inline-flex !important;
+  align-items:center;
+  font-size:14px !important;
+  line-height:1.2 !important;
+  font-weight:800 !important;
+  letter-spacing:.15px !important;
+  color:inherit !important;
+  white-space:nowrap !important;
+  opacity:1 !important;
+}
+@media (max-width:760px){
+  #hoaFrontSocialFooter .hoa-v619-follow-label{
+    display:inline-flex !important;
+    font-size:12px !important;
+  }
+}
