@@ -1,6 +1,9 @@
 name: Unpack HOA staging package
 
 on:
+  push:
+    branches:
+      - staging-v12-componentized
   workflow_dispatch:
 
 permissions:
