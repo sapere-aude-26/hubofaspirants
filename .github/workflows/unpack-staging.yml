@@ -1,0 +1,34 @@
+name: Unpack HOA staging package
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack:
+    if: github.ref == 'refs/heads/staging-v12-componentized'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging branch
+        uses: actions/checkout@v4
+        with:
+          ref: staging-v12-componentized
+
+      - name: Unpack staging package
+        run: |
+          rm -rf components runtime services state
+          rm -f STAGING-README.txt STAGING-MANIFEST.json
+          unzip -o HOA_V12_GITHUB_PAGES_STAGING.zip -d _staging
+          cp -a _staging/. .
+          rm -rf _staging HOA_V12_GITHUB_PAGES_STAGING.zip
+
+      - name: Commit unpacked staging website
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && exit 0
+          git commit -m "Build staging website from HOA V12 package"
+          git push origin staging-v12-componentized
