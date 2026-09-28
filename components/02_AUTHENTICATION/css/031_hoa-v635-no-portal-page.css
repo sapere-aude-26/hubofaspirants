@@ -1,0 +1,13 @@
+
+/* V6.0.123
+   The intermediate "Access Your Portal" page has been removed.
+   Login is opened directly from the public front page. */
+#hoaLoginChoiceView {
+  display: none !important;
+}
+body.hoa-public-portal #hoaLoginPage {
+  display: none !important;
+}
+body.hoa-public-portal #hoaFrontPage {
+  display: block !important;
+}

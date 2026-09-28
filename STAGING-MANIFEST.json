@@ -1,0 +1,16 @@
+{
+  "package": "HOA_V12_GITHUB_PAGES_STAGING",
+  "status": "STAGING_ONLY",
+  "production_deploy": false,
+  "entrypoint": "index.html",
+  "baseline_source": "RELEASE/HOA_PRODUCTION_BASELINE_V12.html",
+  "baseline_bytes": 1751721,
+  "baseline_sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f",
+  "included_directories": [
+    "components",
+    "runtime",
+    "services",
+    "state"
+  ],
+  "reason_index_is_baseline": "The componentized replacement has not yet passed real-browser validation; no unverified replacement was fabricated."
+}

@@ -1,0 +1,115 @@
+{
+  "workspace_version": "V2",
+  "status": "development-only",
+  "production_replacement": false,
+  "baseline": {
+    "path": "SOURCE_PACKAGE_V1/BASELINE/ORIGINAL_PRODUCTION_BASELINE.html",
+    "bytes": 1751721,
+    "sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f",
+    "expected_sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f"
+  },
+  "components": [
+    {
+      "id": "00-core-shared",
+      "directory": "00_CORE_SHARED",
+      "name": "Core / Shared System",
+      "purpose": "Shared runtime, navigation, global state, session/Supabase bridge, shared utilities and protected header integration.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "01-public-home",
+      "directory": "01_PUBLIC_HOME",
+      "name": "Public Home",
+      "purpose": "Public landing page, hero, poster presentation, student options, free-content presentation and public features.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "02-authentication",
+      "directory": "02_AUTHENTICATION",
+      "name": "Authentication",
+      "purpose": "Student/admin login, registration, free-access gate and authentication UI state.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "03-free-student-portal",
+      "directory": "03_FREE_STUDENT_PORTAL",
+      "name": "Free Student Portal",
+      "purpose": "Free student access lifecycle, portal content and its special DOM reparenting/attachment behavior.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "04-paid-student-application",
+      "directory": "04_PAID_STUDENT_APPLICATION",
+      "name": "Paid Student / Application",
+      "purpose": "Authenticated paid student dashboard, tests, results navigation, profile and paid learning portals.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "05-exam-engine",
+      "directory": "05_EXAM_ENGINE",
+      "name": "Exam Engine",
+      "purpose": "Exam runtime, timer, question navigation, answer state, review, submit and integrity controls.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "06-result-system",
+      "directory": "06_RESULT_SYSTEM",
+      "name": "Result System",
+      "purpose": "Student result presentation/review and administrative result processing/reporting.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "07-admin",
+      "directory": "07_ADMIN",
+      "name": "Admin",
+      "purpose": "Admin shell, student/course/video/note/poster/access/test/result/admin management and two-tier permissions.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "08-developer-console",
+      "directory": "08_DEVELOPER_CONSOLE",
+      "name": "Developer Console",
+      "purpose": "Developer console launcher/modal and developer-only visibility/access controls.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "09-global-public-footer",
+      "directory": "09_GLOBAL_PUBLIC_FOOTER",
+      "name": "Global Public Footer",
+      "purpose": "Protected public footer integration boundary: Social, Professional and Connect Us.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    },
+    {
+      "id": "10-header-protected",
+      "directory": "10_HEADER_PROTECTED",
+      "name": "Header (Protected)",
+      "purpose": "Existing shared header; mapped and documented but intentionally not redesigned or behaviorally changed.",
+      "status": "extracted-boundary",
+      "production_safe_to_replace": false
+    }
+  ],
+  "protected_selectors": [
+    "#hoaFrontSocialFooter",
+    "#hoaV653ConnectWrap",
+    "#hoaProfessionalFooter",
+    "#hoaGlobalPublicFooter"
+  ],
+  "protected_systems": [
+    "Header",
+    "Navigation",
+    "Authentication/session lifecycle",
+    "Supabase/session bridge",
+    "Free Student Portal footer reparenting",
+    "Admin/public chrome visibility"
+  ]
+}

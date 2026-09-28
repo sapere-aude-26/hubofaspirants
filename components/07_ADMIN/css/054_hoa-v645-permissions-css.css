@@ -1,0 +1,31 @@
+
+#hoaV645AccessManager{margin-top:18px;padding-top:18px;border-top:1px solid #e2e8f0}
+.hoa645-access-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:14px}
+.hoa645-access-head h4{margin:0;color:#173f6b;font-size:18px}
+.hoa645-access-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.5}
+.hoa645-role-pill{display:inline-flex;align-items:center;padding:6px 10px;border-radius:999px;background:#eff6ff;color:#1d4ed8;font-size:11px;font-weight:800;white-space:nowrap}
+.hoa645-admin-list{display:grid;gap:10px}
+.hoa645-admin-card{border:1px solid #dbe5ef;border-radius:14px;background:#fff;padding:13px 14px}
+.hoa645-admin-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.hoa645-admin-card-main{min-width:0}
+.hoa645-admin-card-main strong{display:block;color:#173f6b;font-size:14px}
+.hoa645-admin-card-main small{display:block;color:#64748b;margin-top:3px;overflow:hidden;text-overflow:ellipsis}
+.hoa645-access-actions{display:flex;gap:7px;flex-wrap:wrap}
+.hoa645-access-editor{display:none;margin-top:13px;padding-top:13px;border-top:1px solid #e2e8f0}
+.hoa645-access-editor.open{display:block}
+.hoa645-role-row{display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-bottom:14px}
+.hoa645-role-row label{display:grid;gap:5px;font-size:11px;font-weight:800;color:#173f6b}
+.hoa645-role-row select{min-width:220px;padding:9px 10px;border:1px solid #cbd8e6;border-radius:9px;background:#fff}
+.hoa645-perm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.hoa645-perm-group{border:1px solid #e2e8f0;border-radius:12px;padding:11px;background:#f8fafc}
+.hoa645-perm-group h5{margin:0 0 8px;color:#173f6b;font-size:12px}
+.hoa645-perm-check{display:flex;align-items:center;gap:7px;margin:6px 0;font-size:12px;color:#334155}
+.hoa645-perm-check input{accent-color:#1d4ed8}
+.hoa645-locked{opacity:.65}
+.hoa645-msg{margin-top:8px;font-size:12px;color:#64748b}
+@media(max-width:700px){
+  .hoa645-access-head{display:block}
+  .hoa645-role-pill{margin-top:8px}
+  .hoa645-perm-grid{grid-template-columns:1fr}
+  .hoa645-admin-card-head{align-items:flex-start;flex-direction:column}
+}

@@ -1,0 +1,8 @@
+
+#adminOnlyDashboard .hoaV643AdminNavExtra{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%;margin:8px 0 14px}
+#adminOnlyDashboard .hoaV643AdminNavExtra button{display:inline-flex!important;visibility:visible!important;align-items:center;justify-content:center;min-height:44px;padding:10px 12px;border:1px solid #cbd8e6;border-radius:10px;background:#fff;color:#173f6b;font-weight:800;cursor:pointer}
+#adminOnlyDashboard .hoaV643AdminNavExtra button.active{background:#173f6b;color:#fff}
+#adminOnlyDashboard #hoaV643AdminModules{display:block!important;width:100%}
+#adminOnlyDashboard #hoaV643AdminModules>.adminSectionPanel{display:none!important}
+#adminOnlyDashboard #hoaV643AdminModules>.adminSectionPanel.active{display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important}
+@media(max-width:700px){#adminOnlyDashboard .hoaV643AdminNavExtra{grid-template-columns:1fr}}

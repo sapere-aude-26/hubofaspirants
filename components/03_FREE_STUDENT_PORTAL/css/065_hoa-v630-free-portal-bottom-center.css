@@ -1,0 +1,27 @@
+
+/* V6.0.30 — Free Content native Home social bar placement */
+body.hoa-v615-free-portal #hoaV628FreshNativeBottom{
+  width:100% !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  margin:0 !important;
+  padding:0 0 28px !important;
+  box-sizing:border-box !important;
+}
+body.hoa-v615-free-portal #hoaV628FreshNativeBottom > #hoaFrontSocialFooter{
+  width:calc(100% - 48px) !important;
+  max-width:1180px !important;
+  margin:42px auto 0 !important;
+  border-radius:18px !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:700px){
+  body.hoa-v615-free-portal #hoaV628FreshNativeBottom{padding-bottom:18px !important;}
+  body.hoa-v615-free-portal #hoaV628FreshNativeBottom > #hoaFrontSocialFooter{
+    width:calc(100% - 24px) !important;
+    margin-top:28px !important;
+    border-radius:16px !important;
+  }
+}

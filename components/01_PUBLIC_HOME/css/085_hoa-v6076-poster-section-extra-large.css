@@ -1,0 +1,145 @@
+
+/* V6.0.123 — extra-large existing poster presentation.
+   No poster asset, URL, database record, upload workflow or poster content
+   is created/replaced/modified by these rules. */
+
+#hoaV643PosterSection.hoa-v648-poster-section{
+  max-width:1240px !important;
+  padding:34px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  overflow:visible !important;
+}
+
+#hoaV643PosterSection .hoa-v648-section-head{
+  margin-bottom:24px !important;
+  position:relative !important;
+  z-index:100 !important;
+}
+
+#hoaV643PosterWrap.hoa-v648-poster-wrap{
+  height:clamp(760px,70vw,920px) !important;
+  min-height:760px !important;
+  padding:34px 132px !important;
+  border-radius:30px !important;
+  overflow:hidden !important;
+  position:relative !important;
+  isolation:isolate !important;
+  display:block !important;
+}
+
+/* The active frame is deliberately large. The image itself remains
+   contain-fitted, so portrait/landscape/square posters are never cropped. */
+#hoaV643PosterWrap .hoa643-poster-slide{
+  position:absolute !important;
+  left:50% !important;
+  top:50% !important;
+  width:min(76vw,980px) !important;
+  height:calc(100% - 68px) !important;
+  max-width:980px !important;
+  max-height:none !important;
+  min-height:0 !important;
+  border-radius:28px !important;
+  overflow:hidden !important;
+  background:#fff !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-slide img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  min-height:0 !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  padding:12px !important;
+  background:#fff !important;
+}
+
+/* Keep side posters inside the enlarged stage. */
+#hoaV643PosterWrap .hoa643-poster-center{
+  transform:translate3d(-50%,-50%,0) scale(1) !important;
+  z-index:10 !important;
+  opacity:1 !important;
+  filter:none !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-left{
+  transform:translate3d(-111%,-50%,0) scale(.74) !important;
+  z-index:3 !important;
+  opacity:.24 !important;
+  filter:blur(3px) saturate(.65) !important;
+}
+
+#hoaV643PosterWrap .hoa643-poster-right{
+  transform:translate3d(11%,-50%,0) scale(.74) !important;
+  z-index:3 !important;
+  opacity:.24 !important;
+  filter:blur(3px) saturate(.65) !important;
+}
+
+#hoaV643PosterNav{
+  position:relative !important;
+  z-index:30 !important;
+  margin-top:16px !important;
+  min-height:36px !important;
+}
+
+/* Large tablets */
+@media (max-width:1100px){
+  #hoaV643PosterSection.hoa-v648-poster-section{
+    padding:28px !important;
+  }
+
+  #hoaV643PosterWrap.hoa-v648-poster-wrap{
+    height:clamp(680px,78vw,820px) !important;
+    min-height:680px !important;
+    padding:30px 108px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-slide{
+    width:min(76vw,820px) !important;
+    height:calc(100% - 60px) !important;
+    max-width:820px !important;
+  }
+}
+
+/* Phones: still large enough for genuine poster viewing, while retaining
+   enough horizontal room for the carousel controls. */
+@media (max-width:700px){
+  #hoaV643PosterSection.hoa-v648-poster-section{
+    padding:20px !important;
+    border-radius:22px !important;
+  }
+
+  #hoaV643PosterWrap.hoa-v648-poster-wrap{
+    height:clamp(560px,135vw,700px) !important;
+    min-height:560px !important;
+    padding:24px 58px !important;
+    border-radius:22px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-slide{
+    width:min(82vw,560px) !important;
+    height:calc(100% - 48px) !important;
+    max-width:560px !important;
+    border-radius:20px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-slide img{
+    padding:8px !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-left{
+    transform:translate3d(-88%,-50%,0) scale(.60) !important;
+    opacity:.16 !important;
+    filter:blur(2.5px) saturate(.60) !important;
+  }
+
+  #hoaV643PosterWrap .hoa643-poster-right{
+    transform:translate3d(-12%,-50%,0) scale(.60) !important;
+    opacity:.16 !important;
+    filter:blur(2.5px) saturate(.60) !important;
+  }
+}

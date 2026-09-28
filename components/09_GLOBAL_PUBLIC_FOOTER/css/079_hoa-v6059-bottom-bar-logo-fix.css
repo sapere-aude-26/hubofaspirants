@@ -1,0 +1,60 @@
+
+/* The actual public bottom bar — override earlier legacy selectors. */
+#hoaFrontSocialFooter.hoa-front-social-footer {
+  width: min(1180px, calc(100% - 28px)) !important;
+  margin: 38px auto 18px !important;
+  padding: 12px 16px !important;
+  box-sizing: border-box !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: #0b2341 !important;
+  border: 1px solid rgba(255,255,255,.10) !important;
+  box-shadow: 0 10px 28px rgba(8,26,49,.16) !important;
+}
+
+/* Keep the brand logo itself untouched: no white box, no artificial padding,
+   no forced rounded rectangle around the original logo. */
+#hoaFrontSocialFooter .hoa-v619-brand img {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  max-width: 42px !important;
+  max-height: 42px !important;
+  display: block !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Prevent inherited/legacy rules from creating a white logo wrapper. */
+#hoaFrontSocialFooter .hoa-v619-brand,
+#hoaFrontSocialFooter .hoa-v619-brand > div {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Maintain the rounded bar on smaller screens. */
+@media (max-width: 700px) {
+  #hoaFrontSocialFooter.hoa-front-social-footer {
+    width: calc(100% - 20px) !important;
+    margin: 28px auto 12px !important;
+    border-radius: 15px !important;
+    padding: 11px 12px !important;
+  }
+
+  #hoaFrontSocialFooter .hoa-v619-brand img {
+    width: 38px !important;
+    height: 38px !important;
+    min-width: 38px !important;
+    min-height: 38px !important;
+    max-width: 38px !important;
+    max-height: 38px !important;
+  }
+}

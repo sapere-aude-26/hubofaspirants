@@ -1,0 +1,36 @@
+
+.hoa-admin-console-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:36px;
+  padding:7px 12px;
+  border:1px solid #d7e2ee;
+  border-radius:9px;
+  background:#fff;
+  color:#173f6b;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:800;
+  line-height:1;
+  box-shadow:0 2px 8px rgba(15,35,60,.06);
+  transition:background .15s ease,border-color .15s ease,transform .15s ease;
+}
+.hoa-admin-console-link:hover{
+  background:#f5f9ff;
+  border-color:#a9c3df;
+  transform:translateY(-1px);
+}
+.hoa-admin-console-link:focus-visible{
+  outline:3px solid rgba(37,99,235,.2);
+  outline-offset:2px;
+}
+.hoa-admin-console-link .hoa-admin-icon{font-size:14px}
+@media(max-width:640px){
+  .hoa-admin-console-link{
+    min-height:34px;
+    padding:7px 9px;
+    font-size:11px;
+  }
+}

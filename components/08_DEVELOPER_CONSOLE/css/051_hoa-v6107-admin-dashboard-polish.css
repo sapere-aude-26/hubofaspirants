@@ -1,0 +1,383 @@
+
+/* =========================================================
+   HOA V6.0.123 — Admin Dashboard Professional Polish
+   UI/performance layer only. Existing data, Supabase calls,
+   authentication and admin workflows remain unchanged.
+   ========================================================= */
+
+body.admin-ui{
+  --admin-navy:#082544;
+  --admin-navy-2:#0d3158;
+  --admin-blue:#1674e8;
+  --admin-blue-2:#2b82ed;
+  --admin-bg:#f4f7fb;
+  --admin-card:#ffffff;
+  --admin-border:#dce5ef;
+  --admin-text:#102a49;
+  --admin-muted:#6b7c91;
+  background:var(--admin-bg)!important;
+  color:var(--admin-text)!important;
+}
+
+/* Keep the admin shell visually stable and lightweight. */
+body.admin-ui .adminReferenceSidebar{
+  background:linear-gradient(180deg,#082544 0%,#06203d 100%)!important;
+  border-right:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:4px 0 22px rgba(7,31,57,.10)!important;
+  contain:layout paint style;
+}
+
+body.admin-ui .adminReferenceBrand{
+  min-height:108px!important;
+  padding:20px 14px 18px!important;
+  border-bottom:1px solid rgba(255,255,255,.10)!important;
+}
+
+body.admin-ui .adminReferenceBrand img{
+  width:48px!important;
+  height:48px!important;
+  background:#fff!important;
+  border:0!important;
+  box-shadow:0 3px 12px rgba(0,0,0,.18)!important;
+}
+
+body.admin-ui .adminReferenceBrandTitle{
+  font-size:18px!important;
+  line-height:1.08!important;
+  letter-spacing:.2px!important;
+}
+
+body.admin-ui .adminReferenceBrandSub{
+  font-size:11px!important;
+  margin-top:6px!important;
+  color:rgba(255,255,255,.68)!important;
+}
+
+body.admin-ui .adminReferenceNav{
+  padding:18px 10px!important;
+  gap:7px!important;
+}
+
+body.admin-ui .adminReferenceNav button{
+  min-height:47px!important;
+  border-radius:10px!important;
+  color:#eaf2fc!important;
+  transition:background .14s ease,transform .14s ease!important;
+}
+
+body.admin-ui .adminReferenceNav button:hover:not(.active){
+  background:rgba(255,255,255,.075)!important;
+  transform:translateX(1px)!important;
+}
+
+body.admin-ui .adminReferenceNav button.active{
+  background:linear-gradient(90deg,#1674e8,#2a83ed)!important;
+  box-shadow:0 6px 14px rgba(0,91,190,.20)!important;
+}
+
+body.admin-ui .adminReferenceBottom{
+  padding:12px 10px 14px!important;
+  border-top:1px solid rgba(255,255,255,.10)!important;
+}
+
+body.admin-ui .adminReferenceAdminCard{
+  padding:10px!important;
+  border-color:rgba(255,255,255,.25)!important;
+  border-radius:11px!important;
+  background:rgba(255,255,255,.045)!important;
+}
+
+/* Top header */
+body.admin-ui > .header{
+  background:rgba(255,255,255,.97)!important;
+  border-bottom:1px solid #dce5ef!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.07)!important;
+  backdrop-filter:none!important;
+}
+
+body.admin-ui > .header #adminHeaderLogout,
+body.admin-ui > .header #openHoaDevConsole{
+  min-height:38px!important;
+  border-radius:9px!important;
+  font-weight:850!important;
+  box-shadow:none!important;
+}
+
+body.admin-ui > .header #openHoaDevConsole{
+  border:1px solid #d8e2ed!important;
+  background:#fff!important;
+  color:#173f6b!important;
+}
+
+body.admin-ui > .header #adminHeaderLogout{
+  border:1px solid #d8e2ed!important;
+  background:#fff!important;
+  color:#173f6b!important;
+}
+
+/* Main workspace */
+body.admin-ui .adminReferenceMain{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(41,124,230,.045),transparent 28%),
+    var(--admin-bg)!important;
+  padding-bottom:40px!important;
+}
+
+body.admin-ui .adminReferenceMain > #adminOnlyDashboard{
+  max-width:1380px!important;
+}
+
+/* Dashboard title/refresh strip */
+body.admin-ui .adminReferenceMain #adminOnlyDashboard > .dashPanel:first-of-type{
+  min-height:86px!important;
+  padding:17px 20px!important;
+  border-radius:14px!important;
+  border:1px solid var(--admin-border)!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.055)!important;
+}
+
+/* Navigation is already relocated to sidebar; keep the original hidden. */
+body.admin-ui .adminReferenceMain #adminOnlyDashboard > .adminSectionNav{
+  display:none!important;
+}
+
+/* Content cards */
+body.admin-ui .adminReferenceMain .dashPanel,
+body.admin-ui .adminReferenceMain .testWisePanel{
+  border:1px solid var(--admin-border)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.052)!important;
+  contain:layout paint style;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel{
+  padding:18px!important;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel > h3:first-child{
+  font-size:19px!important;
+  line-height:1.25!important;
+  margin-bottom:7px!important;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel > p{
+  color:var(--admin-muted)!important;
+  line-height:1.5!important;
+}
+
+/* Candidate sections */
+body.admin-ui .adminReferenceMain .candidateAdminSection{
+  margin-top:15px!important;
+  padding-top:2px!important;
+}
+
+body.admin-ui .adminReferenceMain .candidateAdminSection + .candidateAdminSection{
+  margin-top:18px!important;
+  border-top:1px solid #e5ebf2!important;
+  padding-top:18px!important;
+}
+
+body.admin-ui .adminReferenceMain .candidateAdminSection h4{
+  font-size:16px!important;
+  letter-spacing:.05px!important;
+}
+
+/* Candidate rows generated dynamically */
+body.admin-ui .adminReferenceMain .studentItem,
+body.admin-ui .adminReferenceMain .candidateItem,
+body.admin-ui .adminReferenceMain .testItem{
+  border:1px solid #dce5ef!important;
+  border-radius:11px!important;
+  background:#fff!important;
+  box-shadow:none!important;
+  transition:border-color .14s ease,box-shadow .14s ease,transform .14s ease!important;
+}
+
+body.admin-ui .adminReferenceMain .studentItem:hover,
+body.admin-ui .adminReferenceMain .candidateItem:hover,
+body.admin-ui .adminReferenceMain .testItem:hover{
+  border-color:#bfd2e6!important;
+  box-shadow:0 5px 14px rgba(15,39,68,.055)!important;
+  transform:translateY(-1px)!important;
+}
+
+/* Inputs and action buttons */
+body.admin-ui .adminReferenceMain input,
+body.admin-ui .adminReferenceMain select,
+body.admin-ui .adminReferenceMain textarea{
+  border-color:#cfdbe8!important;
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+body.admin-ui .adminReferenceMain input:focus,
+body.admin-ui .adminReferenceMain select:focus,
+body.admin-ui .adminReferenceMain textarea:focus{
+  outline:none!important;
+  border-color:#3d82d3!important;
+  box-shadow:0 0 0 3px rgba(61,130,211,.10)!important;
+}
+
+body.admin-ui .adminReferenceMain button{
+  touch-action:manipulation;
+}
+
+body.admin-ui .adminReferenceMain button.primary,
+body.admin-ui .adminReferenceMain button.btn-primary{
+  border-radius:9px!important;
+  background:linear-gradient(180deg,#1b5b93,#123f6b)!important;
+  border-color:#123f6b!important;
+  box-shadow:0 4px 10px rgba(18,63,107,.13)!important;
+}
+
+body.admin-ui .adminReferenceMain button.secondary,
+body.admin-ui .adminReferenceMain button.btn.secondary{
+  border-radius:9px!important;
+  background:#fff!important;
+}
+
+/* Poster Management */
+body.admin-ui .adminReferenceMain .hoa-v59-admin{
+  margin-top:16px!important;
+  padding:18px!important;
+  border:1px solid var(--admin-border)!important;
+  border-radius:14px!important;
+  background:#fff!important;
+  box-shadow:0 5px 18px rgba(15,39,68,.052)!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-admin input{
+  min-height:43px!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-admin button{
+  min-height:43px!important;
+  padding:0 13px!important;
+  border-radius:9px!important;
+  font-weight:800!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-list{
+  border:1px solid #e1e8f0!important;
+  border-radius:10px!important;
+  overflow:hidden!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-list th{
+  background:#f7f9fc!important;
+  color:#52657b!important;
+  font-size:11px!important;
+  text-transform:uppercase!important;
+  letter-spacing:.04em!important;
+}
+
+body.admin-ui .adminReferenceMain .hoa-v59-list th,
+body.admin-ui .adminReferenceMain .hoa-v59-list td{
+  padding:10px 11px!important;
+  border-bottom:1px solid #e8edf3!important;
+}
+
+/* Results cards */
+body.admin-ui .adminReferenceMain .adminResultCards{
+  gap:12px!important;
+}
+
+body.admin-ui .adminReferenceMain .adminResultCard{
+  min-height:96px!important;
+  padding:14px!important;
+  border-radius:12px!important;
+  box-shadow:none!important;
+}
+
+/* Performance: avoid expensive visual effects inside the admin workspace. */
+body.admin-ui .adminReferenceMain,
+body.admin-ui .adminReferenceMain *{
+  -webkit-tap-highlight-color:transparent;
+}
+
+body.admin-ui .adminReferenceMain *{
+  backdrop-filter:none!important;
+}
+
+body.admin-ui .adminReferenceMain .dashPanel,
+body.admin-ui .adminReferenceMain .candidateItem,
+body.admin-ui .adminReferenceMain .studentItem,
+body.admin-ui .adminReferenceMain .testItem{
+  will-change:auto!important;
+}
+
+/* Mobile admin workspace */
+@media(max-width:768px){
+  body.admin-ui .adminReferenceMain{
+    padding:74px 10px calc(80px + env(safe-area-inset-bottom))!important;
+  }
+
+  body.admin-ui .adminReferenceMain #adminOnlyDashboard > .dashPanel:first-of-type{
+    min-height:74px!important;
+    padding:14px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .dashPanel{
+    padding:14px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-admin{
+    padding:14px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-admin > div:first-of-type{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    gap:8px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-admin input,
+  body.admin-ui .adminReferenceMain .hoa-v59-admin button{
+    width:100%!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-list{
+    display:block!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch!important;
+  }
+
+  body.admin-ui .adminReferenceMain .hoa-v59-list table{
+    min-width:620px!important;
+  }
+}
+
+@media(max-width:600px){
+  body.admin-ui .adminReferenceMain{
+    padding-left:8px!important;
+    padding-right:8px!important;
+  }
+
+  body.admin-ui .adminReferenceMain .adminSectionPanel.active{
+    width:100%!important;
+  }
+
+  body.admin-ui .adminReferenceMain .candidateAdminSection{
+    overflow:hidden!important;
+  }
+
+  body.admin-ui .adminReferenceMain .studentItem,
+  body.admin-ui .adminReferenceMain .candidateItem{
+    width:100%!important;
+    overflow:hidden!important;
+  }
+
+  body.admin-ui .adminReferenceMain .adminResultCards{
+    grid-template-columns:1fr!important;
+  }
+}
+
+/* Respect accessibility without sacrificing the normal fast UI. */
+@media(prefers-reduced-motion:reduce){
+  body.admin-ui .adminReferenceMain *,
+  body.admin-ui .adminReferenceSidebar *{
+    transition:none!important;
+    animation:none!important;
+  }
+}

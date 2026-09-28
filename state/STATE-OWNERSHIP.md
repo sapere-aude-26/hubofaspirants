@@ -1,0 +1,11 @@
+# Final State Ownership
+- Global runtime: Core
+- Navigation/view: Navigation
+- Identity/session: Authentication V3
+- Free/Paid auth consumption: Student Auth V4
+- Exam attempt: Exam Engine V5
+- Result: Result V6
+- Admin authorization/workflows: Admin V7
+- Developer diagnostics: Developer V8
+- Footer contract: Footer V9
+- Header contract: Header V10

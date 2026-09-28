@@ -1,0 +1,155 @@
+
+/* =========================================================
+   HOA V6.0.4 — ADMIN DASHBOARD SMOOTH TRANSITION POLISH
+   Visual/interaction layer only. Existing functionality,
+   permissions, data and routes remain unchanged.
+   ========================================================= */
+
+/* Global admin motion */
+body.admin-ui #adminOnlyDashboard,
+body.admin-ui #adminOnlyDashboard *{
+  -webkit-tap-highlight-color:transparent;
+}
+
+body.admin-ui #adminOnlyDashboard button,
+body.admin-ui #adminOnlyDashboard a,
+body.admin-ui #adminOnlyDashboard input,
+body.admin-ui #adminOnlyDashboard select,
+body.admin-ui #adminOnlyDashboard textarea{
+  transition:
+    background-color .20s ease,
+    border-color .20s ease,
+    color .20s ease,
+    box-shadow .20s ease,
+    transform .20s ease,
+    opacity .20s ease;
+}
+
+/* Navigation feels like a single polished control */
+body.admin-ui #adminOnlyDashboard .adminSectionNav{
+  transition:box-shadow .25s ease, transform .25s ease!important;
+}
+
+body.admin-ui #adminOnlyDashboard .adminSectionNav button{
+  transform:translateZ(0);
+  will-change:background-color,box-shadow,transform;
+}
+
+body.admin-ui #adminOnlyDashboard .adminSectionNav button:not(.active):hover{
+  transform:translateY(-1px);
+}
+
+body.admin-ui #adminOnlyDashboard .adminSectionNav button.active{
+  transform:translateY(0) scale(1.005);
+}
+
+/* Section panels: prevent harsh appearance/disappearance */
+body.admin-ui #adminOnlyDashboard .adminSectionPanel{
+  opacity:1;
+  transform:translateY(0);
+  will-change:opacity,transform;
+}
+
+/* Elements that are toggled through display:none are given a
+   short entry animation when they become visible. */
+@keyframes hoaAdminSectionEnter{
+  from{
+    opacity:0;
+    transform:translateY(7px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes hoaAdminCardEnter{
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+body.admin-ui #adminOnlyDashboard .adminSectionPanel[style*="display: block"],
+body.admin-ui #adminOnlyDashboard .adminSectionPanel[style*="display:block"]{
+  animation:hoaAdminSectionEnter .26s cubic-bezier(.22,.61,.36,1) both;
+}
+
+body.admin-ui #adminOnlyDashboard .hoa-admin-content-panel,
+body.admin-ui #adminOnlyDashboard .dashPanel{
+  transition:
+    box-shadow .25s ease,
+    border-color .25s ease,
+    transform .25s ease;
+}
+
+body.admin-ui #adminOnlyDashboard .hoa-admin-content-panel:hover{
+  box-shadow:0 10px 28px rgba(11,59,115,.09)!important;
+}
+
+/* Cards/lists settle in softly without excessive movement */
+body.admin-ui #adminOnlyDashboard .hoa-admin-list > *,
+body.admin-ui #adminOnlyDashboard table tbody tr{
+  transition:
+    background-color .18s ease,
+    box-shadow .18s ease,
+    transform .18s ease;
+}
+
+body.admin-ui #adminOnlyDashboard .hoa-admin-list > *:hover{
+  transform:translateY(-1px);
+}
+
+/* Modal/overlay polish where existing modal classes are used */
+body.admin-ui .modal,
+body.admin-ui .modal-overlay,
+body.admin-ui .hoa-modal,
+body.admin-ui .admin-modal,
+body.admin-ui .overlay{
+  transition:opacity .22s ease, visibility .22s ease, background-color .22s ease!important;
+}
+
+body.admin-ui .modal > *,
+body.admin-ui .hoa-modal > *,
+body.admin-ui .admin-modal > *{
+  transition:transform .24s cubic-bezier(.22,.61,.36,1), opacity .22s ease!important;
+}
+
+/* Buttons get a subtle press response */
+body.admin-ui #adminOnlyDashboard button:active{
+  transform:scale(.985);
+}
+
+/* Gold focus transition */
+body.admin-ui #adminOnlyDashboard input:focus,
+body.admin-ui #adminOnlyDashboard select:focus,
+body.admin-ui #adminOnlyDashboard textarea:focus{
+  transition:
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background-color .18s ease!important;
+}
+
+/* Toasts/alerts, if present */
+body.admin-ui .toast,
+body.admin-ui .notice,
+body.admin-ui .alert,
+body.admin-ui .snackbar{
+  animation:hoaAdminCardEnter .22s ease both;
+}
+
+/* Respect accessibility preference */
+@media (prefers-reduced-motion:reduce){
+  body.admin-ui #adminOnlyDashboard *,
+  body.admin-ui #adminOnlyDashboard *::before,
+  body.admin-ui #adminOnlyDashboard *::after{
+    animation-duration:.001ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.001ms!important;
+    scroll-behavior:auto!important;
+  }
+}

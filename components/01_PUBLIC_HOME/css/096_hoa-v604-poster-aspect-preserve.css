@@ -1,0 +1,37 @@
+
+/* HOA V6.0.4 — preserve uploaded poster proportions.
+   The poster is never stretched or squeezed. The small surrounding
+   frame gap is retained, while the image keeps its natural ratio. */
+#hoaFrontPage .hoa-front-poster,
+#hoaFrontPage .hoa-poster-card,
+#hoaFrontPage .poster-card{
+  overflow:hidden !important;
+}
+
+#hoaFrontPage .hoa-front-poster img,
+#hoaFrontPage .hoa-poster-card img,
+#hoaFrontPage .poster-card img{
+  display:block !important;
+  width:100% !important;
+  height:auto !important;
+  max-width:100% !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  aspect-ratio:auto !important;
+}
+
+/* If the poster is wrapped by a media frame, let the frame follow
+   the image instead of forcing a fixed-height crop. */
+#hoaFrontPage .hoa-front-poster-media,
+#hoaFrontPage .hoa-poster-media,
+#hoaFrontPage .poster-media{
+  height:auto !important;
+  min-height:0 !important;
+  aspect-ratio:auto !important;
+}
+
+/* Keep the requested very small edge gap without altering the artwork. */
+#hoaFrontPage .hoa-front-poster{
+  padding:3px !important;
+  box-sizing:border-box !important;
+}

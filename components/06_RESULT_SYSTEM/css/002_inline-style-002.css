@@ -1,0 +1,38 @@
+
+/* V5.3 Results & Performance */
+.hoa-performance-panel{
+  margin:16px 0;
+  padding:18px;
+  border:1px solid rgba(0,0,0,.10);
+  border-radius:14px;
+  background:rgba(255,255,255,.96);
+}
+.hoa-performance-title{
+  font-size:18px;
+  font-weight:700;
+  margin-bottom:14px;
+}
+.hoa-performance-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;
+}
+.hoa-performance-grid>div{
+  padding:12px;
+  border:1px solid rgba(0,0,0,.08);
+  border-radius:10px;
+  text-align:center;
+}
+.hoa-performance-grid strong{
+  display:block;
+  font-size:20px;
+}
+.hoa-performance-grid span{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+  opacity:.72;
+}
+@media (max-width:600px){
+  .hoa-performance-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}

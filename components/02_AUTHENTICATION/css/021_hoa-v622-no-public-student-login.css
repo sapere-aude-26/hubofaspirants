@@ -1,0 +1,7 @@
+
+/* V6.0.123 — Student Login is accessed from the dedicated Page-2 portal only.
+   It is intentionally absent from the public front-page navigation/hero. */
+#hoaFrontPage .hoa-front-cta[onclick*="hoaOpenLogin('login')"],
+#hoaFrontPage .hoa-front-cta[onclick*="hoaOpenLogin(&quot;login&quot;)"]{
+  display:none !important;
+}

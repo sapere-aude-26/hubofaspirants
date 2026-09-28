@@ -1,0 +1,67 @@
+<section class="hidden" id="result">
+<div class="resultSingleWindow">
+<div class="resultHeader">
+<div>
+<div class="resultEyebrow">TEST RESULT</div>
+<h1 id="resultTitle">Test Completed</h1>
+<div class="resultScoreLine">
+<span id="score"></span>
+<span class="resultDivider">•</span>
+<span id="percentage"></span>
+</div>
+<div class="resultStatusRow">
+<span class="resultStatusPill">✓ TEST SUBMITTED</span>
+<span class="resultStatusText">Your examination has been successfully submitted.</span>
+</div>
+<div class="resultInfoGrid resultInfoGridFive">
+<div class="resultInfoItem resultMetricMarks">
+<span>MARKS OBTAINED</span><b id="resultMarksInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricCorrect">
+<span>CORRECT</span><b id="resultCorrectInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricWrong">
+<span>WRONG</span><b id="resultWrongInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricSkipped">
+<span>SKIPPED</span><b id="resultSkippedInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricTime">
+<span>TIME TAKEN</span><b id="resultTimeInfo">—</b>
+</div>
+</div>
+</div>
+<button class="secondary resultBackBtn" id="resultBackBtn" onclick="returnToStudentDashboard()" type="button">← BACK TO DASHBOARD</button>
+</div>
+<div class="reviewHeading">
+<div>
+<div class="reviewEyebrow">PERFORMANCE REVIEW</div>
+<h3>Answer Review</h3>
+<p>Review your answers and see the correct answer for every question.</p>
+</div>
+<div class="reviewSummary" id="reviewSummary">—</div>
+</div>
+<div class="reviewLayout">
+<aside class="reviewNavCard">
+<h4>Questions</h4>
+<div class="reviewPalette" id="reviewPalette"></div>
+<div class="reviewLegend">
+          🟢 Correct answer<br/>
+          🔴 Your wrong answer<br/>
+          ⚪ Not answered
+        </div>
+</aside>
+<div class="reviewQuestionCard">
+<div class="reviewQuestionNo" id="reviewQuestionNo"></div>
+<div class="reviewQuestionText" id="reviewQuestionText"></div>
+<div id="reviewOptions"></div>
+<div class="reviewStatus" id="reviewStatus"></div>
+<div class="reviewExplanation" id="reviewExplanation"></div>
+<div class="reviewBottomNav">
+<button onclick="previousReviewQuestion()" type="button">← Previous</button>
+<button onclick="nextReviewQuestion()" type="button">Next →</button>
+</div>
+</div>
+</div>
+</div>
+</section>

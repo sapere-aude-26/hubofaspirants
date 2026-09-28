@@ -1,0 +1,4 @@
+
+.resultActions{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.resultActions .hoa-v58-main-delete{border:1px solid #c53b3b;background:#fff5f5;color:#b42318;font-weight:800}
+.resultActions .hoa-v58-main-delete:hover{background:#fee2e2}

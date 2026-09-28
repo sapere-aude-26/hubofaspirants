@@ -1,0 +1,10 @@
+
+/* V6.0.123 — Student Login is intentionally not shown in the public header bar. */
+.hoa-front-header a[aria-label="Student Login"],
+.hoa-front-header button[aria-label="Student Login"],
+.hoa-front-header a[title="Student Login"],
+.hoa-front-header button[title="Student Login"],
+.publicHeader a[aria-label="Student Login"],
+.publicHeader button[aria-label="Student Login"]{
+  display:none !important;
+}

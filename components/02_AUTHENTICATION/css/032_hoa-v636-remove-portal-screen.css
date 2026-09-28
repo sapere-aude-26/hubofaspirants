@@ -1,0 +1,9 @@
+
+/* V6.0.123 — definitive removal of the intermediate portal-selection UI. */
+#hoaLoginChoiceView { display:none !important; }
+body.hoa-public-portal #hoaLoginPage { display:none !important; }
+body.hoa-public-portal #hoaFrontPage { display:block !important; }
+body.hoa-public-portal #hoaStudentPortalPanel,
+body.hoa-public-portal #hoaAdminPortalPanel { display:none !important; }
+/* No portal-selection copy should be visible anywhere in the login shell. */
+.hoa-login-back { display:none !important; }

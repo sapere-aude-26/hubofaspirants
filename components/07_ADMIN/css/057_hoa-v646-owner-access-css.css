@@ -1,0 +1,13 @@
+
+#hoaV646OwnerAccessBanner{
+  display:block;margin:0 0 16px;padding:16px 18px;border-radius:14px;
+  border:1px solid #bfdbfe;background:linear-gradient(135deg,#eff6ff,#f8fbff);
+  box-shadow:0 5px 18px rgba(30,64,175,.08);
+}
+#hoaV646OwnerAccessBanner strong{display:block;color:#123f73;font-size:14px;letter-spacing:.4px}
+#hoaV646OwnerAccessBanner span{display:block;margin:5px 0 12px;color:#52677c;font-size:12px;line-height:1.5}
+#hoaV646OwnerAccessBanner button{
+  border:0;border-radius:9px;padding:9px 13px;background:#1d4ed8;color:#fff;
+  font-weight:800;font-size:11px;cursor:pointer;
+}
+body:not(.hoa-owner-mode) #hoaV646OwnerAccessBanner{display:none!important}

@@ -1,0 +1,133 @@
+<div class="hidden" id="studentOnlyDashboard" style="margin-top:20px">
+<style id="hoa-v653-paid-dashboard-branding">
+/* V6.0.53 — Fresh paid-student dashboard branding. Legacy branding patches removed. */
+#studentOnlyDashboard .paidStudentDashboardBrand{
+  width:100% !important;
+  min-height:128px !important;
+  margin:0 auto 18px !important;
+  padding:18px 28px !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:18px !important;
+  background:#fff !important;
+  border:1px solid #d8e3ef !important;
+  border-radius:16px !important;
+  box-shadow:0 5px 18px rgba(15,35,60,.06) !important;
+  text-align:center !important;
+}
+#studentOnlyDashboard .paidStudentDashboardBrandMark{
+  width:76px !important;
+  height:76px !important;
+  flex:0 0 76px !important;
+  display:grid !important;
+  place-items:center !important;
+}
+#studentOnlyDashboard .paidStudentDashboardBrandMark img{
+  width:76px !important;
+  height:76px !important;
+  display:block !important;
+  object-fit:contain !important;
+}
+#studentOnlyDashboard .paidStudentDashboardBrandText{
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-width:0 !important;
+  text-align:center !important;
+}
+#studentOnlyDashboard .paidStudentDashboardTitle{
+  color:#123b67 !important;
+  font-size:31px !important;
+  line-height:1.08 !important;
+  font-weight:850 !important;
+  letter-spacing:-.025em !important;
+  white-space:nowrap !important;
+  text-align:center !important;
+}
+#studentOnlyDashboard .paidStudentDashboardSubtitle{
+  margin-top:6px !important;
+  color:#718096 !important;
+  font-size:13px !important;
+  line-height:1.25 !important;
+  white-space:nowrap !important;
+  text-align:center !important;
+}
+@media(max-width:760px){
+  #studentOnlyDashboard .paidStudentDashboardBrand{
+    min-height:108px !important;
+    padding:14px 18px !important;
+    gap:12px !important;
+  }
+  #studentOnlyDashboard .paidStudentDashboardBrandMark,
+  #studentOnlyDashboard .paidStudentDashboardBrandMark img{
+    width:62px !important;
+    height:62px !important;
+    flex-basis:62px !important;
+  }
+  #studentOnlyDashboard .paidStudentDashboardTitle{font-size:24px !important;}
+  #studentOnlyDashboard .paidStudentDashboardSubtitle{font-size:11px !important;}
+}
+@media(max-width:480px){
+  #studentOnlyDashboard .paidStudentDashboardBrand{
+    min-height:96px !important;
+    padding:12px 10px !important;
+    gap:9px !important;
+  }
+  #studentOnlyDashboard .paidStudentDashboardBrandMark,
+  #studentOnlyDashboard .paidStudentDashboardBrandMark img{
+    width:52px !important;
+    height:52px !important;
+    flex-basis:52px !important;
+  }
+  #studentOnlyDashboard .paidStudentDashboardTitle{font-size:20px !important;}
+  #studentOnlyDashboard .paidStudentDashboardSubtitle{font-size:10px !important;}
+}
+</style>
+<div aria-label="HUB OF ASPIRANTS student dashboard" class="paidStudentDashboardBrand">
+<div class="paidStudentDashboardBrandMark"><img alt="HUB OF ASPIRANTS" id="studentDashboardLogo"/></div>
+<div class="paidStudentDashboardBrandText">
+<div class="paidStudentDashboardTitle">HUB OF ASPIRANTS</div>
+<div class="paidStudentDashboardSubtitle">Dream. Prepare. Conquer.</div>
+</div>
+</div>
+<div aria-label="Candidate dashboard sections" class="candidateSectionNav">
+<button class="active" id="candidateNavTest" onclick="showCandidateSection('test')">📝 Test Section</button>
+<button id="candidateNavResult" onclick="showCandidateSection('result')">📊 Result Section</button>
+</div>
+<div class="profileCard">
+<div class="avatar" id="avatar">S</div>
+<div class="profileInfo">
+<div class="profileNameText" id="profileName">Student</div>
+<div class="profileContact" id="profileEmail"></div>
+<div class="profileAcademic" id="profileAcademic"></div>
+</div>
+<div class="profileLabel">CANDIDATE</div>
+</div>
+<div class="candidateSectionPanel active" id="candidateSectionTestPanel">
+<div class="dashGrid">
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">▣</span><b id="dashTests">0</b><span>Available Tests</span></div>
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">✓</span><b id="dashAttempts">0</b><span>Tests Attempted</span></div>
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">★</span><b id="dashBest">0%</b><span>Best Score</span></div>
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">↗</span><b id="dashAvg">0%</b><span>Average Percentage</span></div>
+</div>
+<div class="dashPanel">
+<div class="studentPanelHeading"><div><h3>Available Mock Tests</h3><p>Choose a test below to begin your preparation.</p></div><span class="testCountBadge" id="availableTestsBadge">0 TESTS</span></div>
+<div id="studentTests"></div>
+</div>
+</div>
+<div class="candidateSectionPanel" id="candidateSectionResultPanel">
+<div class="dashPanel">
+<div class="studentPanelHeading">
+<div>
+<h3 style="margin-top:0">📊 Result Section</h3>
+<p style="font-size:13px;color:#64748b">All your attempted mock tests are listed below.</p>
+</div>
+<span class="testCountBadge" id="candidateResultsBadge">0 TESTS</span>
+</div>
+<div id="candidateResultsList"></div>
+</div>
+</div>
+</div>

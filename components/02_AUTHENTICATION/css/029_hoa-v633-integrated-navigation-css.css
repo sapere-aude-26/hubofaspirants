@@ -1,0 +1,42 @@
+
+/* V6.0.123 — one public/authenticated navigation lifecycle.
+   The V6.0.123 router owns browser history. */
+body.hoa-public-front > .header,
+body.hoa-public-portal > .header,
+body.hoa-public-auth > .header { display:none !important; }
+
+body.hoa-app-authenticated #hoaFrontPage,
+body.hoa-app-authenticated #hoaLoginPage { display:none !important; }
+
+body.hoa-app-authenticated #authScreen { display:none !important; }
+
+body.hoa-app-authenticated #home {
+  display:block !important;
+}
+
+body.hoa-app-authenticated #studentOnlyDashboard,
+body.hoa-app-authenticated #adminOnlyDashboard {
+  visibility:visible;
+}
+
+body.hoa-app-student #adminOnlyDashboard { display:none !important; }
+body.hoa-app-admin #studentOnlyDashboard { display:none !important; }
+
+body.hoa-public-auth.hoa-student-auth #hoaStudentLoginHost {
+  display:block !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost {
+  display:block !important;
+}
+
+body.hoa-public-auth.hoa-student-auth #hoaAdminLoginHost,
+body.hoa-public-auth.hoa-admin-auth #hoaStudentLoginHost {
+  display:none !important;
+}
+
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody[hidden] {
+  display:none !important;
+}
+body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody:not([hidden]) {
+  display:block !important;
+}

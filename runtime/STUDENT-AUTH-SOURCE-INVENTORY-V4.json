@@ -1,0 +1,11 @@
+{
+  "student": 1802,
+  "free": 577,
+  "paid": 123,
+  "portal": 214,
+  "application": 26,
+  "hoaOpenLogin": 7,
+  "hoaSignOut": 0,
+  "session": 75,
+  "authenticated": 59
+}

@@ -1,0 +1,42 @@
+
+/* V6.0.123 — Admin content-management workspace */
+body.admin-ui .hoa-admin-content-panel{padding:20px!important}
+body.admin-ui .hoa-admin-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px}
+body.admin-ui .hoa-admin-section-head h3{margin:0 0 5px!important;color:#123b67!important;font-size:19px!important}
+body.admin-ui .hoa-admin-section-head p{margin:0!important;color:#718096!important;font-size:12.5px!important;line-height:1.5!important}
+body.admin-ui .hoa-admin-count{min-width:34px;height:28px;padding:0 9px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;background:#edf4ff;color:#175aa3;font-size:12px;font-weight:850}
+body.admin-ui .hoa-admin-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+body.admin-ui .hoa-admin-form-grid label{display:flex;flex-direction:column;gap:6px;color:#334155;font-size:12px;font-weight:800}
+body.admin-ui .hoa-admin-form-grid .hoa-admin-wide{grid-column:1/-1}
+body.admin-ui .hoa-admin-form-grid input,
+body.admin-ui .hoa-admin-form-grid select,
+body.admin-ui .hoa-admin-form-grid textarea{width:100%;min-height:42px;padding:10px 11px;border:1px solid #cfdbe8;border-radius:9px;background:#fff;color:#172033;box-sizing:border-box}
+body.admin-ui .hoa-admin-form-grid textarea{resize:vertical;min-height:78px}
+body.admin-ui .hoa-admin-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:14px}
+body.admin-ui .hoa-admin-actions button{min-height:42px;padding:0 13px}
+body.admin-ui .hoa-admin-actions span{font-size:12px;color:#64748b}
+body.admin-ui .hoa-admin-list{margin-top:18px;border:1px solid #e0e7ef;border-radius:11px;overflow:auto;background:#fff}
+body.admin-ui .hoa-admin-list table{width:100%;border-collapse:collapse;min-width:720px}
+body.admin-ui .hoa-admin-list th{padding:10px 11px;text-align:left;background:#f7f9fc;color:#607287;font-size:10px;text-transform:uppercase;letter-spacing:.05em;white-space:nowrap}
+body.admin-ui .hoa-admin-list td{padding:11px;border-top:1px solid #e8edf3;color:#263c56;font-size:12px;vertical-align:middle}
+body.admin-ui .hoa-admin-list tr:hover td{background:#fbfdff}
+body.admin-ui .hoa-admin-row-actions{display:flex;gap:6px;flex-wrap:wrap}
+body.admin-ui .hoa-admin-row-actions button{min-height:32px;padding:0 9px;border-radius:7px;border:1px solid #d6e0ea;background:#fff;color:#173f6b;font-weight:800;font-size:11px}
+body.admin-ui .hoa-admin-row-actions button.danger{color:#b42318;border-color:#f1c5c0}
+body.admin-ui .hoa-admin-empty{padding:28px 16px;text-align:center;color:#8a99aa;font-size:12px}
+body.admin-ui #adminReferenceSidebar .adminReferenceNav{overflow-y:auto;scrollbar-width:thin}
+body.admin-ui #adminReferenceSidebar .adminReferenceNav button{font-size:12px!important}
+body:not(.admin-ui) #adminReferenceSidebar #adminNavCourse,
+body:not(.admin-ui) #adminReferenceSidebar #adminNavVideo,
+body:not(.admin-ui) #adminReferenceSidebar #adminNavNotes,
+body:not(.admin-ui) #adminReferenceSidebar #adminNavAccess{display:none!important}
+body:not(.admin-ui) #adminNavCourse,
+body:not(.admin-ui) #adminNavVideo,
+body:not(.admin-ui) #adminNavNotes,
+body:not(.admin-ui) #adminNavAccess{display:none!important}
+@media(max-width:760px){
+  body.admin-ui .hoa-admin-form-grid{grid-template-columns:1fr}
+  body.admin-ui .hoa-admin-form-grid .hoa-admin-wide{grid-column:auto}
+  body.admin-ui .hoa-admin-section-head{align-items:flex-start}
+  body.admin-ui .hoa-admin-content-panel{padding:14px!important}
+}

@@ -1,0 +1,31 @@
+{
+  "stage": "V2",
+  "migration": "Core + Navigation",
+  "mode": "compatibility_only",
+  "production_runtime_switched": false,
+  "baseline": {
+    "bytes": 1751721,
+    "sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f"
+  },
+  "delegated_functions": [
+    "hoaShowFrontPage",
+    "hoaOpenPortal",
+    "hoaOpenLogin"
+  ],
+  "protected_footer": [
+    "hoaGlobalPublicFooter",
+    "hoaFrontSocialFooter",
+    "hoaProfessionalFooter",
+    "hoaV653ConnectWrap"
+  ],
+  "unchanged": [
+    "Supabase",
+    "authentication",
+    "footer",
+    "header",
+    "exam",
+    "result",
+    "admin"
+  ],
+  "rollback": "PRODUCTION_BASELINE/index.html"
+}

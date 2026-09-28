@@ -1,0 +1,37 @@
+{
+  "stage": "V3",
+  "migration": "Authentication integration",
+  "mode": "compatibility_only",
+  "production_runtime_switched": false,
+  "baseline": {
+    "bytes": 1751721,
+    "sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f"
+  },
+  "delegates_to_existing": [
+    "hoaOpenLogin"
+  ],
+  "optional_existing_hooks": [
+    "hoaSignOut",
+    "hoaLogout",
+    "signOut",
+    "logout",
+    "hoaOnAuthStateChange"
+  ],
+  "shared_state_selectors": [
+    ".hoa-app-authenticated",
+    ".hoa-student-auth",
+    ".hoa-admin-auth"
+  ],
+  "critical_rule": "Never initialize a second Supabase auth client or duplicate onAuthStateChange listener.",
+  "unchanged": [
+    "Supabase client initialization",
+    "existing login implementation",
+    "existing session lifecycle",
+    "footer",
+    "header",
+    "exam engine",
+    "result system",
+    "admin workflows"
+  ],
+  "rollback": "PRODUCTION_BASELINE/index.html"
+}
