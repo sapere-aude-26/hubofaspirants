@@ -1,0 +1,221 @@
+{
+  "release": "HOA_COMPONENTIZED_V12_FINAL",
+  "baseline": {
+    "bytes": 1751721,
+    "sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f"
+  },
+  "production_switch": false,
+  "components": {
+    "01-core-shared": {
+      "name": "Core / Shared System",
+      "runtime": "hoa-core-runtime-v2.js",
+      "owns": [
+        "shared runtime state",
+        "Supabase infrastructure contract",
+        "startup orchestration"
+      ],
+      "consumes": [
+        "browser/document state"
+      ],
+      "controls": [
+        "application shell transition",
+        "shared infrastructure availability"
+      ]
+    },
+    "02-navigation": {
+      "name": "Navigation",
+      "runtime": "hoa-navigation-runtime-v2.js",
+      "owns": [
+        "navigation/state transition contract"
+      ],
+      "consumes": [
+        "Core",
+        "Authentication state"
+      ],
+      "controls": [
+        "public/protected view transitions"
+      ]
+    },
+    "03-authentication": {
+      "name": "Authentication",
+      "runtime": "hoa-auth-runtime-v3.js",
+      "owns": [
+        "session restoration",
+        "authentication state"
+      ],
+      "consumes": [
+        "Core/Supabase infrastructure"
+      ],
+      "controls": [
+        "authentication-dependent consumers"
+      ]
+    },
+    "04-student-auth": {
+      "name": "Student Authentication Bridge",
+      "runtime": "hoa-student-auth-bridge-v4.js",
+      "owns": [
+        "student-session bridge"
+      ],
+      "consumes": [
+        "Authentication"
+      ],
+      "controls": [
+        "student-facing authenticated state"
+      ]
+    },
+    "05-exam": {
+      "name": "Exam Engine",
+      "runtime": "hoa-exam-runtime-v5.js",
+      "owns": [
+        "exam/test runtime contract"
+      ],
+      "consumes": [
+        "Authentication",
+        "Student",
+        "content data"
+      ],
+      "controls": [
+        "exam execution"
+      ]
+    },
+    "06-result": {
+      "name": "Result System",
+      "runtime": "hoa-result-runtime-v6.js",
+      "owns": [
+        "result/attempt/history runtime contract"
+      ],
+      "consumes": [
+        "Authentication",
+        "Student",
+        "Exam"
+      ],
+      "controls": [
+        "result/history surfaces"
+      ]
+    },
+    "07-admin": {
+      "name": "Admin",
+      "runtime": "hoa-admin-runtime-v7.js",
+      "owns": [
+        "admin runtime"
+      ],
+      "consumes": [
+        "Authentication authorization state"
+      ],
+      "controls": [
+        "admin surfaces"
+      ]
+    },
+    "08-developer": {
+      "name": "Developer Console",
+      "runtime": "hoa-developer-runtime-v8.js",
+      "owns": [
+        "developer diagnostics/runtime controls"
+      ],
+      "consumes": [
+        "Core",
+        "Admin authorization where required"
+      ],
+      "controls": [
+        "developer console"
+      ]
+    },
+    "09-footer": {
+      "name": "Global Public Footer",
+      "runtime": "hoa-footer-runtime-v9.js",
+      "owns": [
+        "footer behavior contract"
+      ],
+      "protected_dom": [
+        "#hoaFrontSocialFooter",
+        "#hoaV653ConnectWrap",
+        "#hoaProfessionalFooter"
+      ],
+      "consumes": [
+        "navigation/public state"
+      ],
+      "controls": [
+        "footer presentation/native-bottom mechanisms"
+      ]
+    },
+    "10-header": {
+      "name": "Header",
+      "runtime": "hoa-header-runtime-v10.js",
+      "owns": [
+        "header behavior contract"
+      ],
+      "consumes": [
+        "Navigation",
+        "Authentication state"
+      ],
+      "controls": [
+        "header presentation/navigation"
+      ]
+    },
+    "11-regression": {
+      "name": "Regression / Compatibility",
+      "runtime": "hoa-regression-runtime-v11.js",
+      "owns": [
+        "backward-compatibility guards",
+        "regression checks"
+      ],
+      "consumes": [
+        "all established contracts"
+      ],
+      "controls": [
+        "compatibility protections"
+      ]
+    },
+    "12-release": {
+      "name": "Release Guard",
+      "runtime": "hoa-release-runtime-v12.js",
+      "owns": [
+        "release-time integrity checks"
+      ],
+      "consumes": [
+        "component manifest",
+        "protected contracts"
+      ],
+      "controls": [
+        "release validation"
+      ]
+    }
+  },
+  "load_order": [
+    "hoa-admin-runtime-v7.js",
+    "hoa-auth-bootstrap-v3.js",
+    "hoa-auth-runtime-v3.js",
+    "hoa-authentication-adapter-v4.js",
+    "hoa-component-bootstrap-v2.js",
+    "hoa-component-registry.js",
+    "hoa-component-runtime.js",
+    "hoa-core-navigation-adapter-v3.js",
+    "hoa-core-runtime-v2.js",
+    "hoa-developer-runtime-v8.js",
+    "hoa-exam-runtime-v5.js",
+    "hoa-footer-runtime-v9.js",
+    "hoa-free-student-portal-adapter-v6.js",
+    "hoa-header-runtime-v10.js",
+    "hoa-home-adapter-v5.js",
+    "hoa-navigation-runtime-v2.js",
+    "hoa-paid-student-application-adapter-v7.js",
+    "hoa-regression-runtime-v11.js",
+    "hoa-release-runtime-v12.js",
+    "hoa-result-runtime-v6.js",
+    "hoa-student-auth-bootstrap-v4.js",
+    "hoa-student-auth-bridge-v4.js"
+  ],
+  "protected_footer": [
+    "#hoaFrontSocialFooter",
+    "#hoaV653ConnectWrap",
+    "#hoaProfessionalFooter"
+  ],
+  "rules": [
+    "single Supabase infrastructure owner",
+    "single authentication owner",
+    "no duplicate footer DOM",
+    "no header redesign in this migration",
+    "production baseline retained for rollback",
+    "component runtimes load in dependency order"
+  ]
+}

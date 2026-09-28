@@ -1,0 +1,44 @@
+{
+  "checks": [
+    {
+      "name": "baseline size exact",
+      "pass": true
+    },
+    {
+      "name": "baseline SHA exact",
+      "pass": true
+    },
+    {
+      "name": "all runtime files exist",
+      "pass": true
+    },
+    {
+      "name": "load order has 12 runtimes",
+      "pass": true
+    },
+    {
+      "name": "protected footer strings in baseline",
+      "pass": true
+    },
+    {
+      "name": "no duplicate runtime filenames",
+      "pass": true
+    },
+    {
+      "name": "baseline copy exact",
+      "pass": true
+    },
+    {
+      "name": "duplicate IDs absent",
+      "pass": false
+    }
+  ],
+  "passed": 7,
+  "total": 8,
+  "duplicate_ids": {
+    "candidateResultsList": 2
+  },
+  "baseline_sha256": "680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f",
+  "production_modified": false,
+  "release_status": "CONDITIONAL_STAGING_RELEASE"
+}
