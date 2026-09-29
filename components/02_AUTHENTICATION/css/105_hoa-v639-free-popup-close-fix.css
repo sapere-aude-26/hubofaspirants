@@ -1,8 +1,0 @@
-
-/* V6.0.39 — Free Content popup close authority.
-   Later legacy V7/V70 code was overwriting window.hoaCloseFreeContent with a
-   different modal closer. The visible Free Content gate is V648, so its X
-   must always close V648 and restore the page state. */
-#hoaV648FreeContentModal.hoa-v619-visible.hoa-v639-closing{
-  display:none !important;
-}
