@@ -1,1 +1,0 @@
-(function(w){'use strict';w.HOA_RELEASE_V12={version:'RELEASE-V12',productionSwitch:false,baselineSha256:'680cdb11c83b7d6d0e7911443da994e95c2e5f97289b511e20250ca97406541f',baselineBytes:1751721,rollback:'../PRODUCTION_BASELINE/index.html'}})(window);
