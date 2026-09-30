@@ -1,0 +1,30 @@
+HUB OF ASPIRANTS — V6.0.8
+CSS Separation Build
+
+BASE:
+V6.0.7 Structural Stabilization
+
+CHANGES:
+1. Extracted all 126 HTML <style> blocks into css/hoa-v6.0.8.css in original order.
+2. Added a single stylesheet reference: css/hoa-v6.0.8.css.
+3. Kept inline style attributes unchanged.
+4. Kept CSS embedded inside JavaScript print/template strings unchanged because those are runtime-generated documents, not page stylesheet blocks.
+5. No feature workflow, Supabase operation, authentication flow, DOM structure or JavaScript implementation was intentionally changed.
+6. Assets remain in assets/ for the next separation steps.
+
+VALIDATION:
+- One doctype, html, head and body structure.
+- No <style> tags remain in index.html.
+- Actual parsed DOM duplicate IDs: 0. Generated template strings may contain repeated IDs intentionally because those fragments are not simultaneously mounted in the initial DOM.
+- CSS braces balanced.
+- Inline JavaScript syntax checked with Node.
+
+NEXT ARCHITECTURAL STEP:
+JavaScript separation should be performed incrementally after this CSS-separated build is confirmed working.
+
+Logo path correction (post-validation):
+- All static logo references now point to assets/hoa-logo.png.
+- Favicon type updated to image/png.
+- Added assets/hoa-logo.png so the deployment package is self-contained.
+- JavaScript logo fallback now uses assets/hoa-logo.png.
+- Verified /index.html, /css/hoa-v6.0.8.css and /assets/hoa-logo.png return HTTP 200 from a local web server.
