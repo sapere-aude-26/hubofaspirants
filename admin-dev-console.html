@@ -1,0 +1,505 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOA Developer Console V1.0.1</title>
+<style>
+:root{--bg:#060b14;--panel:#0c1524;--panel2:#101c30;--line:#243654;--text:#eef5ff;--muted:#91a3bd;--blue:#3275ed;--green:#20d9a0;--red:#ff6075;--yellow:#f1c75b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 15% 0,#142b50 0,#060b14 42%);color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+button,input,textarea{font:inherit}button{cursor:pointer;transition:background .12s,border-color .12s,transform .05s}button:active{transform:translateY(1px)}.hidden{display:none!important}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px}.login-card{width:min(450px,100%);background:rgba(12,21,36,.97);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:0 25px 90px #0009}
+.logo{width:96px;height:96px;border-radius:50%;object-fit:cover;border:2px solid #35557f;box-shadow:0 12px 35px #0007}
+h1{font-size:25px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5;margin:0 0 24px}
+.field{margin:13px 0}.field label{display:block;color:#aebdd3;font-size:11px;letter-spacing:.04em;margin-bottom:7px}.field input{width:100%;padding:13px;background:#08111f;color:var(--text);border:1px solid #2b3e5e;border-radius:10px;outline:0}.field input:focus{border-color:#4384f4;box-shadow:0 0 0 3px #3275ed22}
+.signin{width:100%;border:0;border-radius:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-weight:800;margin-top:7px}.signin:disabled{opacity:.55;cursor:not-allowed}
+.login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
+.appbar{height:60px;background:#091220ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:12px;padding:0 18px;position:sticky;top:0;z-index:20}.brand{font-weight:850}.pill{font-size:10px;border:1px solid #31527c;color:#a8bddc;padding:5px 8px;border-radius:999px;letter-spacing:.08em}.user{margin-left:auto;color:var(--muted);font-size:12px}.logout{background:#101b2d;border:1px solid var(--line);color:#dce8fa;border-radius:8px;padding:8px 11px}
+.shell{display:grid;grid-template-columns:235px minmax(0,1fr);min-height:calc(100vh - 60px)}aside{background:#08111e;border-right:1px solid var(--line);padding:13px}.section{color:#6f829f;font-size:10px;letter-spacing:.14em;margin:15px 5px 7px}.nav{display:grid;gap:6px}.nav button{width:100%;text-align:left;background:#0d192b;border:1px solid transparent;color:#d0dced;padding:10px;border-radius:8px}.nav button:hover,.nav button.active{background:#17345d;border-color:#315f9c;color:#fff}.nav button:disabled{opacity:.55;cursor:wait}
+main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:12px}.dashboard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 0 12px}.dashboard-title{font-size:17px;font-weight:850;margin:0 0 4px}.dashboard-subtitle{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.dashboard-actions{display:flex;gap:8px;flex-wrap:wrap}.card{min-height:78px;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}.card:hover{transform:translateY(-2px);border-color:#315f9c;box-shadow:0 10px 30px #0004}.card b{font-size:13px}.card{background:#0c1626;border:1px solid var(--line);border-radius:12px;padding:12px}.card span{display:block;color:var(--muted);font-size:10px}.card b{display:block;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
+.toolbar{display:grid;grid-template-columns:minmax(160px,1fr) auto minmax(180px,1fr) auto;gap:7px;margin-bottom:12px}.toolbar input{min-width:0;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px}.btn{border:1px solid #304562;background:#101d31;color:#dce8fa;border-radius:9px;padding:9px 12px}.btn.primary{background:#245eb4;border-color:#3a79d5;color:#fff;font-weight:750}.btn:disabled{opacity:.55;cursor:wait}
+.workspace{display:grid;grid-template-columns:minmax(230px,.65fr) minmax(0,1.55fr);gap:12px}.panel{background:#0c1626;border:1px solid var(--line);border-radius:12px;overflow:hidden}.panel-title{height:42px;padding:12px 13px;border-bottom:1px solid var(--line);font-weight:750;font-size:12px}.files{height:540px;overflow:auto}.file{padding:10px 12px;border-bottom:1px solid #17243a;color:#cbd7ea;cursor:pointer}.file:hover,.file.selected{background:#142844}.file small{float:right;color:#687b98}.editor{width:100%;height:540px;display:block;background:#060d18;color:#dce8fa;border:0;outline:0;padding:14px;resize:vertical;font:13px/1.55 Consolas,"Cascadia Code",monospace}
+.output{margin-top:12px}.output pre{margin:0;padding:13px;min-height:130px;max-height:330px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#b9c9df;font:12px/1.5 Consolas,monospace}
+.toast{position:fixed;right:18px;bottom:18px;background:#111d30;border:1px solid var(--line);padding:10px 13px;border-radius:10px;box-shadow:0 15px 40px #0008;z-index:50;max-width:420px}.toast.ok{border-color:#1f8f73}.toast.err{border-color:#a33b50}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-head{flex-direction:column}.dashboard-actions{width:100%}}
+@media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr auto}.workspace{grid-template-columns:1fr}}
+@media(max-width:700px){.shell{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.appbar{padding:0 10px}.brand{font-size:12px}.user{display:none}}
+
+.modal-backdrop{position:fixed;inset:0;background:#020611aa;backdrop-filter:blur(5px);z-index:100;display:grid;place-items:center;padding:18px}
+.modal{width:min(920px,100%);max-height:min(760px,92vh);overflow:hidden;background:#0b1525;border:1px solid #304666;border-radius:16px;box-shadow:0 30px 100px #000b}
+.modal-head{display:flex;align-items:center;gap:10px;padding:15px 17px;border-bottom:1px solid #263a58}
+.modal-head h2{font-size:15px;margin:0}.modal-head small{color:#7589a6}.modal-close{margin-left:auto;background:#111e32;border:1px solid #304562;color:#dce8fa;border-radius:8px;padding:7px 10px}
+.modal-body{padding:16px;overflow:auto;max-height:calc(92vh - 64px)}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.result-card{background:#08111f;border:1px solid #243754;border-radius:10px;padding:13px}.result-card .label{font-size:10px;color:#8194af;text-transform:uppercase;letter-spacing:.08em}.result-card .value{margin-top:6px;font-weight:800}.ok{color:#20d9a0}.bad{color:#ff6075}.warn{color:#f1c75b}
+.data-table{width:100%;border-collapse:collapse;font-size:12px}.data-table th,.data-table td{padding:10px;border-bottom:1px solid #20324c;text-align:left;vertical-align:top}.data-table th{color:#8da1bd;font-size:10px;text-transform:uppercase}.mono{font-family:Consolas,monospace;word-break:break-word}.modal-actions{display:flex;gap:8px;margin-top:14px;justify-content:flex-end}
+@media(max-width:650px){.result-grid{grid-template-columns:1fr}.modal{max-height:96vh}}
+</style>
+</head>
+<body>
+<section id="loginView" class="login-wrap">
+  <div class="login-card">
+    <img class="logo" src="hoa-logo.png" alt="HUB OF ASPIRANTS">
+    <h1>Developer Console</h1>
+    <p class="subtitle">Secure control center for the HUB OF ASPIRANTS web platform.</p>
+    <form id="loginForm">
+      <div class="field"><label>ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button id="signIn" class="signin" type="submit">Sign in</button>
+    </form>
+    <div id="loginStatus" class="login-status">Use your registered HOA Admin account.</div>
+  </div>
+</section>
+
+<section id="appView" class="hidden">
+<header class="appbar">
+  <div class="brand">HUB OF ASPIRANTS · Developer Console</div><span class="pill">V1.0.1 · PRODUCTION</span>
+  <span id="userEmail" class="user"></span><button id="logout" class="logout">Logout</button>
+</header>
+<div class="shell">
+<aside>
+  <div class="section">SYSTEM</div>
+  <div class="nav">
+    <button data-action="overview">System Overview</button>
+    <button data-action="status">Connection Status</button>
+    <button data-action="health">Supabase Health</button>
+    <button data-action="admins">Admin Accounts</button>
+  </div>
+  <div class="section">GITHUB</div>
+  <div class="nav">
+    <button data-action="list">Repository Files</button>
+    <button data-action="commits">Recent Commits</button>
+    <button data-action="pages">GitHub Pages</button>
+    <button data-action="runs">Deployments</button>
+  </div>
+  <div class="section">EDITOR</div>
+  <div class="nav">
+    <button id="clearEditor">New / Clear</button>
+    <button id="save" class="primary">Save & Commit</button>
+  </div>
+</aside>
+
+<main>
+  <div id="operationBar" style="display:none;margin-bottom:10px;padding:10px 12px;border:1px solid #31527c;background:#0d1c31;border-radius:9px;color:#bcd0ea;font-size:12px"></div>
+  <div class="dashboard-head">
+    <div><h2 class="dashboard-title">Infrastructure Overview</h2><p class="dashboard-subtitle">Supervise the HOA production stack from one place. Existing Supabase and GitHub controls are preserved; Cloudflare remains informational because the website is hosted by GitHub Pages.</p></div>
+    <div class="dashboard-actions"><button id="refreshOverview" class="btn primary">Refresh System Status</button></div>
+  </div>
+  <div class="cards">
+    <div class="card"><span>AUTHENTICATION</span><b id="authState">Checking…</b></div>
+    <div class="card"><span>ADMIN ACCESS</span><b id="adminState">Checking…</b></div>
+    <div class="card"><span>SUPABASE</span><b id="supabaseState">Checking…</b></div>
+    <div class="card"><span>GITHUB</span><b id="githubState">Checking…</b></div>
+    <div class="card"><span>GITHUB PAGES</span><b id="pagesState">Not checked</b></div>
+    <div class="card"><span>CLOUDFLARE</span><b id="cloudflareState">Not used</b></div>
+  </div>
+
+  <div class="toolbar">
+    <input id="path" placeholder="Repository path, e.g. index.html">
+    <button id="open" class="btn">Open</button>
+    <input id="commitMessage" value="Update from HOA Developer Console" placeholder="Commit message">
+    <button id="saveTop" class="btn primary">Save</button>
+  </div>
+
+  <div class="workspace">
+    <div class="panel"><div class="panel-title">Repository Files</div><div id="files" class="files">Click <b>Repository Files</b> to load GitHub files.</div></div>
+    <div class="panel"><div class="panel-title">Code Editor</div><textarea id="editor" class="editor" spellcheck="false" placeholder="Open a repository file to edit it."></textarea></div>
+  </div>
+
+  <div class="panel output"><div class="panel-title">Console Output</div><pre id="output">Ready.</pre></div>
+</main>
+</div>
+</section>
+<div id="toast" class="toast hidden"></div>
+<div id="modalRoot" class="hidden" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h2 id="modalTitle">Result</h2>
+        <small id="modalSubtitle"></small>
+        <button id="modalClose" class="modal-close" type="button">Close</button>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+"use strict";
+
+const SUPABASE_URL = "https://pnzhtiwwqiqnnkecogcc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Qwq-5g_j446D3fEyJn5MOg_p9y6JNBC";
+const FUNCTION_NAME = "admin-dev-console";
+const $ = id => document.getElementById(id);
+let sb = null;
+let currentPath = "";
+let busy = false;
+
+function output(value) {
+  $("output").textContent = typeof value === "string" ? value : JSON.stringify(value, null, 2);
+}
+function toast(message, good=false) {
+  const t=$("toast"); t.textContent=message; t.className="toast "+(good?"ok":"err");
+  clearTimeout(window.__toast); window.__toast=setTimeout(()=>t.className="toast hidden",3500);
+}
+function setLogin(message, error=false) {
+  $("loginStatus").textContent=message;
+  $("loginStatus").className="login-status"+(error?" error":" ok");
+}
+function setState(id,text,ok=true) {
+  const e=$(id); e.textContent=text; e.className=ok?"green":"red";
+}
+function init() {
+  if (!window.supabase || !window.supabase.createClient) throw new Error("Supabase library did not load.");
+  if (!sb) sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
+  return sb;
+}
+async function session() {
+  const {data,error}=await init().auth.getSession();
+  if(error) throw error;
+  if(!data.session) throw new Error("Your session has expired. Please sign in again.");
+  return data.session;
+}
+async function api(action, extra={}) {
+  const s=await session();
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),30000);
+  try {
+    const response=await fetch(`${SUPABASE_URL}/functions/v1/${FUNCTION_NAME}`,{
+      method:"POST",
+      signal:controller.signal,
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+s.access_token
+      },
+      body:JSON.stringify({action,...extra})
+    });
+    const raw=await response.text();
+    let data={};
+    try { data=raw?JSON.parse(raw):{}; } catch { data={raw}; }
+    if(!response.ok) {
+      throw new Error((data && data.error) || (data && data.message) || `Edge Function HTTP ${response.status}`);
+    }
+    if(data && data.error) throw new Error(data.error);
+    return data;
+  } catch(e) {
+    if(e.name==="AbortError") throw new Error("Request timed out after 30 seconds.");
+    throw e;
+  } finally { clearTimeout(timer); }
+}
+function setBusy(value, action="") {
+  busy=value;
+  if(value) output("Running "+action+"…");
+}
+async function signIn(ev) {
+  ev.preventDefault();
+  const button=$("signIn"); button.disabled=true; button.textContent="Signing in…"; setLogin("Authenticating…");
+  try {
+    const {error}=await init().auth.signInWithPassword({
+      email:$("email").value.trim(),password:$("password").value
+    });
+    if(error) throw error;
+    await showApp();
+    setLogin("Authenticated.",false);
+  } catch(e) {
+    setLogin(e.message || "Sign in failed.",true);
+  } finally { button.disabled=false; button.textContent="Sign in"; }
+}
+async function showApp() {
+  const {data,error}=await init().auth.getUser();
+  if(error || !data.user) throw new Error("Signed in, but the session could not be verified.");
+  $("userEmail").textContent=data.user.email||"";
+  $("loginView").classList.add("hidden"); $("appView").classList.remove("hidden");
+  // Show the dashboard immediately. Diagnostics and GitHub data are on-demand.
+  setState("authState","Connected",true);
+  setState("adminState","Authorized",true);
+  setState("supabaseState","Connected",true);
+  setState("githubState","Not checked",true);
+  output("Ready. Select an operation when needed.");
+}
+function openModal(title, subtitle="", body="") {
+  $("modalTitle").textContent=title;
+  $("modalSubtitle").textContent=subtitle;
+  $("modalBody").innerHTML=body;
+  $("modalRoot").classList.remove("hidden"); $("modalRoot").setAttribute("aria-hidden","false");
+}
+function closeModal(){ $("modalRoot").classList.add("hidden"); $("modalRoot").setAttribute("aria-hidden","true"); }
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function statusCard(label,value,ok=true){
+  return `<div class="result-card"><div class="label">${esc(label)}</div><div class="value ${ok?"ok":"bad"}">${esc(value)}</div></div>`;
+}
+function renderResult(action,d){
+  if(action==="overview"){
+    openModal("Infrastructure Overview","Live HOA production check",`
+      <div class="result-grid">
+        ${statusCard("Authentication",d.auth?"Connected":"Failed",!!d.auth)}
+        ${statusCard("Admin Access",d.admin?"Authorized":"Denied",!!d.admin)}
+        ${statusCard("Supabase","Connected",true)}
+        ${statusCard("GitHub",d.github_ok===true?"Connected":(d.github_ok===false?"Failed":"Not checked"),d.github_ok===true)}
+        ${statusCard("GitHub Pages",d.pages_status||"Not checked",d.pages_ok!==false)}
+        ${statusCard("Cloudflare","Not used for website",true)}
+      </div>
+      <div class="result-card" style="margin-top:10px"><div class="label">Repository</div><div class="value mono">${esc(d.repo||"sapere-aude-26/hubofaspirants")}</div><div class="label" style="margin-top:10px">Branch</div><div class="value mono">${esc(d.branch||"main")}</div><div class="label" style="margin-top:10px">Production Domain</div><div class="value mono">hubofaspirants.com</div></div>`);
+    return;
+  }
+  if(action==="status"){
+    openModal("Connection Status","Live check completed",`
+      <div class="result-grid">
+        ${statusCard("Authentication",d.auth?"Connected":"Failed",!!d.auth)}
+        ${statusCard("Admin Access",d.admin?"Authorized":"Denied",!!d.admin)}
+        ${statusCard("Supabase","Connected",true)}
+        ${statusCard("GitHub",d.github_ok===true?"Connected":(d.github_ok===false?"Failed":"Not checked"),d.github_ok===true)}
+      </div>
+      <div class="result-card" style="margin-top:10px">
+        <div class="label">Repository</div><div class="value mono">${esc(d.repo||"")}</div>
+        <div class="label" style="margin-top:10px">Branch</div><div class="value mono">${esc(d.branch||"main")}</div>
+        ${d.github_error?`<div class="label" style="margin-top:10px">GitHub Error</div><div class="value bad mono">${esc(d.github_error)}</div>`:""}
+      </div>`);
+    return;
+  }
+  if(action==="health"){
+    openModal("Supabase Health","Live database check",`
+      <div class="result-grid">
+        ${statusCard("Database",d.ok?"Healthy":"Error",!!d.ok)}
+        ${statusCard("Admin Records",String(d.admin_count??"—"),true)}
+        ${statusCard("API Latency",((d.latency_ms??d.supabase_api_ms)??"—")+" ms",true)}
+        ${statusCard("Response","Successful",!!d.ok)}
+      </div>
+      <div class="result-card" style="margin-top:10px"><div class="label">Details</div><div class="value mono">${esc(d.error||"No error reported.")}</div></div>`);
+    return;
+  }
+  if(action==="admins"){
+    const admins=d.admins||[];
+    const rows=admins.map(a=>`<tr><td class="mono">${esc(a.auth_user_id||a.id||"")}</td><td>${esc(a.email||"")}</td><td>${esc(a.created_at||"")}</td></tr>`).join("");
+    openModal("Admin Accounts",`${admins.length || d.admin_count || 0} registered admin(s)`,`
+      <table class="data-table"><thead><tr><th>Auth User ID</th><th>Email</th><th>Created</th></tr></thead><tbody>${rows||"<tr><td colspan=3>No admin records were returned by this operation.</td></tr>"}</tbody></table>
+      <div class="result-card" style="margin-top:10px"><div class="label">Admin Count</div><div class="value">${esc(d.admin_count??admins.length??"—")}</div></div>`);
+    return;
+  }
+  if(action==="list"){
+    openModal("Repository Files",`${(d.files||[]).length} file(s)`,`
+      <div class="result-card"><div class="label">Repository</div><div class="value mono">${esc(d.repo||"sapere-aude-26/hubofaspirants")}</div></div>
+      <table class="data-table" style="margin-top:10px"><thead><tr><th>Path</th><th>Size</th></tr></thead><tbody>
+      ${(d.files||[]).map(f=>`<tr><td><button type="button" class="btn open-modal-file" data-path="${esc(f.path)}">${esc(f.path)}</button></td><td>${((f.size||0)/1024).toFixed(1)} KB</td></tr>`).join("")||"<tr><td colspan=2>No files returned.</td></tr>"}
+      </tbody></table>`);
+    document.querySelectorAll(".open-modal-file").forEach(b=>b.onclick=()=>{closeModal();openFile(b.dataset.path)});
+    return;
+  }
+  if(action==="commits"){
+    const rows=(d.commits||[]).map(c=>`<tr><td class="mono">${esc((c.sha||"").slice(0,10))}</td><td>${esc(c.message||"")}</td><td>${esc(c.author||"")}</td><td>${esc(c.date||"")}</td></tr>`).join("");
+    openModal("Recent Commits",`${(d.commits||[]).length} recent commit(s)`,`
+      <table class="data-table"><thead><tr><th>SHA</th><th>Message</th><th>Author</th><th>Date</th></tr></thead><tbody>${rows||"<tr><td colspan=4>No commits returned.</td></tr>"}</tbody></table>`);
+    return;
+  }
+  if(action==="pages"){
+    openModal("GitHub Pages","Current repository Pages configuration",`
+      <div class="result-grid">
+        ${statusCard("Status",d.status||"Unknown",d.status==="built"||d.status==="active")}
+        ${statusCard("Build Type",d.build_type||"Unknown",true)}
+      </div>
+      <div class="result-card" style="margin-top:10px"><div class="label">URL</div><div class="value mono">${esc(d.url||"Not returned")}</div></div>`);
+    return;
+  }
+  if(action==="runs"){
+    const rows=(d.runs||[]).map(r=>`<tr><td>${esc(r.name||"")}</td><td>${esc(r.status||"")}</td><td>${esc(r.conclusion||"—")}</td><td>${esc(r.created_at||"")}</td><td><a href="${esc(r.url||"#")}" target="_blank" rel="noopener" class="btn">Open</a></td></tr>`).join("");
+    openModal("Deployments",`${(d.runs||[]).length} workflow run(s)`,`
+      <table class="data-table"><thead><tr><th>Workflow</th><th>Status</th><th>Conclusion</th><th>Created</th><th></th></tr></thead><tbody>${rows||"<tr><td colspan=5>No workflow runs returned.</td></tr>"}</tbody></table>`);
+  }
+}
+function actionTitle(action){
+  return ({
+    overview:"Infrastructure Overview",
+    status:"Connection Status",
+    health:"Supabase Health",
+    admins:"Admin Accounts",
+    list:"Repository Files",
+    commits:"Recent Commits",
+    pages:"GitHub Pages",
+    runs:"Deployments"
+  })[action] || action;
+}
+function showLoadingPanel(action){
+  openModal(actionTitle(action),"Working…",`
+    <div class="result-card">
+      <div class="label">Status</div>
+      <div class="value warn">Connecting to the HOA backend…</div>
+      <div style="margin-top:12px;color:#91a3bd;font-size:12px">
+        This panel is already open. The result will appear here when the operation finishes.
+      </div>
+    </div>`);
+}
+function showErrorPanel(action,message){
+  openModal(actionTitle(action),"Operation failed",`
+    <div class="result-card">
+      <div class="label">Error</div>
+      <div class="value bad mono">${esc(message)}</div>
+    </div>
+    <div class="result-card" style="margin-top:10px">
+      <div class="label">What to check</div>
+      <div class="value" style="line-height:1.55;font-weight:500">
+        The frontend is responding. The backend operation returned an error or is unavailable.
+        Check the Console Output below the editor for the raw response.
+      </div>
+    </div>`);
+}
+async function runDashboardOverview() {
+  if(busy) return;
+  showLoadingPanel("overview");
+  const opBar=$("operationBar"); opBar.style.display="block"; opBar.textContent="Checking HOA infrastructure…";
+  setBusy(true,"overview");
+  try {
+    const status=await api("status");
+    let pages={};
+    try { pages=await api("pages"); } catch(e) { pages={error:e.message}; }
+    const d={...status,pages_status:pages.status||pages.build_type||"Not checked",pages_ok:!pages.error};
+    output({status:d,pages});
+    updateStatus(d);
+    renderResult("overview",d);
+    toast("System status refreshed",true);
+  } catch(e) {
+    output({ok:false,action:"overview",error:e.message});
+    showErrorPanel("overview",e.message);
+    toast("System status failed: "+e.message,false);
+  } finally { setBusy(false); opBar.style.display="none"; }
+}
+async function runAction(action) {
+  if(busy) return;
+  // IMPORTANT: open the frontend panel immediately, before waiting for Supabase.
+  showLoadingPanel(action);
+  const opBar=$("operationBar");
+  opBar.style.display="block";
+  opBar.textContent="Running "+actionTitle(action)+"…";
+  setBusy(true,action);
+  try {
+    const d=await api(action);
+    output(d);
+    renderResult(action,d);
+    if(action==="status") updateStatus(d);
+    if(action==="list") {
+      renderFiles(d.files||[]);
+      window.__repoCache={time:Date.now(),files:d.files||[]};
+    }
+    toast(actionTitle(action)+" completed",true);
+  } catch(e) {
+    output({ok:false,action,error:e.message});
+    showErrorPanel(action,e.message);
+    toast(actionTitle(action)+" failed: "+e.message,false);
+  } finally {
+    setBusy(false);
+    opBar.style.display="none";
+  }
+}
+function updateStatus(d) {
+  setState("authState",d.auth?"Connected":"Error",!!d.auth);
+  setState("adminState",d.admin?"Authorized":"Denied",!!d.admin);
+  setState("supabaseState","Connected",true);
+  setState("githubState",d.github_ok?"Connected":"Error",!!d.github_ok);
+  if($("pagesState")) setState("pagesState",d.pages_status||"Not checked",d.pages_ok!==false);
+  if($("cloudflareState")) setState("cloudflareState","Not used",true);
+  if(d.github_error) output({...d,checked_at:new Date().toLocaleTimeString()});
+}
+function renderFiles(files) {
+  const box=$("files"); box.innerHTML="";
+  if(!files.length){box.textContent="No repository files returned.";return;}
+  files.sort((a,b)=>a.path.localeCompare(b.path));
+  for(const f of files) {
+    const el=document.createElement("div"); el.className="file"; el.dataset.path=f.path;
+    el.textContent=f.path;
+    const size=document.createElement("small"); size.textContent=((f.size||0)/1024).toFixed(1)+" KB";
+    el.appendChild(size);
+    el.onclick=()=>openFile(f.path);
+    box.appendChild(el);
+  }
+}
+async function listFiles() {
+  if(busy) return;
+  setBusy(true,"list");
+  try {
+    const now=Date.now();
+    if(window.__repoCache && now-window.__repoCache.time < 30000) {
+      const cached={ok:true,cached:true,files:window.__repoCache.files};
+      renderFiles(cached.files);
+      output(cached);
+      renderResult("list",cached);
+      toast("Repository loaded from cache",true);
+      return;
+    }
+    const d=await api("list");
+    window.__repoCache={time:Date.now(),files:d.files||[]};
+    renderFiles(d.files||[]);
+    output({ok:true,file_count:(d.files||[]).length});
+    toast("Repository loaded",true);
+  } catch(e) {
+    $("files").textContent="Unable to load repository files.";
+    output({ok:false,action:"list",error:e.message}); toast("Repository files failed: "+e.message);
+  } finally { setBusy(false); }
+}
+async function openFile(path) {
+  path=(path || $("path").value).trim();
+  if(!path){toast("Enter a repository path.");return;}
+  if(busy) return;
+  setBusy(true,"read");
+  try {
+    const d=await api("read",{path});
+    currentPath=d.path; $("path").value=d.path; $("editor").value=d.content||"";
+    document.querySelectorAll(".file").forEach(x=>x.classList.toggle("selected",x.dataset.path===d.path));
+    output({ok:true,path:d.path,sha:d.sha,size:(d.content||"").length});
+    toast("Loaded "+d.path,true);
+  } catch(e) { output({ok:false,action:"read",path,error:e.message}); toast("Open failed: "+e.message); }
+  finally { setBusy(false); }
+}
+async function saveFile() {
+  const path=$("path").value.trim();
+  if(!path){toast("Enter a repository path first.");return;}
+  if(!currentPath || currentPath!==path) {
+    toast("Open the existing file first, then save it."); return;
+  }
+  if(busy) return;
+  setBusy(true,"write");
+  try {
+    const d=await api("write",{
+      path,content:$("editor").value,
+      message:$("commitMessage").value.trim() || "Update from HOA Developer Console"
+    });
+    output(d); toast("Committed successfully",true); await listFiles();
+  } catch(e) { output({ok:false,action:"write",error:e.message}); toast("Save failed: "+e.message); }
+  finally { setBusy(false); }
+}
+async function boot() {
+  try {
+    init();
+    $("loginForm").addEventListener("submit",signIn);
+    $("open").addEventListener("click",()=>openFile());
+    $("save").addEventListener("click",saveFile);
+    $("saveTop").addEventListener("click",saveFile);
+    $("clearEditor").addEventListener("click",()=>{
+      if(busy)return;
+      currentPath=""; $("path").value=""; $("editor").value=""; output("Editor cleared."); toast("Editor cleared",true);
+    });
+    $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
+    $("modalClose").addEventListener("click",closeModal);
+    $("modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop")closeModal();});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
+    document.querySelectorAll("[data-action]").forEach(b=>{
+       b.type="button";
+       b.addEventListener("click",ev=>{ev.preventDefault(); if(b.dataset.action==="overview") runDashboardOverview(); else runAction(b.dataset.action);});
+     });
+     $("refreshOverview").addEventListener("click",runDashboardOverview);
+    const {data}=await init().auth.getSession();
+    if(data.session) await showApp();
+  } catch(e) {
+    setLogin(e.message||"Initialization failed.",true);
+  }
+}
+boot();
+})();
+</script>
+</body>
+</html>
