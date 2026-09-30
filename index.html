@@ -15020,7 +15020,275 @@ html script { display:none !important; visibility:hidden !important; }
   #hoaProfessionalFooter .hoa-footer-links{align-items:flex-start;}
   #hoaProfessionalFooter .hoa-footer-bottom{flex-direction:column;gap:2px;}
 }
-</style></head>
+</style><style id="hoa-v620-design-system">
+
+/* =========================================================
+   HOA V6.2.0 — GLOBAL DESIGN SYSTEM
+   Feature owner: CORE / UI SYSTEM
+   Future module: css/style.css
+   Non-destructive visual layer; functional styles remain intact.
+   ========================================================= */
+:root{
+  --hoa-blue-950:#071a33;
+  --hoa-blue-900:#0b2a52;
+  --hoa-blue-800:#0f3b73;
+  --hoa-blue-700:#1556a0;
+  --hoa-blue-600:#1d6dcc;
+  --hoa-blue-500:#2d83e6;
+  --hoa-gold-700:#a87308;
+  --hoa-gold-600:#c48a10;
+  --hoa-gold-500:#e0a82e;
+  --hoa-gold-400:#f0bf4c;
+  --hoa-bg:#f4f7fb;
+  --hoa-surface:#ffffff;
+  --hoa-surface-2:#eef3f9;
+  --hoa-text:#122033;
+  --hoa-muted:#5d6b7d;
+  --hoa-border:#d9e1ec;
+  --hoa-shadow-sm:0 2px 8px rgba(7,26,51,.07);
+  --hoa-shadow-md:0 10px 28px rgba(7,26,51,.11);
+  --hoa-shadow-lg:0 18px 45px rgba(7,26,51,.15);
+  --hoa-radius-sm:8px;
+  --hoa-radius-md:12px;
+  --hoa-radius-lg:18px;
+  --hoa-radius-xl:24px;
+  --hoa-ease:cubic-bezier(.2,.7,.2,1);
+  --hoa-fast:160ms;
+  --hoa-normal:240ms;
+}
+html[data-theme="dark"]{
+  --hoa-bg:#08111f;
+  --hoa-surface:#0e1b2d;
+  --hoa-surface-2:#14243a;
+  --hoa-text:#edf4ff;
+  --hoa-muted:#a9b7c9;
+  --hoa-border:#263a53;
+  --hoa-shadow-sm:0 2px 8px rgba(0,0,0,.24);
+  --hoa-shadow-md:0 10px 28px rgba(0,0,0,.30);
+  --hoa-shadow-lg:0 18px 45px rgba(0,0,0,.38);
+}
+html,body{scroll-behavior:smooth}
+body{
+  background-color:var(--hoa-bg);
+  color:var(--hoa-text);
+  transition:background-color var(--hoa-normal) var(--hoa-ease),color var(--hoa-normal) var(--hoa-ease);
+}
+/* Theme-aware surfaces without overriding purpose-specific colors. */
+.card,.panel,.modal-content,.modal-dialog,.dashboard-card,.stat-card,.content-card,.course-card,.test-card,.batch-card,.admin-card,.section-card,.table-card{
+  transition:background-color var(--hoa-normal) var(--hoa-ease),border-color var(--hoa-normal) var(--hoa-ease),box-shadow var(--hoa-normal) var(--hoa-ease),transform var(--hoa-fast) var(--hoa-ease);
+}
+/* Common controls */
+button,.btn,[role="button"]{transition:transform var(--hoa-fast) var(--hoa-ease),box-shadow var(--hoa-fast) var(--hoa-ease),background-color var(--hoa-fast) var(--hoa-ease),border-color var(--hoa-fast) var(--hoa-ease),color var(--hoa-fast) var(--hoa-ease)}
+button:hover,.btn:hover,[role="button"]:hover{transform:translateY(-1px)}
+button:active,.btn:active,[role="button"]:active{transform:translateY(0)}
+input,select,textarea{transition:border-color var(--hoa-fast) var(--hoa-ease),box-shadow var(--hoa-fast) var(--hoa-ease),background-color var(--hoa-fast) var(--hoa-ease),color var(--hoa-fast) var(--hoa-ease)}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 3px rgba(29,109,204,.14)}
+/* Blue/gold utility classes for future components. */
+.hoa-blue{color:var(--hoa-blue-700)!important}.hoa-gold{color:var(--hoa-gold-600)!important}
+.hoa-surface{background:var(--hoa-surface)!important;color:var(--hoa-text)!important;border-color:var(--hoa-border)!important}
+.hoa-card-depth{box-shadow:var(--hoa-shadow-md);border:1px solid var(--hoa-border);border-radius:var(--hoa-radius-md)}
+.hoa-card-depth:hover{box-shadow:var(--hoa-shadow-lg);transform:translateY(-2px)}
+.hoa-gold-accent{border-top:3px solid var(--hoa-gold-500)!important}
+.hoa-theme-transition,.hoa-theme-transition *{transition:background-color var(--hoa-normal) var(--hoa-ease),color var(--hoa-normal) var(--hoa-ease),border-color var(--hoa-normal) var(--hoa-ease)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+@media (max-width:768px){
+  .hoa-card-depth:hover{transform:none}
+  body{overflow-x:hidden}
+}
+
+</style>
+
+<style id="hoa-v622-student-ui-polish">
+/* =========================================================
+   HOA V6.2.2 — STUDENT UI POLISH
+   Future module: css/style.css / js/student-ui.js
+   Visual-only layer; existing student functionality preserved.
+   ========================================================= */
+:root {
+  --hoa-student-card-radius: 18px;
+  --hoa-student-card-shadow: 0 10px 28px rgba(15, 45, 85, .10);
+  --hoa-student-card-shadow-hover: 0 16px 36px rgba(15, 45, 85, .16);
+}
+
+/* Student-facing cards and content surfaces */
+.student-dashboard .card, .student-dashboard .course-card, .student-dashboard .test-card,
+.student-dashboard .content-card, .student-dashboard .result-card, .student-dashboard .note-card,
+.student-dashboard .video-card, #studentDashboard .card, #studentDashboard .course-card,
+#studentDashboard .test-card, #studentDashboard .content-card, #studentDashboard .result-card,
+#studentDashboard .note-card, #studentDashboard .video-card {
+  border-radius: var(--hoa-student-card-radius);
+  box-shadow: var(--hoa-student-card-shadow);
+  border: 1px solid var(--hoa-border, rgba(15, 45, 85, .10));
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+.student-dashboard .card:hover, .student-dashboard .course-card:hover, .student-dashboard .test-card:hover,
+.student-dashboard .content-card:hover, .student-dashboard .result-card:hover, .student-dashboard .note-card:hover,
+.student-dashboard .video-card:hover, #studentDashboard .card:hover, #studentDashboard .course-card:hover,
+#studentDashboard .test-card:hover, #studentDashboard .content-card:hover, #studentDashboard .result-card:hover,
+#studentDashboard .note-card:hover, #studentDashboard .video-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hoa-student-card-shadow-hover);
+  border-color: var(--hoa-gold, #d4af37);
+}
+
+/* Common student action buttons */
+.student-dashboard button, #studentDashboard button {
+  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.student-dashboard button:hover, #studentDashboard button:hover { transform: translateY(-1px); }
+.student-dashboard button:active, #studentDashboard button:active { transform: translateY(0); }
+
+/* Student navigation / tabs */
+.student-dashboard nav a, .student-dashboard nav button, #studentDashboard nav a, #studentDashboard nav button {
+  transition: color .18s ease, background-color .18s ease, border-color .18s ease, transform .18s ease;
+}
+
+/* Status badges */
+.student-dashboard .badge, .student-dashboard .status-badge, #studentDashboard .badge, #studentDashboard .status-badge {
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+/* Responsive student grids */
+@media (max-width: 900px) {
+  .student-dashboard .grid, #studentDashboard .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .student-dashboard .grid, #studentDashboard .grid { grid-template-columns: 1fr; }
+  .student-dashboard .card, .student-dashboard .course-card, .student-dashboard .test-card,
+  .student-dashboard .content-card, .student-dashboard .result-card, .student-dashboard .note-card,
+  .student-dashboard .video-card, #studentDashboard .card, #studentDashboard .course-card,
+  #studentDashboard .test-card, #studentDashboard .content-card, #studentDashboard .result-card,
+  #studentDashboard .note-card, #studentDashboard .video-card { border-radius: 14px; }
+}
+
+/* Prevent decorative hover movement for touch/reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .student-dashboard .card, .student-dashboard .course-card, .student-dashboard .test-card,
+  .student-dashboard .content-card, .student-dashboard .result-card, .student-dashboard .note-card,
+  .student-dashboard .video-card, #studentDashboard .card, #studentDashboard .course-card,
+  #studentDashboard .test-card, #studentDashboard .content-card, #studentDashboard .result-card,
+  #studentDashboard .note-card, #studentDashboard .video-card, .student-dashboard button, #studentDashboard button {
+    transition: none !important; transform: none !important;
+  }
+}
+</style>
+\n<style id="hoa-v623-responsive-system">
+/* =========================================================
+   HOA V6.2.3 — FINAL RESPONSIVE SYSTEM
+   Owner: CORE / UI SYSTEM
+   Future module: css/style.css
+   No database/RPC dependencies.
+   ========================================================= */
+:root{--hoa-touch:44px;--hoa-mobile-gap:12px;--hoa-mobile-radius:14px;}
+html{overflow-x:hidden;}
+body{overflow-x:hidden;max-width:100vw;}
+img,video,iframe,canvas,svg{max-width:100%;}
+button,input,select,textarea{max-width:100%;}
+
+/* Shared containers */
+.adminReferenceMain,.adminOnlyDashboard,#home,.studentDashboard,.dashboard-content,.content-area,.main-content{max-width:100%;min-width:0;}
+.adminReferenceMain *,.adminOnlyDashboard *,#home *{box-sizing:border-box;}
+
+/* Prevent long labels/content from breaking layouts */
+.adminReferenceMain h1,.adminReferenceMain h2,.adminReferenceMain h3,.adminReferenceMain h4,
+.adminOnlyDashboard h1,.adminOnlyDashboard h2,.adminOnlyDashboard h3,.adminOnlyDashboard h4,
+#home h1,#home h2,#home h3,#home h4,.card-title,.test-title{overflow-wrap:anywhere;}
+
+/* Touch targets */
+@media (max-width:1023px){
+  button,.btn,.authTab,.adminSectionNav button,[role="button"]{min-height:var(--hoa-touch);}
+  input,select,textarea{min-height:var(--hoa-touch);}
+}
+
+/* Desktop/tablet */
+@media (min-width:768px) and (max-width:1199px){
+  .adminReferenceSidebar{width:210px!important;}
+  .adminReferenceMain{margin-left:210px!important;width:calc(100% - 210px)!important;}
+  .adminReferenceMain .grid,.adminOnlyDashboard .grid,.adminReferenceMain [style*="grid-template-columns"],.adminOnlyDashboard [style*="grid-template-columns"]{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
+
+/* Phones */
+@media (max-width:767px){
+  body{font-size:14px;}
+  .adminReferenceSidebar{position:fixed!important;left:0!important;right:auto!important;top:0!important;bottom:0!important;width:min(84vw,320px)!important;height:100dvh!important;min-height:100dvh!important;max-height:100dvh!important;padding:12px!important;display:flex!important;flex-direction:column!important;overflow-y:auto!important;overflow-x:hidden!important;z-index:10000!important;}
+  .adminReferenceMain{margin-left:0!important;width:100%!important;padding:12px!important;min-height:100dvh!important;}
+  body.admin-ui .adminReferenceMain{margin-left:0!important;}
+  body.admin-ui .adminReferenceSidebar{transform:translateX(-105%);transition:transform .24s ease;box-shadow:12px 0 36px rgba(3,27,56,.22);}
+  body.admin-ui.hoa-sidebar-open .adminReferenceSidebar{transform:translateX(0);} 
+  body.admin-ui.hoa-sidebar-open::after{content:"";position:fixed;inset:0;background:rgba(3,27,56,.42);z-index:9999;}
+  body.admin-ui .adminReferenceSidebar .adminReferenceNav,body.admin-ui .adminReferenceSidebar .adminSectionNav{width:100%;overflow-y:auto;min-height:0;}
+  body.admin-ui .adminReferenceSidebar button{width:100%!important;text-align:left!important;white-space:normal!important;min-height:46px!important;padding:10px 12px!important;}
+  body.admin-ui .adminReferenceSidebar .brand-logo{max-width:54px!important;height:auto!important;}
+  body.admin-ui .adminReferenceMain{padding-top:70px!important;}
+
+  /* Generic responsive grids */
+  .adminReferenceMain .grid,.adminOnlyDashboard .grid,.studentDashboard .grid,
+  #home .grid,.content-grid,.course-grid,.test-grid,.notes-grid,.cards-grid,
+  .adminReferenceMain [style*="grid-template-columns"],
+  .adminOnlyDashboard [style*="grid-template-columns"],
+  #home [style*="grid-template-columns"]{grid-template-columns:1fr!important;}
+
+  /* Flexible rows become stacks */
+  .adminReferenceMain .flex,.adminOnlyDashboard .flex,.studentDashboard .flex,
+  .adminReferenceMain [style*="display:flex"],.adminOnlyDashboard [style*="display:flex"]{flex-wrap:wrap;}
+
+  /* Tables remain usable without breaking page width */
+  .adminReferenceMain table,.adminOnlyDashboard table,#home table{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;white-space:nowrap;}
+  .adminReferenceMain table th,.adminReferenceMain table td,.adminOnlyDashboard table th,.adminOnlyDashboard table td{min-width:110px;}
+
+  /* Forms */
+  .adminReferenceMain form,.adminOnlyDashboard form{width:100%;max-width:100%;}
+  .adminReferenceMain input,.adminReferenceMain select,.adminReferenceMain textarea,
+  .adminOnlyDashboard input,.adminOnlyDashboard select,.adminOnlyDashboard textarea{width:100%!important;max-width:100%!important;}
+  .adminReferenceMain .form-row,.adminOnlyDashboard .form-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;}
+
+  /* Modal safety */
+  .modal,.modal-content,.dialog,.dialog-content,[role="dialog"]{max-width:calc(100vw - 24px)!important;}
+  .modal-content,.dialog-content,[role="dialog"]{max-height:calc(100dvh - 24px)!important;overflow:auto!important;}
+
+  /* Test/question experience */
+  .question-card,.test-card,.option-card{width:100%!important;max-width:100%!important;}
+  .question-card{padding:14px!important;}
+  .option-card, .test-option{min-height:48px!important;padding:12px!important;}
+
+  /* Hide decorative overflow */
+  .hero,.banner,.poster-container{overflow:hidden;}
+  .hero img,.banner img,.poster-container img{width:100%;height:auto;object-fit:contain;}
+}
+
+/* Small phones */
+@media (max-width:479px){
+  .adminReferenceMain,#home{padding-left:10px!important;padding-right:10px!important;}
+  .adminReferenceMain h1,#home h1{font-size:clamp(20px,6vw,28px)!important;line-height:1.15!important;}
+  .adminReferenceMain h2,#home h2{font-size:clamp(18px,5.2vw,24px)!important;}
+  .adminReferenceMain h3,#home h3{font-size:clamp(16px,4.8vw,20px)!important;}
+  .card,.dashboard-card,.course-card,.test-card,.content-card{border-radius:var(--hoa-mobile-radius)!important;}
+  button,.btn{font-size:14px!important;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.admin-ui .adminReferenceSidebar{transition:none!important;}
+}
+</style>\n\n<style id="hoa-v625-typography-spacing-consistency">\n/* HOA V6.2.5 — Typography, spacing & component consistency */\n:root {\n  --hoa-font-sans: Arial, Helvetica, sans-serif;\n  --hoa-text-xs: .72rem; --hoa-text-sm: .82rem; --hoa-text-md: .94rem; --hoa-text-lg: 1.08rem;\n  --hoa-space-1: 4px; --hoa-space-2: 8px; --hoa-space-3: 12px; --hoa-space-4: 16px; --hoa-space-5: 20px; --hoa-space-6: 24px; --hoa-space-8: 32px;\n  --hoa-radius-sm: 8px; --hoa-radius-md: 12px; --hoa-radius-lg: 16px;\n  --hoa-control-h: 42px;\n}\nhtml, body, button, input, select, textarea { font-family: var(--hoa-font-sans); }\nbody { font-size: var(--hoa-text-md); line-height: 1.5; }\nh1,h2,h3,h4,h5,h6 { line-height: 1.2; letter-spacing: -.015em; }\nbutton, input, select, textarea { font-size: .94rem; }\nbutton { min-height: 40px; }\ninput, select, textarea { min-height: var(--hoa-control-h); border-radius: var(--hoa-radius-sm); }\ntextarea { min-height: 96px; }\n\n/* Consistent component language */\n.card, .panel, .dashboard-card, .stat-card, .admin-card, .content-card, .course-card, .test-card, .mock-card, .note-card, .video-card, .result-card {\n  border-radius: var(--hoa-radius-md);\n}\n.btn, button, .button, .action-btn, .primary-btn, .secondary-btn {\n  border-radius: var(--hoa-radius-sm);\n  font-weight: 600;\n  transition: transform .18s ease, box-shadow .18s ease, background-color .18s ease, border-color .18s ease, color .18s ease;\n}\n.badge, .status-badge, .pill, .tag { border-radius: 999px; font-size: var(--hoa-text-xs); font-weight: 700; line-height: 1.2; }\n\n/* Better hierarchy inside management screens */\n.admin-section-title, .section-title, .panel-title { margin-bottom: var(--hoa-space-3); }\n.admin-section-subtitle, .section-subtitle, .panel-subtitle { font-size: var(--hoa-text-sm); line-height: 1.55; }\n\n/* Tables: readable density without oversized rows */\ntable { width: 100%; border-collapse: separate; border-spacing: 0; }\nth { font-size: var(--hoa-text-xs); font-weight: 700; letter-spacing: .025em; text-transform: uppercase; }\ntd { font-size: var(--hoa-text-sm); vertical-align: middle; }\n\n/* Focus visibility */\n:where(button,a,input,select,textarea):focus-visible { outline: 3px solid color-mix(in srgb, var(--hoa-gold, #d4af37) 48%, transparent); outline-offset: 2px; }\n\n/* Reusable spacing helpers for future module extraction */\n.hoa-stack { display:flex; flex-direction:column; gap:var(--hoa-space-4); }\n.hoa-row { display:flex; align-items:center; gap:var(--hoa-space-3); flex-wrap:wrap; }\n.hoa-grid { display:grid; gap:var(--hoa-space-4); }\n.hoa-muted { opacity:.72; }\n.hoa-truncate { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }\n\n@media (max-width: 768px) {\n  body { font-size: .91rem; }\n  h1 { font-size: clamp(1.45rem, 5vw, 2rem); }\n  h2 { font-size: clamp(1.2rem, 4.2vw, 1.55rem); }\n  h3 { font-size: 1.08rem; }\n  button, .btn, .button, .action-btn { min-height: 42px; }\n  input, select { min-height: 44px; }\n  .hoa-row { align-items: stretch; }\n}\n\n@media (max-width: 480px) {\n  body { font-size: .89rem; }\n  .hoa-stack { gap:var(--hoa-space-3); }\n  .hoa-grid { gap:var(--hoa-space-3); }\n  td, th { font-size: .76rem; }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }\n}\n</style>\n<style id="hoa-v629-page-refinement">
+:root{--hoa-page-max:1480px;--hoa-section-gap:24px;--hoa-panel-pad:clamp(16px,2vw,28px);--hoa-heading:clamp(1.35rem,1.8vw,2rem);--hoa-subheading:clamp(1.02rem,1.25vw,1.3rem)}
+#adminOnlyDashboard,#studentOnlyDashboard{position:relative}
+#adminOnlyDashboard h1,#studentOnlyDashboard h1{font-size:clamp(1.55rem,2.5vw,2.35rem);letter-spacing:-.025em;line-height:1.12}
+#adminOnlyDashboard h2,#studentOnlyDashboard h2{font-size:var(--hoa-heading);letter-spacing:-.018em;line-height:1.2}
+#adminOnlyDashboard h3,#studentOnlyDashboard h3{font-size:var(--hoa-subheading);line-height:1.25}
+#adminOnlyDashboard .card,#studentOnlyDashboard .card,#adminOnlyDashboard .stat-card,#studentOnlyDashboard .stat-card,#adminOnlyDashboard .panel,#studentOnlyDashboard .panel{border-radius:18px;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}
+#adminOnlyDashboard .card:hover,#studentOnlyDashboard .card:hover,#adminOnlyDashboard .stat-card:hover,#studentOnlyDashboard .stat-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(15,43,88,.12)}
+#adminOnlyDashboard .dashboard-grid,#studentOnlyDashboard .dashboard-grid{gap:var(--hoa-section-gap)}
+#adminOnlyDashboard .section-header,#studentOnlyDashboard .section-header{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:16px}
+#adminOnlyDashboard .section-header p,#studentOnlyDashboard .section-header p{margin:4px 0 0;opacity:.72}
+#adminOnlyDashboard .stat-value,#studentOnlyDashboard .stat-value{font-variant-numeric:tabular-nums;letter-spacing:-.035em}
+#adminOnlyDashboard button,#studentOnlyDashboard button{min-height:40px}
+#adminOnlyDashboard input,#adminOnlyDashboard select,#adminOnlyDashboard textarea,#studentOnlyDashboard input,#studentOnlyDashboard select,#studentOnlyDashboard textarea{font-size:16px}
+@media(max-width:767px){#adminOnlyDashboard .section-header,#studentOnlyDashboard .section-header{align-items:flex-start;flex-direction:column}#adminOnlyDashboard .dashboard-grid,#studentOnlyDashboard .dashboard-grid{grid-template-columns:1fr!important}#adminOnlyDashboard .card,#studentOnlyDashboard .card{border-radius:15px}}
+@media(prefers-reduced-motion:reduce){#adminOnlyDashboard .card,#studentOnlyDashboard .card,#adminOnlyDashboard .stat-card,#studentOnlyDashboard .stat-card{transition:none!important}}
+</style>
+</head>
 <body>
 <a href="#home" id="hoa-v601-skip-link">Skip to main content</a>
 <div class="countdownOverlay hidden" id="testCountdownOverlay">
@@ -26685,6 +26953,33 @@ window.hoaV70DeleteContent=async id=>{if(!confirm('Delete this Free Content item
 function addResultButtons(){const panel=document.getElementById('testWiseResultPanel');if(!panel)return;if(!document.getElementById('hoaV70TopN')){const bar=panel.querySelector('.testWiseToolbar');if(bar){const n=document.createElement('select');n.id='hoaV70TopN';n.innerHTML='<option value="10">Top 10</option><option value="20">Top 20</option><option value="50">Top 50</option><option value="all">Complete</option>';bar.appendChild(n);const b=document.createElement('button');b.className='btn';b.textContent='⬇ Topper PDF';b.onclick=()=>hoaV70PrintTestWise(true);bar.appendChild(b);const c=document.createElement('button');c.className='btn';c.textContent='⬇ Complete PDF';c.onclick=()=>hoaV70PrintTestWise(false);bar.appendChild(c)}}}
 function printWindow(title,body){const w=window.open('','_blank','width=1000,height=800');if(!w)return;w.document.write(`<html><head><title>${esc(title)}</title><style>body{font-family:Arial;padding:28px;color:#172033}h1{color:#173f6b}table{width:100%;border-collapse:collapse}th,td{border:1px solid #cbd5e1;padding:7px;font-size:12px}th{background:#eef4fb}</style>
 </head><body>${body}
+
+
+
+
+<!-- HOA V6.1.6 — STUDENT MOCK TEST QUESTION VISIBILITY FIX
+     Root cause: student_questions was a security_invoker view over the RLS-protected questions table,
+     causing authenticated students to receive zero question rows. The existing view has been corrected
+     in Supabase to enforce the same published-test/direct-test/batch-test access rules while exposing only
+     student-safe question columns. No new table, RPC, or schema architecture was introduced.
+     Frontend remains compatible with the existing student_questions contract.
+-->
+
+\n\n
+<style id="hoa-v611-font-rollback">
+/* HOA V6.2.11 — Restore previous typography feel. */
+:root { --hoa-font-sans: Arial, Helvetica, sans-serif; }
+</style>
+
+<style id="hoa-v612-font-restore-exact">
+/* HOA V6.2.12 — Restore the exact V6.2.10 typography used before the V6.2.11 rollback. */
+:root {
+  --hoa-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+html, body, button, input, select, textarea {
+  font-family: var(--hoa-font-sans) !important;
+}
+</style>
 </body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),300)}
 
 
@@ -26724,6 +27019,204 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 setTimeout(()=>{try{ensureAdminPanel();enhanceTestWise()}catch(_){}},1500);
 })();
 
+</script>
+<style id="hoa-v611-free-content-admin-polish">
+/* =========================================================
+   HOA V6.1.1 — FREE CONTENT ADMIN WORKSPACE
+   UI/navigation layer only. Existing DB/RPC/Auth workflows
+   remain unchanged.
+   ========================================================= */
+body.admin-ui #adminNavFreeContent{
+  position:relative!important;
+  border-left:3px solid #f2b705!important;
+}
+body.admin-ui #adminNavFreeContent .adminRefIcon{color:#f2b705!important}
+body.admin-ui #adminNavFreeContent.active{
+  background:linear-gradient(90deg,#1674e8,#2a83ed)!important;
+  border-left-color:#f2b705!important;
+}
+#adminSectionFreeContentPanel .hoa-v611-free-toolbar{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  flex-wrap:wrap;margin:0 0 18px;padding:10px;
+  border:1px solid #dce5ef;border-radius:12px;background:#f7faff;
+}
+#adminSectionFreeContentPanel .hoa-v611-free-tabs{display:flex;gap:7px;flex-wrap:wrap}
+#adminSectionFreeContentPanel .hoa-v611-free-tab{
+  border:1px solid #d6e1ec;background:#fff;color:#173f6b;border-radius:9px;
+  padding:9px 12px;font:800 12px/1 Arial,sans-serif;cursor:pointer;
+}
+#adminSectionFreeContentPanel .hoa-v611-free-tab.active{
+  background:#0b3b73;color:#fff;border-color:#0b3b73;
+  box-shadow:0 4px 12px rgba(11,59,115,.16);
+}
+#adminSectionFreeContentPanel .hoa-v611-free-toolbar-note{font-size:11px;color:#64748b}
+#adminSectionFreeContentPanel .hoa-v611-free-area{display:none}
+#adminSectionFreeContentPanel .hoa-v611-free-area.active{display:block}
+#adminSectionFreeContentPanel .hoa-v611-free-stat-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:0 0 16px;
+}
+#adminSectionFreeContentPanel .hoa-v611-free-stat{
+  padding:12px 14px;border:1px solid #dce5ef;border-radius:11px;background:#fff;
+}
+#adminSectionFreeContentPanel .hoa-v611-free-stat b{display:block;font-size:21px;color:#0b3b73}
+#adminSectionFreeContentPanel .hoa-v611-free-stat span{font-size:11px;color:#64748b}
+@media(max-width:700px){
+  #adminSectionFreeContentPanel .hoa-v611-free-stat-grid{grid-template-columns:1fr}
+  #adminSectionFreeContentPanel .hoa-v611-free-toolbar{align-items:stretch}
+  #adminSectionFreeContentPanel .hoa-v611-free-tabs{width:100%}
+  #adminSectionFreeContentPanel .hoa-v611-free-tab{flex:1;min-width:0}
+}
+</style>
+<script id="hoa-v611-free-content-admin-workspace">
+(function(){
+  'use strict';
+  const V='HOA V6.1.1';
+  const navOrder=['adminNavStudent','adminNavTest','adminNavCourse','adminNavVideo','adminNavNotes','adminNavPoster','adminNavAccess','adminNavFreeContent','adminNavResult','adminNavAdmin'];
+
+  function ensureFreePanel(){
+    if(typeof window.ensureAdminPanel==='function'){
+      try{return window.ensureAdminPanel()}catch(e){console.warn(V+' ensureAdminPanel',e)}
+    }
+    return document.getElementById('adminSectionFreeContentPanel');
+  }
+
+  function reorderNav(){
+    const nav=document.querySelector('#adminOnlyDashboard .adminSectionNav');
+    if(!nav)return;
+    const free=document.getElementById('adminNavFreeContent');
+    const result=document.getElementById('adminNavResult');
+    const admin=document.getElementById('adminNavAdmin');
+    if(!free)return;
+    if(result)nav.insertBefore(free,result); else if(admin)nav.insertBefore(free,admin); else nav.appendChild(free);
+    /* Keep Result before Admin Access, with Free Content immediately before Result. */
+    if(result&&admin)nav.insertBefore(result,admin);
+    navOrder.forEach(id=>{const b=document.getElementById(id);if(b)b.dataset.hoa611Order=String(navOrder.indexOf(id))});
+  }
+
+  function decorateNav(){
+    const b=document.getElementById('adminNavFreeContent');
+    if(!b)return;
+    if(!b.querySelector('.adminRefIcon')){
+      const label=(b.textContent||'').replace(/^\s*🎁\s*/,'').trim()||'Free Content';
+      b.textContent='';
+      const i=document.createElement('span');i.className='adminRefIcon';i.textContent='🎁';i.setAttribute('aria-hidden','true');
+      const l=document.createElement('span');l.className='adminRefLabel';l.textContent=label;
+      b.append(i,l);
+    }
+    b.setAttribute('aria-label','Free Content');
+  }
+
+  function ensureAreas(){
+    const panel=document.getElementById('adminSectionFreeContentPanel');
+    if(!panel||panel.dataset.hoa611Ready==='1')return;
+    const editor=panel.querySelector('.hoa-v70-content-editor');
+    const list=panel.querySelector('#hoaV70AdminList');
+    const profiles=panel.querySelector('#hoaV70Profiles');
+    if(!editor||!list||!profiles)return;
+    const card=panel.querySelector('.dashPanel');
+    if(!card)return;
+
+    const toolbar=document.createElement('div');
+    toolbar.className='hoa-v611-free-toolbar';
+    toolbar.innerHTML='<div class="hoa-v611-free-tabs" role="tablist" aria-label="Free Content management"><button type="button" class="hoa-v611-free-tab active" data-free-area="content">📚 Content Library</button><button type="button" class="hoa-v611-free-tab" data-free-area="students">👥 Free Students</button><button type="button" class="hoa-v611-free-tab" data-free-area="results">📊 Free Test Results</button></div><span class="hoa-v611-free-toolbar-note">Manage Free Content without leaving the Admin workspace.</span>';
+
+    const contentArea=document.createElement('section');
+    contentArea.className='hoa-v611-free-area active';contentArea.dataset.freeArea='content';
+    const stats=document.createElement('div');stats.className='hoa-v611-free-stat-grid';
+    stats.innerHTML='<div class="hoa-v611-free-stat"><b id="hoaV611ContentStat">0</b><span>Total Free Content</span></div><div class="hoa-v611-free-stat"><b id="hoaV611PublishedStat">0</b><span>Published</span></div><div class="hoa-v611-free-stat"><b id="hoaV611TestStat">0</b><span>Free Tests / Mock Tests</span></div>';
+    contentArea.append(stats,editor);
+
+    const studentsArea=document.createElement('section');
+    studentsArea.className='hoa-v611-free-area';studentsArea.dataset.freeArea='students';
+    const studentHead=document.createElement('div');studentHead.className='hoa-v70-subhead';studentHead.innerHTML='<div><h3>Free Students</h3><p>Manage Free Student registrations separately from Paid Students and Admin accounts.</p></div>';
+    studentsArea.append(studentHead,profiles);
+
+    const resultsArea=document.createElement('section');
+    resultsArea.className='hoa-v611-free-area';resultsArea.dataset.freeArea='results';
+    const resultHost=document.createElement('div');resultHost.id='hoaV611ResultsHost';
+    resultsArea.append(resultHost);
+
+    const existingSubheads=[...card.querySelectorAll('.hoa-v70-subhead')];
+    existingSubheads.forEach(x=>{
+      if(x.textContent.includes('Published / Saved Content')||x.textContent.includes('Free Students'))x.remove();
+    });
+
+    /* Existing saved-content list belongs to Content Library. */
+    const contentHead=document.createElement('div');contentHead.className='hoa-v70-subhead';contentHead.innerHTML='<div><h3>Published / Saved Content</h3><p>Preview, edit, publish or delete resources without leaving this section.</p></div>';
+    contentArea.append(contentHead,list);
+
+    const fr=document.getElementById('hoaV70FreeResults');
+    if(fr){resultsArea.append(fr)}else{
+      const empty=document.createElement('div');empty.id='hoaV611ResultsPlaceholder';empty.className='emptyState';empty.textContent='Free Test Results will appear here when available.';resultsArea.append(empty);
+    }
+
+    toolbar.querySelectorAll('[data-free-area]').forEach(btn=>btn.addEventListener('click',function(){
+      const target=this.dataset.freeArea;
+      toolbar.querySelectorAll('.hoa-v611-free-tab').forEach(x=>x.classList.toggle('active',x===this));
+      card.querySelectorAll('.hoa-v611-free-area').forEach(x=>x.classList.toggle('active',x.dataset.freeArea===target));
+      if(target==='results')window.hoaV611RefreshFreeResults?.();
+    }));
+
+    /* Insert after the main section header. */
+    const header=card.querySelector('.hoa-admin-section-head');
+    if(header)header.after(toolbar);else card.prepend(toolbar);
+    card.append(contentArea,studentsArea,resultsArea);
+    panel.dataset.hoa611Ready='1';
+  }
+
+  function updateStats(){
+    const rows=[...document.querySelectorAll('#hoaV70AdminList tbody tr')];
+    const total=rows.length;
+    const published=rows.filter(r=>/\bYES\b/i.test(r.children[2]?.textContent||'')).length;
+    const tests=rows.filter(r=>/test/i.test(r.children[1]?.textContent||'')).length;
+    const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=String(v)};
+    set('hoaV611ContentStat',total);set('hoaV611PublishedStat',published);set('hoaV611TestStat',tests);
+  }
+
+  function enhance(){
+    const p=ensureFreePanel();
+    reorderNav();decorateNav();
+    if(p){ensureAreas();updateStats()}
+  }
+
+  window.hoaV611RefreshFreeResults=async function(){
+    try{
+      if(typeof window.hoaV70LoadAdmin==='function')await window.hoaV70LoadAdmin();
+      const fr=document.getElementById('hoaV70FreeResults');
+      const host=document.getElementById('hoaV611ResultsHost');
+      if(fr&&host&&!host.contains(fr))host.appendChild(fr);
+      updateStats();
+    }catch(e){console.warn(V+' result refresh',e)}
+  };
+
+  const oldShow=window.showAdminSection;
+  window.showAdminSection=async function(section){
+    if(section==='freecontent'){
+      ensureFreePanel();reorderNav();decorateNav();ensureAreas();
+      const p=document.getElementById('adminSectionFreeContentPanel');
+      document.querySelectorAll('#adminOnlyDashboard .adminSectionPanel').forEach(x=>{x.classList.toggle('active',x===p);if(x!==p)x.style.removeProperty('display')});
+      document.querySelectorAll('#adminOnlyDashboard .adminSectionNav button').forEach(x=>x.classList.remove('active'));
+      document.getElementById('adminNavFreeContent')?.classList.add('active');
+      p?.style.setProperty('display','block','important');
+      if(typeof window.hoaV70LoadAdmin==='function')await window.hoaV70LoadAdmin();
+      ensureAreas();updateStats();reorderNav();decorateNav();
+      const title=document.getElementById('adminReferencePageTitle');
+      const sub=document.getElementById('adminReferencePageSub');
+      if(title)title.textContent='Free Content';
+      if(sub)sub.textContent='Create, publish, preview and manage Free Student resources';
+      return;
+    }
+    const r=oldShow?await oldShow.apply(this,arguments):undefined;
+    reorderNav();decorateNav();
+    return r;
+  };
+
+  function boot(){
+    enhance();
+    setTimeout(enhance,250);setTimeout(enhance,1000);setTimeout(enhance,2000);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
 </script>
 <script id="hoa-v637-student-login-fields-state-guard">
 (function(){
@@ -27962,5 +28455,909 @@ window.addEventListener('load',bind);
   window.hoaV650OpenMockCourse=openMockCourse;
 })();
 </script>
+<style id="hoa-v614-course-video-css">
+.hoa614-shell{margin:16px 0;border:1px solid #d8e3ef;border-radius:16px;background:#fff;box-shadow:0 8px 24px rgba(23,63,107,.06);overflow:hidden}
+.hoa614-head{padding:18px 20px;background:linear-gradient(135deg,#f7fbff,#fffaf0);border-bottom:1px solid #dfe8f2;display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}.hoa614-head h3{margin:0;color:#173f6b}.hoa614-head p{margin:5px 0 0;color:#64748b;font-size:12px}.hoa614-badge{padding:5px 9px;border-radius:999px;background:#eef5fc;color:#315a82;font-size:11px;font-weight:800}
+.hoa614-body{padding:18px}.hoa614-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.hoa614-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.hoa614-wide{grid-column:1/-1}.hoa614-field{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:#29496b}.hoa614-field input,.hoa614-field select,.hoa614-field textarea{width:100%;box-sizing:border-box;padding:10px 11px;border:1px solid #cbd8e6;border-radius:9px;background:#fff;color:#172033;font:inherit;font-weight:500}.hoa614-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}.hoa614-btn{border:1px solid #c7d6e5;border-radius:9px;padding:9px 12px;background:#fff;color:#173f6b;font-weight:800;cursor:pointer}.hoa614-btn.primary{background:#173f6b;color:#fff;border-color:#173f6b}.hoa614-btn.gold{background:#fff7df;border-color:#e8c76d;color:#795a00}.hoa614-btn.danger{color:#a61b1b;border-color:#efb5b5}.hoa614-btn.small{padding:6px 9px;font-size:11px}.hoa614-status{font-size:12px;color:#64748b}.hoa614-status.error{color:#b42318}.hoa614-divider{height:1px;background:#e8eef5;margin:18px 0}.hoa614-section-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}.hoa614-section-title h4{margin:0;color:#173f6b}.hoa614-count{font-size:11px;color:#64748b}.hoa614-table{width:100%;border-collapse:collapse;font-size:12px}.hoa614-table th,.hoa614-table td{padding:10px;border-bottom:1px solid #e7edf4;text-align:left;vertical-align:middle}.hoa614-table th{background:#f7faff;color:#315a82}.hoa614-table td:last-child{text-align:right}.hoa614-chip{display:inline-flex;padding:3px 7px;border-radius:999px;background:#eef5fc;color:#315a82;font-size:10px;font-weight:800}.hoa614-chip.published{background:#e9f8ef;color:#18733d}.hoa614-chip.archived{background:#f1f1f1;color:#666}.hoa614-chip.draft{background:#fff7df;color:#795a00}.hoa614-empty{padding:22px;text-align:center;color:#718096;border:1px dashed #cbd8e6;border-radius:10px;background:#fbfdff}.hoa614-folder-grid{display:grid;grid-template-columns:1fr 1.6fr;gap:14px}.hoa614-list{display:grid;gap:8px}.hoa614-row{border:1px solid #e0e8f0;border-radius:10px;padding:11px 12px;display:flex;justify-content:space-between;gap:10px;align-items:center}.hoa614-row.active{border-color:#8fb2d5;background:#f7fbff}.hoa614-row-main{min-width:0}.hoa614-row-main b{display:block;color:#183e66}.hoa614-row-main small{display:block;color:#718096;margin-top:3px}.hoa614-row-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.hoa614-search{max-width:320px}.hoa614-preview{margin-top:12px;border:1px solid #dfe8f2;border-radius:12px;overflow:hidden;background:#0b1220}.hoa614-preview iframe{display:block;width:100%;height:380px;border:0}.hoa614-help{font-size:11px;color:#718096;margin-top:5px}
+@media(max-width:800px){.hoa614-grid,.hoa614-grid.three,.hoa614-folder-grid{grid-template-columns:1fr}.hoa614-wide{grid-column:auto}.hoa614-table{display:block;overflow-x:auto;white-space:nowrap}.hoa614-preview iframe{height:240px}}
+</style>
+
+<script id="hoa-v614-course-video-workspaces">
+(function(){
+'use strict';
+const $=id=>document.getElementById(id), db=()=>window.supabaseClient||window.supabase||null;
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const adminOK=()=>typeof window.isAdminMode==='function'?window.isAdminMode():Boolean(window.adminLoggedIn===true&&window.currentStudent==null);
+const msg=(id,t,e=false)=>{const x=$(id);if(x){x.textContent=t||'';x.classList.toggle('error',!!e)}};
+const fmt=d=>d?new Date(d).toLocaleString():'';
+async function uid(){const c=db();const s=await c.auth.getSession();if(s.error||!s.data?.session?.user)throw new Error('Admin session required.');return s.data.session.user.id}
+function modal(title,body){const old=$('hoa614Modal');if(old)old.remove();const d=document.createElement('div');d.id='hoa614Modal';d.className='hoa606-modal';d.innerHTML='<div class="hoa606-modal-card"><h3>'+esc(title)+'</h3>'+body+'</div>';d.addEventListener('click',e=>{if(e.target===d)d.remove()});document.body.appendChild(d);return d}
+function hideLegacy(host){if(!host)return;Array.from(host.children).forEach(x=>{if(!x.dataset.hoa614Keep)x.style.display='none'})}
+function courseShell(){const host=$('adminSectionCoursePanel');if(!host)return null;let s=$('hoa614CourseShell');if(s)return s;hideLegacy(host);s=document.createElement('section');s.id='hoa614CourseShell';s.className='hoa614-shell';s.dataset.hoa614Keep='1';s.innerHTML=`
+<div class="hoa614-head"><div><h3>🎓 Course & Subject Management</h3><p>Manage preparation batches, edit details, publish/archive courses, and organise subject folders for learning content.</p></div><span class="hoa614-badge">COURSES</span></div>
+<div class="hoa614-body">
+ <div class="hoa614-grid three">
+  <label class="hoa614-field">Course / Batch Name<input id="hoa614CourseName" placeholder="e.g. TES Degree 2026"></label>
+  <label class="hoa614-field">Batch Code<input id="hoa614CourseCode" placeholder="e.g. TES-D-26"></label>
+  <label class="hoa614-field">Status<select id="hoa614CourseStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label>
+  <label class="hoa614-field hoa614-wide">Description<textarea id="hoa614CourseDesc" rows="2" placeholder="Short description for students"></textarea></label>
+  <label class="hoa614-field">Sort Order<input id="hoa614CourseSort" type="number" value="0"></label>
+ </div>
+ <div class="hoa614-actions"><button class="hoa614-btn primary" id="hoa614CreateCourse">＋ CREATE COURSE</button><button class="hoa614-btn" id="hoa614RefreshCourses">↻ REFRESH</button><span class="hoa614-status" id="hoa614CourseMsg"></span></div>
+ <div class="hoa614-divider"></div>
+ <div class="hoa614-section-title"><h4>Course / Batch Library</h4><span class="hoa614-count" id="hoa614CourseCount"></span></div>
+ <div id="hoa614CourseList"></div>
+ <div class="hoa614-divider"></div>
+ <div class="hoa614-section-title"><h4>📁 Subject Folders</h4><span class="hoa614-count">Video folders are used by Classes & Videos</span></div>
+ <div class="hoa614-grid three">
+  <label class="hoa614-field">Course / Batch<select id="hoa614FolderCourse"></select></label>
+  <label class="hoa614-field">Subject / Folder Name<input id="hoa614FolderName" placeholder="e.g. Highway Engineering"></label>
+  <label class="hoa614-field">Folder Type<select id="hoa614FolderType"><option value="video">Video Subject</option><option value="note">Notes Subject</option></select></label>
+ </div>
+ <div class="hoa614-actions"><button class="hoa614-btn primary" id="hoa614CreateFolder">＋ CREATE SUBJECT FOLDER</button><span class="hoa614-status" id="hoa614FolderMsg"></span></div>
+ <div id="hoa614FolderList" class="hoa614-list" style="margin-top:12px"></div>
+</div>`;host.appendChild(s);
+$('hoa614CreateCourse').onclick=createCourse;$('hoa614RefreshCourses').onclick=loadCourses;$('hoa614CreateFolder').onclick=createFolder;$('hoa614FolderCourse').onchange=loadFolders;loadCourses();return s}
+async function loadCourses(){if(!adminOK())return;const c=db();if(!c)return;try{const r=await c.from('batches').select('id,name,batch_code,description,status,is_published,sort_order,created_at').order('sort_order').order('created_at',{ascending:false});if(r.error)throw r.error;const rows=r.data||[];$('hoa614CourseCount').textContent=rows.length+' course'+(rows.length===1?'':'s');const opts='<option value="">Select course / batch</option>'+rows.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}${x.batch_code?' · '+esc(x.batch_code):''}</option>`).join('');$('hoa614FolderCourse').innerHTML=opts;const list=$('hoa614CourseList');list.innerHTML=rows.length?`<table class="hoa614-table"><thead><tr><th>Course</th><th>Code</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead><tbody>${rows.map(x=>`<tr><td><b>${esc(x.name)}</b><br><small>${esc(x.description||'')}</small></td><td>${esc(x.batch_code||'—')}</td><td><span class="hoa614-chip ${esc(x.status||'draft')}">${esc(x.status||'draft')}</span></td><td>${esc(fmt(x.created_at))}</td><td><div class="hoa614-row-actions"><button class="hoa614-btn small" data-edit-course="${x.id}">EDIT</button><button class="hoa614-btn small" data-course-pub="${x.id}">${x.is_published?'UNPUBLISH':'PUBLISH'}</button><button class="hoa614-btn small" data-course-archive="${x.id}">${x.status==='archived'?'RESTORE':'ARCHIVE'}</button></div></td></tr>`).join('')}</tbody></table>`:'<div class="hoa614-empty">No courses / batches created yet.</div>';
+list.querySelectorAll('[data-edit-course]').forEach(b=>b.onclick=()=>editCourse(rows.find(x=>String(x.id)===String(b.dataset.editCourse))));list.querySelectorAll('[data-course-pub]').forEach(b=>b.onclick=()=>togglePublish(b.dataset.coursePub));list.querySelectorAll('[data-course-archive]').forEach(b=>b.onclick=()=>toggleArchive(b.dataset.courseArchive));
+const old=$('hoa614FolderCourse').value;if(old&&rows.some(x=>String(x.id)===String(old)))$('hoa614FolderCourse').value=old;else if(rows[0])$('hoa614FolderCourse').value=rows[0].id;if($('hoa614FolderCourse').value)loadFolders();else $('hoa614FolderList').innerHTML='<div class="hoa614-empty">Select a course to manage subject folders.</div>';
+}catch(e){msg('hoa614CourseMsg',e.message||'Could not load courses.',true)}}
+async function createCourse(){if(!adminOK())return;const name=$('hoa614CourseName').value.trim();if(!name){msg('hoa614CourseMsg','Course / batch name is required.',true);return}try{const status=$('hoa614CourseStatus').value;const r=await db().from('batches').insert({name,batch_code:$('hoa614CourseCode').value.trim()||null,description:$('hoa614CourseDesc').value.trim()||null,status,is_published:status==='published',sort_order:Number($('hoa614CourseSort').value)||0,created_by:await uid()}).select().single();if(r.error)throw r.error;$('hoa614CourseName').value='';$('hoa614CourseCode').value='';$('hoa614CourseDesc').value='';msg('hoa614CourseMsg','Course created.');await loadCourses()}catch(e){msg('hoa614CourseMsg',e.message||'Could not create course.',true)}}
+function editCourse(x){if(!x)return;const d=modal('Edit Course / Batch',`<div class="hoa614-grid"><label class="hoa614-field">Name<input id="hoa614EditName" value="${esc(x.name)}"></label><label class="hoa614-field">Code<input id="hoa614EditCode" value="${esc(x.batch_code||'')}"></label><label class="hoa614-field hoa614-wide">Description<textarea id="hoa614EditDesc" rows="3">${esc(x.description||'')}</textarea></label><label class="hoa614-field">Status<select id="hoa614EditStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label><label class="hoa614-field">Sort Order<input id="hoa614EditSort" type="number" value="${Number(x.sort_order)||0}"></label></div><div class="hoa614-actions"><button class="hoa614-btn primary" id="hoa614SaveCourse">SAVE CHANGES</button><button class="hoa614-btn" id="hoa614CancelCourse">CANCEL</button><span class="hoa614-status" id="hoa614EditMsg"></span></div>`);$('hoa614EditStatus').value=x.status||'draft';$('hoa614CancelCourse').onclick=()=>d.remove();$('hoa614SaveCourse').onclick=async()=>{try{const st=$('hoa614EditStatus').value;const r=await db().from('batches').update({name:$('hoa614EditName').value.trim(),batch_code:$('hoa614EditCode').value.trim()||null,description:$('hoa614EditDesc').value.trim()||null,status:st,is_published:st==='published',sort_order:Number($('hoa614EditSort').value)||0,updated_at:new Date().toISOString()}).eq('id',x.id);if(r.error)throw r.error;d.remove();await loadCourses()}catch(e){msg('hoa614EditMsg',e.message||'Update failed.',true)}}}
+async function togglePublish(id){try{const r=await db().from('batches').select('is_published,status').eq('id',id).single();if(r.error)throw r.error;const pub=!r.data.is_published;const z=await db().from('batches').update({is_published:pub,status:pub?'published':'draft',updated_at:new Date().toISOString()}).eq('id',id);if(z.error)throw z.error;await loadCourses()}catch(e){alert(e.message||'Could not change publication state.')}}
+async function toggleArchive(id){try{const r=await db().from('batches').select('status').eq('id',id).single();if(r.error)throw r.error;const archive=r.data.status!=='archived';if(!confirm(archive?'Archive this course? Students will no longer see it as published.':'Restore this course to Draft?'))return;const z=await db().from('batches').update({status:archive?'archived':'draft',is_published:false,updated_at:new Date().toISOString()}).eq('id',id);if(z.error)throw z.error;await loadCourses()}catch(e){alert(e.message||'Could not change archive state.')}}
+async function loadFolders(){if(!adminOK())return;const batch=$('hoa614FolderCourse').value;const list=$('hoa614FolderList');if(!batch){list.innerHTML='<div class="hoa614-empty">Select a course to manage subject folders.</div>';return}try{const r=await db().from('content_folders').select('id,name,folder_type,sort_order,is_active').eq('batch_id',batch).order('folder_type').order('sort_order').order('name');if(r.error)throw r.error;const rows=r.data||[];list.innerHTML=rows.length?rows.map(x=>`<div class="hoa614-row ${x.is_active?'':'archived'}"><div class="hoa614-row-main"><b>${esc(x.name)} <span class="hoa614-chip">${x.folder_type==='video'?'VIDEO':'NOTE'}</span></b><small>${x.is_active?'Active subject folder':'Archived subject folder'}</small></div><div class="hoa614-row-actions"><button class="hoa614-btn small" data-edit-folder="${x.id}">EDIT</button><button class="hoa614-btn small" data-folder-state="${x.id}" data-active="${x.is_active?'true':'false'}">${x.is_active?'ARCHIVE':'RESTORE'}</button></div></div>`).join(''):'<div class="hoa614-empty">No subject folders in this course.</div>';list.querySelectorAll('[data-edit-folder]').forEach(b=>b.onclick=()=>editFolder(rows.find(x=>String(x.id)===String(b.dataset.editFolder))));list.querySelectorAll('[data-folder-state]').forEach(b=>b.onclick=()=>toggleFolder(b.dataset.folderState,b.dataset.active==='true'))}catch(e){msg('hoa614FolderMsg',e.message||'Could not load folders.',true)}}
+async function createFolder(){if(!adminOK())return;const batch=$('hoa614FolderCourse').value,name=$('hoa614FolderName').value.trim(),type=$('hoa614FolderType').value;if(!batch||!name){msg('hoa614FolderMsg','Select a course and enter a subject folder name.',true);return}try{const r=await db().from('content_folders').insert({batch_id:batch,name,folder_type:type,sort_order:0,is_active:true,created_by:await uid()}).select().single();if(r.error)throw r.error;$('hoa614FolderName').value='';msg('hoa614FolderMsg','Subject folder created.');await loadFolders()}catch(e){msg('hoa614FolderMsg',e.message||'Could not create folder.',true)}}
+function editFolder(x){if(!x)return;const d=modal('Edit Subject Folder',`<div class="hoa614-grid"><label class="hoa614-field">Folder Name<input id="hoa614EditFolderName" value="${esc(x.name)}"></label><label class="hoa614-field">Type<select id="hoa614EditFolderType"><option value="video">Video Subject</option><option value="note">Notes Subject</option></select></label><label class="hoa614-field">Sort Order<input id="hoa614EditFolderSort" type="number" value="${Number(x.sort_order)||0}"></label></div><div class="hoa614-actions"><button class="hoa614-btn primary" id="hoa614SaveFolder">SAVE CHANGES</button><button class="hoa614-btn" id="hoa614CancelFolder">CANCEL</button><span class="hoa614-status" id="hoa614EditFolderMsg"></span></div>`);$('hoa614EditFolderType').value=x.folder_type||'video';$('hoa614CancelFolder').onclick=()=>d.remove();$('hoa614SaveFolder').onclick=async()=>{try{const r=await db().from('content_folders').update({name:$('hoa614EditFolderName').value.trim(),folder_type:$('hoa614EditFolderType').value,sort_order:Number($('hoa614EditFolderSort').value)||0,updated_at:new Date().toISOString()}).eq('id',x.id);if(r.error)throw r.error;d.remove();await loadFolders()}catch(e){msg('hoa614EditFolderMsg',e.message||'Update failed.',true)}}}
+async function toggleFolder(id,active){try{const r=await db().from('content_folders').update({is_active:!active,updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await loadFolders()}catch(e){alert(e.message||'Could not update folder.')}}
+function videoShell(){const host=$('adminSectionVideoPanel');if(!host)return null;let s=$('hoa614VideoShell');if(s)return s;hideLegacy(host);s=document.createElement('section');s.id='hoa614VideoShell';s.className='hoa614-shell';s.dataset.hoa614Keep='1';s.innerHTML=`
+<div class="hoa614-head"><div><h3>🎥 Classes & Video Management</h3><p>Feed, edit, preview, publish and organise recorded classes inside course subject folders.</p></div><span class="hoa614-badge">CLASSES & VIDEOS</span></div>
+<div class="hoa614-body">
+ <div class="hoa614-grid three">
+  <label class="hoa614-field">Course / Batch<select id="hoa614VideoCourse"></select></label>
+  <label class="hoa614-field">Subject Folder<select id="hoa614VideoFolder"></select></label>
+  <label class="hoa614-field">Status<select id="hoa614VideoFilter"><option value="">All Status</option><option value="published">Published</option><option value="draft">Draft</option></select></label>
+  <label class="hoa614-field">Lecture No.<input id="hoa614VideoNo" type="number" min="1" value="1"></label>
+  <label class="hoa614-field">Class Title<input id="hoa614VideoTitle" placeholder="Highway Development — Lecture 01"></label>
+  <label class="hoa614-field">YouTube Video ID<input id="hoa614VideoId" maxlength="11" placeholder="11-character YouTube ID"></label>
+  <label class="hoa614-field hoa614-wide">Description<textarea id="hoa614VideoDesc" rows="2" placeholder="What students will learn"></textarea></label>
+  <label class="hoa614-field">Scheduled At<input id="hoa614VideoScheduled" type="datetime-local"></label>
+  <label class="hoa614-field">Duration (seconds)<input id="hoa614VideoDuration" type="number" min="0"></label>
+  <label class="hoa614-field">Sort Order<input id="hoa614VideoSort" type="number" value="0"></label>
+ </div>
+ <div class="hoa614-actions"><button class="hoa614-btn primary" id="hoa614CreateVideo">＋ ADD CLASS / VIDEO</button><button class="hoa614-btn" id="hoa614RefreshVideos">↻ REFRESH</button><span class="hoa614-status" id="hoa614VideoMsg"></span></div>
+ <div id="hoa614VideoPreview"></div>
+ <div class="hoa614-divider"></div>
+ <div class="hoa614-section-title"><h4>Video Library</h4><input id="hoa614VideoSearch" class="hoa614-field hoa614-search" placeholder="Search class title / YouTube ID"></div>
+ <div id="hoa614VideoList"></div>
+</div>`;host.appendChild(s);
+$('hoa614VideoCourse').onchange=async()=>{await loadVideoFolders();await loadVideos()};$('hoa614VideoFolder').onchange=loadVideos;$('hoa614VideoFilter').onchange=loadVideos;$('hoa614VideoSearch').oninput=()=>renderVideos(videoState.rows||[]);$('hoa614CreateVideo').onclick=createVideo;$('hoa614RefreshVideos').onclick=loadVideos;loadVideoCourses();return s}
+let videoState={rows:[]};
+async function loadVideoCourses(){if(!adminOK())return;try{const r=await db().from('batches').select('id,name,batch_code').order('sort_order').order('created_at',{ascending:false});if(r.error)throw r.error;const opts='<option value="">All courses</option>'+(r.data||[]).map(x=>`<option value="${esc(x.id)}">${esc(x.name)}${x.batch_code?' · '+esc(x.batch_code):''}</option>`).join('');$('hoa614VideoCourse').innerHTML=opts;await loadVideoFolders();await loadVideos()}catch(e){msg('hoa614VideoMsg',e.message||'Could not load courses.',true)}}
+async function loadVideoFolders(){const batch=$('hoa614VideoCourse').value;let q=db().from('content_folders').select('id,name,batch_id').eq('folder_type','video').eq('is_active',true).order('name');if(batch)q=q.eq('batch_id',batch);const r=await q;if(r.error){msg('hoa614VideoMsg',r.error.message,true);return}const rows=(r.data||[]).filter(x=>!batch||true);$('hoa614VideoFolder').innerHTML='<option value="">All subject folders</option>'+rows.map(x=>`<option value="${esc(x.id)}">${esc(x.name)}</option>`).join('')}
+async function loadVideos(){if(!adminOK())return;try{const batch=$('hoa614VideoCourse')?.value||'',folder=$('hoa614VideoFolder')?.value||'',filter=$('hoa614VideoFilter')?.value||'';let q=db().from('batch_lectures').select('id,batch_id,folder_id,lecture_no,title,description,youtube_video_id,scheduled_at,duration_seconds,sort_order,is_published,created_at,batches(name,batch_code),content_folders(name)').order('sort_order').order('lecture_no');if(batch)q=q.eq('batch_id',batch);if(folder)q=q.eq('folder_id',folder);if(filter==='published')q=q.eq('is_published',true);if(filter==='draft')q=q.eq('is_published',false);const r=await q;if(r.error)throw r.error;videoState.rows=r.data||[];renderVideos(videoState.rows)}catch(e){msg('hoa614VideoMsg',e.message||'Could not load videos.',true)}}
+function renderVideos(rows){const q=($('hoa614VideoSearch')?.value||'').trim().toLowerCase();const data=rows.filter(x=>!q||[x.title,x.youtube_video_id,x.description,x.batches?.name,x.content_folders?.name].join(' ').toLowerCase().includes(q));const list=$('hoa614VideoList');if(!list)return;list.innerHTML=data.length?`<table class="hoa614-table"><thead><tr><th>#</th><th>Class</th><th>Course / Subject</th><th>Status</th><th>Scheduled</th><th>Actions</th></tr></thead><tbody>${data.map(x=>`<tr><td>${esc(x.lecture_no||'')}</td><td><b>${esc(x.title)}</b><br><small>${esc(x.youtube_video_id)}</small></td><td>${esc(x.batches?.name||'—')}<br><small>${esc(x.content_folders?.name||'Unfiled')}</small></td><td><span class="hoa614-chip ${x.is_published?'published':'draft'}">${x.is_published?'Published':'Draft'}</span></td><td>${esc(fmt(x.scheduled_at))}</td><td><div class="hoa614-row-actions"><button class="hoa614-btn small" data-preview-video="${x.id}">PREVIEW</button><button class="hoa614-btn small" data-edit-video="${x.id}">EDIT</button><button class="hoa614-btn small" data-publish-video="${x.id}">${x.is_published?'UNPUBLISH':'PUBLISH'}</button><button class="hoa614-btn small danger" data-delete-video="${x.id}">DELETE</button></div></td></tr>`).join('')}</tbody></table>`:'<div class="hoa614-empty">No classes/videos match the current filters.</div>';list.querySelectorAll('[data-preview-video]').forEach(b=>b.onclick=()=>previewVideo(videoState.rows.find(x=>String(x.id)===String(b.dataset.previewVideo))));list.querySelectorAll('[data-edit-video]').forEach(b=>b.onclick=()=>editVideo(videoState.rows.find(x=>String(x.id)===String(b.dataset.editVideo))));list.querySelectorAll('[data-publish-video]').forEach(b=>b.onclick=()=>toggleVideoPublish(videoState.rows.find(x=>String(x.id)===String(b.dataset.publishVideo))));list.querySelectorAll('[data-delete-video]').forEach(b=>b.onclick=()=>deleteVideo(videoState.rows.find(x=>String(x.id)===String(b.dataset.deleteVideo))))}
+async function createVideo(){if(!adminOK())return;const batch=$('hoa614VideoCourse').value,folder=$('hoa614VideoFolder').value,title=$('hoa614VideoTitle').value.trim(),yt=$('hoa614VideoId').value.trim();if(!batch||!folder||!title||!/^[A-Za-z0-9_-]{11}$/.test(yt)){msg('hoa614VideoMsg','Course, subject folder, title and valid 11-character YouTube ID are required.',true);return}try{const r=await db().from('batch_lectures').insert({batch_id:batch,folder_id:folder,lecture_no:Number($('hoa614VideoNo').value)||1,title,description:$('hoa614VideoDesc').value.trim()||null,youtube_video_id:yt,is_published:false,sort_order:Number($('hoa614VideoSort').value)||0,scheduled_at:$('hoa614VideoScheduled').value?new Date($('hoa614VideoScheduled').value).toISOString():null,duration_seconds:Number($('hoa614VideoDuration').value)||null,created_by:await uid()}).select().single();if(r.error)throw r.error;$('hoa614VideoTitle').value='';$('hoa614VideoId').value='';$('hoa614VideoDesc').value='';$('hoa614VideoScheduled').value='';$('hoa614VideoDuration').value='';msg('hoa614VideoMsg','Class/video added as Draft.');await loadVideos()}catch(e){msg('hoa614VideoMsg',e.message||'Could not add video.',true)}}
+function previewVideo(x){if(!x)return;const host=$('hoa614VideoPreview');host.innerHTML=`<div class="hoa614-preview"><div style="padding:10px 12px;color:#fff;display:flex;justify-content:space-between;gap:10px;align-items:center"><b>${esc(x.title||'Video Preview')}</b><button class="hoa614-btn small" id="hoa614ClosePreview">CLOSE</button></div><iframe src="https://www.youtube.com/embed/${encodeURIComponent(x.youtube_video_id)}?rel=0" title="${esc(x.title||'Video Preview')}" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share" allowfullscreen></iframe></div>`;$('hoa614ClosePreview').onclick=()=>host.innerHTML='';host.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function editVideo(x){if(!x)return;const d=modal('Edit Class / Video',`<div class="hoa614-grid"><label class="hoa614-field">Lecture No.<input id="hoa614EditNo" type="number" value="${Number(x.lecture_no)||1}"></label><label class="hoa614-field">YouTube Video ID<input id="hoa614EditId" maxlength="11" value="${esc(x.youtube_video_id||'')}"></label><label class="hoa614-field hoa614-wide">Title<input id="hoa614EditTitle" value="${esc(x.title||'')}"></label><label class="hoa614-field hoa614-wide">Description<textarea id="hoa614EditDesc" rows="3">${esc(x.description||'')}</textarea></label><label class="hoa614-field">Scheduled At<input id="hoa614EditScheduled" type="datetime-local"></label><label class="hoa614-field">Duration (seconds)<input id="hoa614EditDuration" type="number" value="${Number(x.duration_seconds)||''}"></label><label class="hoa614-field">Sort Order<input id="hoa614EditSort" type="number" value="${Number(x.sort_order)||0}"></label></div><div class="hoa614-actions"><button class="hoa614-btn primary" id="hoa614SaveVideo">SAVE CHANGES</button><button class="hoa614-btn" id="hoa614CancelVideo">CANCEL</button><span class="hoa614-status" id="hoa614EditVideoMsg"></span></div>`);if(x.scheduled_at){const dt=new Date(x.scheduled_at);$('hoa614EditScheduled').value=new Date(dt.getTime()-dt.getTimezoneOffset()*60000).toISOString().slice(0,16)}$('hoa614CancelVideo').onclick=()=>d.remove();$('hoa614SaveVideo').onclick=async()=>{try{const yt=$('hoa614EditId').value.trim();if(!/^[A-Za-z0-9_-]{11}$/.test(yt))throw new Error('Enter a valid 11-character YouTube video ID.');const r=await db().from('batch_lectures').update({lecture_no:Number($('hoa614EditNo').value)||1,youtube_video_id:yt,title:$('hoa614EditTitle').value.trim(),description:$('hoa614EditDesc').value.trim()||null,scheduled_at:$('hoa614EditScheduled').value?new Date($('hoa614EditScheduled').value).toISOString():null,duration_seconds:Number($('hoa614EditDuration').value)||null,sort_order:Number($('hoa614EditSort').value)||0,updated_at:new Date().toISOString()}).eq('id',x.id);if(r.error)throw r.error;d.remove();await loadVideos()}catch(e){msg('hoa614EditVideoMsg',e.message||'Update failed.',true)}}}
+async function toggleVideoPublish(x){if(!x)return;try{const r=await db().from('batch_lectures').update({is_published:!x.is_published,updated_at:new Date().toISOString()}).eq('id',x.id);if(r.error)throw r.error;await loadVideos()}catch(e){alert(e.message||'Could not change publication state.')}}
+async function deleteVideo(x){if(!x)return;if(!confirm('Delete this class/video? This removes the lecture record and cannot be undone from this screen.'))return;try{const r=await db().from('batch_lectures').delete().eq('id',x.id);if(r.error)throw r.error;await loadVideos()}catch(e){alert(e.message||'Could not delete video.')}}
+function install(){courseShell();videoShell()}
+const oldShow=window.showAdminSection;if(typeof oldShow==='function'&&!oldShow.__hoa614){const w=function(section){const r=oldShow.apply(this,arguments);if(section==='course')setTimeout(()=>{courseShell();loadCourses()},0);if(section==='video')setTimeout(()=>{videoShell();loadVideoCourses()},0);return r};w.__hoa614=true;window.showAdminSection=w}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
+window.hoaV614={loadCourses,loadVideos};
+})();
+</script>
+
+
+<style id="hoa-v615-batch360-style">
+#hoaBatch360Overlay{position:fixed;inset:0;background:rgba(15,32,51,.58);z-index:120000;display:none;padding:22px;overflow:auto}
+#hoaBatch360Overlay.open{display:block}
+.hoa360-shell{max-width:1450px;margin:0 auto;background:#f7fafd;border:1px solid #d8e3ef;border-radius:20px;box-shadow:0 24px 80px rgba(15,32,51,.24);overflow:hidden}
+.hoa360-head{background:#fff;border-bottom:1px solid #d8e3ef;padding:18px 22px;display:flex;justify-content:space-between;gap:16px;align-items:flex-start;position:sticky;top:0;z-index:2}
+.hoa360-head h2{margin:0;color:#173f6b;font-size:22px}.hoa360-head p{margin:5px 0 0;color:#64748b;font-size:13px}.hoa360-close{border:0;background:#eef4fa;color:#173f6b;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer}
+.hoa360-body{padding:18px}.hoa360-summary{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:16px}.hoa360-stat{background:#fff;border:1px solid #dbe5ef;border-radius:14px;padding:13px}.hoa360-stat b{display:block;font-size:22px;color:#173f6b}.hoa360-stat span{font-size:11px;color:#64748b;text-transform:uppercase;font-weight:800;letter-spacing:.04em}
+.hoa360-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.hoa360-tab{border:1px solid #d5e0eb;background:#fff;color:#36526f;border-radius:10px;padding:9px 13px;font-weight:800;cursor:pointer}.hoa360-tab.active{background:#173f6b;color:#fff;border-color:#173f6b}
+.hoa360-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.hoa360-card{background:#fff;border:1px solid #dbe5ef;border-radius:15px;padding:15px}.hoa360-card h3{margin:0 0 10px;color:#173f6b;font-size:16px}.hoa360-card h4{margin:12px 0 7px;color:#294c6e;font-size:14px}.hoa360-muted{color:#718096;font-size:12px}.hoa360-list{display:flex;flex-direction:column;gap:7px}.hoa360-row{border:1px solid #e4ebf2;border-radius:10px;padding:10px;background:#fbfdff}.hoa360-row-main{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hoa360-row b{color:#234a6e;font-size:13px}.hoa360-row small{display:block;color:#718096;font-size:11px;margin-top:3px}.hoa360-badge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;background:#edf4fa;color:#315779;font-size:10px;font-weight:800}.hoa360-badge.warn{background:#fff5df;color:#8a5a00}.hoa360-badge.ok{background:#eaf7ef;color:#17633a}.hoa360-badge.arch{background:#f1f1f1;color:#666}.hoa360-empty{padding:15px;border:1px dashed #ccd9e6;border-radius:10px;color:#718096;font-size:12px;text-align:center;background:#fafcff}.hoa360-tree{margin-top:8px}.hoa360-tree details{border:1px solid #e1e9f1;border-radius:11px;margin-bottom:8px;background:#fff}.hoa360-tree summary{cursor:pointer;padding:11px 12px;font-weight:800;color:#294c6e}.hoa360-tree .inside{padding:0 12px 12px}.hoa360-actions{display:flex;gap:8px;flex-wrap:wrap}.hoa360-view-btn{margin-left:6px!important}
+@media(max-width:900px){.hoa360-summary{grid-template-columns:repeat(3,minmax(0,1fr))}.hoa360-grid{grid-template-columns:1fr}.hoa360-head{position:static}}
+@media(max-width:600px){#hoaBatch360Overlay{padding:8px}.hoa360-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.hoa360-body{padding:10px}.hoa360-head{padding:14px}.hoa360-head h2{font-size:18px}}
+</style>
+<script id="hoa-v615-batch360-script">
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const db=()=>window.supabaseClient||window.supabase||null;
+const fmt=v=>v?new Date(v).toLocaleString():'—';
+function adminOK(){try{return typeof isAdminMode==='function'?isAdminMode():document.body.classList.contains('admin-ui')}catch(_){return false}}
+function ensureUI(){if($('hoaBatch360Overlay'))return;const d=document.createElement('div');d.id='hoaBatch360Overlay';d.innerHTML='<div class="hoa360-shell"><div class="hoa360-head"><div><h2 id="hoa360Title">Batch Overview</h2><p id="hoa360Subtitle">Complete batch content and access map</p></div><button class="hoa360-close" type="button" id="hoa360Close">CLOSE</button></div><div class="hoa360-body" id="hoa360Body"><div class="hoa360-empty">Select a batch to view its complete overview.</div></div></div>';document.body.appendChild(d);$('hoa360Close').onclick=close;d.addEventListener('click',e=>{if(e.target===d)close()})}
+function open(){ensureUI();$('hoaBatch360Overlay').classList.add('open');document.body.style.overflow='hidden'}
+function close(){const d=$('hoaBatch360Overlay');if(d)d.classList.remove('open');document.body.style.overflow=''}
+function stat(n,l){return '<div class="hoa360-stat"><b>'+esc(n)+'</b><span>'+esc(l)+'</span></div>'}
+function row(title,meta,badge){return '<div class="hoa360-row"><div class="hoa360-row-main"><div><b>'+esc(title)+'</b><small>'+esc(meta||'')+'</small></div>'+(badge?'<span class="hoa360-badge '+(badge==='PUBLISHED'||badge==='ACTIVE'?'ok':badge==='ARCHIVED'?'arch':'warn')+'">'+esc(badge)+'</span>':'')+'</div></div>'}
+function empty(t){return '<div class="hoa360-empty">'+esc(t)+'</div>'}
+function setBody(title,subtitle,body){ensureUI();$('hoa360Title').textContent=title;$('hoa360Subtitle').textContent=subtitle||'';$('hoa360Body').innerHTML=body}
+async function courseData(id){const c=db();if(!c)throw new Error('Supabase is not ready.');const b=await c.from('batches').select('*').eq('id',id).single();if(b.error)throw b.error;const [folders,lectures,notes,la,na,access]=await Promise.all([
+ c.from('content_folders').select('id,name,folder_type,parent_id,sort_order,is_active,created_at').eq('batch_id',id).order('folder_type').order('sort_order').order('name'),
+ c.from('batch_lectures').select('id,title,lecture_no,folder_id,batch_id,is_published,scheduled_at,youtube_video_id,sort_order').eq('batch_id',id).order('sort_order').order('lecture_no'),
+ c.from('exam_notes').select('id,title,subject,exam,folder_id,batch_id,is_published,file_name,created_at,sort_order').eq('batch_id',id).order('sort_order').order('created_at',{ascending:false}),
+ c.from('batch_lecture_assignments').select('lecture_id,batch_id,folder_id').eq('batch_id',id),
+ c.from('exam_note_assignments').select('note_id,batch_id,folder_id').eq('batch_id',id),
+ c.from('student_batch_access').select('student_id,starts_at,expires_at').eq('batch_id',id)
+]);
+ for(const r of [folders,lectures,notes,la,na,access])if(r.error)throw r.error;
+ const accessRows=access.data||[];let students=[];const ids=[...new Set(accessRows.map(x=>x.student_id).filter(Boolean))];if(ids.length){const sr=await c.from('students').select('id,full_name,email,mobile,status').in('id',ids).order('full_name');if(sr.error)throw sr.error;students=sr.data||[]}
+ return {batch:b.data,folders:folders.data||[],lectures:lectures.data||[],notes:notes.data||[],lectureAssignments:la.data||[],noteAssignments:na.data||[],access:accessRows,students};}
+function assignedFor(rows,id,key){return rows.filter(x=>x[key]===id)}
+function courseView(d){const b=d.batch,fs=d.folders,ls=d.lectures,ns=d.notes;const videoFs=fs.filter(x=>x.folder_type==='video'),noteFs=fs.filter(x=>x.folder_type==='note'),otherFs=fs.filter(x=>!['video','note'].includes(x.folder_type));const unfiledV=ls.filter(x=>!x.folder_id),unfiledN=ns.filter(x=>!x.folder_id);const assignedL=d.lectureAssignments;const assignedN=d.noteAssignments;
+ const studentHtml=d.students.length?d.students.map(x=>row(x.full_name,(x.email||x.mobile||'')+' · '+(x.status||'') ,(x.status||'').toUpperCase()||'ACTIVE')).join(''):empty('No students are assigned to this batch.');
+ const folderTree=(folders,type,items,assignments,key)=>folders.length?folders.map(f=>{let direct=items.filter(x=>x.folder_id===f.id);let reused=assignments.filter(x=>x.folder_id===f.id).map(a=>a[key]);let all=[...direct];const seen=new Set(all.map(x=>x.id));items.filter(x=>reused.includes(x.id)).forEach(x=>{if(!seen.has(x.id))all.push(x)});return '<details><summary>'+esc(f.name)+' <span class="hoa360-badge '+(f.is_active?'ok':'arch')+'">'+(f.is_active?'ACTIVE':'ARCHIVED')+'</span></summary><div class="inside">'+(all.length?all.map(x=>row(x.title||x.file_name,(type==='video'?'Class '+(x.lecture_no||'')+' · '+(x.is_published?'Published':'Draft'):(x.subject||'General')+' · '+(x.exam||'')+' · '+(x.is_published?'Published':'Draft')),x.is_published?'PUBLISHED':'DRAFT')).join(''):empty('Nothing uploaded/assigned to this folder yet.'))+'</div></details>'}).join(''):empty('No '+type+' folders created.');
+ const other=(otherFs.length?otherFs.map(f=>row(f.name,'Folder type: '+(f.folder_type||'Other'),f.is_active?'ACTIVE':'ARCHIVED')).join(''):'')+(unfiledV.length?'<h4>Unfiled videos</h4>'+unfiledV.map(x=>row(x.title,'No subject folder · '+(x.is_published?'Published':'Draft'),x.is_published?'PUBLISHED':'DRAFT')).join(''):'')+(unfiledN.length?'<h4>Unfiled notes</h4>'+unfiledN.map(x=>row(x.title,(x.subject||'General')+' · No folder · '+(x.is_published?'Published':'Draft'),x.is_published?'PUBLISHED':'DRAFT')).join(''):'');
+ const summary=stat(d.students.length,'STUDENTS')+stat(videoFs.length,'VIDEO FOLDERS')+stat(ls.length,'VIDEOS')+stat(noteFs.length,'NOTE FOLDERS')+stat(ns.length,'NOTES')+stat(otherFs.length+unfiledV.length+unfiledN.length,'OTHER / UNFILED');
+ const tabs='<div class="hoa360-tabs"><button class="hoa360-tab active" data-360-tab="overview">Overview</button><button class="hoa360-tab" data-360-tab="students">Students</button><button class="hoa360-tab" data-360-tab="videos">Videos</button><button class="hoa360-tab" data-360-tab="notes">Notes</button><button class="hoa360-tab" data-360-tab="other">Other / Unfiled</button></div>';
+ const panels={overview:'<div class="hoa360-grid"><div class="hoa360-card"><h3>Batch Information</h3>'+row(b.name,(b.batch_code||'No batch code')+' · '+(b.status||'draft'),b.is_published?'PUBLISHED':'DRAFT')+'<p class="hoa360-muted">Created: '+esc(fmt(b.created_at))+'<br>Updated: '+esc(fmt(b.updated_at))+'</p></div><div class="hoa360-card"><h3>Content Health</h3>'+row('Video folders',videoFs.length+' folders · '+ls.length+' videos',videoFs.length?'':'EMPTY')+row('Note folders',noteFs.length+' folders · '+ns.length+' notes',noteFs.length?'':'EMPTY')+row('Students',d.students.length+' assigned students',d.students.length?'ACTIVE':'EMPTY')+'</div></div>',students:'<div class="hoa360-card"><h3>Students ('+d.students.length+')</h3><div class="hoa360-list">'+studentHtml+'</div></div>',videos:'<div class="hoa360-card"><h3>Video Structure</h3><div class="hoa360-tree">'+folderTree(videoFs,'video',ls,assignedL,'lecture_id')+'</div></div>',notes:'<div class="hoa360-card"><h3>Notes Structure</h3><div class="hoa360-tree">'+folderTree(noteFs,'note',ns,assignedN,'note_id')+'</div></div>',other:'<div class="hoa360-card"><h3>Other / Unfiled Content</h3>'+((other||'')||empty('No other or unfiled content detected.'))+'</div>'};
+ setBody('Course Batch — '+b.name,(b.batch_code||'')+' · Complete batch view',summary+tabs+'<div id="hoa360Panel">'+panels.overview+'</div>');document.querySelectorAll('[data-360-tab]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-360-tab]').forEach(x=>x.classList.toggle('active',x===btn));$('hoa360Panel').innerHTML=panels[btn.dataset['360Tab']]||panels.overview});open()}
+async function openCourse(id){if(!adminOK())return;open();setBody('Loading Course Batch…','Reading existing batch relationships',empty('Loading…'));try{courseView(await courseData(id))}catch(e){setBody('Batch Overview Error','',empty(e.message||'Could not load batch overview.'))}}
+async function mockData(id){const c=db();if(!c)throw new Error('Supabase is not ready.');const b=await c.from('test_batches').select('*').eq('id',id).single();if(b.error)throw b.error;const [f,a,t,access]=await Promise.all([
+ c.from('test_batch_folders').select('id,name,folder_type,sort_order,is_active,created_at').eq('test_batch_id',id).order('folder_type').order('sort_order').order('name'),
+ c.from('test_batch_test_assignments').select('test_id,test_batch_id,test_batch_folder_id').eq('test_batch_id',id),
+ c.from('tests').select('id,title,description,duration_minutes,marks_per_question,negative_marking,is_published,test_batch_id,test_batch_folder_id,test_type,created_at').eq('test_batch_id',id).order('created_at',{ascending:false}),
+ c.from('student_test_batch_access').select('student_id,starts_at,expires_at').eq('test_batch_id',id)
+]);for(const r of [f,a,t,access])if(r.error)throw r.error;const ids=[...new Set((access.data||[]).map(x=>x.student_id).filter(Boolean))];let students=[];if(ids.length){const sr=await c.from('students').select('id,full_name,email,mobile,status').in('id',ids).order('full_name');if(sr.error)throw sr.error;students=sr.data||[]}return {batch:b.data,folders:f.data||[],assignments:a.data||[],tests:t.data||[],access:access.data||[],students}}
+function mockView(d){const b=d.batch,fs=d.folders,tests=d.tests;const assigned=d.assignments;const folderHtml=fs.length?fs.map(f=>{const direct=tests.filter(x=>x.test_batch_folder_id===f.id);const ids=assigned.filter(x=>x.test_batch_folder_id===f.id).map(x=>x.test_id);const all=[...direct],seen=new Set(all.map(x=>x.id));tests.filter(x=>ids.includes(x.id)).forEach(x=>{if(!seen.has(x.id))all.push(x)});return '<details><summary>'+esc(f.name)+' <span class="hoa360-badge '+(f.is_active?'ok':'arch')+'">'+(f.folder_type==='full_length'?'FULL-LENGTH':'SUBJECT-WISE')+' · '+(f.is_active?'ACTIVE':'ARCHIVED')+'</span></summary><div class="inside">'+(all.length?all.map(x=>row(x.title,(x.duration_minutes||0)+' min · '+(x.is_published?'Published':'Draft')+' · '+(x.test_type||'test'),x.is_published?'PUBLISHED':'DRAFT')).join(''):empty('No tests are assigned to this folder.'))+'</div></details>'}).join(''):empty('No mock-test folders created.');const assignedIds=new Set(assigned.map(x=>x.test_id));const unfiled=tests.filter(x=>!x.test_batch_folder_id&&!assignedIds.has(x.id));const students=d.students.length?d.students.map(x=>row(x.full_name,(x.email||x.mobile||'')+' · '+(x.status||''),(x.status||'').toUpperCase()||'ACTIVE')).join(''):empty('No students have batch access.');const summary=stat(d.students.length,'STUDENTS')+stat(fs.length,'FOLDERS')+stat(tests.length,'TESTS')+stat(tests.filter(x=>x.is_published).length,'PUBLISHED')+stat(tests.filter(x=>!x.is_published).length,'DRAFT')+stat(unfiled.length,'UNFILED TESTS');const tabs='<div class="hoa360-tabs"><button class="hoa360-tab active" data-mock-tab="overview">Overview</button><button class="hoa360-tab" data-mock-tab="folders">Folders & Tests</button><button class="hoa360-tab" data-mock-tab="students">Students</button><button class="hoa360-tab" data-mock-tab="unfiled">Unfiled</button></div>';const panels={overview:'<div class="hoa360-grid"><div class="hoa360-card"><h3>Batch Information</h3>'+row(b.name,(b.batch_code||'No batch code')+' · '+(b.status||'draft'),b.is_published?'PUBLISHED':'DRAFT')+'<p class="hoa360-muted">Created: '+esc(fmt(b.created_at))+'<br>Updated: '+esc(fmt(b.updated_at))+'</p></div><div class="hoa360-card"><h3>Content Health</h3>'+row('Folders',fs.length+' active/archived folders',fs.length?'READY':'EMPTY')+row('Tests',tests.length+' tests · '+tests.filter(x=>x.is_published).length+' published',tests.length?'READY':'EMPTY')+row('Students',d.students.length+' students with batch access',d.students.length?'ACTIVE':'EMPTY')+'</div></div>',folders:'<div class="hoa360-card"><h3>Folders & Tests</h3><div class="hoa360-tree">'+folderHtml+'</div></div>',students:'<div class="hoa360-card"><h3>Students ('+d.students.length+')</h3><div class="hoa360-list">'+students+'</div></div>',unfiled:'<div class="hoa360-card"><h3>Unfiled Tests</h3>'+(unfiled.length?unfiled.map(x=>row(x.title,'No folder assignment · '+(x.is_published?'Published':'Draft'),x.is_published?'PUBLISHED':'DRAFT')).join(''):empty('No unfiled tests detected.'))+'</div>'};setBody('Mock Test Batch — '+b.name,(b.batch_code||'')+' · Complete batch view',summary+tabs+'<div id="hoa360Panel">'+panels.overview+'</div>');document.querySelectorAll('[data-mock-tab]').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('[data-mock-tab]').forEach(x=>x.classList.toggle('active',x===btn));$('hoa360Panel').innerHTML=panels[btn.dataset['mockTab']]||panels.overview});open()}
+async function openMock(id){if(!adminOK())return;open();setBody('Loading Mock Test Batch…','Reading existing folders, tests and access',empty('Loading…'));try{mockView(await mockData(id))}catch(e){setBody('Batch Overview Error','',empty(e.message||'Could not load mock batch overview.'))}}
+function enhanceCourseRows(){const list=$('hoaCourseList');if(!list)return;list.querySelectorAll('tbody tr').forEach(tr=>{if(tr.querySelector('[data-hoa360-course]'))return;const pub=tr.querySelector('[onclick*="hoaToggleCoursePublish"]');if(!pub)return;const m=String(pub.getAttribute('onclick')).match(/hoaToggleCoursePublish\(['"]([^'"]+)/);if(!m)return;const id=m[1];const cell=tr.lastElementChild;if(cell){const b=document.createElement('button');b.type='button';b.className='secondary hoa360-view-btn';b.textContent='VIEW BATCH';b.dataset.hoa360Course=id;b.onclick=()=>openCourse(id);cell.appendChild(b)}})}
+function ensureMockViewButton(){const sel=$('hoa606MockBatch');if(!sel||$('hoa360MockView'))return;const wrap=sel.parentElement;const b=document.createElement('button');b.type='button';b.id='hoa360MockView';b.className='hoa606-btn gold';b.style.marginTop='8px';b.textContent='📋 VIEW BATCH OVERVIEW';b.onclick=()=>{const id=sel.value;if(id)openMock(id);else alert('Select a Mock Test Batch first.')};wrap?.appendChild(b)}
+function boot(){ensureUI();const oldCourse=window.hoaLoadCourses;if(typeof oldCourse==='function'&&!oldCourse.__hoa615){const w=async function(){const r=await oldCourse.apply(this,arguments);setTimeout(enhanceCourseRows,0);return r};w.__hoa615=true;window.hoaLoadCourses=w}ensureMockViewButton();new MutationObserver(()=>{enhanceCourseRows();ensureMockViewButton()}).observe(document.body,{childList:true,subtree:true});}
+window.hoaOpenCourseBatchOverview=openCourse;window.hoaOpenMockBatchOverview=openMock;if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
+})();
+</script>
+
+<script id="hoa-v620-theme-system">
+/* =========================================================
+   HOA V6.2.0 — THEME SYSTEM
+   Feature owner: CORE / UI SYSTEM
+   Public functions: window.hoaSetTheme, window.hoaToggleTheme
+   Storage: hoa-theme
+   Database/RPC: none
+   Future module: js/theme.js (optional)
+   ========================================================= */
+(function(){
+  'use strict';
+  var KEY='hoa-theme';
+  var root=document.documentElement;
+  function systemTheme(){return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+  function apply(theme,save){
+    theme=theme==='dark'?'dark':'light';
+    root.setAttribute('data-theme',theme);
+    root.classList.add('hoa-theme-transition');
+    if(save){try{localStorage.setItem(KEY,theme)}catch(e){}}
+    document.dispatchEvent(new CustomEvent('hoa:themechange',{detail:{theme:theme}}));
+  }
+  function init(){
+    var saved=null; try{saved=localStorage.getItem(KEY)}catch(e){}
+    apply(saved==='dark'||saved==='light'?saved:systemTheme(),false);
+  }
+  window.hoaSetTheme=function(theme){apply(theme,true)};
+  window.hoaToggleTheme=function(){apply(root.getAttribute('data-theme')==='dark'?'light':'dark',true)};
+  window.hoaGetTheme=function(){return root.getAttribute('data-theme')||'light'};
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true}); else init();
+})();
+</script>
+
+
+<style id="hoa-v621-admin-ui-polish">
+/* =========================================================
+   HOA V6.2.1 — ADMIN UI POLISH
+   Feature owner: CORE / ADMIN UI
+   Database/RPC: none
+   Future module: css/style.css + optional js/ui.js
+   ========================================================= */
+:root{
+  --hoa-blue:#0b4f9c;
+  --hoa-blue-2:#146dcc;
+  --hoa-gold:#d9a441;
+  --hoa-gold-2:#f0c766;
+  --hoa-surface:#ffffff;
+  --hoa-surface-2:#f7f9fc;
+  --hoa-line:#dce5ef;
+  --hoa-text:#10243d;
+  --hoa-muted:#66758a;
+  --hoa-shadow:0 10px 30px rgba(7,40,78,.08);
+}
+html[data-theme="dark"]{
+  --hoa-surface:#101a29;
+  --hoa-surface-2:#0b1320;
+  --hoa-line:#26364b;
+  --hoa-text:#edf4ff;
+  --hoa-muted:#9cafc5;
+  --hoa-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+body.admin-ui{background:var(--hoa-surface-2)!important;color:var(--hoa-text)!important;}
+body.admin-ui .adminReferenceSidebar{
+  background:linear-gradient(180deg,#082f63 0%,#061f43 100%)!important;
+  border-right:1px solid rgba(240,199,102,.14);
+}
+body.admin-ui .adminReferenceBrand{padding-bottom:20px!important;}
+body.admin-ui .adminReferenceBrand img{box-shadow:0 6px 20px rgba(0,0,0,.2);border:2px solid rgba(240,199,102,.35);}
+body.admin-ui .adminReferenceNav button{transition:transform .18s ease,background .18s ease,box-shadow .18s ease,border-color .18s ease!important;}
+body.admin-ui .adminReferenceNav button:hover:not(.active){transform:translateX(3px)!important;background:rgba(255,255,255,.095)!important;}
+body.admin-ui .adminReferenceNav button.active{
+  background:linear-gradient(100deg,var(--hoa-blue-2),#0f82df)!important;
+  box-shadow:0 8px 22px rgba(0,0,0,.22),inset 3px 0 0 var(--hoa-gold-2)!important;
+}
+body.admin-ui .adminReferenceMain{background:var(--hoa-surface-2)!important;}
+body.admin-ui .adminReferenceMain #adminOnlyDashboard > .dashPanel:first-of-type,
+body.admin-ui .adminReferenceMain .dashPanel,
+body.admin-ui .adminReferenceMain .testWisePanel{
+  background:var(--hoa-surface)!important;
+  border-color:var(--hoa-line)!important;
+  color:var(--hoa-text)!important;
+  box-shadow:var(--hoa-shadow)!important;
+}
+body.admin-ui .adminReferenceMain h1,
+body.admin-ui .adminReferenceMain h2,
+body.admin-ui .adminReferenceMain h3,
+body.admin-ui .adminReferenceMain h4,
+body.admin-ui .adminReferenceMain label{color:var(--hoa-text)!important;}
+body.admin-ui .adminReferenceMain p,
+body.admin-ui .adminReferenceMain small,
+body.admin-ui .adminReferenceMain .muted{color:var(--hoa-muted)!important;}
+body.admin-ui .adminReferenceMain input,
+body.admin-ui .adminReferenceMain select,
+body.admin-ui .adminReferenceMain textarea{
+  background:var(--hoa-surface)!important;color:var(--hoa-text)!important;border-color:var(--hoa-line)!important;
+  border-radius:10px!important;transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease!important;
+}
+body.admin-ui .adminReferenceMain input:focus,
+body.admin-ui .adminReferenceMain select:focus,
+body.admin-ui .adminReferenceMain textarea:focus{
+  border-color:var(--hoa-blue-2)!important;box-shadow:0 0 0 3px rgba(20,109,204,.14)!important;outline:none!important;
+}
+body.admin-ui .adminReferenceMain button{
+  transition:transform .16s ease,box-shadow .16s ease,background .16s ease,border-color .16s ease!important;
+}
+body.admin-ui .adminReferenceMain button:hover{transform:translateY(-1px);}
+body.admin-ui .adminReferenceMain button:active{transform:translateY(0);}
+body.admin-ui .adminReferenceMain .adminResultCard{
+  background:var(--hoa-surface)!important;border-color:var(--hoa-line)!important;border-top:3px solid var(--hoa-blue-2)!important;
+  box-shadow:var(--hoa-shadow)!important;transition:transform .2s ease,box-shadow .2s ease!important;
+}
+body.admin-ui .adminReferenceMain .adminResultCard:hover{transform:translateY(-3px);box-shadow:0 15px 34px rgba(7,40,78,.13)!important;}
+body.admin-ui .adminReferenceMain table{border-color:var(--hoa-line)!important;}
+body.admin-ui .adminReferenceMain th{background:linear-gradient(180deg,rgba(20,109,204,.08),rgba(20,109,204,.03))!important;color:var(--hoa-text)!important;}
+body.admin-ui .adminReferenceMain td{border-color:var(--hoa-line)!important;color:var(--hoa-text)!important;}
+body.admin-ui .adminReferenceMain tr:hover td{background:rgba(20,109,204,.045)!important;}
+.hoa-v621-theme-btn{
+  display:inline-flex!important;align-items:center;justify-content:center;gap:7px;min-height:40px!important;padding:0 12px!important;
+  border:1px solid var(--hoa-line)!important;border-radius:10px!important;background:var(--hoa-surface)!important;color:var(--hoa-text)!important;
+  font-weight:800!important;cursor:pointer;box-shadow:0 5px 14px rgba(7,40,78,.06)!important;
+}
+.hoa-v621-theme-btn:hover{border-color:var(--hoa-gold)!important;box-shadow:0 8px 18px rgba(217,164,65,.14)!important;}
+.hoa-v621-gold-accent{color:var(--hoa-gold)!important;}
+@media(max-width:900px){
+  body.admin-ui .adminReferenceSidebar{width:218px!important;}
+  body.admin-ui .adminReferenceMain{margin-left:218px!important;padding:14px!important;}
+  body.admin-ui .adminReferenceMain .adminResultCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;}
+}
+@media(max-width:700px){
+  body.admin-ui .adminReferenceSidebar{position:relative!important;width:100%!important;height:auto!important;min-height:0!important;padding:10px!important;}
+  body.admin-ui .adminReferenceBrand{padding:4px 8px 12px!important;}
+  body.admin-ui .adminReferenceNav{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px!important;}
+  body.admin-ui .adminReferenceNav button{min-height:44px!important;font-size:12px!important;padding:0 10px!important;}
+  body.admin-ui .adminReferenceMain{margin-left:0!important;padding:10px!important;}
+  body.admin-ui .adminReferenceMain .adminResultCards{grid-template-columns:1fr!important;}
+  body.admin-ui .adminReferenceTopbarTitle{font-size:19px!important;}
+  body.admin-ui .adminReferenceMain .dashPanel{padding:14px!important;border-radius:14px!important;}
+}
+@media(max-width:430px){
+  body.admin-ui .adminReferenceNav{grid-template-columns:1fr!important;}
+  body.admin-ui .adminReferenceBrandTitle{font-size:17px!important;}
+  body.admin-ui .adminReferenceMain #adminOnlyDashboard > .dashPanel:first-of-type{padding:14px!important;}
+}
+@media(prefers-reduced-motion:reduce){body.admin-ui .adminReferenceMain button,body.admin-ui .adminReferenceNav button,body.admin-ui .adminResultCard{transition:none!important;}}
+</style>
+
+<script id="hoa-v621-admin-theme-control">
+/* =========================================================
+   HOA V6.2.1 — ADMIN THEME CONTROL
+   Feature owner: CORE / ADMIN UI
+   Dependencies: V6.2.0 theme API
+   Database/RPC: none
+   Future module: js/theme.js / js/ui.js
+   ========================================================= */
+(function(){
+  'use strict';
+  function label(){return document.documentElement.getAttribute('data-theme')==='dark'?'☀️ Light':'🌙 Dark';}
+  function sync(btn){if(btn) btn.innerHTML=label()+' Mode';}
+  function mount(){
+    if(!document.body.classList.contains('admin-ui')) return;
+    var host=document.querySelector('.adminReferenceTopbarActions');
+    if(!host || document.getElementById('hoaV621ThemeBtn')) return;
+    var b=document.createElement('button');
+    b.type='button'; b.id='hoaV621ThemeBtn'; b.className='hoa-v621-theme-btn'; b.title='Toggle light and dark mode';
+    b.addEventListener('click',function(){if(typeof window.hoaToggleTheme==='function') window.hoaToggleTheme(); sync(b);});
+    host.insertBefore(b,host.firstChild); sync(b);
+    document.addEventListener('hoa:themechange',function(){sync(b);});
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount,{once:true}); else mount();
+  new MutationObserver(mount).observe(document.body,{attributes:true,attributeFilter:['class'],subtree:false});
+})();
+</script>
+<script id="hoa-v623-mobile-drawer-api">
+/* HOA V6.2.3 — Mobile drawer API; intentionally additive. */
+(function(){
+  function toggle(){ document.body.classList.toggle('hoa-sidebar-open'); }
+  function close(){ document.body.classList.remove('hoa-sidebar-open'); }
+  window.hoaToggleMobileSidebar=toggle;
+  window.hoaCloseMobileSidebar=close;
+  document.addEventListener('click',function(e){
+    if(!document.body.classList.contains('hoa-sidebar-open')) return;
+    if(e.target.closest('.adminReferenceSidebar')) return;
+    if(e.target.closest('[data-hoa-mobile-sidebar]')) return;
+    close();
+  });
+})();
+</script>
+<style id="hoa-v627-data-management-ui">
+:root{--hoa-control-h:42px;--hoa-table-head-bg:color-mix(in srgb,var(--hoa-blue,#0b3d91) 8%,transparent);--hoa-row-hover:color-mix(in srgb,var(--hoa-gold,#d4af37) 7%,transparent);--hoa-danger:#b42318;--hoa-success:#18794e}
+.hoa-v627-form-group{display:flex;flex-direction:column;gap:7px;margin-bottom:14px}.hoa-v627-form-group>label{font-weight:650;font-size:.9rem}.hoa-v627-form-group input,.hoa-v627-form-group select,.hoa-v627-form-group textarea{min-height:var(--hoa-control-h);border-radius:10px;border:1px solid color-mix(in srgb,currentColor 16%,transparent);padding:9px 12px;background:var(--hoa-surface,#fff);color:inherit;transition:border-color .18s,box-shadow .18s,background .18s}.hoa-v627-form-group textarea{min-height:96px;resize:vertical}.hoa-v627-form-group input:focus,.hoa-v627-form-group select:focus,.hoa-v627-form-group textarea:focus{outline:0;border-color:var(--hoa-blue,#0b3d91);box-shadow:0 0 0 3px color-mix(in srgb,var(--hoa-blue,#0b3d91) 16%,transparent)}.hoa-v627-required::after{content:' *';color:var(--hoa-danger)}.hoa-v627-form-actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-top:14px}.hoa-v627-table-wrap{width:100%;overflow-x:auto;border:1px solid color-mix(in srgb,currentColor 10%,transparent);border-radius:14px}.hoa-v627-table-wrap table{width:100%;border-collapse:separate;border-spacing:0;min-width:620px}.hoa-v627-table-wrap th{background:var(--hoa-table-head-bg);font-size:.82rem;font-weight:750;text-align:left;white-space:nowrap;padding:12px}.hoa-v627-table-wrap td{padding:11px 12px;border-top:1px solid color-mix(in srgb,currentColor 8%,transparent);vertical-align:middle}.hoa-v627-table-wrap tbody tr{transition:background .16s,transform .16s}.hoa-v627-table-wrap tbody tr:hover{background:var(--hoa-row-hover)}.hoa-v627-actions{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.hoa-v627-btn-danger{color:#fff!important;background:var(--hoa-danger)!important;border-color:var(--hoa-danger)!important}.hoa-v627-btn-success{color:#fff!important;background:var(--hoa-success)!important;border-color:var(--hoa-success)!important}.hoa-v627-empty{padding:28px 18px;text-align:center;border:1px dashed color-mix(in srgb,currentColor 18%,transparent);border-radius:14px;opacity:.82}.hoa-v627-loading{position:relative;overflow:hidden}.hoa-v627-loading::after{content:'';position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,color-mix(in srgb,currentColor 8%,transparent),transparent);animation:hoaV627Shimmer 1.35s infinite}@keyframes hoaV627Shimmer{100%{transform:translateX(100%)}}@media(max-width:640px){.hoa-v627-form-actions{align-items:stretch}.hoa-v627-form-actions>*{flex:1 1 100%}.hoa-v627-table-wrap{border-radius:10px}.hoa-v627-table-wrap th,.hoa-v627-table-wrap td{padding:9px 10px}.hoa-v627-actions{gap:5px}}@media(prefers-reduced-motion:reduce){.hoa-v627-form-group input,.hoa-v627-form-group select,.hoa-v627-form-group textarea,.hoa-v627-table-wrap tbody tr{transition:none}.hoa-v627-loading::after{animation:none}}
+</style>
+
+<script id="hoa-v627-data-management-ui">
+(function(){
+  window.hoaV627RefreshDataUI=function(){
+    document.querySelectorAll('input[required],select[required],textarea[required]').forEach(function(el){
+      var l=el.closest('.hoa-v627-form-group')?.querySelector('label'); if(l) l.classList.add('hoa-v627-required');
+    });
+    document.querySelectorAll('table').forEach(function(t){ if(!t.parentElement.classList.contains('hoa-v627-table-wrap')){ var w=document.createElement('div'); w.className='hoa-v627-table-wrap'; t.parentNode.insertBefore(w,t); w.appendChild(t); }});
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',window.hoaV627RefreshDataUI); else window.hoaV627RefreshDataUI();
+})();
+</script>
+<script id="hoa-v629-page-refinement-js">
+(function(){'use strict';window.hoaV629RefreshPages=function(){try{document.querySelectorAll('#adminOnlyDashboard .card,#studentOnlyDashboard .card').forEach(function(el){if(!el.hasAttribute('tabindex')&&(el.onclick||el.getAttribute('role')==='button'))el.setAttribute('tabindex','0')})}catch(e){console.warn('[HOA V6.2.9] page refinement refresh skipped:',e)}};if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',window.hoaV629RefreshPages,{once:true});else window.hoaV629RefreshPages()})();
+</script>
+
+<style id="hoa-v610-mock-test-ui">
+:root{--hoa-mock-blue:#123b6d;--hoa-mock-blue-2:#1d5a9d;--hoa-mock-gold:#d6a93a;--hoa-mock-soft:#eef5fb;--hoa-mock-border:rgba(18,59,109,.14)}
+.hoa-v610-mock-card{border:1px solid var(--hoa-mock-border)!important;border-radius:18px!important;box-shadow:0 8px 24px rgba(15,42,72,.08)!important;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease!important;overflow:hidden}
+.hoa-v610-mock-card:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(15,42,72,.14)!important;border-color:rgba(214,169,58,.5)!important}
+.hoa-v610-mock-card .hoa-v610-mock-accent{height:4px;background:linear-gradient(90deg,var(--hoa-mock-blue),var(--hoa-mock-gold))}
+.hoa-v610-mock-badge{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;font-size:.75rem;font-weight:700;letter-spacing:.02em;background:var(--hoa-mock-soft);color:var(--hoa-mock-blue);border:1px solid var(--hoa-mock-border)}
+.hoa-v610-mock-badge.gold{background:rgba(214,169,58,.13);color:#8a6410;border-color:rgba(214,169,58,.28)}
+.hoa-v610-mock-progress{height:7px;border-radius:99px;background:rgba(18,59,109,.10);overflow:hidden}.hoa-v610-mock-progress>span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--hoa-mock-blue-2),var(--hoa-mock-gold));transition:width .35s ease}
+.hoa-v610-question{border:1px solid var(--hoa-mock-border);border-radius:16px;padding:18px;background:var(--hoa-surface,#fff);box-shadow:0 5px 18px rgba(15,42,72,.06)}
+.hoa-v610-option{display:flex;gap:12px;align-items:flex-start;padding:13px 14px;margin:9px 0;border:1px solid var(--hoa-mock-border);border-radius:13px;cursor:pointer;transition:transform .16s ease,background .16s ease,border-color .16s ease,box-shadow .16s ease}
+.hoa-v610-option:hover{transform:translateX(2px);border-color:rgba(214,169,58,.55);box-shadow:0 5px 15px rgba(15,42,72,.07)}
+.hoa-v610-option.is-selected{background:rgba(18,59,109,.07);border-color:var(--hoa-mock-blue-2);box-shadow:inset 3px 0 0 var(--hoa-mock-gold)}
+.hoa-v610-nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.hoa-v610-nav button{min-width:38px;min-height:38px;border-radius:10px;border:1px solid var(--hoa-mock-border);background:var(--hoa-surface,#fff);transition:.18s ease}.hoa-v610-nav button:hover{transform:translateY(-1px);border-color:var(--hoa-mock-gold)}
+.hoa-v610-timer{font-variant-numeric:tabular-nums;font-weight:800;color:var(--hoa-mock-blue);background:rgba(18,59,109,.07);border:1px solid var(--hoa-mock-border);padding:8px 12px;border-radius:12px}.hoa-v610-timer.warning{color:#9b2c2c;background:rgba(155,44,44,.08);border-color:rgba(155,44,44,.2)}
+.hoa-v610-result-score{font-size:clamp(2.2rem,6vw,4.5rem);font-weight:900;line-height:1;color:var(--hoa-mock-blue);text-align:center}.hoa-v610-result-gold{color:#9a7214}
+@media (max-width:767px){.hoa-v610-mock-card{border-radius:15px!important}.hoa-v610-question{padding:14px}.hoa-v610-option{padding:12px}.hoa-v610-nav{gap:6px}.hoa-v610-nav button{min-width:36px;min-height:36px}.hoa-v610-timer{padding:7px 10px;font-size:.9rem}}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--hoa-mock-soft:rgba(80,140,210,.12);--hoa-mock-border:rgba(255,255,255,.12)}}
+@media (prefers-reduced-motion:reduce){.hoa-v610-mock-card,.hoa-v610-option,.hoa-v610-nav button,.hoa-v610-mock-progress>span{transition:none!important}.hoa-v610-mock-card:hover,.hoa-v610-option:hover,.hoa-v610-nav button:hover{transform:none}}
+</style>
+
+<script id="hoa-v610-mock-test-ui-js">
+(function(){
+  'use strict';
+  function mark(root){
+    root=root||document;
+    const selectors=['[id*="test"]','.test-card','.mock-test-card','.test-item','.question-card','.option-card','.question-option'];
+    selectors.forEach(sel=>root.querySelectorAll(sel).forEach(el=>{
+      if(el.classList.contains('hoa-v610-mock-card')||el.classList.contains('hoa-v610-question')||el.classList.contains('hoa-v610-option')) return;
+      const id=(el.id||'').toLowerCase(); const cls=(el.className||'').toString().toLowerCase();
+      if(/question/.test(id+' '+cls)) el.classList.add('hoa-v610-question');
+      else if(/option/.test(id+' '+cls)) el.classList.add('hoa-v610-option');
+      else if(/test/.test(id+' '+cls)) el.classList.add('hoa-v610-mock-card');
+    }));
+  }
+  window.hoaV610RefreshMockUI=function(){mark(document);};
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>mark(document)); else mark(document);
+})();
+</script>
+
+<style id="hoa-v612-font-restore-exact">
+/* HOA V6.2.12 — Restore the exact V6.2.10 typography used before the V6.2.11 rollback. */
+:root {
+  --hoa-font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif !important;
+}
+html, body, button, input, select, textarea {
+  font-family: var(--hoa-font-sans) !important;
+}
+</style>
 </body>
 </html>
+
+<!-- =========================================================
+     HOA V6.1.0 — MOCK TEST ADMIN WORKSPACE POLISH
+     Feature owner: MOCK TESTS
+     Dependencies: existing Supabase client, admin auth, existing
+                   test engine, existing test creator/importer.
+     Public functions: window.hoaV610OpenMockTab,
+                       window.hoaV610RefreshMockWorkspace
+     Database/RPC: test_batches, test_batch_folders,
+                   test_batch_test_assignments, tests, questions;
+                   existing save_test_bundle_v3 remains authoritative.
+     DOM: adminSectionTestPanel, testLibrary, creatorPanel.
+     Future module: js/mock-tests.js
+     ========================================================= -->
+<style id="hoa-v610-mock-admin-style">
+  #hoaV610MockWorkspace{margin-top:16px}
+  .hoa610-shell{border:1px solid #d8e3ef;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 8px 26px rgba(23,63,107,.07)}
+  .hoa610-head{padding:18px 20px;background:linear-gradient(135deg,#f7fbff,#fffaf0);border-bottom:1px solid #d8e3ef;display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+  .hoa610-head h2{margin:0;color:#173f6b;font-size:21px}.hoa610-head p{margin:5px 0 0;color:#64748b;font-size:12px;line-height:1.55}
+  .hoa610-chip{display:inline-flex;align-items:center;padding:5px 9px;border-radius:999px;background:#eef5fc;color:#315a82;font-size:10px;font-weight:900;letter-spacing:.04em}
+  .hoa610-tabs{display:flex;gap:0;border-bottom:1px solid #d8e3ef;background:#fbfdff;overflow:auto}
+  .hoa610-tab{border:0;border-right:1px solid #e5edf5;background:transparent;color:#49627b;padding:13px 18px;font-weight:900;font-size:12px;cursor:pointer;white-space:nowrap}
+  .hoa610-tab.active{background:#173f6b;color:#fff}
+  .hoa610-page{display:none;padding:18px}.hoa610-page.active{display:block}
+  .hoa610-section{border:1px solid #e1e9f1;border-radius:13px;background:#fff;padding:15px;margin-bottom:14px}
+  .hoa610-section:last-child{margin-bottom:0}.hoa610-section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:13px}
+  .hoa610-section-head h3{margin:0;color:#173f6b;font-size:16px}.hoa610-section-head p{margin:4px 0 0;color:#718096;font-size:12px;line-height:1.5}
+  .hoa610-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.hoa610-grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.hoa610-wide{grid-column:1/-1}
+  .hoa610-field{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:800;color:#29496b}.hoa610-field input,.hoa610-field select,.hoa610-field textarea{width:100%;box-sizing:border-box;padding:10px 11px;border:1px solid #cbd8e6;border-radius:9px;background:#fff;color:#172033;font:inherit;font-weight:500;outline:none}.hoa610-field input:focus,.hoa610-field select:focus,.hoa610-field textarea:focus{border-color:#5b8fc4;box-shadow:0 0 0 3px rgba(37,99,235,.08)}
+  .hoa610-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}.hoa610-btn{border:1px solid #c7d6e5;border-radius:9px;padding:9px 12px;background:#fff;color:#173f6b;font-weight:900;font-size:11px;cursor:pointer}.hoa610-btn.primary{background:#173f6b;color:#fff;border-color:#173f6b}.hoa610-btn.gold{background:#fff8e5;border-color:#e5c66b;color:#795a00}.hoa610-btn.danger{color:#a61b1b;border-color:#efb5b5;background:#fff}.hoa610-btn.small{padding:6px 9px;font-size:10px}
+  .hoa610-status{font-size:12px;color:#64748b}.hoa610-status.ok{color:#087443}.hoa610-status.error{color:#b42318}
+  .hoa610-statbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:13px}.hoa610-stat{padding:11px 12px;border:1px solid #e1e9f1;border-radius:10px;background:#f8fbff}.hoa610-stat b{display:block;color:#173f6b;font-size:18px}.hoa610-stat span{font-size:10px;color:#718096;font-weight:800;text-transform:uppercase}
+  .hoa610-list{display:grid;gap:8px}.hoa610-card{border:1px solid #e1e9f1;border-radius:11px;padding:12px;background:#fff}.hoa610-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.hoa610-card-title{font-weight:900;color:#173f6b}.hoa610-card-meta{font-size:11px;color:#718096;margin-top:4px;line-height:1.5}.hoa610-card-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+  .hoa610-badge{display:inline-flex;padding:3px 7px;border-radius:999px;font-size:9px;font-weight:900;margin-left:5px}.hoa610-badge.draft{background:#f1f5f9;color:#64748b}.hoa610-badge.published{background:#e9f8ef;color:#087443}.hoa610-badge.archived{background:#fff0f0;color:#a61b1b}.hoa610-badge.subject{background:#eef5fc;color:#315a82}.hoa610-badge.full{background:#fff7df;color:#795a00}
+  .hoa610-empty{padding:18px;text-align:center;color:#718096;border:1px dashed #cbd8e6;border-radius:10px;background:#fbfdff;font-size:12px}.hoa610-divider{height:1px;background:#e7edf4;margin:15px 0}
+  .hoa610-searchbar{display:grid;grid-template-columns:1fr 190px auto auto;gap:8px;margin-bottom:11px}.hoa610-searchbar input,.hoa610-searchbar select{padding:9px 10px;border:1px solid #cbd8e6;border-radius:9px;font:inherit;font-size:12px}
+  .hoa610-qcard{border:1px solid #e1e9f1;border-radius:11px;padding:12px;background:#fff}.hoa610-qtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hoa610-qtext{font-weight:850;color:#172033;line-height:1.5}.hoa610-qopts{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}.hoa610-qopt{padding:7px 8px;border-radius:7px;background:#f8fafc;color:#475569;font-size:11px}.hoa610-qopt.correct{background:#e9f8ef;color:#087443;border:1px solid #b6dfc4;font-weight:800}.hoa610-qexp{margin-top:8px;padding:8px 9px;border-left:3px solid #173f6b;background:#f7faff;color:#64748b;font-size:11px;line-height:1.5}
+  .hoa610-builder-summary{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:11px 12px;border:1px solid #dce7f1;border-radius:10px;background:#f8fbff;margin-bottom:11px}.hoa610-builder-summary b{color:#173f6b}.hoa610-builder-list{display:grid;gap:8px}.hoa610-builder-row{display:grid;grid-template-columns:36px 1fr auto;gap:9px;align-items:start;border:1px solid #e1e9f1;border-radius:10px;padding:10px;background:#fff}.hoa610-builder-no{width:28px;height:28px;border-radius:8px;background:#eef5fc;color:#173f6b;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px}.hoa610-builder-q{font-size:12px;color:#172033;line-height:1.5}.hoa610-builder-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+  .hoa610-edit{margin-top:9px;padding:11px;border:1px solid #d8e3ef;border-radius:10px;background:#f8fbff}.hoa610-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.hoa610-edit-grid textarea,.hoa610-edit-grid input{width:100%;box-sizing:border-box;padding:8px;border:1px solid #cbd8e6;border-radius:8px;font:inherit;font-size:11px}.hoa610-edit-grid .wide{grid-column:1/-1}
+  .hoa610-note{font-size:11px;color:#718096;line-height:1.5}
+  @media(max-width:800px){.hoa610-grid,.hoa610-grid.three,.hoa610-qopts,.hoa610-edit-grid{grid-template-columns:1fr}.hoa610-wide{grid-column:auto}.hoa610-statbar{grid-template-columns:1fr 1fr}.hoa610-searchbar{grid-template-columns:1fr 1fr}.hoa610-builder-row{grid-template-columns:30px 1fr}.hoa610-builder-actions{grid-column:2;justify-content:flex-start}.hoa610-page{padding:12px}}
+  @media(max-width:520px){.hoa610-searchbar{grid-template-columns:1fr}.hoa610-card-head{flex-direction:column}.hoa610-card-actions{justify-content:flex-start}}
+</style>
+<script id="hoa-v610-mock-admin-workspace">
+(function(){
+  'use strict';
+  const V='V6.1.0';
+  const $=id=>document.getElementById(id);
+  const db=()=>window.supabaseClient||window.supabase||null;
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const isAdmin=()=>typeof window.isAdminMode==='function'?window.isAdminMode():Boolean(typeof adminLoggedIn!=='undefined'&&adminLoggedIn===true&&typeof currentStudent!=='undefined'&&!currentStudent);
+  const state={tab:'batches',batchId:'',batches:[],folders:[],bank:[],bankLoaded:false,targetTestId:'',editingQuestion:-1};
+  let installed=false;
+
+  function msg(id,text,type){const e=$(id);if(!e)return;e.textContent=text||'';e.className='hoa610-status '+(type||'')}
+  function ensureAdmin(){if(!isAdmin()){alert('Please login as Admin first.');return false}return true}
+  async function uid(){const c=db();if(!c)throw Error('Supabase is not connected.');const s=await c.auth.getSession();if(s.error||!s.data?.session?.user)throw Error('Admin session required.');return s.data.session.user.id}
+  function activePage(){return state.tab==='batches'?$('hoaV610BatchPage'):state.tab==='questions'?$('hoaV610QuestionPage'):null}
+
+  function install(){
+    if(installed)return;
+    const host=$('adminSectionTestPanel');if(!host)return;
+    installed=true;
+    const legacy=host.querySelector('.adminGrid');
+    const oldTestLibrary=$('testLibrary');
+    const oldCreator=$('creatorPanel');
+    const w=document.createElement('section');w.id='hoaV610MockWorkspace';w.className='hoa610-shell';
+    w.innerHTML=`
+      <div class="hoa610-head"><div><h2>Mock Test Management</h2><p>Manage Mock Test batches and folders separately from question feeding, test building and the question bank.</p></div><span class="hoa610-chip">V6.1.0 • BATCH + QUESTION WORKSPACE</span></div>
+      <div class="hoa610-tabs" role="tablist">
+        <button type="button" class="hoa610-tab active" data-hoa610-tab="batches">📦 Batch Management</button>
+        <button type="button" class="hoa610-tab" data-hoa610-tab="questions">📝 Questions &amp; Tests</button>
+      </div>
+      <section id="hoaV610BatchPage" class="hoa610-page active"></section>
+      <section id="hoaV610QuestionPage" class="hoa610-page"></section>`;
+    host.insertBefore(w,host.firstChild);
+    if(legacy)legacy.style.display='none';
+    buildBatchPage();
+    buildQuestionPage(oldTestLibrary,oldCreator);
+    w.querySelectorAll('[data-hoa610-tab]').forEach(b=>b.addEventListener('click',()=>openTab(b.dataset.hoa610Tab)));
+    refreshAll();
+  }
+
+  function openTab(tab){
+    state.tab=tab==='questions'?'questions':'batches';
+    document.querySelectorAll('#hoaV610MockWorkspace .hoa610-tab').forEach(b=>b.classList.toggle('active',b.dataset.hoa610Tab===state.tab));
+    document.querySelectorAll('#hoaV610MockWorkspace .hoa610-page').forEach(p=>p.classList.toggle('active',p.id===(state.tab==='batches'?'hoaV610BatchPage':'hoaV610QuestionPage')));
+    if(state.tab==='batches')loadBatches();else{loadBank();refreshTests();}
+  }
+  window.hoaV610OpenMockTab=openTab;
+
+  function buildBatchPage(){
+    $('hoaV610BatchPage').innerHTML=`
+      <div class="hoa610-statbar">
+        <div class="hoa610-stat"><b id="hoaV610BatchCount">0</b><span>Mock Batches</span></div>
+        <div class="hoa610-stat"><b id="hoaV610FolderCount">0</b><span>Active Folders</span></div>
+        <div class="hoa610-stat"><b id="hoaV610TestCount">0</b><span>Assigned Tests</span></div>
+        <div class="hoa610-stat"><b id="hoaV610ArchivedCount">0</b><span>Archived Batches</span></div>
+      </div>
+      <div class="hoa610-section">
+        <div class="hoa610-section-head"><div><h3>Mock Test Batches</h3><p>Create, edit, publish, archive and safely delete Mock Test batches. Archive is the normal retirement action.</p></div><div class="hoa610-actions" style="margin-top:0"><button type="button" class="hoa610-btn" id="hoaV610RefreshBatches">↻ Refresh</button><button type="button" class="hoa610-btn primary" id="hoaV610NewBatch">＋ New Batch</button></div></div>
+        <div id="hoaV610BatchList" class="hoa610-list"></div>
+      </div>
+      <div class="hoa610-section" id="hoaV610BatchEditorSection">
+        <div class="hoa610-section-head"><div><h3 id="hoaV610BatchEditorTitle">Create Mock Test Batch</h3><p>Batch is the top-level container for Subject-wise and Full-Length mock folders.</p></div><span class="hoa610-chip" id="hoaV610SelectedBatchLabel">NEW BATCH</span></div>
+        <div class="hoa610-grid three">
+          <label class="hoa610-field">Batch Name<input id="hoaV610BatchName" maxlength="150" placeholder="Civil Engineering Mock Tests"></label>
+          <label class="hoa610-field">Batch Code<input id="hoaV610BatchCode" maxlength="60" placeholder="CIV-MOCK-26"></label>
+          <label class="hoa610-field">Status<select id="hoaV610BatchStatus"><option value="draft">Draft</option><option value="published">Published</option><option value="archived">Archived</option></select></label>
+          <label class="hoa610-field hoa610-wide">Description<textarea id="hoaV610BatchDescription" rows="2" maxlength="500" placeholder="Short description shown to students"></textarea></label>
+        </div>
+        <div class="hoa610-actions"><button type="button" class="hoa610-btn primary" id="hoaV610SaveBatch">SAVE BATCH</button><button type="button" class="hoa610-btn" id="hoaV610ClearBatch">CLEAR</button><span id="hoaV610BatchMsg" class="hoa610-status"></span></div>
+      </div>
+      <div class="hoa610-section" id="hoaV610FolderSection">
+        <div class="hoa610-section-head"><div><h3>Folders inside selected batch</h3><p>Create Subject-wise Mock or Full-Length Mock folders. Rename or archive folders without changing the database structure.</p></div><span class="hoa610-chip" id="hoaV610FolderBatchLabel">SELECT A BATCH</span></div>
+        <div class="hoa610-grid three">
+          <label class="hoa610-field">Folder Type<select id="hoaV610FolderType"><option value="subject">Subject-wise Mock</option><option value="full_length">Full-Length Mock</option></select></label>
+          <label class="hoa610-field">Folder Name<input id="hoaV610FolderName" maxlength="150" placeholder="Highway Engineering"></label>
+          <div class="hoa610-actions" style="align-items:end"><button type="button" class="hoa610-btn primary" id="hoaV610SaveFolder">＋ CREATE FOLDER</button><button type="button" class="hoa610-btn" id="hoaV610ClearFolder">CLEAR</button></div>
+        </div>
+        <div class="hoa610-actions"><span id="hoaV610FolderMsg" class="hoa610-status"></span></div>
+        <div id="hoaV610FolderList" class="hoa610-list"></div>
+      </div>`;
+    $('hoaV610RefreshBatches').onclick=loadBatches;$('hoaV610NewBatch').onclick=()=>clearBatchEditor();$('hoaV610SaveBatch').onclick=saveBatch;$('hoaV610ClearBatch').onclick=clearBatchEditor;$('hoaV610SaveFolder').onclick=saveFolder;$('hoaV610ClearFolder').onclick=clearFolderEditor;
+  }
+
+  function buildQuestionPage(oldLibrary,oldCreator){
+    $('hoaV610QuestionPage').innerHTML=`
+      <div class="hoa610-section"><div class="hoa610-section-head"><div><h3>Question Feeding &amp; Test Management</h3><p>Use the existing CSV/paste importer, preview questions, edit an existing mock test, build a test from the question bank, and save through the existing production test bundle workflow.</p></div><span class="hoa610-chip">QUESTIONS • TESTS • BANK</span></div>
+        <div class="hoa610-actions"><button type="button" class="hoa610-btn primary" id="hoaV610OpenCreator">＋ New / Import Test</button><button type="button" class="hoa610-btn" id="hoaV610RefreshTests">↻ Refresh Test Library</button><span id="hoaV610TestMsg" class="hoa610-status"></span></div>
+      </div>
+      <div class="hoa610-section"><div class="hoa610-section-head"><div><h3>Test Library</h3><p>Edit test metadata/questions, preview a test, publish/unpublish or change its access type.</p></div></div><div id="hoaV610TestLibraryHost"></div></div>
+      <div class="hoa610-section"><div class="hoa610-section-head"><div><h3>Question Bank</h3><p>This bank is derived from the existing protected <code>questions</code> table. It does not introduce a new table. Select questions from existing tests and add them to the current test.</p></div></div>
+        <div class="hoa610-searchbar"><input id="hoaV610BankSearch" placeholder="Search question text / option / explanation"><select id="hoaV610BankTest"><option value="">All source tests</option></select><button type="button" class="hoa610-btn" id="hoaV610LoadBank">LOAD</button><button type="button" class="hoa610-btn gold" id="hoaV610AddSelected">＋ ADD SELECTED TO CURRENT TEST</button></div>
+        <div id="hoaV610BankStatus" class="hoa610-note"></div><div id="hoaV610BankList" class="hoa610-list"></div>
+      </div>
+      <div class="hoa610-section"><div class="hoa610-section-head"><div><h3>Current Test Question Editor</h3><p>Edit, remove, reorder and preview questions currently loaded in the existing Test Creator.</p></div><span id="hoaV610CurrentTestLabel" class="hoa610-chip">NO TEST SELECTED</span></div>
+        <div id="hoaV610BuilderSummary" class="hoa610-builder-summary"><span><b>0</b> questions loaded</span><span>Open a test from the library or create/import a new one.</span></div>
+        <div class="hoa610-actions" style="margin-top:0;margin-bottom:10px"><button type="button" class="hoa610-btn" id="hoaV610AddBlankQuestion">＋ ADD BLANK QUESTION</button></div><div id="hoaV610BuilderList" class="hoa610-builder-list"></div>
+      </div>
+      <div class="hoa610-section" id="hoaV610LegacyCreatorHost"><div class="hoa610-section-head"><div><h3>Test Creator / CSV Import</h3><p>The existing production creator remains authoritative; this workspace only reorganizes access to it.</p></div></div></div>`;
+    const host=$('hoaV610TestLibraryHost');if(oldLibrary)host.appendChild(oldLibrary);
+    const creatorHost=$('hoaV610LegacyCreatorHost');if(oldCreator)creatorHost.appendChild(oldCreator);
+    if(oldCreator)oldCreator.style.display='block';
+    $('hoaV610OpenCreator').onclick=()=>{$('hoaV610LegacyCreatorHost')?.scrollIntoView({behavior:'smooth',block:'start'});if(typeof window.showCreator==='function')window.showCreator()};
+    $('hoaV610RefreshTests').onclick=refreshTests;
+    $('hoaV610LoadBank').onclick=loadBank;
+    $('hoaV610BankSearch').oninput=renderBank;
+    $('hoaV610BankTest').onchange=renderBank;
+    $('hoaV610AddSelected').onclick=addSelectedToCurrentTest;$('hoaV610AddBlankQuestion').onclick=addBlankQuestion;
+  }
+
+  function clearBatchEditor(){state.batchId='';$('hoaV610BatchEditorTitle').textContent='Create Mock Test Batch';$('hoaV610SelectedBatchLabel').textContent='NEW BATCH';$('hoaV610BatchName').value='';$('hoaV610BatchCode').value='';$('hoaV610BatchDescription').value='';$('hoaV610BatchStatus').value='draft';$('hoaV610FolderBatchLabel').textContent='SELECT A BATCH';$('hoaV610FolderList').innerHTML='<div class="hoa610-empty">Select or create a batch to manage its folders.</div>';clearFolderEditor();msg('hoaV610BatchMsg','')}
+  function clearFolderEditor(){state.folderId='';$('hoaV610FolderName').value='';$('hoaV610FolderType').value='subject';$('hoaV610SaveFolder').textContent='＋ CREATE FOLDER';msg('hoaV610FolderMsg','')}
+
+  async function loadBatches(){if(!ensureAdmin())return;const c=db();if(!c)return;try{const r=await c.from('test_batches').select('*').order('sort_order').order('created_at',{ascending:false});if(r.error)throw r.error;state.batches=r.data||[];renderBatches();const active=state.batches.find(x=>String(x.id)===String(state.batchId));if(active)await selectBatch(active.id);else if(state.batches[0])await selectBatch(state.batches[0].id);else clearBatchEditor();}catch(e){msg('hoaV610BatchMsg',e.message||'Could not load batches.','error')}}
+  function renderBatches(){const list=$('hoaV610BatchList');if(!list)return;const rows=state.batches;const archived=rows.filter(x=>x.status==='archived').length;$('hoaV610BatchCount').textContent=rows.length;$('hoaV610ArchivedCount').textContent=archived;list.innerHTML=rows.length?rows.map(x=>`<article class="hoa610-card"><div class="hoa610-card-head"><div><div class="hoa610-card-title">${esc(x.name)} <span class="hoa610-badge ${x.status==='published'?'published':x.status==='archived'?'archived':'draft'}">${esc(String(x.status||'draft').toUpperCase())}</span></div><div class="hoa610-card-meta">${x.batch_code?esc(x.batch_code)+' · ':''}${esc(x.description||'No description')}</div></div><div class="hoa610-card-actions"><button type="button" class="hoa610-btn small" data-batch-edit="${esc(x.id)}">EDIT</button><button type="button" class="hoa610-btn small" data-batch-select="${esc(x.id)}">MANAGE FOLDERS</button>${x.status==='archived'?'<button type="button" class="hoa610-btn small" data-batch-restore="'+esc(x.id)+'">RESTORE</button>':'<button type="button" class="hoa610-btn small" data-batch-archive="'+esc(x.id)+'">ARCHIVE</button>'}<button type="button" class="hoa610-btn small danger" data-batch-delete="${esc(x.id)}">DELETE</button></div></div></article>`).join(''):'<div class="hoa610-empty">No Mock Test batches exist yet.</div>';
+    list.querySelectorAll('[data-batch-edit]').forEach(b=>b.onclick=()=>selectBatch(b.dataset.batchEdit));list.querySelectorAll('[data-batch-select]').forEach(b=>b.onclick=()=>selectBatch(b.dataset.batchSelect));list.querySelectorAll('[data-batch-archive]').forEach(b=>b.onclick=()=>setBatchStatus(b.dataset.batchArchive,'archived'));list.querySelectorAll('[data-batch-restore]').forEach(b=>b.onclick=()=>setBatchStatus(b.dataset.batchRestore,'draft'));list.querySelectorAll('[data-batch-delete]').forEach(b=>b.onclick=()=>deleteBatch(b.dataset.batchDelete));}
+
+  async function selectBatch(id){const row=state.batches.find(x=>String(x.id)===String(id));if(!row)return;state.batchId=row.id;$('hoaV610BatchEditorTitle').textContent='Edit Mock Test Batch';$('hoaV610SelectedBatchLabel').textContent=row.name;$('hoaV610FolderBatchLabel').textContent=row.name;$('hoaV610BatchName').value=row.name||'';$('hoaV610BatchCode').value=row.batch_code||'';$('hoaV610BatchDescription').value=row.description||'';$('hoaV610BatchStatus').value=row.status||'draft';await loadFolders();}
+  async function saveBatch(){if(!ensureAdmin())return;const name=$('hoaV610BatchName').value.trim();if(!name){msg('hoaV610BatchMsg','Batch name is required.','error');return}try{const c=db(),id=state.batchId||null,payload={name,batch_code:$('hoaV610BatchCode').value.trim()||null,description:$('hoaV610BatchDescription').value.trim()||null,status:$('hoaV610BatchStatus').value,is_published:$('hoaV610BatchStatus').value==='published',updated_at:new Date().toISOString()};let r;if(id)r=await c.from('test_batches').update(payload).eq('id',id);else r=await c.from('test_batches').insert({...payload,sort_order:0,created_by:await uid()}).select().single();if(r.error)throw r.error;if(r.data?.id)state.batchId=r.data.id;msg('hoaV610BatchMsg',id?'Batch updated successfully.':'Mock Test batch created successfully.','ok');await loadBatches();}catch(e){msg('hoaV610BatchMsg',e.message||'Could not save batch.','error')}}
+  async function setBatchStatus(id,statusValue){if(!ensureAdmin())return;if(statusValue==='archived'&&!confirm('Archive this Mock Test Batch? Students will no longer see it as published. Existing tests and folders remain stored.'))return;try{const r=await db().from('test_batches').update({status:statusValue,is_published:statusValue==='published',updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await loadBatches();}catch(e){alert(e.message||'Could not update batch status.')}}
+  async function deleteBatch(id){if(!ensureAdmin())return;const row=state.batches.find(x=>String(x.id)===String(id));if(!row)return;if(!confirm('Delete this Mock Test Batch permanently? This is allowed only when it has no folders, test assignments or student access records. Otherwise the batch will need to be archived.'))return;try{const c=db();const [f,a,sa]=await Promise.all([c.from('test_batch_folders').select('id',{count:'exact',head:true}).eq('test_batch_id',id),c.from('test_batch_test_assignments').select('test_id',{count:'exact',head:true}).eq('test_batch_id',id),c.from('student_test_batch_access').select('id',{count:'exact',head:true}).eq('test_batch_id',id)]);for(const r of [f,a,sa])if(r.error)throw r.error;const deps=(f.count||0)+(a.count||0)+(sa.count||0);if(deps){alert('This batch still has '+deps+' dependent record(s). Use ARCHIVE instead of DELETE. No data was removed.');return}const r=await c.from('test_batches').delete().eq('id',id);if(r.error)throw r.error;state.batchId='';await loadBatches();msg('hoaV610BatchMsg','Batch deleted.','ok');}catch(e){alert(e.message||'Could not delete batch.')}}
+
+  async function loadFolders(){if(!state.batchId){$('hoaV610FolderList').innerHTML='<div class="hoa610-empty">Select a batch to manage folders.</div>';return}try{const r=await db().from('test_batch_folders').select('*').eq('test_batch_id',state.batchId).order('folder_type').order('sort_order').order('name');if(r.error)throw r.error;state.folders=r.data||[];$('hoaV610FolderCount').textContent=state.folders.filter(x=>x.is_active).length;renderFolders();}catch(e){msg('hoaV610FolderMsg',e.message||'Could not load folders.','error')}}
+  function renderFolders(){const list=$('hoaV610FolderList');const rows=state.folders;if(!rows.length){list.innerHTML='<div class="hoa610-empty">No folders in this batch yet. Create a Subject-wise or Full-Length folder.</div>';return}list.innerHTML=rows.map(x=>`<article class="hoa610-card"><div class="hoa610-card-head"><div><div class="hoa610-card-title">📁 ${esc(x.name)} <span class="hoa610-badge ${x.folder_type==='full_length'?'full':'subject'}">${x.folder_type==='full_length'?'FULL-LENGTH':'SUBJECT-WISE'}</span> ${x.is_active?'':'<span class="hoa610-badge archived">ARCHIVED</span>'}</div><div class="hoa610-card-meta">Sort order: ${esc(x.sort_order??0)}</div></div><div class="hoa610-card-actions">${x.is_active?'<button type="button" class="hoa610-btn small" data-folder-edit="'+esc(x.id)+'">EDIT</button><button type="button" class="hoa610-btn small" data-folder-archive="'+esc(x.id)+'">ARCHIVE</button>':'<button type="button" class="hoa610-btn small" data-folder-restore="'+esc(x.id)+'">RESTORE</button>'}<button type="button" class="hoa610-btn small danger" data-folder-delete="${esc(x.id)}">DELETE</button></div></div></article>`).join('');list.querySelectorAll('[data-folder-edit]').forEach(b=>b.onclick=()=>editFolder(b.dataset.folderEdit));list.querySelectorAll('[data-folder-archive]').forEach(b=>b.onclick=()=>archiveFolder(b.dataset.folderArchive));list.querySelectorAll('[data-folder-restore]').forEach(b=>b.onclick=()=>restoreFolder(b.dataset.folderRestore));list.querySelectorAll('[data-folder-delete]').forEach(b=>b.onclick=()=>deleteFolder(b.dataset.folderDelete));}
+  function editFolder(id){const row=state.folders.find(x=>String(x.id)===String(id));if(!row)return;state.folderId=row.id;$('hoaV610FolderName').value=row.name||'';$('hoaV610FolderType').value=row.folder_type||'subject';$('hoaV610SaveFolder').textContent='SAVE FOLDER CHANGES';$('hoaV610FolderName').focus()}
+  async function saveFolder(){if(!ensureAdmin())return;if(!state.batchId){msg('hoaV610FolderMsg','Select a batch first.','error');return}const name=$('hoaV610FolderName').value.trim();if(!name){msg('hoaV610FolderMsg','Folder name is required.','error');return}try{const payload={name,folder_type:$('hoaV610FolderType').value,updated_at:new Date().toISOString()};let r;if(state.folderId)r=await db().from('test_batch_folders').update(payload).eq('id',state.folderId);else r=await db().from('test_batch_folders').insert({...payload,test_batch_id:state.batchId,sort_order:0,is_active:true,created_by:await uid()}).select().single();if(r.error)throw r.error;msg('hoaV610FolderMsg',state.folderId?'Folder updated successfully.':'Folder created successfully.','ok');clearFolderEditor();await loadFolders();}catch(e){msg('hoaV610FolderMsg',e.message||'Could not save folder.','error')}}
+  async function archiveFolder(id){if(!confirm('Archive this folder? Existing tests remain stored.'))return;try{const r=await db().from('test_batch_folders').update({is_active:false,updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await loadFolders()}catch(e){alert(e.message||'Could not archive folder.')}}
+  async function restoreFolder(id){try{const r=await db().from('test_batch_folders').update({is_active:true,updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await loadFolders()}catch(e){alert(e.message||'Could not restore folder.')}}
+  async function deleteFolder(id){if(!confirm('Delete this folder permanently? This is allowed only when no tests or assignment records reference it.'))return;try{const c=db();const [t,a]=await Promise.all([c.from('tests').select('id',{count:'exact',head:true}).eq('test_batch_folder_id',id),c.from('test_batch_test_assignments').select('test_id',{count:'exact',head:true}).eq('test_batch_folder_id',id)]);for(const r of [t,a])if(r.error)throw r.error;const deps=(t.count||0)+(a.count||0);if(deps){alert('This folder still has '+deps+' dependent test record(s). Archive it instead. No data was removed.');return}const r=await c.from('test_batch_folders').delete().eq('id',id);if(r.error)throw r.error;await loadFolders();}catch(e){alert(e.message||'Could not delete folder.')}}
+
+  async function refreshTests(){if(!isAdmin())return;try{if(typeof window.loadTestsFromSupabase==='function')await window.loadTestsFromSupabase();if(typeof window.renderLibrary==='function')window.renderLibrary();renderCurrentBuilder();populateBankTestFilter();renderBank();}catch(e){console.warn(V+' test refresh',e)}}
+  function decorateTestLibrary(){const old=$('testLibrary');if(!old)return;const rows=Array.isArray(tests)?tests:[];if(!rows.length){old.innerHTML='<div class="hoa610-empty">No mock tests saved yet.</div>';return}old.className='hoa610-list';old.innerHTML=rows.map(t=>`<article class="hoa610-card"><div class="hoa610-card-head"><div><div class="hoa610-card-title">📝 ${esc(t.title)} <span class="hoa610-badge ${t.is_published?'published':'draft'}">${t.is_published?'PUBLISHED':'DRAFT'}</span><span class="hoa610-badge ${t.accessType==='free'?'subject':'full'}">${t.accessType==='free'?'FREE':'PAID'}</span></div><div class="hoa610-card-meta">${t.questions?.length||0} questions · ${esc(t.duration||10)} min · ${t.test_batch_id?'Batch assigned':'No batch'}${t.test_batch_folder_id?' · Folder assigned':''}</div></div><div class="hoa610-card-actions"><button type="button" class="hoa610-btn small" data-test-edit="${esc(t.id)}">EDIT</button><button type="button" class="hoa610-btn small" data-test-preview="${esc(t.id)}">PREVIEW</button><button type="button" class="hoa610-btn small" data-test-publish="${esc(t.id)}">${t.is_published?'UNPUBLISH':'PUBLISH'}</button><button type="button" class="hoa610-btn small danger" data-test-delete="${esc(t.id)}">DELETE</button></div></div></article>`).join('');old.querySelectorAll('[data-test-edit]').forEach(b=>b.onclick=()=>editTest(b.dataset.testEdit));old.querySelectorAll('[data-test-preview]').forEach(b=>b.onclick=()=>previewTest(b.dataset.testPreview));old.querySelectorAll('[data-test-publish]').forEach(b=>b.onclick=()=>toggleTestPublish(b.dataset.testPublish));old.querySelectorAll('[data-test-delete]').forEach(b=>b.onclick=()=>deleteTestSafe(b.dataset.testDelete));}
+  function editTest(id){if(typeof window.hoaV606EditTest==='function'){window.hoaV606EditTest(id);state.targetTestId=id;setTimeout(renderCurrentBuilder,80);$('hoaV610CurrentTestLabel').textContent='EDITING TEST';$('hoaV610LegacyCreatorHost')?.scrollIntoView({behavior:'smooth',block:'start'});}}
+  async function previewTest(id){if(typeof window.startSavedTest==='function')window.startSavedTest(id);}
+  async function toggleTestPublish(id){if(!ensureAdmin())return;const t=(tests||[]).find(x=>String(x.id)===String(id));if(!t)return;try{const r=await db().from('tests').update({is_published:!t.is_published,updated_at:new Date().toISOString()}).eq('id',id);if(r.error)throw r.error;await refreshTests();}catch(e){alert(e.message||'Could not update test.')}}
+  async function deleteTestSafe(id){if(typeof window.deleteTest==='function'){await window.deleteTest(id);await refreshTests();}else{alert('Existing test deletion function is unavailable.')}}
+
+  function populateBankTestFilter(){const sel=$('hoaV610BankTest');if(!sel)return;const cur=sel.value;sel.innerHTML='<option value="">All source tests</option>'+(Array.isArray(tests)?tests.map(t=>`<option value="${esc(t.id)}">${esc(t.title)}</option>`).join(''):'');if(cur&&Array.from(sel.options).some(o=>o.value===cur))sel.value=cur}
+  async function loadBank(){if(!ensureAdmin())return;const c=db();if(!c)return;msg('hoaV610BankStatus','Loading question bank…');try{const r=await c.from('questions').select('id,test_id,question_text,option_1,option_2,option_3,option_4,correct_option,explanation,question_order').order('created_at',{ascending:false}).limit(1000);if(r.error)throw r.error;state.bank=r.data||[];state.bankLoaded=true;msg('hoaV610BankStatus',state.bank.length+' questions loaded.');populateBankTestFilter();renderBank();}catch(e){msg('hoaV610BankStatus',e.message||'Could not load question bank.','error')}}
+  function renderBank(){const list=$('hoaV610BankList');if(!list)return;const q=(($('hoaV610BankSearch')?.value||'').trim().toLowerCase());const tid=$('hoaV610BankTest')?.value||'';const rows=state.bank.filter(x=>!tid||String(x.test_id)===String(tid)).filter(x=>{if(!q)return true;return [x.question_text,x.option_1,x.option_2,x.option_3,x.option_4,x.explanation].join(' ').toLowerCase().includes(q)});if(!rows.length){list.innerHTML='<div class="hoa610-empty">No questions match the current filter.</div>';return}list.innerHTML=rows.map(x=>`<article class="hoa610-qcard"><div class="hoa610-qtop"><label><input type="checkbox" data-bank-q="${esc(x.id)}"> <span class="hoa610-note">Select</span></label><span class="hoa610-chip">Q${esc(x.question_order||'')}</span></div><div class="hoa610-qtext">${esc(x.question_text)}</div><div class="hoa610-qopts">${[1,2,3,4].map(i=>`<div class="hoa610-qopt ${Number(x.correct_option)===i?'correct':''}">${String.fromCharCode(64+i)}. ${esc(x['option_'+i])}${Number(x.correct_option)===i?' ✓':''}</div>`).join('')}</div>${x.explanation?`<div class="hoa610-qexp">${esc(x.explanation)}</div>`:''}<div class="hoa610-note" style="margin-top:7px">Source test: ${esc((tests||[]).find(t=>String(t.id)===String(x.test_id))?.title||x.test_id)}</div></article>`).join('')}
+  function addSelectedToCurrentTest(){if(!ensureAdmin())return;const ids=[...document.querySelectorAll('#hoaV610BankList [data-bank-q]:checked')].map(x=>x.dataset.bankQ);if(!ids.length){msg('hoaV610BankStatus','Select at least one question.','error');return}if(!Array.isArray(questions)){msg('hoaV610BankStatus','Current Test Creator question state is unavailable.','error');return}const existing=new Set(questions.map(q=>q.__id).filter(Boolean).map(String));let added=0;ids.forEach(id=>{if(existing.has(String(id)))return;const x=state.bank.find(q=>String(q.id)===String(id));if(!x)return;const a=[x.question_text,x.option_1,x.option_2,x.option_3,x.option_4,Number(x.correct_option),x.explanation||''];Object.defineProperty(a,'__id',{value:x.id,enumerable:false,writable:true});questions.push(a);added++});renderCurrentBuilder();if(typeof window.renderCSVPreview==='function')window.renderCSVPreview();msg('hoaV610BankStatus',added+' question(s) added to the current Test Creator. Click SAVE AS DRAFT / SAVE CHANGES to persist them.','ok')}
+
+  function renderCurrentBuilder(){const list=$('hoaV610BuilderList'),sum=$('hoaV610BuilderSummary');if(!list||!sum)return;const qs=Array.isArray(questions)?questions:[];$('hoaV610CurrentTestLabel').textContent=state.targetTestId?'EDITING EXISTING TEST':'CURRENT TEST / NEW TEST';sum.innerHTML='<span><b>'+qs.length+'</b> question'+(qs.length===1?'':'s')+' loaded</span><span>Changes are held in the existing Test Creator until saved.</span>';if(!qs.length){list.innerHTML='<div class="hoa610-empty">No questions loaded. Import CSV, open an existing test, or add questions from the bank.</div>';return}list.innerHTML=qs.map((q,i)=>`<article class="hoa610-builder-row"><div class="hoa610-builder-no">${i+1}</div><div><div class="hoa610-builder-q">${esc(q[0])}</div><div class="hoa610-note">A. ${esc(q[1])} · B. ${esc(q[2])} · C. ${esc(q[3])} · D. ${esc(q[4])} · Correct: ${esc(q[5])}</div><div id="hoaV610EditBox_${i}"></div></div><div class="hoa610-builder-actions"><button type="button" class="hoa610-btn small" data-q-edit="${i}">EDIT</button><button type="button" class="hoa610-btn small danger" data-q-delete="${i}">REMOVE</button></div></article>`).join('');list.querySelectorAll('[data-q-edit]').forEach(b=>b.onclick=()=>toggleQuestionEditor(Number(b.dataset.qEdit)));list.querySelectorAll('[data-q-delete]').forEach(b=>b.onclick=()=>removeQuestion(Number(b.dataset.qDelete)));}
+  function toggleQuestionEditor(index){const host=$('hoaV610EditBox_'+index);if(!host)return;if(host.innerHTML){host.innerHTML='';return}const q=questions[index]||[];host.innerHTML=`<div class="hoa610-edit"><div class="hoa610-edit-grid"><textarea class="wide" data-e="q" rows="3">${esc(q[0]||'')}</textarea><input data-e="a" value="${esc(q[1]||'')}" placeholder="Option A"><input data-e="b" value="${esc(q[2]||'')}" placeholder="Option B"><input data-e="c" value="${esc(q[3]||'')}" placeholder="Option C"><input data-e="d" value="${esc(q[4]||'')}" placeholder="Option D"><input data-e="correct" type="number" min="1" max="4" value="${esc(q[5]||1)}" placeholder="Correct option"><textarea class="wide" data-e="exp" rows="2" placeholder="Explanation">${esc(q[6]||'')}</textarea></div><div class="hoa610-actions"><button type="button" class="hoa610-btn primary" data-save-q>UPDATE QUESTION</button><button type="button" class="hoa610-btn" data-cancel-q>CANCEL</button></div></div>`;host.querySelector('[data-cancel-q]').onclick=()=>host.innerHTML='';host.querySelector('[data-save-q]').onclick=()=>{const v=k=>host.querySelector('[data-e="'+k+'"]')?.value||'';const correct=Math.max(1,Math.min(4,Number(v('correct'))||1));q[0]=v('q').trim();q[1]=v('a').trim();q[2]=v('b').trim();q[3]=v('c').trim();q[4]=v('d').trim();q[5]=correct;q[6]=v('exp').trim();renderCurrentBuilder();if(typeof window.renderCSVPreview==='function')window.renderCSVPreview()};}
+  function removeQuestion(index){if(!confirm('Remove this question from the current test? The database is not changed until you save the test.'))return;questions.splice(index,1);renderCurrentBuilder();if(typeof window.renderCSVPreview==='function')window.renderCSVPreview()}
+  function addBlankQuestion(){if(!ensureAdmin())return;if(!Array.isArray(questions))return;questions.push(['New question','','','','',1,'']);renderCurrentBuilder();const i=questions.length-1;setTimeout(()=>toggleQuestionEditor(i),0);if(typeof window.renderCSVPreview==='function')window.renderCSVPreview()}
+
+  function decorateAfterRender(){decorateTestLibrary();renderCurrentBuilder();populateBankTestFilter();}
+  function refreshAll(){loadBatches();refreshTests();}
+  window.hoaV610RefreshMockWorkspace=refreshAll;
+
+  const oldRenderLibrary=window.renderLibrary;
+  if(typeof oldRenderLibrary==='function'){
+    window.renderLibrary=function(){const r=oldRenderLibrary.apply(this,arguments);setTimeout(decorateAfterRender,0);return r};
+  }
+  const oldShow=window.showAdminSection;
+  if(typeof oldShow==='function'&&!oldShow.__hoaV610){
+    const wrapped=async function(section){const r=await oldShow.apply(this,arguments);if(section==='test'){install();setTimeout(()=>{loadBatches();refreshTests()},0)}return r};
+    wrapped.__hoaV610=true;window.showAdminSection=wrapped;
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{install()}, {once:true});else install();
+})();
+</script>
+
+
+<!-- HOA V6.1.3 — ADMIN FREE CONTENT NAVIGATION AUTHORITY FIX -->
+<style id="hoa-v613-free-content-admin-fix">
+/* Free Content belongs exclusively to the Admin navigation/workspace. */
+body.admin-ui #adminReferenceSidebar #adminNavFreeContent,
+body.admin-ui #adminOnlyDashboard .adminSectionNav #adminNavFreeContent{
+  display:flex !important;
+}
+</style>
+<script id="hoa-v613-free-content-admin-fix">
+(function(){
+  'use strict';
+  const ORDER=['adminNavStudent','adminNavTest','adminNavCourse','adminNavVideo','adminNavNotes','adminNavPoster','adminNavAccess','adminNavFreeContent','adminNavResult','adminNavAdmin'];
+  const META={
+    freecontent:['Free Content','Create, publish, preview and manage Free Student resources']
+  };
+
+  function adminNav(){
+    return document.querySelector('#adminReferenceSidebar .adminSectionNav') ||
+           document.querySelector('#adminOnlyDashboard .adminSectionNav');
+  }
+
+  function ensureNavButton(){
+    const nav=adminNav();
+    if(!nav) return null;
+    let b=document.getElementById('adminNavFreeContent');
+    if(!b){
+      b=document.createElement('button');
+      b.type='button';
+      b.id='adminNavFreeContent';
+      b.innerHTML='<span class="adminRefIcon" aria-hidden="true">🎁</span><span class="adminRefLabel">Free Content</span>';
+      b.setAttribute('aria-label','Free Content');
+      nav.appendChild(b);
+    }
+    /* Never route this button through the public/student Free Content opener. */
+    b.onclick=function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      return window.hoaAdminOpenFreeContent ? window.hoaAdminOpenFreeContent() : false;
+    };
+    return b;
+  }
+
+  function reorder(){
+    const nav=adminNav();
+    if(!nav) return;
+    const b=ensureNavButton();
+    if(!b) return;
+    const result=document.getElementById('adminNavResult');
+    const admin=document.getElementById('adminNavAdmin');
+    if(result) nav.insertBefore(b,result);
+    else if(admin) nav.insertBefore(b,admin);
+    else nav.appendChild(b);
+  }
+
+  function panel(){
+    let p=document.getElementById('adminSectionFreeContentPanel');
+    if(p) return p;
+    if(typeof window.ensureAdminPanel==='function'){
+      try{ p=window.ensureAdminPanel(); }catch(e){ console.warn('V6.1.3 Free Content panel creation:',e); }
+    }
+    return document.getElementById('adminSectionFreeContentPanel');
+  }
+
+  function activate(){
+    if(typeof adminLoggedIn!=='undefined' && adminLoggedIn!==true){
+      alert('Please login as Admin first.');
+      return false;
+    }
+    const p=panel();
+    if(!p){
+      console.error('HOA V6.1.3: Free Content admin panel was not created.');
+      return false;
+    }
+    reorder();
+
+    document.querySelectorAll('#adminOnlyDashboard .adminSectionPanel').forEach(function(x){
+      const on=x===p;
+      x.classList.toggle('active',on);
+      if(on){
+        x.style.setProperty('display','block','important');
+        x.style.setProperty('visibility','visible','important');
+        x.style.setProperty('opacity','1','important');
+        x.style.setProperty('pointer-events','auto','important');
+      }else{
+        x.style.setProperty('display','none','important');
+        x.classList.remove('v13-active');
+      }
+    });
+
+    document.querySelectorAll('#adminReferenceSidebar .adminSectionNav button, #adminOnlyDashboard .adminSectionNav button').forEach(function(x){
+      x.classList.remove('active','v13-active');
+    });
+    const b=document.getElementById('adminNavFreeContent');
+    if(b) b.classList.add('active','v13-active');
+
+    const title=document.getElementById('adminReferencePageTitle');
+    const sub=document.getElementById('adminReferencePageSub');
+    if(title) title.textContent=META.freecontent[0];
+    if(sub) sub.textContent=META.freecontent[1];
+
+    /* Explicitly load ADMIN Free Content. This must never call hoaOpenFreeContent(). */
+    if(typeof window.hoaV70LoadAdmin==='function'){
+      Promise.resolve(window.hoaV70LoadAdmin()).catch(function(e){console.error('Free Content admin load failed:',e);});
+    }
+    if(typeof window.hoaV611RefreshFreeResults==='function'){
+      Promise.resolve(window.hoaV611RefreshFreeResults()).catch(function(e){console.warn('Free Content admin refresh:',e);});
+    }
+    return true;
+  }
+
+  window.hoaAdminOpenFreeContent=activate;
+
+  function install(){
+    reorder();
+    const p=panel();
+    if(p){
+      /* Ensure the panel is never mistaken for a student/public portal. */
+      p.dataset.hoaAdminWorkspace='free-content';
+    }
+    reorder();
+  }
+
+  /* Final navigation authority: intercept only the admin Free Content route. */
+  const previous=window.showAdminSection;
+  if(typeof previous==='function' && !previous.__hoaV613FreeContentAuthority){
+    const wrapped=async function(section){
+      if(String(section).toLowerCase()==='freecontent'){
+        return activate();
+      }
+      return previous.apply(this,arguments);
+    };
+    wrapped.__hoaV613FreeContentAuthority=true;
+    wrapped.__hoaV613FreeContentPrevious=previous;
+    window.showAdminSection=wrapped;
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',function(){install();setTimeout(install,300);setTimeout(install,1000);}, {once:true});
+  }else{
+    install();
+    setTimeout(install,300);
+    setTimeout(install,1000);
+  }
+})();
+</script>
+<style id="hoa-v624-motion-polish">
+/* HOA V6.2.4 — restrained motion and interaction layer */
+:root{--hoa-motion-fast:140ms;--hoa-motion:220ms;--hoa-motion-slow:320ms;--hoa-ease:cubic-bezier(.2,.7,.2,1);}
+@keyframes hoaFadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes hoaFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes hoaScaleIn{from{opacity:0;transform:scale(.985)}to{opacity:1;transform:scale(1)}}
+.hoa-motion-card,.admin-card,.dashboard-card,.stat-card,.course-card,.test-card,.content-card,.result-card{transition:transform var(--hoa-motion) var(--hoa-ease),box-shadow var(--hoa-motion) var(--hoa-ease),border-color var(--hoa-motion) var(--hoa-ease);}
+.hoa-motion-card:hover,.admin-card:hover,.dashboard-card:hover,.stat-card:hover,.course-card:hover,.test-card:hover,.content-card:hover,.result-card:hover{transform:translateY(-3px);}
+button,.btn,a[role="button"],input,select,textarea{transition:background-color var(--hoa-motion-fast) ease,color var(--hoa-motion-fast) ease,border-color var(--hoa-motion-fast) ease,box-shadow var(--hoa-motion-fast) ease,transform var(--hoa-motion-fast) var(--hoa-ease);}
+button:active,.btn:active,a[role="button"]:active{transform:translateY(1px) scale(.99);}
+button:focus-visible,.btn:focus-visible,a[role="button"]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--hoa-gold,#d4a72c);outline-offset:2px;}
+.modal,.modal-content,.dialog,.drawer,.panel-modal,[role="dialog"]{animation:hoaScaleIn var(--hoa-motion-slow) var(--hoa-ease);}
+.admin-panel,.student-panel,.dashboard-section,.tab-panel{animation:hoaFadeUp var(--hoa-motion-slow) var(--hoa-ease);}
+.hoa-loading{position:relative;overflow:hidden;}
+.hoa-loading::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);animation:hoaShimmer 1.2s infinite;}
+@keyframes hoaShimmer{to{transform:translateX(100%)}}
+@media (hover:hover){.hoa-lift:hover{transform:translateY(-4px) rotateX(.4deg);box-shadow:0 12px 28px rgba(15,45,90,.14),0 2px 7px rgba(15,45,90,.08);}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}.hoa-motion-card:hover,.admin-card:hover,.dashboard-card:hover,.stat-card:hover,.course-card:hover,.test-card:hover,.content-card:hover,.result-card:hover{transform:none}}
+</style>
+<script id="hoa-v624-motion-runtime">
+/* HOA V6.2.4 — Interaction polish runtime. No database/RPC dependencies. */
+(function(){
+  'use strict';
+  function enhance(){
+    var selectors=['.admin-card','.dashboard-card','.stat-card','.course-card','.test-card','.content-card','.result-card'];
+    selectors.forEach(function(sel){document.querySelectorAll(sel).forEach(function(el){el.classList.add('hoa-lift');});});
+  }
+  window.hoaRefreshMotion=enhance;
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',enhance,{once:true}); else enhance();
+})();
+</script>
+
+<style id="hoa-v626-navigation-micro-ui">
+:root{--hoa-nav-active:linear-gradient(135deg,#0b4ea2,#1769c2);--hoa-nav-hover:rgba(11,78,162,.08);--hoa-gold-soft:rgba(212,167,44,.14);--hoa-ui-border:rgba(15,45,90,.12)}
+.hoa-v626-nav-active{background:var(--hoa-nav-active)!important;color:#fff!important;border-color:transparent!important;box-shadow:0 6px 16px rgba(11,78,162,.18)}
+.hoa-v626-nav-active::before{content:"";display:inline-block;width:3px;height:20px;background:#d4a72c;border-radius:999px;margin-right:8px;vertical-align:middle}
+.hoa-v626-toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hoa-v626-toolbar .hoa-v626-search{flex:1 1 220px;min-width:180px}
+.hoa-v626-search{border:1px solid var(--hoa-ui-border);border-radius:12px;padding:10px 12px;background:var(--hoa-surface,#fff);color:var(--hoa-text,#172033);}
+.hoa-v626-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--hoa-ui-border);border-radius:999px;padding:5px 10px;font-size:.82rem;font-weight:600;background:var(--hoa-surface,#fff);white-space:nowrap}
+.hoa-v626-chip.gold{background:var(--hoa-gold-soft);border-color:rgba(212,167,44,.35)}
+.hoa-v626-status{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;border-radius:999px;padding:4px 9px;background:rgba(11,78,162,.09);color:#0b4ea2}
+.hoa-v626-status::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.hoa-v626-empty{padding:32px 18px;text-align:center;border:1px dashed var(--hoa-ui-border);border-radius:16px;background:linear-gradient(180deg,rgba(11,78,162,.025),transparent)}
+.hoa-v626-empty .hoa-v626-empty-icon{font-size:2rem;display:block;margin-bottom:8px;opacity:.72}
+.hoa-v626-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.hoa-v626-section-head h2,.hoa-v626-section-head h3{margin:0}
+.hoa-v626-tab{position:relative;border:0;background:transparent;padding:10px 13px;font-weight:700;color:inherit;cursor:pointer}
+.hoa-v626-tab::after{content:"";position:absolute;left:12px;right:12px;bottom:3px;height:2px;border-radius:999px;background:#d4a72c;transform:scaleX(0);transition:transform 180ms ease}
+.hoa-v626-tab[aria-selected="true"],.hoa-v626-tab.active{color:#0b4ea2}
+.hoa-v626-tab[aria-selected="true"]::after,.hoa-v626-tab.active::after{transform:scaleX(1)}
+.hoa-v626-icon-btn{width:38px;height:38px;display:inline-grid;place-items:center;padding:0;border-radius:11px;border:1px solid var(--hoa-ui-border);background:var(--hoa-surface,#fff);cursor:pointer}
+.hoa-v626-icon-btn:hover{border-color:rgba(212,167,44,.55);background:var(--hoa-gold-soft)}
+@media(max-width:600px){.hoa-v626-toolbar{align-items:stretch}.hoa-v626-toolbar>*{width:100%}.hoa-v626-icon-btn{width:42px;height:42px}.hoa-v626-tab{padding:9px 10px;font-size:.9rem}.hoa-v626-section-head{align-items:flex-start}}
+@media(prefers-color-scheme:dark){.hoa-v626-search,.hoa-v626-chip,.hoa-v626-icon-btn{background:var(--hoa-surface,#111827);color:var(--hoa-text,#eef2f7)}}
+@media(prefers-reduced-motion:reduce){.hoa-v626-tab::after{transition:none}}
+</style>
+<script id="hoa-v626-navigation-micro-ui-runtime">
+(function(){
+  'use strict';
+  function markActive(){
+    var candidates=document.querySelectorAll('[data-admin-section],.admin-nav-item,.admin-sidebar button,.admin-sidebar a,.sidebar button,.sidebar a');
+    candidates.forEach(function(el){
+      if(el.classList.contains('active')||el.getAttribute('aria-current')==='page'||el.getAttribute('aria-selected')==='true') el.classList.add('hoa-v626-nav-active');
+      else el.classList.remove('hoa-v626-nav-active');
+    });
+  }
+  function enhance(){
+    document.querySelectorAll('.admin-sidebar button,.admin-sidebar a,.sidebar button,.sidebar a').forEach(function(el){
+      if(!el.getAttribute('title') && el.textContent.trim()) el.setAttribute('title',el.textContent.trim().replace(/\s+/g,' '));
+    });
+    markActive();
+  }
+  window.hoaRefreshNavigationUI=enhance;
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',enhance,{once:true}); else enhance();
+  var observer=new MutationObserver(function(){markActive();});
+  if(document.body) observer.observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','aria-current','aria-selected']});
+})();
+</script>
+
+<!-- HOA V6.2.8 — Modal, Dialog & Notification System -->
+<style id="hoa-v628-modal-notification-system">
+:root{
+  --hoa-v628-overlay:rgba(2,12,28,.58);
+  --hoa-v628-modal-bg:var(--hoa-surface,#fff);
+  --hoa-v628-modal-border:var(--hoa-border,#d9e2ef);
+  --hoa-v628-shadow:0 24px 70px rgba(3,18,42,.22);
+  --hoa-v628-success:#168a57;
+  --hoa-v628-danger:#c83b45;
+  --hoa-v628-warning:#b77700;
+}
+[data-theme="dark"]{
+  --hoa-v628-overlay:rgba(0,0,0,.68);
+  --hoa-v628-shadow:0 28px 80px rgba(0,0,0,.48);
+}
+.hoa-v628-overlay{position:fixed;inset:0;z-index:99990;display:grid;place-items:center;padding:18px;background:var(--hoa-v628-overlay);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}
+.hoa-v628-overlay.is-open{opacity:1;visibility:visible}
+.hoa-v628-dialog{width:min(560px,100%);max-height:min(88vh,760px);overflow:auto;background:var(--hoa-v628-modal-bg);border:1px solid var(--hoa-v628-modal-border);border-radius:20px;box-shadow:var(--hoa-v628-shadow);transform:translateY(12px) scale(.985);transition:transform .22s ease}
+.hoa-v628-overlay.is-open .hoa-v628-dialog{transform:translateY(0) scale(1)}
+.hoa-v628-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:20px 22px 12px}
+.hoa-v628-dialog-title{margin:0;font-size:1.08rem;font-weight:800;color:var(--hoa-text,#132238)}
+.hoa-v628-dialog-body{padding:0 22px 20px;color:var(--hoa-muted,#617086);line-height:1.55}
+.hoa-v628-dialog-actions{display:flex;justify-content:flex-end;gap:10px;padding:14px 22px 20px;border-top:1px solid var(--hoa-v628-modal-border)}
+.hoa-v628-close{border:0;background:transparent;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:20px;color:inherit}
+.hoa-v628-close:hover{background:rgba(20,90,170,.08)}
+.hoa-v628-toast-stack{position:fixed;right:18px;bottom:18px;z-index:100000;display:flex;flex-direction:column;gap:10px;width:min(390px,calc(100vw - 36px));pointer-events:none}
+.hoa-v628-toast{pointer-events:auto;display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:start;padding:13px 14px;border:1px solid var(--hoa-v628-modal-border);border-left:4px solid var(--hoa-primary,#1557a6);border-radius:14px;background:var(--hoa-v628-modal-bg);box-shadow:0 14px 34px rgba(3,18,42,.16);animation:hoaV628ToastIn .22s ease both}
+.hoa-v628-toast.success{border-left-color:var(--hoa-v628-success)}.hoa-v628-toast.error{border-left-color:var(--hoa-v628-danger)}.hoa-v628-toast.warning{border-left-color:var(--hoa-v628-warning)}
+.hoa-v628-toast-title{font-weight:800;color:var(--hoa-text,#132238);font-size:.93rem}.hoa-v628-toast-message{font-size:.86rem;color:var(--hoa-muted,#617086);margin-top:2px}
+.hoa-v628-toast-close{border:0;background:transparent;cursor:pointer;color:inherit;font-size:18px;line-height:1}
+.hoa-v628-loading{position:fixed;inset:0;z-index:99980;display:grid;place-items:center;background:var(--hoa-v628-overlay);opacity:0;visibility:hidden;transition:.18s ease}
+.hoa-v628-loading.is-open{opacity:1;visibility:visible}
+.hoa-v628-spinner{width:42px;height:42px;border:4px solid rgba(255,255,255,.35);border-top-color:var(--hoa-gold,#d6a72b);border-radius:50%;animation:hoaV628Spin .75s linear infinite}
+@keyframes hoaV628Spin{to{transform:rotate(360deg)}}
+@keyframes hoaV628ToastIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media(max-width:600px){.hoa-v628-overlay{padding:10px;align-items:end}.hoa-v628-dialog{width:100%;max-height:90vh;border-radius:18px}.hoa-v628-dialog-head{padding:17px 17px 10px}.hoa-v628-dialog-body{padding:0 17px 17px}.hoa-v628-dialog-actions{padding:12px 17px 17px;flex-wrap:wrap}.hoa-v628-dialog-actions>*{flex:1 1 140px}.hoa-v628-toast-stack{right:12px;bottom:12px;width:calc(100vw - 24px)}}
+@media(prefers-reduced-motion:reduce){.hoa-v628-overlay,.hoa-v628-dialog,.hoa-v628-toast,.hoa-v628-loading{transition:none!important}.hoa-v628-toast,.hoa-v628-spinner{animation:none!important}}
+</style>
+<div id="hoaV628Overlay" class="hoa-v628-overlay" aria-hidden="true">
+  <section id="hoaV628Dialog" class="hoa-v628-dialog" role="dialog" aria-modal="true" aria-labelledby="hoaV628Title">
+    <header class="hoa-v628-dialog-head"><h2 id="hoaV628Title" class="hoa-v628-dialog-title">Confirm action</h2><button type="button" class="hoa-v628-close" aria-label="Close" onclick="hoaV628CloseDialog()">×</button></header>
+    <div id="hoaV628Body" class="hoa-v628-dialog-body"></div>
+    <footer id="hoaV628Actions" class="hoa-v628-dialog-actions"></footer>
+  </section>
+</div>
+<div id="hoaV628ToastStack" class="hoa-v628-toast-stack" aria-live="polite" aria-atomic="true"></div>
+<div id="hoaV628Loading" class="hoa-v628-loading" aria-hidden="true"><div class="hoa-v628-spinner" role="status" aria-label="Loading"></div></div>
+<script id="hoa-v628-modal-notification-runtime">
+(function(){
+  let lastFocus=null;
+  function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));}
+  window.hoaV628CloseDialog=function(){const o=document.getElementById('hoaV628Overlay');if(!o)return;o.classList.remove('is-open');o.setAttribute('aria-hidden','true');if(lastFocus&&document.contains(lastFocus))lastFocus.focus();};
+  window.hoaV628Dialog=function(opts={}){const o=document.getElementById('hoaV628Overlay'),b=document.getElementById('hoaV628Body'),t=document.getElementById('hoaV628Title'),a=document.getElementById('hoaV628Actions');if(!o||!b||!t||!a)return Promise.resolve(false);lastFocus=document.activeElement;t.textContent=opts.title||'Confirm action';b.innerHTML=opts.html||esc(opts.message||'Are you sure?');a.innerHTML='';const cancel=document.createElement('button');cancel.type='button';cancel.className='hoa-btn hoa-btn-secondary';cancel.textContent=opts.cancelText||'Cancel';const ok=document.createElement('button');ok.type='button';ok.className='hoa-btn hoa-btn-primary';ok.textContent=opts.confirmText||'Confirm';a.append(cancel,ok);o.classList.add('is-open');o.setAttribute('aria-hidden','false');setTimeout(()=>ok.focus(),30);return new Promise(resolve=>{let done=false;const finish=v=>{if(done)return;done=true;hoaV628CloseDialog();resolve(v)};cancel.onclick=()=>finish(false);ok.onclick=()=>{if(opts.onConfirm){Promise.resolve(opts.onConfirm()).then(()=>finish(true)).catch(()=>finish(false));}else finish(true)};o.onclick=e=>{if(e.target===o)finish(false)};document.addEventListener('keydown',function key(e){if(!o.classList.contains('is-open')){document.removeEventListener('keydown',key);return}if(e.key==='Escape')finish(false)});});};
+  window.hoaV628Confirm=function(message,opts={}){return window.hoaV628Dialog(Object.assign({},opts,{message,confirmText:opts.confirmText||'Confirm'}));};
+  window.hoaV628Toast=function(message,opts={}){const s=document.getElementById('hoaV628ToastStack');if(!s)return;const el=document.createElement('div');const type=opts.type||'info';el.className='hoa-v628-toast '+type;el.innerHTML='<div aria-hidden="true">'+(type==='success'?'✓':type==='error'?'!':type==='warning'?'⚠':'i')+'</div><div><div class="hoa-v628-toast-title">'+esc(opts.title||(type==='success'?'Success':type==='error'?'Error':type==='warning'?'Attention':'Notice'))+'</div><div class="hoa-v628-toast-message">'+esc(message)+'</div></div><button class="hoa-v628-toast-close" aria-label="Dismiss">×</button>';el.querySelector('.hoa-v628-toast-close').onclick=()=>el.remove();s.appendChild(el);const ms=Math.max(2500,Number(opts.duration)||4200);setTimeout(()=>{if(el.isConnected)el.remove()},ms);};
+  window.hoaV628Loading=function(show=true){const el=document.getElementById('hoaV628Loading');if(!el)return;el.classList.toggle('is-open',!!show);el.setAttribute('aria-hidden',String(!show));};
+  window.hoaV628RefreshFeedbackUI=function(){document.querySelectorAll('[data-hoa-toast]').forEach(el=>{if(!el.dataset.hoaToastBound){el.dataset.hoaToastBound='1';el.addEventListener('click',()=>window.hoaV628Toast(el.dataset.hoaToast,{type:el.dataset.hoaToastType||'info'}));}});};
+  document.addEventListener('DOMContentLoaded',window.hoaV628RefreshFeedbackUI);
+})();
+</script>

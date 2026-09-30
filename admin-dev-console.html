@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HOA Developer Console</title>
+<title>HOA Developer Console V1.0.1</title>
 <style>
 :root{--bg:#060b14;--panel:#0c1524;--panel2:#101c30;--line:#243654;--text:#eef5ff;--muted:#91a3bd;--blue:#3275ed;--green:#20d9a0;--red:#ff6075;--yellow:#f1c75b}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:radial-gradient(circle at 15% 0,#142b50 0,#060b14 42%);color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -16,11 +16,12 @@ h1{font-size:25px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5
 .login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
 .appbar{height:60px;background:#091220ee;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:12px;padding:0 18px;position:sticky;top:0;z-index:20}.brand{font-weight:850}.pill{font-size:10px;border:1px solid #31527c;color:#a8bddc;padding:5px 8px;border-radius:999px;letter-spacing:.08em}.user{margin-left:auto;color:var(--muted);font-size:12px}.logout{background:#101b2d;border:1px solid var(--line);color:#dce8fa;border-radius:8px;padding:8px 11px}
 .shell{display:grid;grid-template-columns:235px minmax(0,1fr);min-height:calc(100vh - 60px)}aside{background:#08111e;border-right:1px solid var(--line);padding:13px}.section{color:#6f829f;font-size:10px;letter-spacing:.14em;margin:15px 5px 7px}.nav{display:grid;gap:6px}.nav button{width:100%;text-align:left;background:#0d192b;border:1px solid transparent;color:#d0dced;padding:10px;border-radius:8px}.nav button:hover,.nav button.active{background:#17345d;border-color:#315f9c;color:#fff}.nav button:disabled{opacity:.55;cursor:wait}
-main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:12px}.card{background:#0c1626;border:1px solid var(--line);border-radius:12px;padding:12px}.card span{display:block;color:var(--muted);font-size:10px}.card b{display:block;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
+main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:12px}.dashboard-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin:0 0 12px}.dashboard-title{font-size:17px;font-weight:850;margin:0 0 4px}.dashboard-subtitle{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.dashboard-actions{display:flex;gap:8px;flex-wrap:wrap}.card{min-height:78px;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}.card:hover{transform:translateY(-2px);border-color:#315f9c;box-shadow:0 10px 30px #0004}.card b{font-size:13px}.card{background:#0c1626;border:1px solid var(--line);border-radius:12px;padding:12px}.card span{display:block;color:var(--muted);font-size:10px}.card b{display:block;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}
 .toolbar{display:grid;grid-template-columns:minmax(160px,1fr) auto minmax(180px,1fr) auto;gap:7px;margin-bottom:12px}.toolbar input{min-width:0;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:10px}.btn{border:1px solid #304562;background:#101d31;color:#dce8fa;border-radius:9px;padding:9px 12px}.btn.primary{background:#245eb4;border-color:#3a79d5;color:#fff;font-weight:750}.btn:disabled{opacity:.55;cursor:wait}
 .workspace{display:grid;grid-template-columns:minmax(230px,.65fr) minmax(0,1.55fr);gap:12px}.panel{background:#0c1626;border:1px solid var(--line);border-radius:12px;overflow:hidden}.panel-title{height:42px;padding:12px 13px;border-bottom:1px solid var(--line);font-weight:750;font-size:12px}.files{height:540px;overflow:auto}.file{padding:10px 12px;border-bottom:1px solid #17243a;color:#cbd7ea;cursor:pointer}.file:hover,.file.selected{background:#142844}.file small{float:right;color:#687b98}.editor{width:100%;height:540px;display:block;background:#060d18;color:#dce8fa;border:0;outline:0;padding:14px;resize:vertical;font:13px/1.55 Consolas,"Cascadia Code",monospace}
 .output{margin-top:12px}.output pre{margin:0;padding:13px;min-height:130px;max-height:330px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#b9c9df;font:12px/1.5 Consolas,monospace}
 .toast{position:fixed;right:18px;bottom:18px;background:#111d30;border:1px solid var(--line);padding:10px 13px;border-radius:10px;box-shadow:0 15px 40px #0008;z-index:50;max-width:420px}.toast.ok{border-color:#1f8f73}.toast.err{border-color:#a33b50}
+@media(max-width:1100px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}.dashboard-head{flex-direction:column}.dashboard-actions{width:100%}}
 @media(max-width:980px){.cards{grid-template-columns:1fr 1fr}.toolbar{grid-template-columns:1fr auto}.workspace{grid-template-columns:1fr}}
 @media(max-width:700px){.shell{grid-template-columns:1fr}aside{display:none}.cards{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.appbar{padding:0 10px}.brand{font-size:12px}.user{display:none}}
 
@@ -51,13 +52,14 @@ main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4
 
 <section id="appView" class="hidden">
 <header class="appbar">
-  <div class="brand">HUB OF ASPIRANTS · Developer Console</div><span class="pill">PRODUCTION</span>
+  <div class="brand">HUB OF ASPIRANTS · Developer Console</div><span class="pill">V1.0.1 · PRODUCTION</span>
   <span id="userEmail" class="user"></span><button id="logout" class="logout">Logout</button>
 </header>
 <div class="shell">
 <aside>
   <div class="section">SYSTEM</div>
   <div class="nav">
+    <button data-action="overview">System Overview</button>
     <button data-action="status">Connection Status</button>
     <button data-action="health">Supabase Health</button>
     <button data-action="admins">Admin Accounts</button>
@@ -78,11 +80,17 @@ main{padding:16px;min-width:0}.cards{display:grid;grid-template-columns:repeat(4
 
 <main>
   <div id="operationBar" style="display:none;margin-bottom:10px;padding:10px 12px;border:1px solid #31527c;background:#0d1c31;border-radius:9px;color:#bcd0ea;font-size:12px"></div>
+  <div class="dashboard-head">
+    <div><h2 class="dashboard-title">Infrastructure Overview</h2><p class="dashboard-subtitle">Supervise the HOA production stack from one place. Existing Supabase and GitHub controls are preserved; Cloudflare remains informational because the website is hosted by GitHub Pages.</p></div>
+    <div class="dashboard-actions"><button id="refreshOverview" class="btn primary">Refresh System Status</button></div>
+  </div>
   <div class="cards">
     <div class="card"><span>AUTHENTICATION</span><b id="authState">Checking…</b></div>
     <div class="card"><span>ADMIN ACCESS</span><b id="adminState">Checking…</b></div>
     <div class="card"><span>SUPABASE</span><b id="supabaseState">Checking…</b></div>
     <div class="card"><span>GITHUB</span><b id="githubState">Checking…</b></div>
+    <div class="card"><span>GITHUB PAGES</span><b id="pagesState">Not checked</b></div>
+    <div class="card"><span>CLOUDFLARE</span><b id="cloudflareState">Not used</b></div>
   </div>
 
   <div class="toolbar">
@@ -228,6 +236,19 @@ function statusCard(label,value,ok=true){
   return `<div class="result-card"><div class="label">${esc(label)}</div><div class="value ${ok?"ok":"bad"}">${esc(value)}</div></div>`;
 }
 function renderResult(action,d){
+  if(action==="overview"){
+    openModal("Infrastructure Overview","Live HOA production check",`
+      <div class="result-grid">
+        ${statusCard("Authentication",d.auth?"Connected":"Failed",!!d.auth)}
+        ${statusCard("Admin Access",d.admin?"Authorized":"Denied",!!d.admin)}
+        ${statusCard("Supabase","Connected",true)}
+        ${statusCard("GitHub",d.github_ok===true?"Connected":(d.github_ok===false?"Failed":"Not checked"),d.github_ok===true)}
+        ${statusCard("GitHub Pages",d.pages_status||"Not checked",d.pages_ok!==false)}
+        ${statusCard("Cloudflare","Not used for website",true)}
+      </div>
+      <div class="result-card" style="margin-top:10px"><div class="label">Repository</div><div class="value mono">${esc(d.repo||"sapere-aude-26/hubofaspirants")}</div><div class="label" style="margin-top:10px">Branch</div><div class="value mono">${esc(d.branch||"main")}</div><div class="label" style="margin-top:10px">Production Domain</div><div class="value mono">hubofaspirants.com</div></div>`);
+    return;
+  }
   if(action==="status"){
     openModal("Connection Status","Live check completed",`
       <div class="result-grid">
@@ -294,6 +315,7 @@ function renderResult(action,d){
 }
 function actionTitle(action){
   return ({
+    overview:"Infrastructure Overview",
     status:"Connection Status",
     health:"Supabase Health",
     admins:"Admin Accounts",
@@ -327,6 +349,26 @@ function showErrorPanel(action,message){
       </div>
     </div>`);
 }
+async function runDashboardOverview() {
+  if(busy) return;
+  showLoadingPanel("overview");
+  const opBar=$("operationBar"); opBar.style.display="block"; opBar.textContent="Checking HOA infrastructure…";
+  setBusy(true,"overview");
+  try {
+    const status=await api("status");
+    let pages={};
+    try { pages=await api("pages"); } catch(e) { pages={error:e.message}; }
+    const d={...status,pages_status:pages.status||pages.build_type||"Not checked",pages_ok:!pages.error};
+    output({status:d,pages});
+    updateStatus(d);
+    renderResult("overview",d);
+    toast("System status refreshed",true);
+  } catch(e) {
+    output({ok:false,action:"overview",error:e.message});
+    showErrorPanel("overview",e.message);
+    toast("System status failed: "+e.message,false);
+  } finally { setBusy(false); opBar.style.display="none"; }
+}
 async function runAction(action) {
   if(busy) return;
   // IMPORTANT: open the frontend panel immediately, before waiting for Supabase.
@@ -359,6 +401,8 @@ function updateStatus(d) {
   setState("adminState",d.admin?"Authorized":"Denied",!!d.admin);
   setState("supabaseState","Connected",true);
   setState("githubState",d.github_ok?"Connected":"Error",!!d.github_ok);
+  if($("pagesState")) setState("pagesState",d.pages_status||"Not checked",d.pages_ok!==false);
+  if($("cloudflareState")) setState("cloudflareState","Not used",true);
   if(d.github_error) output({...d,checked_at:new Date().toLocaleTimeString()});
 }
 function renderFiles(files) {
@@ -444,9 +488,10 @@ async function boot() {
     $("modalBackdrop").addEventListener("click",e=>{if(e.target.id==="modalBackdrop")closeModal();});
     document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal();});
     document.querySelectorAll("[data-action]").forEach(b=>{
-      b.type="button";
-      b.addEventListener("click",ev=>{ev.preventDefault();runAction(b.dataset.action);});
-    });
+       b.type="button";
+       b.addEventListener("click",ev=>{ev.preventDefault(); if(b.dataset.action==="overview") runDashboardOverview(); else runAction(b.dataset.action);});
+     });
+     $("refreshOverview").addEventListener("click",runDashboardOverview);
     const {data}=await init().auth.getSession();
     if(data.session) await showApp();
   } catch(e) {
