@@ -18,6 +18,15 @@ html,body{margin:0;min-height:100%;background:#06101c;color:var(--text);font:14p
 body{overflow:hidden}
 button,input{font:inherit}
 button{cursor:pointer}
+
+/* Compact scrollbars: keep the workbench usable without oversized browser tracks. */
+html{scrollbar-width:thin;scrollbar-color:#52657f transparent}
+*{scrollbar-width:thin;scrollbar-color:#52657f transparent}
+*::-webkit-scrollbar{width:6px;height:6px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:#52657f;border-radius:999px}
+*::-webkit-scrollbar-thumb:hover{background:#6a7f9d}
+*::-webkit-scrollbar-button{display:none;width:0;height:0}
 .hidden{display:none!important}
 .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 0,#173459 0,#06101c 46%)}
 .login-card{width:min(450px,100%);background:rgba(12,23,38,.98);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}
@@ -30,6 +39,7 @@ h1{font-size:24px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5
 .signin:disabled{opacity:.55;cursor:not-allowed}
 .login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
 
+.mobile-menu-btn{display:none}
 .appbar{height:58px;background:#091220f5;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:10px;padding:0 14px;position:sticky;top:0;z-index:60}
 .brand{font-weight:850;white-space:nowrap}.pill{font-size:10px;border:1px solid #31527c;color:#aac0df;padding:5px 8px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
 .branch-pill{font-size:10px;border:1px solid #2e725f;color:#83e5c5;background:#0b211b;padding:5px 8px;border-radius:999px;white-space:nowrap}
@@ -108,15 +118,154 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
 .confirm-backdrop.open{display:grid}.confirm-card{width:min(520px,100%);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 90px #000b;padding:18px}
 .confirm-card h3{margin:0 0 8px;font-size:15px}.confirm-card p{margin:0;color:#9db0c9;line-height:1.55;font-size:12px}.confirm-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:16px}
 
-@media(max-width:1180px){.workbench{grid-template-columns:220px minmax(0,1fr) 190px}}
-@media(max-width:980px){
-  body{overflow:auto}.shell{height:auto;min-height:calc(100vh - 58px)}main{min-height:calc(100vh - 58px);grid-template-rows:auto minmax(600px,1fr) 150px}
-  .workbench{grid-template-columns:210px minmax(0,1fr)}.outline-panel{display:none}
+@media(max-width:1180px){
+  .workbench{grid-template-columns:220px minmax(0,1fr) 190px}
 }
-@media(max-width:720px){
-  .shell{display:block}.shell aside{display:none}.appbar .brand{font-size:12px}.pill{display:none}.branch-pill{display:none}.user{display:none}
-  main{grid-template-rows:auto minmax(600px,1fr) 140px}.searchbar{grid-template-columns:1fr 1fr}.searchbar #path{grid-column:1/-1}
-  .workbench{grid-template-columns:1fr}.files-panel{display:none}.editor-panel{min-height:600px}
+
+@media(max-width:980px){
+  html,body{width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{overflow:hidden}
+  .appbar{position:sticky;top:0;z-index:200}
+  .appbar .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:850}
+  .pill,.branch-pill,.user{display:none}
+  .logout{flex:0 0 auto;min-height:40px;padding:8px 10px;font-size:11px}
+
+  .shell{display:block;height:calc(100svh - 58px);min-height:0;position:relative;overflow:hidden}
+  .mobile-menu-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:5px;
+    flex:0 0 auto;min-width:44px;min-height:42px;padding:8px 10px;
+    border:1px solid var(--line2);border-radius:10px;background:#0e1c30;
+    color:#fff;font-size:17px;font-weight:800;line-height:1
+  }
+  .mobile-menu-btn span{font-size:10px;font-weight:800;letter-spacing:.03em}
+  .shell aside{
+    display:block;position:fixed;top:58px;left:0;bottom:0;
+    width:min(330px,86vw);max-width:330px;padding:0 12px 18px;margin:0;
+    z-index:190;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;
+    background:#07111e;border-right:1px solid #315078;
+    box-shadow:24px 0 70px rgba(0,0,0,.45);
+    transform:translateX(-110%);transition:transform .22s ease
+  }
+  .shell.mobile-menu-open aside{transform:translateX(0)}
+  .mobile-aside-head{
+    display:flex;align-items:center;gap:8px;position:sticky;top:0;padding:12px 2px 10px;
+    background:#07111e;border-bottom:1px solid var(--line);z-index:2;margin-bottom:4px
+  }
+  .mobile-aside-head strong{font-size:12px;letter-spacing:.04em}
+  .mobile-aside-head .spacer{margin-left:auto}
+  .mobile-aside-close{
+    min-width:38px;min-height:38px;border:1px solid var(--line2);border-radius:9px;
+    background:#0e1c30;color:#dce8fa;font-size:18px
+  }
+  .mobile-nav-backdrop{display:none}
+  .shell.mobile-menu-open .mobile-nav-backdrop{
+    display:block;position:fixed;inset:58px 0 0;z-index:180;
+    background:rgba(2,7,14,.62);backdrop-filter:blur(2px)
+  }
+  .section{margin:12px 4px 7px;font-size:9px}
+  .nav{gap:6px}
+  .nav button{min-height:42px;padding:10px 11px;font-size:12px;border-color:#192d47}
+  .hotkeys{display:none}
+  .kbd{font-size:9px}
+
+  main{
+    width:100%;height:100%;min-height:0;overflow:hidden;
+    grid-template-rows:auto minmax(0,1fr) 96px
+  }
+  .topbar{padding:8px var(--mobile-pad) 7px}
+  .dashboard-head{align-items:center;gap:8px;margin-bottom:7px;min-height:34px}
+  .dashboard-title{font-size:15px;line-height:1.2}
+  .dashboard-subtitle{display:none}
+  .dashboard-actions{margin-left:auto;flex:0 0 auto}
+  .dashboard-actions .btn{width:38px;min-width:38px;height:38px;min-height:38px;padding:0;font-size:0;border-radius:9px}
+  .dashboard-actions .btn::before{content:"↻";font-size:19px;line-height:1}
+
+  .searchbar{grid-template-columns:minmax(0,1fr) auto;gap:5px}
+  .searchbar #path{grid-column:1}
+  .searchbar #open{grid-column:2}
+  .searchbar #commitMessage{grid-column:1/-1}
+  .searchbar #saveTop{grid-column:1}
+  .searchbar #repoSearchTop{grid-column:2}
+  .searchbar input{min-height:40px;padding:8px 10px;font-size:12px}
+  .searchbar .btn{min-height:40px;padding:8px 11px}
+
+  .statusline{
+    display:flex;align-items:center;gap:8px;margin-top:6px;font-size:9px;min-width:0;
+    white-space:nowrap;overflow:hidden
+  }
+  .statusline .grow,#languageState,#cursorState{display:none}
+  #fileState{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  #diagnosticState,#dirtyState{flex:0 0 auto}
+  #dirtyState{margin-left:auto}
+
+  .workbench{min-height:0;height:100%;display:grid;grid-template-columns:1fr;background:#060d18;overflow:hidden}
+  .files-panel,.outline-panel{display:none}
+  .editor-panel{min-height:0;height:100%;overflow:hidden}
+
+  .tabs{
+    min-height:38px;height:38px;overflow-x:auto;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;min-width:118px;max-width:190px;height:38px;padding:8px 9px;font-size:10px}
+
+  .editor-toolbar{
+    min-height:48px;padding:5px 7px;gap:5px;overflow-x:auto;
+    overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch
+  }
+  .editor-toolbar::-webkit-scrollbar{display:none}
+  .editor-toolbar .spacer,.editor-info{display:none}
+  .editor-toolbar .icon-btn{flex:0 0 auto;min-width:40px;min-height:38px;padding:8px 9px}
+  #formatTopBtn{min-width:58px}
+  #minimapBtn{min-width:66px}
+  #foldBtn,#unfoldBtn{min-width:54px}
+  #editorHost{min-height:0}
+  #fallbackEditor{padding:12px;font-size:12px;line-height:1.5}
+
+  .bottom{min-height:96px;height:96px;grid-template-rows:36px minmax(0,1fr);overflow:hidden}
+  .bottom-tabs{overflow:hidden}
+  .bottom-tabs button{min-height:38px;padding:8px 12px;white-space:nowrap;font-size:10px}
+  .output{padding:7px 9px;font-size:10px;line-height:1.4;scrollbar-width:thin}
+
+  .search-drawer.open,.diff-drawer.open{padding:8px}
+  .search-card{
+    width:100%;height:min(92svh,760px);border-radius:12px;
+    grid-template-rows:auto auto minmax(0,1fr)
+  }
+  .search-head,.diff-head{padding:10px;gap:6px}
+  .search-head h2,.diff-head h2{
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px
+  }
+  .search-head .btn,.diff-head .btn{min-height:38px}
+  .search-controls{grid-template-columns:minmax(0,1fr) 1fr 1fr;gap:6px;padding:8px}
+  .search-controls input{grid-column:1/-1;min-width:0;min-height:42px}
+  .search-controls .btn{min-height:40px}
+  .result-row{padding:10px}
+  .result-meta{font-size:9px}
+  .result-snippet{font-size:11px;line-height:1.4}
+  .diff-card{width:100%;height:min(94svh,820px);border-radius:12px}
+
+  .confirm-backdrop{padding:12px}
+  .confirm-card{width:100%;max-width:520px;padding:15px;border-radius:12px}
+  .confirm-actions{display:grid;grid-template-columns:1fr 1fr}
+  .confirm-actions .btn{min-height:42px}
+
+  .toast{
+    left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));
+    max-width:none;font-size:11px
+  }
+}
+
+@media(max-width:380px){
+  .appbar .brand{font-size:11px}
+  .mobile-menu-btn span{display:none}
+  .mobile-menu-btn{min-width:40px}
+  .logout{font-size:10px;padding-inline:9px}
+  .dashboard-title{font-size:15px}
+  .searchbar .btn{padding-inline:10px}
+  .editor-toolbar .icon-btn{min-width:38px;padding-inline:7px}
+  .bottom{min-height:90px;height:90px}
+  .searchbar .btn{white-space:nowrap}
 }
 </style>
 </head>
@@ -138,6 +287,7 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
 
 <section id="appView" class="hidden">
 <header class="appbar">
+  <button id="mobileMenuBtn" class="mobile-menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰<span>Menu</span></button>
   <div class="brand">HUB OF ASPIRANTS · Developer Console</div>
   <span class="pill">V2.0 · CODE WORKBENCH</span>
   <span class="branch-pill">PRODUCTION · main</span>
@@ -147,6 +297,7 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
 
 <div class="shell">
 <aside>
+  <div class="mobile-aside-head"><strong>HOA NAVIGATION</strong><span class="spacer"></span><button id="mobileAsideClose" class="mobile-aside-close" type="button" aria-label="Close navigation">×</button></div>
   <div class="section">SYSTEM</div>
   <div class="nav">
     <button data-action="overview">System Overview</button>
@@ -191,6 +342,7 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
     <span><b>Save</b><span class="kbd">Ctrl+S</span></span>
   </div>
 </aside>
+<div id="mobileNavBackdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
 
 <main>
   <div class="topbar">
@@ -543,7 +695,7 @@ function initMonaco(m){
     tabSize:2,
     insertSpaces:true,
     detectIndentation:true,
-    minimap:{enabled:true,renderCharacters:false,scale:1},
+    minimap:{enabled:window.innerWidth>720 && minimapOn,renderCharacters:false,scale:1},
     wordWrap:wordWrapOn?"on":"off",
     wordWrapColumn:100,
     smoothScrolling:true,
@@ -567,7 +719,7 @@ function initMonaco(m){
     inlineSuggest:{enabled:suggestionsOn},
     suggest:{showMethods:true,showFunctions:true,showConstructors:true,showDeprecated:true,showFields:true,showVariables:true,showClasses:true,showStructs:true,showInterfaces:true,showModules:true,showProperties:true,showEnums:true,showEnumMembers:true,showKeywords:true,showValues:true,showConstants:true,showEvents:true,showOperators:true,showUnits:true,showColors:true,preview:true},
     unicodeHighlight:{nonBasicASCII:false,ambiguousCharacters:false},
-    scrollbar:{verticalScrollbarSize:12,horizontalScrollbarSize:12},
+    scrollbar:{verticalScrollbarSize:8,horizontalScrollbarSize:8,alwaysConsumeMouseWheel:false},
     padding:{top:12,bottom:14}
   });
 
@@ -588,7 +740,20 @@ function initMonaco(m){
 
   registerCompletionProviders(m);
   registerEditorCommands(m);
+  applyResponsiveEditorOptions();
   setEditorStatus();
+}
+
+function applyResponsiveEditorOptions(){
+  if(!editor) return;
+  const mobile=window.matchMedia("(max-width:980px)").matches;
+  editor.updateOptions({
+    minimap:{enabled:!mobile && minimapOn},
+    fontSize:mobile?12:13,
+    lineHeight:mobile?19:20,
+    padding:mobile?{top:8,bottom:10}:{top:12,bottom:14},
+    scrollbar:{verticalScrollbarSize:mobile?5:12,horizontalScrollbarSize:mobile?5:12,alwaysConsumeMouseWheel:false}
+  });
 }
 
 function registerEditorCommands(m){
@@ -916,7 +1081,7 @@ function toggleWordWrap(){
 }
 function toggleMinimap(){
   minimapOn=!minimapOn;
-  editor?.updateOptions({minimap:{enabled:minimapOn}});
+  editor?.updateOptions({minimap:{enabled:minimapOn && window.innerWidth>720}});
   $("minimapBtn").classList.toggle("active",minimapOn);
 }
 function toggleSuggestions(){
@@ -1045,7 +1210,7 @@ function showDiff(){
   diffOriginalModel=monaco.editor.createModel(original,lang,monaco.Uri.parse("hoa://original/"+currentPath));
   diffModifiedModel=monaco.editor.createModel(current,lang,monaco.Uri.parse("hoa://modified/"+currentPath));
   diffEditor=monaco.editor.createDiffEditor($("diffHost"),{
-    theme:"hoa-dark",automaticLayout:true,readOnly:true,renderSideBySide:true,
+    theme:"hoa-dark",automaticLayout:true,readOnly:true,renderSideBySide:window.innerWidth>720,
     minimap:{enabled:false},scrollBeyondLastLine:false,ignoreTrimWhitespace:false
   });
   diffEditor.setModel({original:diffOriginalModel,modified:diffModifiedModel});
@@ -1084,6 +1249,22 @@ function setBottomTab(tab){
 
 function bindEvents(){
   $("loginForm").addEventListener("submit",signIn);
+
+  const shell=document.querySelector(".shell");
+  const mobileMenuBtn=$("mobileMenuBtn");
+  const mobileNavBackdrop=$("mobileNavBackdrop");
+  const mobileAsideClose=$("mobileAsideClose");
+  const closeMobileNav=()=>{
+    shell?.classList.remove("mobile-menu-open");
+    mobileMenuBtn?.setAttribute("aria-expanded","false");
+  };
+  mobileMenuBtn?.addEventListener("click",()=>{
+    const open=!shell.classList.contains("mobile-menu-open");
+    shell.classList.toggle("mobile-menu-open",open);
+    mobileMenuBtn.setAttribute("aria-expanded",String(open));
+  });
+  mobileNavBackdrop?.addEventListener("click",closeMobileNav);
+  mobileAsideClose?.addEventListener("click",closeMobileNav);
   $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
   $("open").addEventListener("click",()=>openFile());
   $("save").addEventListener("click",requestSave);
@@ -1125,6 +1306,14 @@ function bindEvents(){
       closeSearchDrawer();closeDiff();closeQuickOpen();$("confirmBackdrop").classList.remove("open");
     }
   });
+  document.querySelector("aside")?.addEventListener("click",()=>{
+    if(window.matchMedia("(max-width:980px)").matches) closeMobileNav();
+  });
+  window.addEventListener("resize",()=>{
+    applyResponsiveEditorOptions();
+    if(window.matchMedia("(min-width:981px)").matches) closeMobileNav();
+  },{passive:true});
+
   document.querySelectorAll("[data-action]").forEach(b=>{
     b.type="button";
     b.addEventListener("click",ev=>{
