@@ -31,6 +31,7 @@
 <html lang="en">
 <!-- HUB OF ASPIRANTS V4.2 — Automatic Result Management Workflow: no result publish/approval step. -->
 <head>
+<!-- HOA_EXAM_MOBILE_V4_4 — compact/scrollable mobile CBT UI -->
 <script id="hoa-free-test-route-early-gate">
 (function(){
   try{
@@ -77,6 +78,16 @@ html.hoa-free-test-route #hoaV650PaidLearningPortal{
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" name="viewport"/>
 <meta content="strict-origin-when-cross-origin" name="referrer"/>
 <title>HUB OF ASPIRANTS — Production V6.0.9</title>
+<style id="hoa-ui-boot-guard">
+/* V3.4: prevent legacy auth/dashboard markup from painting during async bootstrap. */
+html.hoa-ui-booting #home,
+html.hoa-ui-booting #authScreen,
+html.hoa-ui-booting #exam,
+html.hoa-ui-booting #result{display:none !important;visibility:hidden !important;}
+body.admin-ui #adminOnlyDashboard[data-hoa-admin-ready="false"]{display:none !important;visibility:hidden !important;pointer-events:none !important;}
+html,body{max-width:100%;min-width:0;overflow-x:hidden;}
+</style>
+<script>document.documentElement.classList.add('hoa-ui-booting');</script>
 <script>
 /* HUB OF ASPIRANTS V5.3 — Results & Performance Enhancement
    Additive UI/data helpers. Existing V5.2 result generation remains authoritative. */
@@ -263,7 +274,7 @@ html.hoa-free-test-route #hoaV650PaidLearningPortal{
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js?v=20261003-v34-adminboot"></script>
 <script id="hoa-v621-public-header-cleanup">
 (function(){
   "use strict";
@@ -538,7 +549,8 @@ html.hoa-free-test-route #hoaV650PaidLearningPortal{
 })();
 </script>
 <link href="./css/hoa-v6.0.8.css?v=6j-home-header-blue-outline-v2616" rel="stylesheet"/>
-<link href="./css/hoa-mobile-v2.css?v=20261003-v34" rel="stylesheet"/>
+<link href="./css/hoa-mobile-v2.css?v=20261003-mobile-v4400-exam-compact-scroll" rel="stylesheet"/>
+<link href="./css/mock-tests-v4.1.css?v=20261003-mock-3section-v41" rel="stylesheet">
 <style id="hoa-result-stat-card-final-fix-v2">
 /* HOA Result Management — final statistic-card alignment repair.
    Scoped only to the Admin Result panel. */
@@ -2018,6 +2030,11 @@ seedTests();
 initSupabase();
 updateRegistrationTypeUI();
 
+function hoaFinishInitialUIBoot(){
+  try{ document.documentElement.classList.remove('hoa-ui-booting'); }catch(e){}
+}
+window.hoaFinishInitialUIBoot = hoaFinishInitialUIBoot;
+
 (async function bootstrapMissionTES(){
   const freeTestRoute=new URL(location.href).searchParams.get('hoa_free_page')==='test';
   currentStudent=null;
@@ -2056,7 +2073,7 @@ updateRegistrationTypeUI();
     }
   }
 
-  if(freeTestRoute) return;
+  if(freeTestRoute){ hoaFinishInitialUIBoot(); return; }
 
   // No authenticated session: remain signed out and show the public/front flow.
   document.getElementById("studentHeaderLogout")?.classList.add("hidden");
@@ -2072,6 +2089,7 @@ updateRegistrationTypeUI();
   updateHome();
   showSupabaseStatus();
   if(typeof window.hoaExitToFrontPage === 'function') window.hoaExitToFrontPage();
+  hoaFinishInitialUIBoot();
 })();
 
 /* ===== Original inline script 3 — id: mission-admin-reference-ui-script ===== */
@@ -3709,9 +3727,17 @@ document.addEventListener("keydown",function(e){
 
     if(!target) return;
 
-    target.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
+    /* Vertical-only navigation. scrollIntoView() can also adjust the horizontal
+       scroll position when a transformed/overflowing child is present; that is
+       exactly what causes the public Home canvas to appear shifted on phones. */
+    var nav = document.querySelector("#hoaFrontPage .hoa-front-nav");
+    var navHeight = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    var top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - navHeight - 10);
+
+    window.scrollTo({
+      top: top,
+      left: 0,
+      behavior: "smooth"
     });
 
     /* Give keyboard users a meaningful focus target without changing the UI. */
@@ -4717,7 +4743,8 @@ window.addEventListener('load',bind);
   },true);
 })();
 </script>
-<script src="js/admin-course-student.js?v=20261003-free-content-registration-v2617"></script>
+<script src="js/admin-course-student.js?v=20261003-free-content-registration-v2618-home-admin-fix"></script>
+<script src="js/admin-mock-tests-v4.1.js?v=20261003-mock-3section-v41"></script>
 <script src="js/exam-result-controller-v3.js"></script>
 <script src="js/exam-runtime-unified-v4.js"></script>
 <script id="hoa-v620-theme-system">
