@@ -23115,3 +23115,45 @@ body.hoa-public-front #hoaFrontPage .hoa-front-nav{
     box-shadow:0 2px 7px rgba(11,46,82,.14), 0 1px 1px rgba(255,255,255,.9) inset !important;
   }
 }
+
+
+/* HOA V4.0 — compact mobile suggestion side tab
+   Visual-only: reduce the fixed suggestion rail width on phones. */
+@media (max-width:520px){
+  body.hoa-public-front #hoaPublicFeedbackStrip,
+  body.hoa-student-auth #hoaPublicFeedbackStrip,
+  body.hoa-app-authenticated.hoa-app-student:not(.exam-active):not(.v13-exam-active):not(.hoa-app-admin):not(:has(#result:not(.hidden))) #hoaPublicFeedbackStrip,
+  body.hoa-free-modal-open:not(.admin-ui):not(.hoa-app-admin) #hoaPublicFeedbackStrip{
+    width:22px !important;
+    height:38px !important;
+  }
+
+  body.hoa-public-front #hoaPublicFeedbackStrip .hoa-public-feedback-btn,
+  body.hoa-student-auth #hoaPublicFeedbackStrip .hoa-public-feedback-btn,
+  body.hoa-app-authenticated.hoa-app-student:not(.exam-active):not(.v13-exam-active):not(.hoa-app-admin):not(:has(#result:not(.hidden))) #hoaPublicFeedbackStrip .hoa-public-feedback-btn,
+  body.hoa-free-modal-open:not(.admin-ui):not(.hoa-app-admin) #hoaPublicFeedbackStrip .hoa-public-feedback-btn{
+    width:22px !important;
+    min-width:22px !important;
+    height:38px !important;
+    min-height:38px !important;
+    border-radius:0 8px 8px 0 !important;
+  }
+
+  #hoaPublicFeedbackStrip .hoa-suggestion-bulb{
+    font-size:15px !important;
+  }
+}
+
+@media (max-width:360px){
+  body.hoa-public-front #hoaPublicFeedbackStrip,
+  body.hoa-student-auth #hoaPublicFeedbackStrip,
+  body.hoa-app-authenticated.hoa-app-student:not(.exam-active):not(.v13-exam-active):not(.hoa-app-admin):not(:has(#result:not(.hidden))) #hoaPublicFeedbackStrip,
+  body.hoa-free-modal-open:not(.admin-ui):not(.hoa-app-admin) #hoaPublicFeedbackStrip,
+  body.hoa-public-front #hoaPublicFeedbackStrip .hoa-public-feedback-btn,
+  body.hoa-student-auth #hoaPublicFeedbackStrip .hoa-public-feedback-btn,
+  body.hoa-app-authenticated.hoa-app-student:not(.exam-active):not(.v13-exam-active):not(.hoa-app-admin):not(:has(#result:not(.hidden))) #hoaPublicFeedbackStrip .hoa-public-feedback-btn,
+  body.hoa-free-modal-open:not(.admin-ui):not(.hoa-app-admin) #hoaPublicFeedbackStrip .hoa-public-feedback-btn{
+    width:20px !important;
+    min-width:20px !important;
+  }
+}

@@ -3540,157 +3540,1096 @@ body.admin-ui .hoa-master-muted{overflow-wrap:anywhere !important;}
     top:58px !important;
   }
 }
+\n\n/* ================================================================\n   HOA V3.4 — MOBILE WIDTH + FIRST-PAINT AUTHORITY\n   Final responsive layer. Desktop/tablet >760px unchanged.\n   ================================================================ */\n@media (max-width: 760px){\n  html, body{\n    width:100% !important;\n    min-width:0 !important;\n    max-width:100% !important;\n    overflow-x:hidden !important;\n  }\n\n  /* Never let a viewport-width child create an invisible horizontal offset. */\n  body.hoa-public-front > main.container,\n  body.hoa-public-front #hoaFrontPage,\n  body.hoa-public-front #hoaFrontPage > *,\n  body.hoa-public-front #hoaFrontPage section,\n  body.hoa-public-front #hoaFrontSocialFooter,\n  body.hoa-public-front #hoaGlobalPublicFooter,\n  body.hoa-public-auth #hoaLoginPage,\n  body.hoa-public-auth #authScreen,\n  body.hoa-public-auth #home,\n  body.hoa-public-auth #home > *{\n    min-width:0 !important;\n    max-width:100% !important;\n    box-sizing:border-box !important;\n  }\n\n  /* -------- PUBLIC HOME: one stable 100%-wide canvas -------- */\n  body.hoa-public-front > main.container{\n    width:100% !important;\n    margin:0 !important;\n    padding:0 !important;\n    overflow:visible !important;\n  }\n  body.hoa-public-front #hoaFrontPage{\n    width:100% !important;\n    margin:0 !important;\n    padding:0 !important;\n    overflow-x:clip !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-nav{\n    width:calc(100% - 16px) !important;\n    max-width:none !important;\n    margin:7px auto 0 !important;\n    box-sizing:border-box !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-brand{\n    min-width:0 !important;\n    flex:1 1 auto !important;\n    overflow:hidden !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-brand > div{\n    min-width:0 !important;\n    overflow:hidden !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-brand-name,\n  body.hoa-public-front #hoaFrontPage .hoa-front-brand-tag{\n    max-width:100% !important;\n    overflow:hidden !important;\n    text-overflow:ellipsis !important;\n    white-space:nowrap !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-navlinks{\n    flex:0 0 auto !important;\n    min-width:0 !important;\n  }\n\n  body.hoa-public-front #hoaFrontPage .hoa-front-hero,\n  body.hoa-public-front #hoaFrontPage .hoa-front-section{\n    width:calc(100% - 20px) !important;\n    max-width:none !important;\n    margin-left:auto !important;\n    margin-right:auto !important;\n    grid-template-columns:minmax(0,1fr) !important;\n    box-sizing:border-box !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-hero * ,\n  body.hoa-public-front #hoaFrontPage .hoa-front-section *{\n    min-width:0 !important;\n    max-width:100% !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-visual{\n    width:100% !important;\n    min-width:0 !important;\n    overflow:hidden !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-card-stack{\n    width:100% !important;\n    max-width:100% !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-front-feature{\n    max-width:100% !important;\n    margin-left:0 !important;\n  }\n\n  /* Dynamic showcase/cards: keep 3D presentation inside the actual viewport. */\n  body.hoa-public-front #hoaDynamicShowcase,\n  body.hoa-public-front #hoaFrontPage .hoa-v3d-showcase,\n  body.hoa-public-front #hoaFrontPage .hoa-v3d-stage,\n  body.hoa-public-front #hoaFrontPage .hoa-v3d-track{\n    width:100% !important;\n    max-width:100% !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-v3d-stage{\n    overflow:hidden !important;\n  }\n  body.hoa-public-front #hoaFrontPage .hoa-v3d-card{\n    width:min(84vw,360px) !important;\n    max-width:84vw !important;\n  }\n\n  /* -------- STUDENT AREA: never let the 3D border/cards escape sideways -------- */\n  body.hoa-public-front #hoaV648StudentOptions{\n    width:calc(100% - 20px) !important;\n    max-width:none !important;\n    margin-left:auto !important;\n    margin-right:auto !important;\n    padding:11px 0 !important;\n    box-sizing:border-box !important;\n    overflow:visible !important;\n  }\n  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{\n    width:100% !important;\n    max-width:100% !important;\n    min-width:0 !important;\n    grid-template-columns:minmax(0,1fr) !important;\n  }\n  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{\n    position:relative !important;\n    width:100% !important;\n    max-width:100% !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n    overflow:hidden !important;\n  }\n  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::after{\n    right:0 !important;\n    bottom:0 !important;\n    width:100% !important;\n    height:100% !important;\n  }\n  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-title,\n  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-copy{\n    min-width:0 !important;\n    max-width:100% !important;\n    overflow-wrap:anywhere !important;\n  }\n  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{\n    min-width:0 !important;\n    max-width:100% !important;\n    box-sizing:border-box !important;\n  }\n\n  /* -------- PUBLIC FOOTERS: remove 100vw canvas expansion -------- */\n  body.hoa-public-front #hoaFrontSocialFooter,\n  body.hoa-public-front #hoaProfessionalFooter,\n  body.hoa-public-front #hoaGlobalPublicFooter{\n    width:100% !important;\n    max-width:100% !important;\n    margin-left:0 !important;\n    margin-right:0 !important;\n    box-sizing:border-box !important;\n  }\n\n  /* -------- LOGIN: one width contract from viewport -> panel -> form -------- */\n  body.hoa-public-auth #hoaLoginPage{\n    width:100% !important;\n    max-width:100% !important;\n    margin:0 !important;\n    overflow-x:clip !important;\n  }\n  body.hoa-public-auth .hoa-login-page-top,\n  body.hoa-public-auth .hoa-login-page-content{\n    width:100% !important;\n    max-width:100% !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n  }\n  body.hoa-public-auth .hoa-login-page-content{\n    padding-left:10px !important;\n    padding-right:10px !important;\n  }\n  body.hoa-public-auth #hoaAdminPortalPanel,\n  body.hoa-public-auth #hoaStudentPortalPanel{\n    width:100% !important;\n    max-width:520px !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n    margin-left:auto !important;\n    margin-right:auto !important;\n  }\n  body.hoa-public-auth .formGroup,\n  body.hoa-public-auth .formGroup > *,\n  body.hoa-public-auth input,\n  body.hoa-public-auth select,\n  body.hoa-public-auth textarea,\n  body.hoa-public-auth button{\n    max-width:100% !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n  }\n\n  /* -------- ADMIN: shell and main content must share viewport width -------- */\n  body.admin-ui,\n  body.admin-ui #home,\n  body.admin-ui .adminReferenceShell,\n  body.admin-ui .adminReferenceMain{\n    width:100% !important;\n    max-width:100% !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n    overflow-x:hidden !important;\n  }\n  body.admin-ui .adminReferenceMain{\n    margin-left:0 !important;\n  }\n  body.admin-ui .adminReferenceMain > #adminOnlyDashboard{\n    width:100% !important;\n    max-width:100% !important;\n    min-width:0 !important;\n    box-sizing:border-box !important;\n  }\n}\n\n@media (max-width:390px){\n  body.hoa-public-front #hoaFrontPage .hoa-front-nav{width:calc(100% - 12px) !important;}\n  body.hoa-public-front #hoaV648StudentOptions{width:calc(100% - 14px) !important;}\n  body.hoa-public-auth .hoa-login-page-content{padding-left:7px !important;padding-right:7px !important;}\n}\n\n/* V3.4 admin boot invariant: an admin dashboard with an unready shell is never paintable. */\nbody.admin-ui #adminOnlyDashboard[data-hoa-admin-ready="false"]{\n  display:none !important;\n  visibility:hidden !important;\n  opacity:0 !important;\n  pointer-events:none !important;\n}\n
 
+/* ================================================================
+   HOA V3.5 — FINAL MOBILE HOME WIDTH / SCROLL AUTHORITY
+   Audit finding: the V3.4 layer corrected widths but left the dynamic
+   showcase at width:100% with 10px side margins inherited from an earlier
+   mobile pass. That creates a 20px-wide overflow canvas. This layer removes
+   that conflict and also makes top LOGIN vertical-only.
+   ================================================================ */
+@media (max-width: 768px){
+  html,
+  body{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow-x:hidden !important;
+    overscroll-behavior-x:none !important;
+  }
 
-/* =========================================================
-   HOA V3.4 — ADMIN LOGIN MOBILE FINAL COMPACT LAYER
-   Phone-only presentation. Authentication behavior unchanged.
-   ========================================================= */
-@media (max-width:600px){
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
+  body.hoa-public-front > main.container{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow-x:hidden !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow-x:hidden !important;
+    overflow-y:visible !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage > .hoa-front-content{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow-x:hidden !important;
+  }
+
+  /* Stable, centered mobile canvases. */
+  body.hoa-public-front #hoaFrontPage .hoa-front-nav,
+  body.hoa-public-front #hoaFrontPage .hoa-front-hero,
+  body.hoa-public-front #hoaFrontPage .hoa-front-section,
+  body.hoa-public-front #hoaV648StudentOptions,
+  body.hoa-public-front #hoaDynamicShowcase{
+    box-sizing:border-box !important;
+    min-width:0 !important;
+    max-width:calc(100% - 20px) !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-nav{
     width:calc(100% - 16px) !important;
-    height:52px !important;
-    min-height:52px !important;
-    margin:5px auto 0 !important;
-    padding:0 9px !important;
-    gap:8px !important;
-    border-radius:10px !important;
+    margin-top:7px !important;
+    overflow:hidden !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand{
-    gap:7px !important;
+  body.hoa-public-front #hoaFrontPage .hoa-front-hero{
+    width:calc(100% - 20px) !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    overflow:visible !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand img{
-    width:30px !important;
-    height:30px !important;
-    min-width:30px !important;
+  body.hoa-public-front #hoaFrontPage .hoa-front-section{
+    width:calc(100% - 20px) !important;
+    overflow:hidden !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-brand strong{
-    font-size:11.5px !important;
-    line-height:1.05 !important;
+  /* Critical fix: do NOT combine width:100% with margin:10px here. */
+  body.hoa-public-front #hoaDynamicShowcase{
+    width:calc(100% - 20px) !important;
+    max-width:none !important;
+    margin:12px auto !important;
+    padding-left:10px !important;
+    padding-right:10px !important;
+    overflow:hidden !important;
   }
-
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-back{
-    min-width:42px !important;
-    min-height:34px !important;
-    height:34px !important;
-    padding:6px 9px !important;
-    border-radius:8px !important;
-    font-size:10px !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-content{
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-head{
     width:100% !important;
-    padding:12px 8px 20px !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
   }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-stage{
     width:100% !important;
-    max-width:390px !important;
-    margin:0 auto !important;
-    padding:12px 12px 11px !important;
-    border-radius:12px !important;
-    box-shadow:0 9px 24px rgba(15,39,68,.08),0 1px 4px rgba(15,39,68,.04) !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head{
-    margin:0 0 11px !important;
-    gap:8px !important;
+  /* Keep transformed showcase cards from defining a wider visual canvas. */
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-track,
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-card{
+    max-width:100% !important;
+    min-width:0 !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head .icon{
-    width:32px !important;
-    height:32px !important;
-    flex:0 0 32px !important;
-    border-radius:9px !important;
-    font-size:15px !important;
+  /* Student Area: all three cards remain fully inside the mobile section. */
+  body.hoa-public-front #hoaV648StudentOptions{
+    width:calc(100% - 20px) !important;
+    max-width:none !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+    overflow:hidden !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    grid-template-columns:minmax(0,1fr) !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow:hidden !important;
+    transform:none !important;
+    transform-style:flat !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::before,
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::after{
+    display:none !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head h2{
-    font-size:18px !important;
-    line-height:1.05 !important;
-    letter-spacing:-.15px !important;
+  /* Feature cards/hero content must not impose an intrinsic phone width. */
+  body.hoa-public-front #hoaFrontPage .hoa-front-feature,
+  body.hoa-public-front #hoaFrontPage .hoa-front-feature-box,
+  body.hoa-public-front #hoaFrontPage .hoa-front-card-stack,
+  body.hoa-public-front #hoaFrontPage .hoa-front-visual{
+    min-width:0 !important;
+    max-width:100% !important;
+  }
+  body.hoa-public-front #hoaFrontPage .hoa-front-feature-box,
+  body.hoa-public-front #hoaFrontPage .hoa-front-feature{
+    overflow:hidden !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head p{
-    margin-top:2px !important;
-    font-size:9.5px !important;
-    line-height:1.2 !important;
+  /* Remove the 100vw footer canvas on phones. */
+  body.hoa-public-front #hoaGlobalPublicFooter,
+  body.hoa-public-front #hoaFrontSocialFooter,
+  body.hoa-public-front #hoaProfessionalFooter{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+    overflow-x:hidden !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminPanel{
-    padding:12px 10px 13px !important;
-    border-radius:11px !important;
-    box-shadow:none !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup{
-    margin-bottom:10px !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup label{
-    margin-bottom:4px !important;
-    font-size:11px !important;
-    line-height:1.15 !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminUsername,
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminPassword{
-    height:42px !important;
-    min-height:42px !important;
-    padding:8px 10px !important;
-    border-radius:8px !important;
-    font-size:16px !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody{
-    padding-top:12px !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #homeAdminBody .primary{
-    height:42px !important;
-    min-height:42px !important;
-    margin-top:0 !important;
-    border-radius:8px !important;
-    font-size:11.5px !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost #adminAuthMessage{
-    min-height:0 !important;
-    margin-top:6px !important;
-    font-size:10px !important;
-  }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel::after{
-    margin-top:8px !important;
-    padding-top:8px !important;
-    font-size:8.5px !important;
-    line-height:1.2 !important;
+  /* Defensive horizontal reset for any prior viewport shift. */
+  body.hoa-public-front{
+    overflow-x:hidden !important;
+    scroll-padding-left:0 !important;
+    scroll-padding-right:0 !important;
   }
 }
 
 @media (max-width:390px){
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-page-top{
-    height:50px !important;
-    min-height:50px !important;
+  body.hoa-public-front #hoaFrontPage .hoa-front-nav{width:calc(100% - 10px) !important;}
+  body.hoa-public-front #hoaFrontPage .hoa-front-hero,
+  body.hoa-public-front #hoaFrontPage .hoa-front-section,
+  body.hoa-public-front #hoaV648StudentOptions,
+  body.hoa-public-front #hoaDynamicShowcase{width:calc(100% - 14px) !important;}
+}
+
+
+/* ================================================================
+   HOA V3.6 — MOBILE HOME EDGE-TO-EDGE WIDTH CONTRACT
+   Final audit fix for reported right/left clipping in Home.
+   The previous layers still depended on nested calc(100% - Npx)
+   widths. On phones, those widths compound with container/safe-area
+   padding and the browser viewport scrollbar. V3.6 switches the public
+   Home hierarchy to one predictable contract:
+     viewport -> main.container -> hoaFrontPage -> section -> card
+   Sections span the available content width and use internal padding
+   instead of width-minus-margin math. This prevents the right edge of
+   Student Area cards and other Home sections from being clipped.
+   ================================================================ */
+@media (max-width: 768px){
+  html,
+  body{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    overflow-x:clip !important;
+    overflow-x:hidden !important;
+  }
+
+  /* Remove every parent-side padding that can compound with child widths. */
+  body.hoa-public-front > main.container{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    overflow-x:clip !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    overflow-x:clip !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage > .hoa-front-content{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    overflow-x:clip !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-nav{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:6px 0 0 !important;
+    padding-left:max(10px,env(safe-area-inset-left)) !important;
+    padding-right:max(10px,env(safe-area-inset-right)) !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Hero/regular sections: full available width with controlled inner padding. */
+  body.hoa-public-front #hoaFrontPage .hoa-front-hero,
+  body.hoa-public-front #hoaFrontPage .hoa-front-section,
+  body.hoa-public-front #hoaDynamicShowcase,
+  body.hoa-public-front #hoaV648StudentOptions{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-hero{
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-section{
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+
+  /* Latest Updates is intentionally padded internally, not by outer margins. */
+  body.hoa-public-front #hoaDynamicShowcase{
+    margin-top:12px !important;
+    margin-bottom:12px !important;
+    padding-left:12px !important;
+    padding-right:12px !important;
+    overflow-x:clip !important;
+  }
+
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-head,
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-stage,
+  body.hoa-public-front #hoaDynamicShowcase .hoa-v3d-track{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Student Area: the section owns the horizontal padding. The cards do not
+     calculate a second width from the viewport, eliminating the right-edge cut. */
+  body.hoa-public-front #hoaV648StudentOptions{
+    margin-top:18px !important;
+    margin-bottom:18px !important;
+    padding:14px 12px !important;
+    border-radius:18px !important;
+    overflow:visible !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    box-sizing:border-box !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+    overflow:hidden !important;
+  }
+
+  /* The content columns must shrink before the CTA column; never widen the card. */
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    grid-template-columns:36px minmax(0,1fr) max-content !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
+    max-width:100% !important;
+    min-width:0 !important;
+    justify-self:end !important;
+    white-space:nowrap !important;
+    box-sizing:border-box !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-feature,
+  body.hoa-public-front #hoaFrontPage .hoa-front-feature-box,
+  body.hoa-public-front #hoaFrontPage .hoa-front-card-stack,
+  body.hoa-public-front #hoaFrontPage .hoa-front-visual,
+  body.hoa-public-front #hoaFrontPage .hoa-front-features{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Floating/translated decorations cannot enlarge the layout viewport. */
+  body.hoa-public-front #hoaFrontPage .hoa-front-orb{
+    max-width:none !important;
+    pointer-events:none !important;
+  }
+
+  /* Neutralize the only public footer rule that intentionally uses 100vw. */
+  body.hoa-public-front #hoaProfessionalFooter{
+    width:100% !important;
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  /* Never preserve a stale horizontal scroll position on the public Home. */
+  body.hoa-public-front{
+    overflow-x:hidden !important;
+    overscroll-behavior-x:none !important;
+  }
+}
+
+@media (max-width: 390px){
+  body.hoa-public-front #hoaFrontPage .hoa-front-nav{
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+  body.hoa-public-front #hoaFrontPage .hoa-front-hero,
+  body.hoa-public-front #hoaFrontPage .hoa-front-section,
+  body.hoa-public-front #hoaDynamicShowcase,
+  body.hoa-public-front #hoaV648StudentOptions{
+    padding-left:9px !important;
+    padding-right:9px !important;
+  }
+}
+
+/* ================================================================
+   HOA MOBILE/TABLET V3.7 — STUDENT ACTION CARDS 3D EDGE SAFE
+   Purpose: replace cramped edge-to-edge mobile cards with three
+   vertically stacked, slightly extruded 3D action bars. The visual
+   extrusion stays inside the viewport so it cannot create clipping.
+   Desktop >1024px is untouched.
+   ================================================================ */
+@media (max-width:1024px){
+  body.hoa-public-front #hoaV648StudentOptions{
+    width:calc(100% - 24px) !important;
+    max-width:760px !important;
+    margin:18px auto !important;
+    padding:14px 10px 18px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:16px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    padding:0 8px 8px 0 !important;
+    box-sizing:border-box !important;
+    perspective:1400px !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    position:relative !important;
+    display:grid !important;
+    grid-template-columns:44px minmax(0,1fr) auto !important;
+    grid-template-areas:
+      "icon title link"
+      "icon copy  link" !important;
+    align-items:center !important;
+    width:calc(100% - 8px) !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:92px !important;
+    margin:0 !important;
+    padding:12px 13px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+    border-radius:13px !important;
+    border:1.5px solid rgba(37,99,235,.34) !important;
+    background:linear-gradient(145deg,#ffffff 0%,#f7fbff 62%,#e8f1fb 100%) !important;
+    transform:translate3d(3px,0,0) rotateX(.8deg) rotateY(-.8deg) !important;
+    transform-style:preserve-3d !important;
+    box-shadow:
+      0 8px 15px rgba(11,46,82,.10),
+      0 0 0 1px rgba(255,255,255,.85) inset,
+      5px 5px 0 rgba(29,78,216,.16),
+      8px 8px 0 rgba(37,99,235,.07) !important;
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::before{
+    content:"" !important;
+    position:absolute !important;
+    inset:0 !important;
+    border-radius:inherit !important;
+    border:1px solid rgba(147,197,253,.78) !important;
+    box-shadow:0 0 0 1px rgba(59,130,246,.08) inset !important;
+    pointer-events:none !important;
+    transform:translateZ(6px) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::after{
+    content:"" !important;
+    position:absolute !important;
+    top:5px !important;
+    left:6px !important;
+    right:-7px !important;
+    bottom:-7px !important;
+    border-radius:inherit !important;
+    border-right:3px solid rgba(29,78,216,.18) !important;
+    border-bottom:3px solid rgba(29,78,216,.18) !important;
+    background:linear-gradient(135deg,transparent 0%,rgba(59,130,246,.045) 100%) !important;
+    pointer-events:none !important;
+    z-index:-1 !important;
+    transform:translateZ(-2px) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:nth-child(2){
+    border-color:rgba(212,167,44,.52) !important;
+    box-shadow:
+      0 8px 15px rgba(96,70,8,.10),
+      0 0 0 1px rgba(255,255,255,.85) inset,
+      5px 5px 0 rgba(212,167,44,.22),
+      8px 8px 0 rgba(200,148,30,.08) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:nth-child(2)::after{
+    border-right-color:rgba(200,148,30,.23) !important;
+    border-bottom-color:rgba(200,148,30,.23) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-icon{
+    grid-area:icon !important;
+    width:38px !important;
+    height:38px !important;
+    margin:0 !important;
+    display:grid !important;
+    place-items:center !important;
+    border-radius:10px !important;
+    font-size:19px !important;
+    background:linear-gradient(145deg,#fff,#edf4fb) !important;
+    box-shadow:0 2px 6px rgba(11,46,82,.12),0 1px 0 rgba(255,255,255,.96) inset !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-title{
+    grid-area:title !important;
+    min-width:0 !important;
+    margin:0 !important;
+    font-size:14px !important;
+    line-height:1.2 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-copy{
+    grid-area:copy !important;
+    min-width:0 !important;
+    margin:3px 0 0 !important;
+    font-size:10px !important;
+    line-height:1.25 !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    white-space:nowrap !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
+    grid-area:link !important;
+    justify-self:end !important;
+    align-self:center !important;
+    width:auto !important;
+    min-width:76px !important;
+    max-width:100% !important;
+    margin:0 !important;
+    padding:7px 9px !important;
+    border-radius:8px !important;
+    white-space:nowrap !important;
+    text-align:center !important;
+    font-size:10px !important;
+    line-height:1 !important;
+    background:#0b2e52 !important;
+    color:#fff !important;
+    box-shadow:0 3px 6px rgba(11,46,82,.16) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:nth-child(2) .hoa-v648-option-link{
+    background:#c8941e !important;
+    color:#fff !important;
+  }
+
+  @media (hover:hover){
+    body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:hover{
+      transform:translate3d(3px,-2px,8px) rotateX(1.4deg) rotateY(-1.4deg) !important;
+      box-shadow:
+        0 12px 22px rgba(11,46,82,.13),
+        0 0 0 1px rgba(255,255,255,.9) inset,
+        6px 6px 0 rgba(29,78,216,.20),
+        10px 10px 0 rgba(37,99,235,.09) !important;
+    }
+  }
+}
+
+@media (max-width:600px){
+  body.hoa-public-front #hoaV648StudentOptions{
+    width:calc(100% - 16px) !important;
+    max-width:none !important;
+    margin:15px auto !important;
+    padding:12px 7px 16px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{
+    gap:14px !important;
+    padding-right:7px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    width:calc(100% - 7px) !important;
+    min-height:82px !important;
+    grid-template-columns:38px minmax(0,1fr) auto !important;
+    padding:10px 11px !important;
+    border-radius:11px !important;
+    transform:translate3d(2px,0,0) rotateX(.7deg) rotateY(-.7deg) !important;
+    box-shadow:
+      0 7px 13px rgba(11,46,82,.09),
+      0 0 0 1px rgba(255,255,255,.82) inset,
+      4px 4px 0 rgba(29,78,216,.15),
+      7px 7px 0 rgba(37,99,235,.065) !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::after{
+    right:-6px !important;
+    bottom:-6px !important;
+    border-right-width:2px !important;
+    border-bottom-width:2px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-icon{
+    width:34px !important;
+    height:34px !important;
+    font-size:17px !important;
+    border-radius:9px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-title{
+    font-size:13.5px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-copy{
+    font-size:9.5px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
+    min-width:70px !important;
+    padding:6px 8px !important;
+    font-size:9px !important;
+    border-radius:7px !important;
+  }
+}
+
+@media (max-width:390px){
+  body.hoa-public-front #hoaV648StudentOptions{
     width:calc(100% - 12px) !important;
+    padding-left:5px !important;
+    padding-right:5px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{
+    gap:12px !important;
+    padding-right:5px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    width:calc(100% - 5px) !important;
+    min-height:78px !important;
+    grid-template-columns:32px minmax(0,1fr) auto !important;
+    column-gap:8px !important;
+    padding:9px 10px !important;
+    transform:translate3d(1px,0,0) !important;
+    box-shadow:
+      0 6px 11px rgba(11,46,82,.09),
+      0 0 0 1px rgba(255,255,255,.82) inset,
+      3px 3px 0 rgba(29,78,216,.14),
+      6px 6px 0 rgba(37,99,235,.06) !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-icon{
+    width:30px !important;
+    height:30px !important;
+    font-size:15px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-title{
+    font-size:12.5px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-copy{
+    font-size:9px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
+    min-width:64px !important;
+    padding:5px 7px !important;
+    font-size:8.5px !important;
+  }
+}
+
+/* ================================================================
+   HOA V3.8 — LAPTOP STUDENT AREA 3D ACTION BARS
+   Applies to laptop-sized viewports while preserving wide desktop.
+   3 cards become clean full-width horizontal 3D action bars.
+   ================================================================ */
+@media (min-width:761px) and (max-width:1366px){
+  body.hoa-public-front #hoaV648StudentOptions{
+    width:min(1180px,calc(100% - 36px)) !important;
+    max-width:1180px !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    padding:24px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminPortalPanel{
-    padding:10px 10px 9px !important;
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-grid{
+    display:grid !important;
+    grid-template-columns:1fr !important;
+    gap:18px !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    perspective:1400px !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head{
-    margin-bottom:9px !important;
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    position:relative !important;
+    display:grid !important;
+    grid-template-columns:52px minmax(0,1fr) auto !important;
+    grid-template-rows:auto auto !important;
+    grid-template-areas:
+      "icon title link"
+      "icon copy link" !important;
+    align-items:center !important;
+    column-gap:16px !important;
+    row-gap:5px !important;
+    width:100% !important;
+    min-width:0 !important;
+    min-height:122px !important;
+    margin:0 !important;
+    padding:18px 20px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+    white-space:normal !important;
+    text-align:left !important;
+    transform-style:preserve-3d !important;
+    transform:perspective(1400px) translate3d(0,0,0) !important;
+    border-radius:16px !important;
+    box-shadow:
+      0 10px 18px rgba(18,55,95,.08),
+      0 0 0 1px rgba(96,165,250,.08) inset,
+      7px 7px 0 rgba(29,78,216,.16),
+      11px 11px 0 rgba(37,99,235,.07) !important;
   }
 
-  body.hoa-public-auth.hoa-admin-auth .hoa-login-panel-head h2{
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-icon{
+    grid-area:icon !important;
+    width:52px !important;
+    height:52px !important;
+    display:grid !important;
+    place-items:center !important;
+    margin:0 !important;
+    font-size:27px !important;
+    border-radius:14px !important;
+    box-sizing:border-box !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-title{
+    grid-area:title !important;
+    width:auto !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    font-size:19px !important;
+    line-height:1.2 !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-copy{
+    grid-area:copy !important;
+    width:auto !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    font-size:13px !important;
+    line-height:1.45 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
+    grid-area:link !important;
+    justify-self:end !important;
+    align-self:center !important;
+    width:auto !important;
+    min-width:116px !important;
+    max-width:160px !important;
+    margin:0 !important;
+    padding:10px 14px !important;
+    border-radius:10px !important;
+    box-sizing:border-box !important;
+    text-align:center !important;
+    white-space:nowrap !important;
+    color:#fff !important;
+    background:#0f3157 !important;
+    box-shadow:0 5px 10px rgba(15,49,87,.18) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:nth-child(2){
+    border-color:rgba(202,146,9,.50) !important;
+    box-shadow:
+      0 10px 18px rgba(118,83,7,.07),
+      0 0 0 1px rgba(245,196,65,.12) inset,
+      7px 7px 0 rgba(194,139,14,.17),
+      11px 11px 0 rgba(216,166,38,.08) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:nth-child(2) .hoa-v648-option-link{
+    background:#c69214 !important;
+    color:#fff !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card::after{
+    right:-9px !important;
+    bottom:-9px !important;
+    width:100% !important;
+    height:100% !important;
+    border-right:4px solid rgba(29,78,216,.23) !important;
+    border-bottom:4px solid rgba(29,78,216,.23) !important;
+    background:linear-gradient(135deg,transparent 0%,rgba(59,130,246,.035) 100%) !important;
+    border-radius:inherit !important;
+    pointer-events:none !important;
+    z-index:-1 !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:nth-child(2)::after{
+    border-right-color:rgba(194,139,14,.24) !important;
+    border-bottom-color:rgba(194,139,14,.24) !important;
+  }
+
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card:hover{
+    transform:perspective(1400px) translate3d(0,-3px,9px) !important;
+  }
+}
+
+@media (min-width:761px) and (max-width:1080px){
+  body.hoa-public-front #hoaV648StudentOptions{
+    width:calc(100% - 28px) !important;
+    padding:20px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-card{
+    grid-template-columns:46px minmax(0,1fr) auto !important;
+    column-gap:12px !important;
+    min-height:112px !important;
+    padding:16px 17px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-icon{
+    width:46px !important;
+    height:46px !important;
+    font-size:24px !important;
+  }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-title{
     font-size:17px !important;
   }
-
-  body.hoa-public-auth.hoa-admin-auth #hoaAdminLoginHost .formGroup{
-    margin-bottom:9px !important;
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-copy{
+    font-size:12px !important;
   }
+  body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
+    min-width:104px !important;
+    padding:9px 11px !important;
+    font-size:11px !important;
+  }
+}
+
+/* ============================================================
+   HOA V4.3 — FINAL MOBILE EXAM COMPACT AUTHORITY
+   Presentation-only: no answer/state/submit logic changes.
+   Targets the existing ui21 CBT shell on phones.
+   ============================================================ */
+@media (max-width: 767px){
+  html,body{
+    width:100% !important;
+    max-width:100% !important;
+    overflow-x:hidden !important;
+  }
+
+  body.v13-exam-active #exam,
+  body.hoa-exam-live > main.container > #exam{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    overflow-x:hidden !important;
+  }
+
+  /* Compact exam header */
+  body.v13-exam-active #exam .examTop,
+  body.hoa-exam-live > main.container > #exam .examTop{
+    width:100% !important;
+    min-height:52px !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:7px 9px !important;
+    gap:6px !important;
+    box-sizing:border-box !important;
+  }
+  body.v13-exam-active #exam .examTop > div:first-child,
+  body.hoa-exam-live > main.container > #exam .examTop > div:first-child{
+    flex:1 1 auto !important;
+    min-width:0 !important;
+  }
+  body.v13-exam-active #exam .examTop > div:first-child b,
+  body.hoa-exam-live > main.container > #exam .examTop > div:first-child b{
+    display:block !important;
+    max-width:100% !important;
+    font-size:14px !important;
+    line-height:1.15 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  body.v13-exam-active #exam .examTop .sub,
+  body.hoa-exam-live > main.container > #exam .examTop .sub{
+    font-size:9px !important;
+    line-height:1.2 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  body.v13-exam-active #exam .timer,
+  body.hoa-exam-live > main.container > #exam .timer{
+    min-width:72px !important;
+    width:72px !important;
+    padding:6px 7px !important;
+    font-size:12px !important;
+    line-height:1 !important;
+    box-sizing:border-box !important;
+    text-align:center !important;
+  }
+
+  /* Remove desktop-sized vertical reserves from the question area. */
+  body.v13-exam-active #exam .examGrid,
+  body.hoa-exam-live > main.container > #exam .examGrid{
+    display:flex !important;
+    flex-direction:column !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    gap:0 !important;
+    margin:0 !important;
+  }
+  body.v13-exam-active #exam .examGrid > .card:first-child,
+  body.hoa-exam-live > main.container > #exam .examGrid > .card:first-child{
+    order:1 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:0 !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:10px 11px 12px !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+
+  /* Question number / statement */
+  body.v13-exam-active #exam .questionNo,
+  body.hoa-exam-live > main.container > #exam .questionNo{
+    min-height:34px !important;
+    height:auto !important;
+    margin:0 0 8px !important;
+    padding:7px 10px !important;
+    font-size:13px !important;
+    line-height:1.2 !important;
+    box-sizing:border-box !important;
+  }
+  body.v13-exam-active #exam .question,
+  body.hoa-exam-live > main.container > #exam .question{
+    font-size:17px !important;
+    line-height:1.42 !important;
+    margin:10px 3px 11px !important;
+    min-height:0 !important;
+    max-width:100% !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  /* Answer choices: comfortable but not oversized. */
+  body.v13-exam-active #exam #options,
+  body.hoa-exam-live > main.container > #exam #options{
+    margin-top:6px !important;
+    min-height:0 !important;
+  }
+  body.v13-exam-active #exam #options > *,
+  body.hoa-exam-live > main.container > #exam #options > *{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    min-height:50px !important;
+    height:auto !important;
+    margin:7px 0 !important;
+    padding:11px 12px !important;
+    box-sizing:border-box !important;
+    font-size:15px !important;
+    line-height:1.32 !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  /* Question palette stays compact and fully visible. */
+  body.v13-exam-active #exam .examGrid > .side,
+  body.hoa-exam-live > main.container > #exam .examGrid > .side{
+    order:2 !important;
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    border-top:1px solid #bfd6de !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  body.v13-exam-active #exam .side h3,
+  body.hoa-exam-live > main.container > #exam .side h3{
+    margin:0 !important;
+    padding:8px 10px !important;
+    font-size:14px !important;
+    line-height:1.1 !important;
+  }
+  body.v13-exam-active #exam .side .palette,
+  body.hoa-exam-live > main.container > #exam .side .palette,
+  body.v13-exam-active #exam #palette,
+  body.hoa-exam-live > main.container > #exam #palette{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    gap:6px !important;
+    padding:8px 9px !important;
+    margin:0 !important;
+    box-sizing:border-box !important;
+    overflow:visible !important;
+  }
+  body.v13-exam-active #exam .ui21-palette-btn,
+  body.hoa-exam-live > main.container > #exam .ui21-palette-btn,
+  body.v13-exam-active #exam .side .pbtn,
+  body.hoa-exam-live > main.container > #exam .side .pbtn{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:39px !important;
+    height:39px !important;
+    padding:0 !important;
+    font-size:12px !important;
+  }
+
+  /* CRITICAL: older rules reserved 360–380px after the legend.
+     On phones the legend should end immediately after its own content. */
+  body.v13-exam-active #exam .mission-palette-legend,
+  body.hoa-exam-live > main.container > #exam .mission-palette-legend{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:5px 7px !important;
+    margin:0 !important;
+    padding:7px 9px 8px !important;
+    font-size:10px !important;
+    line-height:1.2 !important;
+    box-sizing:border-box !important;
+  }
+  body.v13-exam-active #exam .mission-palette-legend .legend-item,
+  body.hoa-exam-live > main.container > #exam .mission-palette-legend .legend-item{
+    min-width:0 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+  body.v13-exam-active #exam .mission-palette-legend .legend-dot,
+  body.hoa-exam-live > main.container > #exam .mission-palette-legend .legend-dot{
+    width:11px !important;
+    height:11px !important;
+    min-width:11px !important;
+  }
+
+  /* Compact fixed action dock: 2×2 controls + full-width Submit. */
+  body.v13-exam-active #exam .ui21-bottom,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom{
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100% !important;
+    max-width:100% !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:7px 8px calc(7px + env(safe-area-inset-bottom)) !important;
+    box-sizing:border-box !important;
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    grid-template-rows:auto auto auto !important;
+    gap:6px !important;
+    z-index:12000 !important;
+    background:rgba(255,255,255,.98) !important;
+    backdrop-filter:blur(10px) !important;
+    border-top:1px solid #cfd8e3 !important;
+    box-shadow:0 -4px 18px rgba(0,0,0,.08) !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom .ui21-nav-group,
+  body.v13-exam-active #exam .ui21-bottom .ui21-save-group,
+  body.v13-exam-active #exam .ui21-bottom .ui21-submit-zone,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom .ui21-nav-group,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom .ui21-save-group,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom .ui21-submit-zone{
+    display:contents !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom .ui21-submit-label,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom .ui21-submit-label{
+    display:none !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom button,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom button{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:44px !important;
+    height:44px !important;
+    margin:0 !important;
+    padding:6px 6px !important;
+    box-sizing:border-box !important;
+    font-size:11px !important;
+    line-height:1.15 !important;
+    white-space:normal !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom #ui21Submit,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom #ui21Submit{
+    grid-column:1 / -1 !important;
+    min-height:46px !important;
+    height:46px !important;
+    font-size:12px !important;
+  }
+
+  /* Reserve only the actual dock height, not hundreds of pixels. */
+  body.v13-exam-active #exam .examGrid > .card:first-child,
+  body.hoa-exam-live > main.container > #exam .examGrid > .card:first-child{
+    padding-bottom:190px !important;
+  }
+}
+
+@media (max-width:380px){
+  body.v13-exam-active #exam .question,
+  body.hoa-exam-live > main.container > #exam .question{font-size:16px !important;}
+  body.v13-exam-active #exam #options > *,
+  body.hoa-exam-live > main.container > #exam #options > *{font-size:14px !important;min-height:48px !important;}
+  body.v13-exam-active #exam .ui21-bottom button,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom button{min-height:42px !important;height:42px !important;font-size:10px !important;}
+  body.v13-exam-active #exam .ui21-bottom #ui21Submit,
+  body.hoa-exam-live > main.container > #exam .ui21-bottom #ui21Submit{min-height:44px !important;height:44px !important;}
 }
