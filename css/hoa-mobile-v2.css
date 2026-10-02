@@ -5491,3 +5491,53 @@ body.admin-ui .hoa-master-muted{overflow-wrap:anywhere !important;}
   body.v13-exam-active #exam .examGrid,
   body.hoa-exam-live > main.container > #exam .examGrid{padding-bottom:101px !important;}
 }
+
+/* =====================================================================
+   HOA V4.6 — MOBILE QUESTION NUMBER BLOCKS COMPACT
+   Mobile only. Shrinks question-number tiles without changing CBT logic.
+   ===================================================================== */
+@media (max-width:767px){
+  body.v13-exam-active #exam .side .palette,
+  body.hoa-exam-live > main.container > #exam .side .palette,
+  body.v13-exam-active #exam #palette,
+  body.hoa-exam-live > main.container > #exam #palette{
+    gap:3px !important;
+    padding:4px 7px !important;
+  }
+
+  body.v13-exam-active #exam .ui21-palette-btn,
+  body.hoa-exam-live > main.container > #exam .ui21-palette-btn,
+  body.v13-exam-active #exam .side .pbtn,
+  body.hoa-exam-live > main.container > #exam .side .pbtn{
+    height:26px !important;
+    min-height:26px !important;
+    max-height:26px !important;
+    padding:0 2px !important;
+    font-size:8px !important;
+    line-height:1 !important;
+    border-radius:5px !important;
+    box-sizing:border-box !important;
+  }
+}
+
+@media (max-width:380px){
+  body.v13-exam-active #exam .side .palette,
+  body.hoa-exam-live > main.container > #exam .side .palette,
+  body.v13-exam-active #exam #palette,
+  body.hoa-exam-live > main.container > #exam #palette{
+    gap:2px !important;
+    padding:3px 6px !important;
+  }
+
+  body.v13-exam-active #exam .ui21-palette-btn,
+  body.hoa-exam-live > main.container > #exam .ui21-palette-btn,
+  body.v13-exam-active #exam .side .pbtn,
+  body.hoa-exam-live > main.container > #exam .side .pbtn{
+    height:24px !important;
+    min-height:24px !important;
+    max-height:24px !important;
+    padding:0 1px !important;
+    font-size:7.5px !important;
+    border-radius:4px !important;
+  }
+}
