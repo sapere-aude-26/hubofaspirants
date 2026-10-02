@@ -2068,6 +2068,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
 
     updateHeaderLogout();
+    if (typeof global.hoaFinishInitialUIBoot === 'function') global.hoaFinishInitialUIBoot();
     return true;
   }
 
@@ -2118,6 +2119,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
 
     updateHeaderLogout();
+    if (typeof global.hoaFinishInitialUIBoot === 'function') global.hoaFinishInitialUIBoot();
     return true;
   }
 

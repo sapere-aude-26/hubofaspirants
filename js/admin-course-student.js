@@ -916,6 +916,8 @@ function showDashboardTab(tab){
       if(adminOnly) adminOnly.classList.add("hidden");
       return;
     }
+    /* V3.4: guarantee the authoritative shell exists before exposing Admin. */
+    try{ if(typeof window.hoaEnsureAdminReferenceUI === "function") window.hoaEnsureAdminReferenceUI(); }catch(e){ console.warn("Admin shell ensure:",e); }
     setAuthScreenVisible(false);
     hideStudentExamScreens();
     if(studentOnly) studentOnly.classList.add("hidden");
