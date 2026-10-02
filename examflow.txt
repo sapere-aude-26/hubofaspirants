@@ -1,0 +1,516 @@
+   960	  if(avatarEl) avatarEl.textContent=avatar;
+   961	  if(metaEl){
+   962	    const parts=[];
+   963	    if(s.email) parts.push(s.email);
+   964	    if(s.mobile) parts.push(s.mobile);
+   965	    const academic=[s.qualification,s.passout_year,s.college_name].filter(Boolean).join(' · ');
+   966	    if(academic) parts.push(academic);
+   967	    metaEl.innerHTML=parts.map(x=>`<span>${escapeHTML(String(x))}</span>`).join('');
+   968	  }
+   969	}
+   970	
+   971	function renderStudentDashboard(){
+   972	  ensureStudentModernUI();
+   973	  updateStudentModernUI();
+   974	  if(typeof window.hoaInstallStudentNativeBottom === 'function') window.hoaInstallStudentNativeBottom();
+   975	  const dashboardLogo=document.getElementById("studentDashboardLogo");
+   976	  const sourceLogo=document.querySelector("#authScreen .mission-logo");
+   977	  if(dashboardLogo && sourceLogo && !dashboardLogo.getAttribute("src")) dashboardLogo.src=sourceLogo.src;
+   978	  const allResults=getResults();
+   979	  const results=currentStudent?allResults.filter(r=>r.userId===currentStudent.id):[];
+   980	  const granular=Boolean(window.hoaV643GranularTestAccess); const granted=window.hoaV643TestGrantIds instanceof Set?window.hoaV643TestGrantIds:new Set(); const availableTests=tests.filter(t=>t.is_published && (t.accessType==="free" || (granular ? granted.has(t.id) : currentStudent?.accessType==="paid")));
+   981	  document.getElementById("dashTests").textContent=availableTests.length;
+   982	  document.getElementById("dashAttempts").textContent=results.length;
+   983	  const scores=results.map(r=>Number(r.percentage)||0);
+   984	  document.getElementById("dashBest").textContent=scores.length?Math.max(...scores).toFixed(1)+"%":"0";
+   985	  document.getElementById("dashAvg").textContent=scores.length?(scores.reduce((a,b)=>a+b,0)/scores.length).toFixed(1)+"%":"0%";
+   986	  const st=document.getElementById("studentTests");
+   987	  const studentTests=availableTests;
+   988	  if(!studentTests.length){st.innerHTML='<div class="emptyState">No mock tests are currently available for your account.</div>';return}
+   989	  st.innerHTML=studentTests.map(t=>`<article class="testItem">
+   990	    <div class="testItemInfo">
+   991	      <div class="testTitleRow"><b>${escapeHTML(t.title)}</b><span class="statusBadge ${t.accessType==="free"?"freeBadge":"paidBadge"}">${t.accessType==="free"?"FREE":"PAID"}</span></div>
+   992	      <div class="testMeta"><span>${t.questions.length} ${t.questions.length===1?"question":"questions"}</span><span>${t.duration} min</span><span>+${t.marks} correct</span><span>−${t.negative} wrong</span></div>
+   993	    </div>
+   994	    <div class="actions"><button class="startSmall" onclick="startSavedTest('${t.id}')">START TEST</button></div>
+   995	  </article>`).join("");
+   996	  const badge=document.getElementById("availableTestsBadge");
+   997	  if(badge) badge.textContent=`${studentTests.length} ${studentTests.length===1?"TEST":"TESTS"}`;
+   998	}
+   999	function showTestCountdown(title, onComplete){
+  1000	 const overlay=document.getElementById("testCountdownOverlay");
+  1001	 const titleEl=document.getElementById("countdownTestTitle");
+  1002	 const numberEl=document.getElementById("countdownNumber");
+  1003	 const messageEl=document.getElementById("countdownMessage");
+  1004	
+  1005	 if(!overlay){
+  1006	   if(typeof onComplete==="function") onComplete();
+  1007	   return;
+  1008	 }
+  1009	
+  1010	 titleEl.textContent=title||"Mock Test";
+  1011	 overlay.classList.remove("hidden");
+  1012	 overlay.style.display="flex";
+  1013	
+  1014	 const sequence=[5,4,3,2,1];
+  1015	 let i=0;
+  1016	
+  1017	 const step=()=>{
+  1018	   if(i<sequence.length){
+  1019	     numberEl.textContent=sequence[i++];
+  1020	     messageEl.textContent="Starting in...";
+  1021	     setTimeout(step,1000);
+  1022	     return;
+  1023	   }
+  1024	
+  1025	   numberEl.textContent="✓";
+  1026	   messageEl.textContent="LET'S BEGIN";
+  1027	
+  1028	   setTimeout(()=>{
+  1029	     /* Force-hide the overlay so CSS/UI changes cannot trap the user here. */
+  1030	     overlay.classList.add("hidden");
+  1031	     overlay.style.display="none";
+  1032	
+  1033	     if(typeof onComplete==="function"){
+  1034	       try{ onComplete(); }
+  1035	       catch(e){
+  1036	         console.error("Test launch error:",e);
+  1037	         alert("The test could not be opened. Please refresh the page and try again.");
+  1038	       }
+  1039	     }
+  1040	   },700);
+  1041	 };
+  1042	
+  1043	 step();
+  1044	}
+  1045	
+  1046	function openTestInstructions(){
+  1047	  /* Legacy/manual entry point retained for compatibility. */
+  1048	  applySettings();
+  1049	  if(!questions.length){
+  1050	    alert("No valid questions available.");
+  1051	    return;
+  1052	  }
+  1053	  var modal=document.getElementById("testInstructionsModal");
+  1054	  if(!modal)return;
+  1055	  populateTestInstructions({
+  1056	    title:(window.currentTestTitle||window.selectedTestTitle||testTitle||document.title||"Mock Test"),
+  1057	    questionCount:questions.length,
+  1058	    duration:durationMinutes,
+  1059	    marks:marksPerCorrect,
+  1060	    negative:negativeMarks
+  1061	  });
+  1062	  window.pendingInstructionLaunch=null;
+  1063	  resetInstructionReadyState();
+  1064	  document.body.classList.add("test-instructions-active");
+  1065	  modal.classList.remove("hidden");
+  1066	}
+  1067	
+  1068	function populateTestInstructions(info){
+  1069	  var qCount=Math.max(0,Number(info.questionCount)||0);
+  1070	  var mins=Math.max(0,Number(info.duration)||0);
+  1071	  var positive=Math.max(0,Number(info.marks)||0);
+  1072	  var negative=Math.max(0,Number(info.negative)||0);
+  1073	  var total=qCount*positive;
+  1074	  var set=(id,value)=>{var el=document.getElementById(id);if(el)el.textContent=value;};
+  1075	  set("instructionTestName",info.title||"Mock Test");
+  1076	  set("instructionQuestions",qCount);
+  1077	  set("instructionTotalMarks",Number(total).toFixed(2));
+  1078	  set("instructionDuration",mins+" min");
+  1079	  set("instructionPositiveMarks","+"+Number(positive).toFixed(2));
+  1080	  set("instructionNegativeMarks",negative>0?"-"+Number(negative).toFixed(2):"0");
+  1081	}
+  1082	function resetInstructionReadyState(){
+  1083	  var cb=document.getElementById("testReadyCheckbox");
+  1084	  var btn=document.getElementById("beginTestButton");
+  1085	  if(cb)cb.checked=false;
+  1086	  if(btn)btn.disabled=true;
+  1087	}
+  1088	function toggleTestReady(){
+  1089	  var cb=document.getElementById("testReadyCheckbox");
+  1090	  var btn=document.getElementById("beginTestButton");
+  1091	  if(cb&&btn)btn.disabled=!cb.checked;
+  1092	}
+  1093	function closeTestInstructions(keepLaunch){
+  1094	  const modal=document.getElementById("testInstructionsModal");
+  1095	  if(modal) modal.classList.add("hidden");
+  1096	  document.body.classList.remove("test-instructions-active");
+  1097	  resetInstructionReadyState();
+  1098	
+  1099	  if(!keepLaunch){
+  1100	    document.body.classList.remove("test-launching-active");
+  1101	    window.pendingInstructionLaunch=null;
+  1102	    try{ window.MISSION_TES_ExamIntegrity?.cancelLaunch?.(); }catch(_){}
+  1103	    try{ setHOAExamShellMode("normal"); }catch(_){}
+  1104	    try{ restoreHOAStudentSurface(); }catch(_){}
+  1105	    showSuggestionOnNormalStudentSurface();
+  1106	  }
+  1107	}
+  1108	function requestHOAExamFullscreenFromGesture(){
+  1109	  try{
+  1110	    if(document.fullscreenElement || document.webkitFullscreenElement) return true;
+  1111	    const root=document.documentElement;
+  1112	    const fn=root && (root.requestFullscreen||root.webkitRequestFullscreen||root.msRequestFullscreen);
+  1113	    if(typeof fn!=="function"){
+  1114	      document.body.classList.add("hoa-local-exam-immersive");
+  1115	      return false;
+  1116	    }
+  1117	    try{
+  1118	      const p=fn.call(root,{navigationUI:"hide"});
+  1119	      if(p && typeof p.catch==="function") p.catch(function(err){ console.warn("HOA fullscreen request rejected:",err); });
+  1120	    }catch(_){
+  1121	      try{
+  1122	        const p=fn.call(root);
+  1123	        if(p && typeof p.catch==="function") p.catch(function(err){ console.warn("HOA fullscreen fallback rejected:",err); });
+  1124	      }catch(err){
+  1125	        document.body.classList.add("hoa-local-exam-immersive");
+  1126	        console.warn("HOA fullscreen unavailable:",err);
+  1127	        return false;
+  1128	      }
+  1129	    }
+  1130	    return true;
+  1131	  }catch(e){
+  1132	    document.body.classList.add("hoa-local-exam-immersive");
+  1133	    console.warn("HOA fullscreen request failed:",e);
+  1134	    return false;
+  1135	  }
+  1136	}
+  1137	async function confirmAndStartTest(){
+  1138	  const cb=document.getElementById("testReadyCheckbox");
+  1139	  if(!cb || !cb.checked){
+  1140	    if(cb) cb.focus();
+  1141	    return false;
+  1142	  }
+  1143	
+  1144	  const pending=window.pendingInstructionLaunch;
+  1145	  if(!pending || typeof pending.start!=="function"){
+  1146	    console.error("HOA: pending Start Exam continuation is missing.");
+  1147	    alert("The examination could not be started. Please click START TEST again.");
+  1148	    return false;
+  1149	  }
+  1150	
+  1151	  window.selectedTestLanguage=document.getElementById("testLanguageSelect")?.value||"english";
+  1152	
+  1153	  // MUST remain synchronous with the Start Exam click.
+  1154	  requestHOAExamFullscreenFromGesture();
+  1155	
+  1156	  document.body.classList.add("test-launching-active");
+  1157	  document.body.classList.remove("test-instructions-active");
+  1158	  hideSuggestionDuringExamLaunch?.();
+  1159	
+  1160	  const modal=document.getElementById("testInstructionsModal");
+  1161	  if(modal){
+  1162	    modal.classList.add("hidden");
+  1163	    modal.style.setProperty("display","none","important");
+  1164	    modal.style.setProperty("visibility","hidden","important");
+  1165	    modal.style.setProperty("pointer-events","none","important");
+  1166	  }
+  1167	
+  1168	  // Launch the exact continuation created by startSavedTest().
+  1169	  try{
+  1170	    const result=pending.start();
+  1171	    if(result && typeof result.then==="function") await result;
+  1172	    return true;
+  1173	  }catch(e){
+  1174	    console.error("HOA: Start Exam launch failed:",e);
+  1175	    try{ window.MISSION_TES_ExamIntegrity?.cancelLaunch?.(); }catch(_){}
+  1176	    try{ await exitHOAExamFullscreen(); }catch(_){}
+  1177	    try{ restoreHOAStudentSurface(); }catch(_){}
+  1178	    alert("The examination could not be started. Please try again.");
+  1179	    return false;
+  1180	  }
+  1181	}
+  1182	function startSavedTest(id){
+  1183	  try{ setHOAExamShellMode("launch"); }catch(_){}
+  1184	
+  1185	  const t=(Array.isArray(tests)?tests:[]).find(x=>String(x.id)===String(id));
+  1186	  if(!t){
+  1187	    alert("This test could not be found. Please refresh the Test Section.");
+  1188	    return;
+  1189	  }
+  1190	
+  1191	  const qs=Array.isArray(t.questions)?t.questions.map(q=>Array.isArray(q)?q.slice():q):[];
+  1192	  if(!qs.length){
+  1193	    alert("This test has no valid questions available.");
+  1194	    return;
+  1195	  }
+  1196	
+  1197	  ++testLaunchToken;
+  1198	  const launchToken=testLaunchToken;
+  1199	
+  1200	  clearInterval(interval);
+  1201	  interval=null;
+  1202	
+  1203	  adminPreviewMode=(adminLoggedIn===true && currentStudent===null);
+  1204	  activeTestId=t.id;
+  1205	
+  1206	  questions.length=0;
+  1207	  qs.forEach(q=>questions.push(q));
+  1208	
+  1209	  testTitle=String(t.title||"Mock Test");
+  1210	  durationMinutes=Math.max(1,Number(t.duration)||10);
+  1211	  marksPerCorrect=Math.max(0,Number(t.marks)||1);
+  1212	  negativeMarks=Math.max(0,Number(t.negative)||0);
+  1213	  timer=Math.round(durationMinutes*60);
+  1214	
+  1215	  current=0;
+  1216	  answers=Array(questions.length).fill(null);
+  1217	  pendingAnswers=Array(questions.length).fill(null);
+  1218	  marked=Array(questions.length).fill(false);
+  1219	  visited=Array(questions.length).fill(false);
+  1220	  submitted=false;
+  1221	
+  1222	  currentAttemptId=null;
+  1223	  currentAttemptCreatePromise=null;
+  1224	  currentAttemptLaunchToken=launchToken;
+  1225	
+  1226	  window.__missionTESLastStartedQuestions=questions.map(q=>Array.isArray(q)?q.slice():q);
+  1227	
+  1228	  populateTestInstructions({
+  1229	    title:testTitle,
+  1230	    questionCount:questions.length,
+  1231	    duration:durationMinutes,
+  1232	    marks:marksPerCorrect,
+  1233	    negative:negativeMarks
+  1234	  });
+  1235	
+  1236	  const modal=document.getElementById("testInstructionsModal");
+  1237	  if(!modal){
+  1238	    beginSavedTestAfterInstructions(launchToken);
+  1239	    return;
+  1240	  }
+  1241	
+  1242	  window.pendingInstructionLaunch={
+  1243	    id:t.id,
+  1244	    token:launchToken,
+  1245	    start:function(){
+  1246	      return beginSavedTestAfterInstructions(launchToken);
+  1247	    }
+  1248	  };
+  1249	
+  1250	  resetInstructionReadyState();
+  1251	  document.body.classList.remove("hoa-phase21-exam-active");
+  1252	  document.body.classList.add("test-instructions-active");
+  1253	  document.body.dataset.hoaPhase21Exam="launch";
+  1254	
+  1255	  modal.classList.remove("hidden");
+  1256	  modal.style.setProperty("display","flex","important");
+  1257	  modal.style.setProperty("visibility","visible","important");
+  1258	  modal.style.setProperty("pointer-events","auto","important");
+  1259	
+  1260	  hideSuggestionDuringExamLaunch();
+  1261	}
+  1262	function setHOAExamShellMode(mode){
+  1263	  const body=document.body;
+  1264	  body.classList.remove("hoa-exam-live","hoa-result-live","hoa-launch-live");
+  1265	  if(mode==="exam") body.classList.add("hoa-exam-live");
+  1266	  else if(mode==="result") body.classList.add("hoa-result-live");
+  1267	  else if(mode==="launch") body.classList.add("hoa-launch-live");
+  1268	  body.dataset.hoaExamMode=mode||"normal";
+  1269	}
+  1270	
+  1271	function hoaHideNode(node){
+  1272	  if(!node)return;
+  1273	  node.classList.add("hidden");
+  1274	  node.setAttribute("aria-hidden","true");
+  1275	  node.style.setProperty("display","none","important");
+  1276	  node.style.setProperty("visibility","hidden","important");
+  1277	  node.style.setProperty("pointer-events","none","important");
+  1278	}
+  1279	
+  1280	function hideSuggestionDuringExamLaunch(){
+  1281	  ['hoaPublicFeedbackStrip','hoaPublicFeedbackModal','hoaFeedbackModal'].forEach(function(id){
+  1282	    const e=document.getElementById(id);
+  1283	    if(e){
+  1284	      e.classList.add('hidden');
+  1285	      e.setAttribute('aria-hidden','true');
+  1286	      e.style.setProperty('display','none','important');
+  1287	      e.style.setProperty('pointer-events','none','important');
+  1288	    }
+  1289	  });
+  1290	  document.querySelectorAll('.hoa-public-feedback-strip,.hoa-public-feedback-btn').forEach(function(e){
+  1291	    e.classList.add('hidden');
+  1292	    e.style.setProperty('display','none','important');
+  1293	    e.style.setProperty('pointer-events','none','important');
+  1294	  });
+  1295	}
+  1296	function showSuggestionOnNormalStudentSurface(){
+  1297	  if(document.body.classList.contains('hoa-phase21-exam-active') ||
+  1298	     document.body.classList.contains('test-launching-active') ||
+  1299	     document.body.classList.contains('test-instructions-active')) return;
+  1300	  ['hoaPublicFeedbackStrip'].forEach(function(id){
+  1301	    const e=document.getElementById(id);
+  1302	    if(e){
+  1303	      e.classList.remove('hidden');
+  1304	      e.removeAttribute('aria-hidden');
+  1305	      e.style.removeProperty('display');
+  1306	      e.style.removeProperty('pointer-events');
+  1307	    }
+  1308	  });
+  1309	  document.querySelectorAll('.hoa-public-feedback-strip,.hoa-public-feedback-btn').forEach(function(e){
+  1310	    e.classList.remove('hidden');
+  1311	    e.style.removeProperty('display');
+  1312	    e.style.removeProperty('pointer-events');
+  1313	  });
+  1314	}
+  1315	async function exitHOAExamFullscreen(){
+  1316	  try{
+  1317	    if(document.fullscreenElement && document.exitFullscreen) return await document.exitFullscreen();
+  1318	    if(document.webkitFullscreenElement && document.webkitExitFullscreen) return await document.webkitExitFullscreen();
+  1319	  }catch(_){ }
+  1320	}
+  1321	
+  1322	function enterHOAExclusiveExamSurface(){
+  1323	  const hideIds=[
+  1324	    "home","authScreen","adminOnlyDashboard","studentOnlyDashboard",
+  1325	    "hoaGlobalPublicFooter","hoaPublicFeedbackStrip","hoaPublicFeedbackModal",
+  1326	    "hoaFeedbackModal","testInstructionsModal"
+  1327	  ];
+  1328	  hideIds.forEach(function(id){
+  1329	    const node=document.getElementById(id);
+  1330	    if(!node)return;
+  1331	    node.classList.add("hidden");
+  1332	    node.setAttribute("aria-hidden","true");
+  1333	    node.style.setProperty("display","none","important");
+  1334	  });
+  1335	  const exam=document.getElementById("exam");
+  1336	  if(exam){
+  1337	    exam.classList.remove("hidden");
+  1338	    exam.setAttribute("aria-hidden","false");
+  1339	    exam.style.setProperty("display","block","important");
+  1340	    exam.style.setProperty("visibility","visible","important");
+  1341	    exam.style.setProperty("opacity","1","important");
+  1342	  }
+  1343	}
+  1344	
+  1345	function restoreHOAStudentSurface(){
+  1346	  ["authScreen","adminOnlyDashboard","studentOnlyDashboard","hoaGlobalPublicFooter",
+  1347	   "hoaPublicFeedbackStrip","hoaPublicFeedbackModal","hoaFeedbackModal"].forEach(function(id){
+  1348	    const node=document.getElementById(id);
+  1349	    if(!node)return;
+  1350	    node.classList.remove("hidden");
+  1351	    node.removeAttribute("aria-hidden");
+  1352	    node.style.removeProperty("display");
+  1353	    node.style.removeProperty("visibility");
+  1354	    node.style.removeProperty("opacity");
+  1355	  });
+  1356	  const exam=document.getElementById("exam");
+  1357	  if(exam){
+  1358	    exam.classList.add("hidden");
+  1359	    exam.setAttribute("aria-hidden","true");
+  1360	    exam.style.removeProperty("display");
+  1361	    exam.style.removeProperty("visibility");
+  1362	    exam.style.removeProperty("opacity");
+  1363	  }
+  1364	}
+  1365	
+  1366	function beginSavedTestAfterInstructions(launchToken){
+  1367	  if(launchToken!==testLaunchToken || !questions.length) return false;
+  1368	
+  1369	  document.body.classList.add("test-launching-active");
+  1370	  document.body.classList.remove("test-instructions-active");
+  1371	  hideSuggestionDuringExamLaunch();
+  1372	
+  1373	  const actualExam=()=>{
+  1374	    if(launchToken!==testLaunchToken || submitted) return;
+  1375	
+  1376	    clearInterval(interval);
+  1377	    interval=null;
+  1378	
+  1379	    const overlay=document.getElementById("testCountdownOverlay");
+  1380	    if(overlay){
+  1381	      overlay.classList.add("hidden");
+  1382	      overlay.style.setProperty("display","none","important");
+  1383	      overlay.style.setProperty("visibility","hidden","important");
+  1384	      overlay.style.setProperty("pointer-events","none","important");
+  1385	    }
+  1386	
+  1387	    setHOAExamShellMode("exam");
+  1388	    enterHOAExclusiveExamSurface();
+  1389	
+  1390	    document.body.classList.remove("test-launching-active","test-instructions-active");
+  1391	    document.body.classList.add("hoa-phase21-exam-active","v13-exam-active","exam-active");
+  1392	    document.body.dataset.hoaPhase21Exam="active";
+  1393	
+  1394	    const exam=document.getElementById("exam");
+  1395	    const headerTimer=document.getElementById("headerTimer");
+  1396	    const previewExit=document.getElementById("adminPreviewExit");
+  1397	
+  1398	    if(exam){
+  1399	      exam.classList.remove("hidden");
+  1400	      exam.removeAttribute("aria-hidden");
+  1401	      exam.style.setProperty("display","block","important");
+  1402	      exam.style.setProperty("visibility","visible","important");
+  1403	      exam.style.setProperty("opacity","1","important");
+  1404	      exam.style.setProperty("pointer-events","auto","important");
+  1405	    }
+  1406	    if(headerTimer) headerTimer.classList.remove("hidden");
+  1407	    if(previewExit) previewExit.classList.toggle("hidden",!adminPreviewMode);
+  1408	
+  1409	    examStartedAt=Date.now();
+  1410	    examStartedPerf=typeof performance!=="undefined"?performance.now():null;
+  1411	    timer=Math.max(1,Math.round((Number(durationMinutes)||10)*60));
+  1412	    current=0;
+  1413	    answers=Array(questions.length).fill(null);
+  1414	    pendingAnswers=Array(questions.length).fill(null);
+  1415	    marked=Array(questions.length).fill(false);
+  1416	    visited=Array(questions.length).fill(false);
+  1417	    submitted=false;
+  1418	
+  1419	    try{
+  1420	      render();
+  1421	    }catch(e){
+  1422	      console.error("HOA actual exam render failed:",e);
+  1423	      alert("The examination screen could not be loaded. Please refresh and try again.");
+  1424	      return;
+  1425	    }
+  1426	
+  1427	    // Integrity starts ONLY after the actual question screen is rendered.
+  1428	    if(window.MISSION_TES_ExamIntegrity && !adminPreviewMode){
+  1429	      try{ window.MISSION_TES_ExamIntegrity.activate(); }
+  1430	      catch(e){ console.warn("HOA integrity activation failed:",e); }
+  1431	    }
+  1432	
+  1433	    updateTimer();
+  1434	
+  1435	    interval=setInterval(function(){
+  1436	      if(submitted || document.body.dataset.hoaPhase21Exam!=="active") return;
+  1437	      if(timer<=0){
+  1438	        clearInterval(interval);
+  1439	        interval=null;
+  1440	        submitTest(true);
+  1441	        return;
+  1442	      }
+  1443	      timer--;
+  1444	      updateTimer();
+  1445	    },1000);
+  1446	
+  1447	    if(!adminPreviewMode && supabaseClient && currentStudent){
+  1448	      const thisLaunch=launchToken;
+  1449	      try{
+  1450	        currentAttemptCreatePromise=createAttemptInSupabase(activeTestId,questions.length).then(function(id){
+  1451	          if(thisLaunch===testLaunchToken && !submitted && currentStudent){
+  1452	            currentAttemptId=id;
+  1453	          }
+  1454	          return id;
+  1455	        });
+  1456	        currentAttemptCreatePromise.catch(function(e){
+  1457	          console.error("HOA attempt creation failed:",e);
+  1458	        });
+  1459	      }catch(e){
+  1460	        console.error("HOA attempt creation could not start:",e);
+  1461	      }
+  1462	    }
+  1463	  };
+  1464	
+  1465	  try{
+  1466	    if(typeof showTestCountdown==="function"){
+  1467	      showTestCountdown(testTitle,actualExam);
+  1468	    }else{
+  1469	      actualExam();
+  1470	    }
+  1471	  }catch(e){
+  1472	    console.error("HOA countdown failed:",e);
+  1473	    actualExam();
+  1474	  }
+  1475	  return true;
