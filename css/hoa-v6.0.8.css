@@ -23933,3 +23933,69 @@ textarea{
     max-height:38px !important;
   }
 }
+
+
+/* ============================================================
+   HOA EXAM — MOBILE MICRO POLISH 2 (CSS ONLY)
+   - add breathing room between question-number strip and fixed footer
+   - keep the exam timer fully visible and non-collapsing on phones
+   No HTML / JS / exam-engine changes.
+   ============================================================ */
+@media (max-width:767px){
+  /* Extra separation before the fixed footer without moving the footer itself. */
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side,
+  body.hoa-exam-live > main.container > #exam .examGrid > .side,
+  body.v13-exam-active #exam .examGrid > .side{
+    padding-bottom:16px !important;
+  }
+
+  body:has(#exam:not(.hidden)) #exam .examGrid,
+  body.hoa-exam-live > main.container > #exam .examGrid,
+  body.v13-exam-active #exam .examGrid{
+    padding-bottom:196px !important;
+  }
+
+  /* Timer: fixed enough width to prevent clipping/shrinking, with a readable
+     single-line time display on small phones. */
+  body:has(#exam:not(.hidden)) #exam .examTop .timer,
+  body.hoa-exam-live > main.container > #exam .examTop .timer,
+  body.v13-exam-active #exam .examTop .timer{
+    flex:0 0 116px !important;
+    width:116px !important;
+    min-width:116px !important;
+    max-width:116px !important;
+    min-height:46px !important;
+    height:auto !important;
+    box-sizing:border-box !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    text-align:center !important;
+    white-space:nowrap !important;
+    overflow:visible !important;
+    font-size:16px !important;
+    line-height:1 !important;
+    font-variant-numeric:tabular-nums !important;
+    padding:9px 9px 9px 31px !important;
+  }
+
+  body:has(#exam:not(.hidden)) #exam .examTop .timer:before,
+  body.hoa-exam-live > main.container > #exam .examTop .timer:before,
+  body.v13-exam-active #exam .examTop .timer:before{
+    left:10px !important;
+    font-size:15px !important;
+  }
+}
+
+@media (max-width:380px){
+  body:has(#exam:not(.hidden)) #exam .examTop .timer,
+  body.hoa-exam-live > main.container > #exam .examTop .timer,
+  body.v13-exam-active #exam .examTop .timer{
+    flex-basis:110px !important;
+    width:110px !important;
+    min-width:110px !important;
+    max-width:110px !important;
+    font-size:15px !important;
+    padding-left:29px !important;
+  }
+}
