@@ -23284,3 +23284,175 @@ textarea{
     min-height:38px !important;
   }
 }
+
+
+/* ============================================================
+   HOA EXAM — MOBILE MICRO POLISH (CSS ONLY)
+   - make colour key clearly visible before the question
+   - make Previous / Clear / Save & Next equal-size controls
+   - make Submit Test span the full navigation width
+   - give Save & Next a light-blue action colour
+   No JS or exam logic changes.
+   ============================================================ */
+@media (max-width: 767px){
+  /* The visible exam must keep the compact colour key in the flow.
+     The higher-specificity selector also defeats legacy exam-theme rules. */
+  body.hoa-exam-live > main.container > #exam .mobile-palette-legend,
+  body.v13-exam-active #exam .mobile-palette-legend,
+  body:has(#exam:not(.hidden)) #exam .mobile-palette-legend,
+  #exam:not(.hidden) .mobile-palette-legend{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    grid-auto-rows:minmax(20px,auto) !important;
+    align-items:center !important;
+    gap:4px 7px !important;
+    width:100% !important;
+    min-height:34px !important;
+    margin:0 !important;
+    padding:5px 10px 6px !important;
+    box-sizing:border-box !important;
+    background:#F7FBFE !important;
+    border-top:1px solid #D8E7F5 !important;
+    border-bottom:1px solid #D8E7F5 !important;
+    color:#536B86 !important;
+    overflow:visible !important;
+  }
+
+  body.hoa-exam-live > main.container > #exam .mobile-palette-legend .legend-item,
+  body.v13-exam-active #exam .mobile-palette-legend .legend-item,
+  body:has(#exam:not(.hidden)) #exam .mobile-palette-legend .legend-item,
+  #exam:not(.hidden) .mobile-palette-legend .legend-item{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    min-width:0 !important;
+    gap:4px !important;
+    font-size:8px !important;
+    line-height:1.05 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+  }
+
+  body.hoa-exam-live > main.container > #exam .mobile-palette-legend .legend-dot,
+  body.v13-exam-active #exam .mobile-palette-legend .legend-dot,
+  body:has(#exam:not(.hidden)) #exam .mobile-palette-legend .legend-dot,
+  #exam:not(.hidden) .mobile-palette-legend .legend-dot{
+    display:inline-block !important;
+    flex:0 0 8px !important;
+    width:8px !important;
+    height:8px !important;
+    min-width:8px !important;
+    min-height:8px !important;
+    border-radius:3px !important;
+    box-sizing:border-box !important;
+    border:1px solid rgba(0,0,0,.20) !important;
+  }
+
+  /* Full-width three-row control grid. Every routine button gets
+     the same visual box size; Submit Test spans both columns. */
+  #exam:not(.hidden) .ui21-bottom{
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    grid-template-rows:42px 42px 42px !important;
+    column-gap:7px !important;
+    row-gap:7px !important;
+    align-items:stretch !important;
+    width:auto !important;
+    box-sizing:border-box !important;
+  }
+
+  #exam:not(.hidden) .ui21-bottom .ui21-nav-group,
+  #exam:not(.hidden) .ui21-bottom .ui21-save-group{
+    display:contents !important;
+  }
+
+  #exam:not(.hidden) .ui21-bottom .ui21-submit-zone{
+    display:grid !important;
+    grid-column:1 / -1 !important;
+    grid-row:3 !important;
+    width:100% !important;
+    min-width:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    box-sizing:border-box !important;
+  }
+
+  #exam:not(.hidden) .ui21-bottom #ui21Prev,
+  #exam:not(.hidden) .ui21-bottom #ui21MarkReview,
+  #exam:not(.hidden) .ui21-bottom #ui21Clear,
+  #exam:not(.hidden) .ui21-bottom #ui21SaveNext{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:42px !important;
+    min-height:42px !important;
+    max-height:42px !important;
+    margin:0 !important;
+    padding:5px 6px !important;
+    box-sizing:border-box !important;
+    border-radius:8px !important;
+    font-size:10px !important;
+    line-height:1.05 !important;
+    white-space:normal !important;
+  }
+
+  #exam:not(.hidden) .ui21-bottom #ui21Prev{grid-column:1 !important;grid-row:1 !important;}
+  #exam:not(.hidden) .ui21-bottom #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;}
+  #exam:not(.hidden) .ui21-bottom #ui21Clear{grid-column:1 !important;grid-row:2 !important;}
+  #exam:not(.hidden) .ui21-bottom #ui21SaveNext{grid-column:2 !important;grid-row:2 !important;}
+
+  #exam:not(.hidden) .ui21-bottom #ui21Submit{
+    display:block !important;
+    grid-column:1 !important;
+    grid-row:1 !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:42px !important;
+    min-height:42px !important;
+    max-height:42px !important;
+    margin:0 !important;
+    padding:5px 8px !important;
+    box-sizing:border-box !important;
+    border-radius:8px !important;
+    font-size:10px !important;
+    line-height:1.05 !important;
+    white-space:nowrap !important;
+  }
+
+  /* Light-blue Save & Next, retaining its existing interaction/behavior. */
+  #exam:not(.hidden) .ui21-bottom #ui21SaveNext{
+    background:#DCEFFD !important;
+    border:1px solid #9BC8E7 !important;
+    color:#1F5F86 !important;
+    box-shadow:none !important;
+  }
+
+  #exam:not(.hidden) .ui21-bottom #ui21SaveNext:hover{
+    background:#CFE8FA !important;
+    border-color:#82B8DC !important;
+  }
+}
+
+@media (max-width:380px){
+  #exam:not(.hidden) .mobile-palette-legend{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:3px 6px !important;
+    padding-left:8px !important;
+    padding-right:8px !important;
+  }
+
+  #exam:not(.hidden) .mobile-palette-legend .legend-item{
+    font-size:7.5px !important;
+  }
+
+  #exam:not(.hidden) .ui21-bottom #ui21Prev,
+  #exam:not(.hidden) .ui21-bottom #ui21MarkReview,
+  #exam:not(.hidden) .ui21-bottom #ui21Clear,
+  #exam:not(.hidden) .ui21-bottom #ui21SaveNext,
+  #exam:not(.hidden) .ui21-bottom #ui21Submit{
+    font-size:9px !important;
+  }
+}
