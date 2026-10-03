@@ -22206,3 +22206,184 @@ textarea{
     width:100% !important;
   }
 }
+
+/* ============================================================
+   HOA EXAM — MOBILE CORRECTION V3
+   Scope: phone exam interface positioning only.
+   No JavaScript / exam engine / scoring / timer / integrity logic.
+   ============================================================ */
+@media (max-width: 767px){
+  body.v13-exam-active #exam{
+    box-sizing:border-box !important;
+    padding-top:0 !important;
+    padding-bottom:0 !important;
+  }
+
+  /* 1. Physical phone safe-area breathing room around the exam chrome. */
+  body.v13-exam-active #exam .examTop{
+    margin-top:max(12px, env(safe-area-inset-top)) !important;
+    margin-bottom:0 !important;
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+  }
+
+  /* Keep enough page room so the fixed navigation never hides the legend. */
+  body.v13-exam-active #exam .examGrid{
+    padding-bottom:170px !important;
+    box-sizing:border-box !important;
+  }
+
+  /* 2. Question-number navigation: ONE horizontal touch-scrolling row. */
+  body.v13-exam-active #exam .side{
+    overflow:hidden !important;
+  }
+
+  body.v13-exam-active #exam .side h3{
+    margin:0 !important;
+    padding:8px 12px !important;
+    font-size:12px !important;
+    line-height:1.2 !important;
+  }
+
+  body.v13-exam-active #exam #palette,
+  body.v13-exam-active #exam .side .palette{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    gap:6px !important;
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    padding:8px 10px 10px !important;
+    box-sizing:border-box !important;
+    -webkit-overflow-scrolling:touch !important;
+    scroll-snap-type:x proximity !important;
+    scrollbar-width:thin !important;
+  }
+
+  body.v13-exam-active #exam #palette .ui21-palette-btn,
+  body.v13-exam-active #exam .side .palette .ui21-palette-btn{
+    flex:0 0 34px !important;
+    width:34px !important;
+    min-width:34px !important;
+    max-width:34px !important;
+    height:34px !important;
+    min-height:34px !important;
+    max-height:34px !important;
+    padding:0 !important;
+    border-radius:7px !important;
+    font-size:11px !important;
+    line-height:1 !important;
+    scroll-snap-align:center !important;
+  }
+
+  /* 3. Compact, visible palette legend. */
+  body.v13-exam-active #exam .side .legend,
+  body.v13-exam-active #exam .side .mission-palette-legend{
+    display:grid !important;
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+    gap:5px 8px !important;
+    margin:0 10px !important;
+    padding:8px 0 12px !important;
+    border-top:1px solid #D8E7F5 !important;
+    box-sizing:border-box !important;
+    font-size:9px !important;
+    line-height:1.2 !important;
+    color:#536B86 !important;
+  }
+
+  body.v13-exam-active #exam .side .legend .legend-item,
+  body.v13-exam-active #exam .side .mission-palette-legend .legend-item{
+    display:flex !important;
+    align-items:center !important;
+    min-width:0 !important;
+    gap:5px !important;
+    font-size:9px !important;
+    line-height:1.15 !important;
+    white-space:nowrap !important;
+  }
+
+  body.v13-exam-active #exam .side .legend .legend-dot,
+  body.v13-exam-active #exam .side .mission-palette-legend .legend-dot{
+    flex:0 0 9px !important;
+    width:9px !important;
+    height:9px !important;
+    border-radius:3px !important;
+  }
+
+  /* 4. Mobile controls: Save & Next is ABOVE Submit Test. */
+  body.v13-exam-active #exam .ui21-bottom{
+    position:fixed !important;
+    left:8px !important;
+    right:8px !important;
+    bottom:max(10px, env(safe-area-inset-bottom)) !important;
+    width:auto !important;
+    height:auto !important;
+    min-height:0 !important;
+    margin:0 !important;
+    padding:8px !important;
+    display:grid !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    grid-template-rows:auto auto auto !important;
+    gap:6px !important;
+    box-sizing:border-box !important;
+    border-radius:12px !important;
+    z-index:12000 !important;
+  }
+
+  body.v13-exam-active #exam .ui21-bottom .ui21-nav-group,
+  body.v13-exam-active #exam .ui21-bottom .ui21-save-group,
+  body.v13-exam-active #exam .ui21-bottom .ui21-submit-zone{
+    display:contents !important;
+  }
+
+  body.v13-exam-active #exam .ui21-bottom #ui21Prev{
+    grid-column:1 !important;
+    grid-row:1 !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom #ui21MarkReview{
+    grid-column:2 !important;
+    grid-row:1 !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom #ui21Clear{
+    grid-column:1 !important;
+    grid-row:2 !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom #ui21SaveNext{
+    grid-column:2 !important;
+    grid-row:2 !important;
+  }
+  body.v13-exam-active #exam .ui21-bottom #ui21Submit{
+    grid-column:1 / -1 !important;
+    grid-row:3 !important;
+    width:100% !important;
+  }
+
+  body.v13-exam-active #exam .ui21-bottom .ui21-submit-label{
+    display:none !important;
+  }
+
+  body.v13-exam-active #exam .ui21-bottom .ui21-submit-zone{
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+  }
+
+  body.v13-exam-active #exam .ui21-bottom button,
+  body.v13-exam-active #exam .ui21-bottom .ui21-submit-zone #ui21Submit{
+    width:100% !important;
+    min-width:0 !important;
+    min-height:40px !important;
+    height:40px !important;
+    margin:0 !important;
+    padding:6px 5px !important;
+    border-radius:8px !important;
+    font-size:10px !important;
+    line-height:1.1 !important;
+    white-space:normal !important;
+    box-sizing:border-box !important;
+  }
+}
