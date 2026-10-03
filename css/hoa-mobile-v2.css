@@ -1506,7 +1506,7 @@
     font-size:9px !important;
   }
   body.hoa-public-front #hoaV648StudentOptions .hoa-v648-option-link{
-    font-size:8.5px !important;
+    font-size:8.7px !important;
     padding:5px 6px !important;
   }
 }
@@ -4528,10 +4528,10 @@ nn/* ================================================================\n   HOA V3
     display:grid !important;
     grid-template-columns:repeat(5,22px) !important;
     grid-auto-rows:18px !important;
-    justify-content:start !important;
+    justify-content:center !important;
     align-content:start !important;
     align-items:start !important;
-    gap:3px 4px !important;
+    gap:3px 5px !important;
     width:100% !important;
     max-width:100% !important;
     height:39px !important;
@@ -4539,8 +4539,8 @@ nn/* ================================================================\n   HOA V3
     max-height:39px !important;
     overflow-y:auto !important;
     overflow-x:hidden !important;
-    padding:0 1px !important;
-    margin:0 !important;
+    padding:0 !important;
+    margin:0 auto !important;
     box-sizing:border-box !important;
     overscroll-behavior:contain !important;
     -webkit-overflow-scrolling:touch !important;
@@ -4565,8 +4565,8 @@ nn/* ================================================================\n   HOA V3
     border-radius:3px !important;
     font-size:6.5px !important;
     line-height:18px !important;
-    justify-self:start !important;
-    align-self:start !important;
+    justify-self:center !important;
+    align-self:center !important;
     box-sizing:border-box !important;
     overflow:hidden !important;
   }
@@ -4578,7 +4578,7 @@ nn/* ================================================================\n   HOA V3
     display:grid !important;
     grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
     grid-template-rows:10px 10px 10px !important;
-    gap:1px 5px !important;
+    gap:2px 8px !important;
     width:100% !important;
     max-width:100% !important;
     min-width:0 !important;
@@ -4587,7 +4587,7 @@ nn/* ================================================================\n   HOA V3
     max-height:33px !important;
     overflow:visible !important;
     margin:2px 0 0 !important;
-    padding:1px 1px 0 !important;
+    padding:2px 3px 0 !important;
     border-top:1px solid #d8e7f5 !important;
     box-sizing:border-box !important;
   }
@@ -4642,18 +4642,18 @@ nn/* ================================================================\n   HOA V3
     width:auto !important;
     max-width:none !important;
     min-width:0 !important;
-    height:88px !important;
-    min-height:88px !important;
-    max-height:88px !important;
+    height:90px !important;
+    min-height:90px !important;
+    max-height:90px !important;
     display:grid !important;
     grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
-    grid-template-rows:25px 25px 27px !important;
-    gap:2px !important;
+    grid-template-rows:27px 27px 28px !important;
+    gap:3px !important;
     margin:0 !important;
-    padding:3px !important;
+    padding:4px !important;
     box-sizing:border-box !important;
     border:1px solid #d7e2ee !important;
-    border-radius:8px !important;
+    border-radius:10px !important;
     background:rgba(255,255,255,.99) !important;
     box-shadow:0 2px 9px rgba(18,63,112,.16) !important;
     z-index:2147483000 !important;
@@ -4701,12 +4701,12 @@ nn/* ================================================================\n   HOA V3
     width:100% !important;
     min-width:0 !important;
     max-width:100% !important;
-    height:25px !important;
-    min-height:25px !important;
-    max-height:25px !important;
+    height:27px !important;
+    min-height:27px !important;
+    max-height:27px !important;
     margin:0 !important;
-    padding:2px 4px !important;
-    border-radius:5px !important;
+    padding:2px 5px !important;
+    border-radius:6px !important;
     box-sizing:border-box !important;
     font-size:8.5px !important;
     line-height:1 !important;
@@ -4717,10 +4717,10 @@ nn/* ================================================================\n   HOA V3
   body.v13-exam-active #exam #ui21Submit,
   body.hoa-exam-live #exam #ui21Submit,
   body.hoa-local-exam-immersive #exam #ui21Submit{
-    height:27px !important;
-    min-height:27px !important;
-    max-height:27px !important;
-    font-size:9px !important;
+    height:28px !important;
+    min-height:28px !important;
+    max-height:28px !important;
+    font-size:9.2px !important;
   }
 
   /* Reserve only the real dock height for the scrollable question content. */
