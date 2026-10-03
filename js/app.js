@@ -1189,9 +1189,8 @@ function initSupabase() {
         paused
       );
 
-      button.innerHTML = paused
-        ? '<svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M8 5.5v13l10-6.5Z" fill="currentColor"/></svg>'
-        : '<svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><rect x="6.2" y="5.3" width="4.6" height="13.4" rx="2.1" fill="currentColor"/><rect x="13.2" y="5.3" width="4.6" height="13.4" rx="2.1" fill="currentColor"/></svg>';
+      button.textContent =
+        paused ? "▶" : "Ⅱ";
 
       button.setAttribute(
         "aria-label",
@@ -2068,7 +2067,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
 
     updateHeaderLogout();
-    if (typeof global.hoaFinishInitialUIBoot === 'function') global.hoaFinishInitialUIBoot();
     return true;
   }
 
@@ -2119,7 +2117,6 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
     }
 
     updateHeaderLogout();
-    if (typeof global.hoaFinishInitialUIBoot === 'function') global.hoaFinishInitialUIBoot();
     return true;
   }
 

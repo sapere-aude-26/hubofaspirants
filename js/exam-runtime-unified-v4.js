@@ -196,25 +196,9 @@
     return i;
   }
   function rerender(){if(typeof global.render==='function')global.render();}
-  function prev(){markInternal(1200);const i=commitCurrent();if(i>0){global.current=i-1;rerender();requestAnimationFrame(scrollExamQuestionToTop);}}
-  function scrollExamQuestionToTop(){
-    const card=D.querySelector('#exam .examGrid > .card:first-child');
-    if(card)card.scrollTop=0;
-  }
-  function saveNext(){
-    markInternal(1800);
-    const total=Array.isArray(global.questions)?global.questions.length:0;
-    const i=Math.max(0,Number(global.current)||0);
-    commitCurrent();
-    if(total>0 && i<total-1){
-      global.current=i+1;
-      if(Array.isArray(global.pendingAnswers)) global.pendingAnswers[global.current]=global.answers?.[global.current]??global.pendingAnswers[global.current]??null;
-      if(Array.isArray(global.visited)) global.visited[global.current]=true;
-    }
-    rerender();
-    requestAnimationFrame(scrollExamQuestionToTop);
-  }
-  function markReview(){markInternal(1600);const i=commitCurrent();if(Array.isArray(global.visited))global.visited[i]=true;if(Array.isArray(global.marked))global.marked[i]=true;if(i<global.questions.length-1)global.current=i+1;rerender();requestAnimationFrame(scrollExamQuestionToTop);}
+  function prev(){markInternal(1200);const i=commitCurrent();if(i>0){global.current=i-1;rerender();}}
+  function saveNext(){markInternal(1400);const i=commitCurrent();if(Array.isArray(global.visited))global.visited[i]=true;if(Array.isArray(global.marked))global.marked[i]=false;if(i<global.questions.length-1){global.current=i+1;commitCurrent();}rerender();}
+  function markReview(){markInternal(1600);const i=commitCurrent();if(Array.isArray(global.visited))global.visited[i]=true;if(Array.isArray(global.marked))global.marked[i]=true;if(i<global.questions.length-1)global.current=i+1;rerender();}
   function clearResponse(){markInternal(2200);const i=Number(global.current)||0;if(Array.isArray(global.pendingAnswers))global.pendingAnswers[i]=null;if(Array.isArray(global.answers))global.answers[i]=null;if(Array.isArray(global.marked))global.marked[i]=false;if(Array.isArray(global.visited))global.visited[i]=true;rerender();}
   function submit(){markInternal(1000);if(typeof global.openMissionSubmitConfirmation==='function')global.openMissionSubmitConfirmation();else if(typeof global.submitTest==='function')global.submitTest(false);}
 
