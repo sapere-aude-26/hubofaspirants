@@ -23789,3 +23789,147 @@ textarea{
   #exam:not(.hidden) #palette,#exam:not(.hidden) .examGrid > .side #palette,#exam:not(.hidden) .examGrid > .side .palette{grid-auto-columns:38px !important;height:48px !important;min-height:48px !important;max-height:48px !important;gap:7px !important;}
   #exam:not(.hidden) #palette > button,#exam:not(.hidden) .examGrid > .side #palette > button,#exam:not(.hidden) .examGrid > .side .palette > button,#exam:not(.hidden) #palette .ui21-palette-btn,#exam:not(.hidden) .examGrid > .side #palette .ui21-palette-btn,#exam:not(.hidden) .examGrid > .side .palette .ui21-palette-btn{width:38px !important;min-width:38px !important;max-width:38px !important;height:38px !important;min-height:38px !important;max-height:38px !important;}
 }
+
+/* ============================================================
+   HOA EXAM — SMALL SCREEN PALETTE FINAL FIX (CSS ONLY)
+   Based directly on V4. Uses the same high-specificity selector
+   family as the existing mobile exam rules so these declarations
+   win the existing cascade without changing HTML/JS.
+   ============================================================ */
+@media (max-width:767px){
+  /* Hide palette descriptions / legend text on small screens.
+     Keep only the numbered question buttons. */
+  body:has(#exam:not(.hidden)) #exam .mobile-palette-legend,
+  body:has(#exam:not(.hidden)) #exam .mission-palette-legend,
+  body:has(#exam:not(.hidden)) #exam .side > .legend,
+  body:has(#exam:not(.hidden)) #exam .side .legend,
+  body:has(#exam:not(.hidden)) #exam .palette-legend,
+  body.v13-exam-active #exam .mobile-palette-legend,
+  body.v13-exam-active #exam .mission-palette-legend,
+  body.v13-exam-active #exam .side > .legend,
+  body.v13-exam-active #exam .side .legend,
+  body.v13-exam-active #exam .palette-legend{
+    display:none !important;
+    visibility:hidden !important;
+  }
+
+  /* Hide the 'Questions' heading so the palette area contains
+     question numbers only. */
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side h3,
+  body:has(#exam:not(.hidden)) #exam .side h3,
+  body.v13-exam-active #exam .examGrid > .side h3,
+  body.v13-exam-active #exam .side h3{
+    display:none !important;
+    visibility:hidden !important;
+  }
+
+  /* One horizontal row only. No wrapping and no vertical scroll. */
+  body:has(#exam:not(.hidden)) #exam #palette,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette,
+  body.v13-exam-active #exam #palette,
+  body.v13-exam-active #exam .examGrid > .side #palette,
+  body.v13-exam-active #exam .examGrid > .side .palette{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    grid-template-columns:none !important;
+    grid-template-rows:none !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:48px !important;
+    min-height:48px !important;
+    max-height:48px !important;
+    margin:0 !important;
+    padding:4px 8px !important;
+    gap:7px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    white-space:nowrap !important;
+    touch-action:pan-x !important;
+    overscroll-behavior-x:contain !important;
+    overscroll-behavior-y:none !important;
+    -webkit-overflow-scrolling:touch !important;
+    box-sizing:border-box !important;
+    scrollbar-width:none !important;
+  }
+
+  body:has(#exam:not(.hidden)) #exam #palette::-webkit-scrollbar,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette::-webkit-scrollbar,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette::-webkit-scrollbar,
+  body.v13-exam-active #exam #palette::-webkit-scrollbar,
+  body.v13-exam-active #exam .examGrid > .side #palette::-webkit-scrollbar,
+  body.v13-exam-active #exam .examGrid > .side .palette::-webkit-scrollbar{
+    display:none !important;
+  }
+
+  /* Fixed-size numbered buttons; they cannot wrap or collapse. */
+  body:has(#exam:not(.hidden)) #exam #palette > button,
+  body:has(#exam:not(.hidden)) #exam #palette .ui21-palette-btn,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette > button,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette .ui21-palette-btn,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette > button,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette .ui21-palette-btn,
+  body.v13-exam-active #exam #palette > button,
+  body.v13-exam-active #exam #palette .ui21-palette-btn,
+  body.v13-exam-active #exam .examGrid > .side #palette > button,
+  body.v13-exam-active #exam .examGrid > .side #palette .ui21-palette-btn,
+  body.v13-exam-active #exam .examGrid > .side .palette > button,
+  body.v13-exam-active #exam .examGrid > .side .palette .ui21-palette-btn{
+    display:flex !important;
+    flex:0 0 40px !important;
+    width:40px !important;
+    min-width:40px !important;
+    max-width:40px !important;
+    height:40px !important;
+    min-height:40px !important;
+    max-height:40px !important;
+    margin:0 !important;
+    padding:0 !important;
+    align-items:center !important;
+    justify-content:center !important;
+    box-sizing:border-box !important;
+    border-radius:8px !important;
+    white-space:nowrap !important;
+    line-height:1 !important;
+  }
+}
+
+@media (max-width:380px){
+  body:has(#exam:not(.hidden)) #exam #palette,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette,
+  body.v13-exam-active #exam #palette,
+  body.v13-exam-active #exam .examGrid > .side #palette,
+  body.v13-exam-active #exam .examGrid > .side .palette{
+    height:46px !important;
+    min-height:46px !important;
+    max-height:46px !important;
+    padding:3px 7px !important;
+    gap:6px !important;
+  }
+
+  body:has(#exam:not(.hidden)) #exam #palette > button,
+  body:has(#exam:not(.hidden)) #exam #palette .ui21-palette-btn,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette > button,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side #palette .ui21-palette-btn,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette > button,
+  body:has(#exam:not(.hidden)) #exam .examGrid > .side .palette .ui21-palette-btn,
+  body.v13-exam-active #exam #palette > button,
+  body.v13-exam-active #exam #palette .ui21-palette-btn,
+  body.v13-exam-active #exam .examGrid > .side #palette > button,
+  body.v13-exam-active #exam .examGrid > .side #palette .ui21-palette-btn,
+  body.v13-exam-active #exam .examGrid > .side .palette > button,
+  body.v13-exam-active #exam .examGrid > .side .palette .ui21-palette-btn{
+    flex-basis:38px !important;
+    width:38px !important;
+    min-width:38px !important;
+    max-width:38px !important;
+    height:38px !important;
+    min-height:38px !important;
+    max-height:38px !important;
+  }
+}
