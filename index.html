@@ -553,7 +553,7 @@ html,body{max-width:100%;min-width:0;overflow-x:hidden;}
 </script>
 <link href="./css/hoa-v6.0.8.css?v=6j-home-header-blue-outline-v2616&mobile=base-no-phone-exam" rel="stylesheet"/>
 <link href="./css/mock-tests-v4.1.css?v=20261003-mock-3section-v41" rel="stylesheet"/>
-<link href="./css/hoa-mobile-v2.css?v=20261003-mobile-v5200-clean-exam-authority" rel="stylesheet"/>
+<link href="./css/hoa-mobile.css?v=20261003-mobile-v5600-reference-clean" rel="stylesheet"/>
 <style id="hoa-result-stat-card-final-fix-v2">
 /* HOA Result Management — final statistic-card alignment repair.
    Scoped only to the Admin Result panel. */
@@ -1319,7 +1319,7 @@ Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;
 <div id="options"></div>
 </div>
 <aside class="card side">
-<h3>Questions</h3>
+<h3><span class="hoa-phone-nav-title">Questions</span><span class="hoa-phone-nav-count" id="hoaPhoneNavCount">1 / 10</span><span class="hoa-phone-nav-chevron" aria-hidden="true">⌃</span></h3>
 <!-- Question numbers MUST remain above the colour legend. -->
 <div class="palette" id="palette"></div>
 <div aria-label="Question colour details" class="legend mission-palette-legend">
@@ -4491,6 +4491,27 @@ function printWindow(title,body){const w=window.open('','_blank','width=1000,hei
 
 
 
+
+<script id="hoa-phone-nav-progress-v6">
+(function(){
+  function sync(){
+    var src=document.getElementById("questionNo");
+    var out=document.getElementById("hoaPhoneNavCount");
+    if(!src || !out) return;
+    var m=(src.textContent||"").match(/(?:Question\s*)?(\d+)\s*(?:of|\/)\s*(\d+)/i);
+    if(m) out.textContent=m[1]+" / "+m[2];
+  }
+  function boot(){
+    sync();
+    var src=document.getElementById("questionNo");
+    if(src){
+      new MutationObserver(sync).observe(src,{childList:true,subtree:true,characterData:true});
+    }
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true});
+  else boot();
+})();
+</script>
 </body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),300)}
 
 
