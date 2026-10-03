@@ -1,0 +1,1382 @@
+\
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HOA Developer Console V2.0 — Code Workbench</title>
+<link rel="icon" href="assets/hoa-logo.png">
+<style>
+:root{
+  --bg:#07101d;--panel:#0c1726;--panel2:#101d30;--panel3:#0a1320;
+  --line:#223754;--line2:#2b4364;--text:#edf4ff;--muted:#8ea1bd;
+  --blue:#2d74e6;--blue2:#4a8df5;--green:#20d9a0;--red:#ff6075;--yellow:#f1c75b;
+  --shadow:0 18px 60px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#06101c;color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{overflow:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+
+/* Compact scrollbars: keep the workbench usable without oversized browser tracks. */
+html{scrollbar-width:thin;scrollbar-color:#52657f transparent}
+*{scrollbar-width:thin;scrollbar-color:#52657f transparent}
+*::-webkit-scrollbar{width:6px;height:6px}
+*::-webkit-scrollbar-track{background:transparent}
+*::-webkit-scrollbar-thumb{background:#52657f;border-radius:999px}
+*::-webkit-scrollbar-thumb:hover{background:#6a7f9d}
+*::-webkit-scrollbar-button{display:none;width:0;height:0}
+.hidden{display:none!important}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 0,#173459 0,#06101c 46%)}
+.login-card{width:min(450px,100%);background:rgba(12,23,38,.98);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}
+.logo{width:88px;height:88px;border-radius:50%;object-fit:contain;border:1px solid #35557f;background:#fff}
+h1{font-size:24px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5;margin:0 0 24px}
+.field{margin:13px 0}.field label{display:block;color:#b6c5da;font-size:11px;letter-spacing:.05em;margin-bottom:7px}
+.field input{width:100%;padding:12px 13px;background:#08111f;color:var(--text);border:1px solid #2b3e5e;border-radius:10px;outline:0}
+.field input:focus{border-color:#4b88ed;box-shadow:0 0 0 3px rgba(50,117,237,.15)}
+.signin{width:100%;border:0;border-radius:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-weight:800;margin-top:7px}
+.signin:disabled{opacity:.55;cursor:not-allowed}
+.login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
+
+.mobile-menu-btn{display:none}
+.appbar{height:58px;background:#091220f5;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:10px;padding:0 14px;position:sticky;top:0;z-index:60}
+.brand{font-weight:850;white-space:nowrap}.pill{font-size:10px;border:1px solid #31527c;color:#aac0df;padding:5px 8px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
+.branch-pill{font-size:10px;border:1px solid #2e725f;color:#83e5c5;background:#0b211b;padding:5px 8px;border-radius:999px;white-space:nowrap}
+.user{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}.logout{background:#101b2d;border:1px solid var(--line);color:#dce8fa;border-radius:8px;padding:7px 10px}
+.icon-btn{background:#0e1c30;border:1px solid var(--line2);color:#dce8fa;border-radius:8px;padding:7px 9px}
+.icon-btn:hover,.btn:hover,.nav button:hover{border-color:#3a5b84;background:#132640}
+.icon-btn.active{background:#18365e;border-color:#4a7ec0}
+
+.shell{height:calc(100vh - 58px);display:grid;grid-template-columns:238px minmax(0,1fr);min-width:0}
+aside{background:#07111e;border-right:1px solid var(--line);padding:11px;overflow:auto}
+.section{color:#6f829f;font-size:10px;letter-spacing:.14em;margin:14px 5px 7px}
+.nav{display:grid;gap:5px}.nav button{width:100%;text-align:left;background:#0c192a;border:1px solid transparent;color:#d0dced;padding:9px;border-radius:8px}
+.nav button.active{background:#18365e;border-color:#315f9c;color:#fff}
+.kbd{display:inline-flex;min-width:20px;justify-content:center;border:1px solid #314966;background:#0b1524;border-radius:5px;padding:1px 5px;font:10px Consolas,monospace;color:#9bb2cf}
+.hotkeys{display:grid;gap:6px;margin-top:10px;color:#8397b2;font-size:11px}.hotkeys span{display:flex;justify-content:space-between;gap:8px}
+
+main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) 150px}
+.topbar{padding:10px 12px 8px;border-bottom:1px solid var(--line);background:#091522}
+.dashboard-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dashboard-title{font-size:15px;font-weight:850;margin:0}.dashboard-subtitle{color:var(--muted);font-size:11px;margin:2px 0 0;line-height:1.4}
+.dashboard-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:1px solid #304562;background:#101d31;color:#dce8fa;border-radius:8px;padding:8px 10px}
+.btn.primary{background:#245eb4;border-color:#3a79d5;color:#fff;font-weight:800}.btn.danger{border-color:#8a3044;color:#ffb8c3}
+.searchbar{display:grid;grid-template-columns:minmax(180px,1fr) auto minmax(170px,1fr) auto auto;gap:6px}
+.searchbar input{min-width:0;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px}
+.statusline{display:flex;align-items:center;gap:9px;color:#8da2bd;font-size:11px;margin-top:7px}.statusline .grow{margin-left:auto}
+.metric{font-weight:750}.metric.ok{color:var(--green)}.metric.warn{color:var(--yellow)}.metric.err{color:var(--red)}
+
+.workbench{min-width:0;min-height:0;display:grid;grid-template-columns:255px minmax(0,1fr) 225px;background:#060d18}
+.files-panel{border-right:1px solid var(--line);min-width:0;display:flex;flex-direction:column}
+.panel-head{height:39px;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:780;font-size:11px;display:flex;align-items:center;gap:7px}
+.panel-head .spacer{margin-left:auto}
+.file-filter{padding:8px;border-bottom:1px solid var(--line)}.file-filter input{width:100%;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:8px}
+.files{min-height:0;overflow:auto}.file{padding:7px 9px;border-bottom:1px solid #15243a;color:#cbd7ea;cursor:pointer;font:12px/1.4 Consolas,monospace;display:flex;align-items:center;gap:7px}
+.file:hover{background:#11243e}.file.selected{background:#17345b;color:#fff}.file .path{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file .size{margin-left:auto;color:#6f84a1;font-size:9px;white-space:nowrap}
+.empty{padding:16px;color:#71849f;font-size:11px}
+
+.editor-panel{min-width:0;min-height:0;display:flex;flex-direction:column}
+.tabs{display:flex;gap:2px;overflow:auto;border-bottom:1px solid var(--line);background:#091321;min-height:39px}
+.tab{display:flex;align-items:center;gap:7px;min-width:130px;max-width:240px;padding:8px 10px;background:#0d1829;border-right:1px solid var(--line);color:#9fb1c9;font:11px Consolas,monospace;cursor:pointer}
+.tab.active{background:#152b48;color:#fff}.tab .dirty{color:#ffd27a}.tab .close{margin-left:auto;color:#758ba6;border:0;background:transparent;padding:0 2px}
+.editor-toolbar{display:flex;align-items:center;gap:5px;padding:6px 8px;background:#0b1725;border-bottom:1px solid var(--line)}
+.editor-toolbar .spacer{margin-left:auto}.editor-info{color:#7489a6;font-size:10px;white-space:nowrap}
+#editorHost{flex:1;min-height:0}
+#fallbackEditor{display:none;width:100%;height:100%;resize:none;background:#060d18;color:#dce8fa;border:0;outline:0;padding:14px;font:13px/1.55 Consolas,"Cascadia Code",monospace}
+
+.outline-panel{min-width:0;border-left:1px solid var(--line);display:flex;flex-direction:column;background:#09131f}
+.outline-toolbar{padding:7px;border-bottom:1px solid var(--line)}.outline-toolbar input{width:100%;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:7px}
+.outline{min-height:0;overflow:auto}.symbol{padding:6px 9px;color:#c6d3e6;font-size:11px;border-bottom:1px solid #142238;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.symbol:hover{background:#11243e}.symbol .type{color:#6e8caf;margin-right:5px}
+
+.bottom{border-top:1px solid var(--line);background:#08111b;display:grid;grid-template-rows:39px minmax(0,1fr);min-height:0}
+.bottom-tabs{display:flex;border-bottom:1px solid var(--line)}.bottom-tabs button{border:0;border-right:1px solid var(--line);background:#0b1725;color:#90a3be;padding:8px 11px;font-size:11px}.bottom-tabs button.active{background:#143155;color:#fff}
+.output{overflow:auto;margin:0;padding:10px;color:#b5c5da;font:11px/1.5 Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+
+.search-drawer{position:fixed;inset:0;display:none;z-index:200;background:rgba(2,7,14,.66);backdrop-filter:blur(5px)}
+.search-drawer.open{display:grid;place-items:center;padding:18px}
+.search-card{width:min(1100px,96vw);height:min(760px,92vh);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 100px #000b;display:grid;grid-template-rows:auto auto minmax(0,1fr)}
+.search-head{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}.search-head h2{margin:0;font-size:14px}.search-head .spacer{margin-left:auto}
+.search-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:6px;padding:10px;border-bottom:1px solid var(--line)}
+.search-controls input{background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px}
+.search-results{min-height:0;overflow:auto}.result-row{padding:8px 11px;border-bottom:1px solid #17263c;cursor:pointer}.result-row:hover{background:#11243e}
+.result-meta{color:#7b90ac;font:10px Consolas,monospace;margin-bottom:3px}.result-snippet{color:#d7e2f1;font:12px/1.45 Consolas,monospace;white-space:pre-wrap}.result-snippet mark{background:#6a5513;color:#fff0a8;padding:0 2px;border-radius:2px}
+.count-pill{font-size:10px;border:1px solid #31527c;color:#9fb6d6;border-radius:999px;padding:4px 7px}
+
+.diff-drawer{position:fixed;inset:0;display:none;z-index:210;background:rgba(2,7,14,.66);backdrop-filter:blur(5px)}
+.diff-drawer.open{display:grid;place-items:center;padding:18px}
+.diff-card{width:min(1280px,98vw);height:min(820px,94vh);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 100px #000b;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.diff-head{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line)}.diff-head h2{margin:0;font-size:14px}.diff-head .spacer{margin-left:auto}
+#diffHost{min-height:0}
+
+.toast{position:fixed;right:18px;bottom:18px;background:#111d30;border:1px solid var(--line);padding:10px 13px;border-radius:10px;box-shadow:0 15px 40px #0008;z-index:500;max-width:480px}
+.toast.ok{border-color:#1f8f73}.toast.err{border-color:#a33b50}.toast.warn{border-color:#8f742d}
+
+.confirm-backdrop{position:fixed;inset:0;display:none;z-index:400;background:rgba(2,7,14,.72);place-items:center;padding:18px}
+.confirm-backdrop.open{display:grid}.confirm-card{width:min(520px,100%);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 90px #000b;padding:18px}
+.confirm-card h3{margin:0 0 8px;font-size:15px}.confirm-card p{margin:0;color:#9db0c9;line-height:1.55;font-size:12px}.confirm-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:16px}
+
+@media(max-width:1180px){
+  .workbench{grid-template-columns:220px minmax(0,1fr) 190px}
+}
+
+@media(max-width:980px){
+  html,body{width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{overflow:hidden}
+  .appbar{position:sticky;top:0;z-index:200}
+  .appbar .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:850}
+  .pill,.branch-pill,.user{display:none}
+  .logout{flex:0 0 auto;min-height:40px;padding:8px 10px;font-size:11px}
+
+  .shell{display:block;height:calc(100svh - 58px);min-height:0;position:relative;overflow:hidden}
+  .mobile-menu-btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:5px;
+    flex:0 0 auto;min-width:44px;min-height:42px;padding:8px 10px;
+    border:1px solid var(--line2);border-radius:10px;background:#0e1c30;
+    color:#fff;font-size:17px;font-weight:800;line-height:1
+  }
+  .mobile-menu-btn span{font-size:10px;font-weight:800;letter-spacing:.03em}
+  .shell aside{
+    display:block;position:fixed;top:58px;left:0;bottom:0;
+    width:min(330px,86vw);max-width:330px;padding:0 12px 18px;margin:0;
+    z-index:190;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;
+    background:#07111e;border-right:1px solid #315078;
+    box-shadow:24px 0 70px rgba(0,0,0,.45);
+    transform:translateX(-110%);transition:transform .22s ease
+  }
+  .shell.mobile-menu-open aside{transform:translateX(0)}
+  .mobile-aside-head{
+    display:flex;align-items:center;gap:8px;position:sticky;top:0;padding:12px 2px 10px;
+    background:#07111e;border-bottom:1px solid var(--line);z-index:2;margin-bottom:4px
+  }
+  .mobile-aside-head strong{font-size:12px;letter-spacing:.04em}
+  .mobile-aside-head .spacer{margin-left:auto}
+  .mobile-aside-close{
+    min-width:38px;min-height:38px;border:1px solid var(--line2);border-radius:9px;
+    background:#0e1c30;color:#dce8fa;font-size:18px
+  }
+  .mobile-nav-backdrop{display:none}
+  .shell.mobile-menu-open .mobile-nav-backdrop{
+    display:block;position:fixed;inset:58px 0 0;z-index:180;
+    background:rgba(2,7,14,.62);backdrop-filter:blur(2px)
+  }
+  .section{margin:12px 4px 7px;font-size:9px}
+  .nav{gap:6px}
+  .nav button{min-height:42px;padding:10px 11px;font-size:12px;border-color:#192d47}
+  .hotkeys{display:none}
+  .kbd{font-size:9px}
+
+  main{
+    width:100%;height:100%;min-height:0;overflow:hidden;
+    grid-template-rows:auto minmax(0,1fr) 96px
+  }
+  .topbar{padding:8px var(--mobile-pad) 7px}
+  .dashboard-head{align-items:center;gap:8px;margin-bottom:7px;min-height:34px}
+  .dashboard-title{font-size:15px;line-height:1.2}
+  .dashboard-subtitle{display:none}
+  .dashboard-actions{margin-left:auto;flex:0 0 auto}
+  .dashboard-actions .btn{width:38px;min-width:38px;height:38px;min-height:38px;padding:0;font-size:0;border-radius:9px}
+  .dashboard-actions .btn::before{content:"↻";font-size:19px;line-height:1}
+
+  .searchbar{grid-template-columns:minmax(0,1fr) auto;gap:5px}
+  .searchbar #path{grid-column:1}
+  .searchbar #open{grid-column:2}
+  .searchbar #commitMessage{grid-column:1/-1}
+  .searchbar #saveTop{grid-column:1}
+  .searchbar #repoSearchTop{grid-column:2}
+  .searchbar input{min-height:40px;padding:8px 10px;font-size:12px}
+  .searchbar .btn{min-height:40px;padding:8px 11px}
+
+  .statusline{
+    display:flex;align-items:center;gap:8px;margin-top:6px;font-size:9px;min-width:0;
+    white-space:nowrap;overflow:hidden
+  }
+  .statusline .grow,#languageState,#cursorState{display:none}
+  #fileState{min-width:0;overflow:hidden;text-overflow:ellipsis}
+  #diagnosticState,#dirtyState{flex:0 0 auto}
+  #dirtyState{margin-left:auto}
+
+  .workbench{min-height:0;height:100%;display:grid;grid-template-columns:1fr;background:#060d18;overflow:hidden}
+  .files-panel,.outline-panel{display:none}
+  .editor-panel{min-height:0;height:100%;overflow:hidden}
+
+  .tabs{
+    min-height:38px;height:38px;overflow-x:auto;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch
+  }
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;min-width:118px;max-width:190px;height:38px;padding:8px 9px;font-size:10px}
+
+  .editor-toolbar{
+    min-height:48px;padding:5px 7px;gap:5px;overflow-x:auto;
+    overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch
+  }
+  .editor-toolbar::-webkit-scrollbar{display:none}
+  .editor-toolbar .spacer,.editor-info{display:none}
+  .editor-toolbar .icon-btn{flex:0 0 auto;min-width:40px;min-height:38px;padding:8px 9px}
+  #formatTopBtn{min-width:58px}
+  #minimapBtn{min-width:66px}
+  #foldBtn,#unfoldBtn{min-width:54px}
+  #editorHost{min-height:0}
+  #fallbackEditor{padding:12px;font-size:12px;line-height:1.5}
+
+  .bottom{min-height:96px;height:96px;grid-template-rows:36px minmax(0,1fr);overflow:hidden}
+  .bottom-tabs{overflow:hidden}
+  .bottom-tabs button{min-height:38px;padding:8px 12px;white-space:nowrap;font-size:10px}
+  .output{padding:7px 9px;font-size:10px;line-height:1.4;scrollbar-width:thin}
+
+  .search-drawer.open,.diff-drawer.open{padding:8px}
+  .search-card{
+    width:100%;height:min(92svh,760px);border-radius:12px;
+    grid-template-rows:auto auto minmax(0,1fr)
+  }
+  .search-head,.diff-head{padding:10px;gap:6px}
+  .search-head h2,.diff-head h2{
+    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px
+  }
+  .search-head .btn,.diff-head .btn{min-height:38px}
+  .search-controls{grid-template-columns:minmax(0,1fr) 1fr 1fr;gap:6px;padding:8px}
+  .search-controls input{grid-column:1/-1;min-width:0;min-height:42px}
+  .search-controls .btn{min-height:40px}
+  .result-row{padding:10px}
+  .result-meta{font-size:9px}
+  .result-snippet{font-size:11px;line-height:1.4}
+  .diff-card{width:100%;height:min(94svh,820px);border-radius:12px}
+
+  .confirm-backdrop{padding:12px}
+  .confirm-card{width:100%;max-width:520px;padding:15px;border-radius:12px}
+  .confirm-actions{display:grid;grid-template-columns:1fr 1fr}
+  .confirm-actions .btn{min-height:42px}
+
+  .toast{
+    left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));
+    max-width:none;font-size:11px
+  }
+}
+
+@media(max-width:380px){
+  .appbar .brand{font-size:11px}
+  .mobile-menu-btn span{display:none}
+  .mobile-menu-btn{min-width:40px}
+  .logout{font-size:10px;padding-inline:9px}
+  .dashboard-title{font-size:15px}
+  .searchbar .btn{padding-inline:10px}
+  .editor-toolbar .icon-btn{min-width:38px;padding-inline:7px}
+  .bottom{min-height:90px;height:90px}
+  .searchbar .btn{white-space:nowrap}
+}
+</style>
+</head>
+<body>
+
+<section id="loginView" class="login-wrap">
+  <div class="login-card">
+    <img class="logo" src="assets/hoa-logo.png" alt="HUB OF ASPIRANTS">
+    <h1>Developer Console</h1>
+    <p class="subtitle">A VS Code-style production workbench for editing, searching, understanding and safely committing HOA website code.</p>
+    <form id="loginForm">
+      <div class="field"><label>ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button id="signIn" class="signin" type="submit">Sign in</button>
+    </form>
+    <div id="loginStatus" class="login-status">Use your registered HOA Admin account.</div>
+  </div>
+</section>
+
+<section id="appView" class="hidden">
+<header class="appbar">
+  <button id="mobileMenuBtn" class="mobile-menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰<span>Menu</span></button>
+  <div class="brand">HUB OF ASPIRANTS · Developer Console</div>
+  <span class="pill">V2.0 · CODE WORKBENCH</span>
+  <span class="branch-pill">PRODUCTION · main</span>
+  <span id="userEmail" class="user"></span>
+  <button id="logout" class="logout">Logout</button>
+</header>
+
+<div class="shell">
+<aside>
+  <div class="mobile-aside-head"><strong>HOA NAVIGATION</strong><span class="spacer"></span><button id="mobileAsideClose" class="mobile-aside-close" type="button" aria-label="Close navigation">×</button></div>
+  <div class="section">SYSTEM</div>
+  <div class="nav">
+    <button data-action="overview">System Overview</button>
+    <button data-action="status">Connection Status</button>
+    <button data-action="health">Supabase Health</button>
+    <button data-action="admins">Admin Accounts</button>
+  </div>
+
+  <div class="section">GITHUB</div>
+  <div class="nav">
+    <button data-action="list">Repository Files</button>
+    <button data-action="commits">Recent Commits</button>
+    <button data-action="pages">GitHub Pages</button>
+    <button data-action="runs">Deployments</button>
+  </div>
+
+  <div class="section">CODE</div>
+  <div class="nav">
+    <button id="repoSearchBtn">Search in Files <span class="kbd">Ctrl+Shift+F</span></button>
+    <button id="quickOpenBtn">Quick Open <span class="kbd">Ctrl+P</span></button>
+    <button id="findBtn">Find <span class="kbd">Ctrl+F</span></button>
+    <button id="replaceBtn">Replace <span class="kbd">Ctrl+H</span></button>
+    <button id="formatBtn">Format Document <span class="kbd">Alt+Shift+F</span></button>
+    <button id="diffBtn">Preview Changes</button>
+  </div>
+
+  <div class="section">EDITOR</div>
+  <div class="nav">
+    <button id="clearEditor">New / Clear</button>
+    <button id="save" class="primary">Save & Commit <span class="kbd">Ctrl+S</span></button>
+    <button id="wordWrapBtn">Toggle Word Wrap</button>
+    <button id="suggestBtn" class="active">Auto Suggestions: ON</button>
+  </div>
+
+  <div class="section">SHORTCUTS</div>
+  <div class="hotkeys">
+    <span><b>Command Palette</b><span class="kbd">F1</span></span>
+    <span><b>Go to line</b><span class="kbd">Ctrl+G</span></span>
+    <span><b>Quick Open</b><span class="kbd">Ctrl+P</span></span>
+    <span><b>Search repository</b><span class="kbd">Ctrl+Shift+F</span></span>
+    <span><b>Format</b><span class="kbd">Alt+Shift+F</span></span>
+    <span><b>Save</b><span class="kbd">Ctrl+S</span></span>
+  </div>
+</aside>
+<div id="mobileNavBackdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
+
+<main>
+  <div class="topbar">
+    <div class="dashboard-head">
+      <div>
+        <h2 id="workspaceTitle" class="dashboard-title">Code Workbench</h2>
+        <p class="dashboard-subtitle">Syntax highlighting · IntelliSense · diagnostics · folding · minimap · find/replace · repository-wide search · diff preview</p>
+      </div>
+      <div class="dashboard-actions">
+        <button id="refreshOverview" class="btn primary">Refresh</button>
+      </div>
+    </div>
+
+    <div class="searchbar">
+      <input id="path" placeholder="Repository path, e.g. index.html">
+      <button id="open" class="btn">Open</button>
+      <input id="commitMessage" value="Update from HOA Developer Console" placeholder="Commit message">
+      <button id="saveTop" class="btn primary">Save</button>
+      <button id="repoSearchTop" class="btn">Search Code</button>
+    </div>
+
+    <div class="statusline">
+      <span id="fileState" class="metric">No file open</span>
+      <span id="languageState">Plain Text</span>
+      <span id="diagnosticState" class="metric ok">0 problems</span>
+      <span class="grow"></span>
+      <span id="cursorState">Ln 1, Col 1</span>
+      <span id="dirtyState">Clean</span>
+    </div>
+  </div>
+
+  <section class="workbench">
+    <div class="files-panel">
+      <div class="panel-head">Repository Files <span id="fileCount" class="count-pill">0</span><span class="spacer"></span><button id="reloadFiles" class="icon-btn" title="Reload files">↻</button></div>
+      <div class="file-filter"><input id="fileFilter" placeholder="Filter files..."></div>
+      <div id="files" class="files"><div class="empty">Click “Repository Files” to load the repository.</div></div>
+    </div>
+
+    <div class="editor-panel">
+      <div id="tabs" class="tabs"></div>
+      <div class="editor-toolbar">
+        <button id="undoBtn" class="icon-btn" title="Undo">↶</button>
+        <button id="redoBtn" class="icon-btn" title="Redo">↷</button>
+        <button id="formatTopBtn" class="icon-btn" title="Format Document">Format</button>
+        <button id="minimapBtn" class="icon-btn active" title="Toggle minimap">Minimap</button>
+        <button id="foldBtn" class="icon-btn" title="Fold all">Fold</button>
+        <button id="unfoldBtn" class="icon-btn" title="Unfold all">Unfold</button>
+        <span class="spacer"></span>
+        <span id="editorInfo" class="editor-info">Open a file to start editing.</span>
+      </div>
+      <div id="editorHost"></div>
+      <textarea id="fallbackEditor" spellcheck="false"></textarea>
+    </div>
+
+    <div class="outline-panel">
+      <div class="panel-head">Code Outline</div>
+      <div class="outline-toolbar"><input id="outlineFilter" placeholder="Filter symbols..."></div>
+      <div id="outline" class="outline"><div class="empty">Open a code file to see functions, classes, selectors and headings.</div></div>
+    </div>
+  </section>
+
+  <section class="bottom">
+    <div class="bottom-tabs">
+      <button id="consoleTab" class="active">Console Output</button>
+      <button id="problemsTab">Problems</button>
+    </div>
+    <pre id="output" class="output">Ready.</pre>
+  </section>
+</main>
+</div>
+</section>
+
+<div id="searchDrawer" class="search-drawer">
+  <div class="search-card">
+    <div class="search-head">
+      <h2>Repository Search</h2>
+      <span id="searchCount" class="count-pill">0 matches</span>
+      <span class="spacer"></span>
+      <button id="closeSearch" class="btn">Close</button>
+    </div>
+    <div class="search-controls">
+      <input id="repoSearchInput" placeholder="Search all code files...">
+      <button id="caseBtn" class="btn">Aa</button>
+      <button id="regexBtn" class="btn">.*</button>
+      <button id="runSearch" class="btn primary">Search</button>
+    </div>
+    <div id="searchResults" class="search-results"><div class="empty">Search the repository for a function, class, selector, text, ID, Supabase table name, error message, etc.</div></div>
+  </div>
+</div>
+
+<div id="diffDrawer" class="diff-drawer">
+  <div class="diff-card">
+    <div class="diff-head">
+      <h2 id="diffTitle">Changes Preview</h2>
+      <span class="spacer"></span>
+      <button id="closeDiff" class="btn">Close</button>
+    </div>
+    <div id="diffHost"></div>
+  </div>
+</div>
+
+<div id="quickOpenDrawer" class="search-drawer">
+  <div class="search-card">
+    <div class="search-head">
+      <h2>Quick Open</h2>
+      <span class="spacer"></span>
+      <button id="closeQuickOpen" class="btn">Close</button>
+    </div>
+    <div class="search-controls" style="grid-template-columns:1fr">
+      <input id="quickOpenInput" placeholder="Type a file name...">
+    </div>
+    <div id="quickOpenResults" class="search-results"></div>
+  </div>
+</div>
+
+<div id="confirmBackdrop" class="confirm-backdrop">
+  <div class="confirm-card">
+    <h3>Confirm production commit</h3>
+    <p id="confirmText"></p>
+    <div class="confirm-actions">
+      <button id="cancelCommit" class="btn">Cancel</button>
+      <button id="confirmCommit" class="btn primary">Commit Changes</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+"use strict";
+
+const SUPABASE_URL = "https://pnzhtiwwqiqnnkecogcc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Qwq-5g_j446D3fEyJn5MOg_p9y6JNBC";
+const FUNCTION_NAME = "admin-dev-console";
+const MONACO_VERSION = "0.55.1";
+const $ = id => document.getElementById(id);
+
+let sb = null;
+let busy = false;
+let monacoReady = false;
+let editor = null;
+let currentPath = "";
+let currentModel = null;
+let diffEditor = null;
+let diffOriginalModel = null;
+let diffModifiedModel = null;
+let repoFiles = [];
+let repoCache = new Map();
+let originalContents = new Map();
+let modelByPath = new Map();
+let languageByPath = new Map();
+let dirtyByPath = new Map();
+let fileErrors = new Map();
+let wordWrapOn = false;
+let minimapOn = true;
+let suggestionsOn = true;
+let searchCase = false;
+let searchRegex = false;
+
+function output(value){
+  $("output").textContent = typeof value === "string" ? value : JSON.stringify(value,null,2);
+}
+function toast(message,type=""){
+  const t=$("toast");
+  t.textContent=message;
+  t.className="toast "+(type||"");
+  clearTimeout(window.__hoaToast);
+  window.__hoaToast=setTimeout(()=>t.className="toast hidden",3600);
+}
+function setLogin(message,error=false){
+  $("loginStatus").textContent=message;
+  $("loginStatus").className="login-status"+(error?" error":" ok");
+}
+function escapeHtml(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function safePath(path){ return String(path||"").replace(/\\/g,"/").replace(/^\/+/,""); }
+
+function init(){
+  if(!window.supabase || !window.supabase.createClient) throw new Error("Supabase library did not load.");
+  if(!sb) sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
+  return sb;
+}
+async function session(){
+  const {data,error}=await init().auth.getSession();
+  if(error) throw error;
+  if(!data.session) throw new Error("Your session has expired. Please sign in again.");
+  return data.session;
+}
+async function api(action,extra={}){
+  const s=await session();
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),30000);
+  try{
+    const response=await fetch(`${SUPABASE_URL}/functions/v1/${FUNCTION_NAME}`,{
+      method:"POST",
+      signal:controller.signal,
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+s.access_token
+      },
+      body:JSON.stringify({action,...extra})
+    });
+    const raw=await response.text();
+    let data={};
+    try{data=raw?JSON.parse(raw):{};}catch{data={raw};}
+    if(!response.ok) throw new Error((data&&data.error)||(data&&data.message)||`Edge Function HTTP ${response.status}`);
+    if(data&&data.error) throw new Error(data.error);
+    return data;
+  }catch(e){
+    if(e.name==="AbortError") throw new Error("Request timed out after 30 seconds.");
+    throw e;
+  }finally{clearTimeout(timer);}
+}
+function setBusy(value,action=""){
+  busy=value;
+  if(value) output("Running "+action+"…");
+}
+
+async function signIn(ev){
+  ev.preventDefault();
+  const button=$("signIn");
+  button.disabled=true;button.textContent="Signing in…";setLogin("Authenticating…");
+  try{
+    const {error}=await init().auth.signInWithPassword({
+      email:$("email").value.trim(),password:$("password").value
+    });
+    if(error) throw error;
+    await showApp();
+    setLogin("Authenticated.");
+  }catch(e){
+    setLogin(e.message||"Sign in failed.",true);
+  }finally{
+    button.disabled=false;button.textContent="Sign in";
+  }
+}
+async function showApp(){
+  const {data,error}=await init().auth.getUser();
+  if(error||!data.user) throw new Error("Signed in, but the session could not be verified.");
+  $("userEmail").textContent=data.user.email||"";
+  $("loginView").classList.add("hidden");
+  $("appView").classList.remove("hidden");
+  setEditorStatus();
+  if(!monacoReady) await loadMonaco();
+  try{await listFiles();}catch(e){output({ok:false,action:"startup:list",error:e.message});}
+}
+
+function languageForPath(path){
+  const p=safePath(path).toLowerCase();
+  const ext=p.includes(".")?p.slice(p.lastIndexOf(".")+1):"";
+  if(["html","htm"].includes(ext)) return "html";
+  if(["css","scss","less"].includes(ext)) return "css";
+  if(["js","mjs","cjs"].includes(ext)) return "javascript";
+  if(["ts","tsx"].includes(ext)) return "typescript";
+  if(["jsx"].includes(ext)) return "javascript";
+  if(["json","jsonc"].includes(ext)) return "json";
+  if(["md","markdown"].includes(ext)) return "markdown";
+  if(["xml","svg"].includes(ext)) return "xml";
+  if(["sql"].includes(ext)) return "sql";
+  if(["yaml","yml"].includes(ext)) return "yaml";
+  if(["sh","bash"].includes(ext)) return "shell";
+  if(["ps1"].includes(ext)) return "powershell";
+  if(["py"].includes(ext)) return "python";
+  if(["java"].includes(ext)) return "java";
+  if(["cpp","cc","cxx","h","hpp"].includes(ext)) return "cpp";
+  return "plaintext";
+}
+function languageLabel(lang){
+  const map={javascript:"JavaScript",typescript:"TypeScript",html:"HTML",css:"CSS",json:"JSON",markdown:"Markdown",xml:"XML",sql:"SQL",yaml:"YAML",shell:"Shell",powershell:"PowerShell",python:"Python",java:"Java",cpp:"C++",plaintext:"Plain Text"};
+  return map[lang]||lang;
+}
+
+function monacoWorkerSetup(){
+  window.MonacoEnvironment={
+    getWorker:function(){
+      const workerCode=`
+        self.MonacoEnvironment={baseUrl:'https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/'};
+        importScripts('https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs/base/worker/workerMain.js');
+      `;
+      return "data:text/javascript;charset=utf-8,"+encodeURIComponent(workerCode);
+    }
+  };
+}
+function loadMonaco(){
+  return new Promise((resolve,reject)=>{
+    if(window.monaco){initMonaco(window.monaco);resolve();return;}
+    const script=document.createElement("script");
+    script.src=`https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs/loader.js`;
+    script.onload=()=>{
+      try{
+        monacoWorkerSetup();
+        window.require.config({paths:{vs:`https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs`}});
+        window.require(["vs/editor/editor.main"],()=>{
+          try{initMonaco(window.monaco);resolve();}catch(e){reject(e);}
+        });
+      }catch(e){reject(e);}
+    };
+    script.onerror=()=>reject(new Error("Monaco Editor failed to load from CDN."));
+    document.head.appendChild(script);
+  });
+}
+
+function initMonaco(m){
+  if(monacoReady) return;
+  monacoReady=true;
+
+  m.editor.defineTheme("hoa-dark",{
+    base:"vs-dark",inherit:true,rules:[
+      {token:"comment",foreground:"6C8AAF"},
+      {token:"keyword",foreground:"C792EA"},
+      {token:"string",foreground:"A8E6CF"},
+      {token:"number",foreground:"F6C177"},
+      {token:"type",foreground:"82AAFF"},
+      {token:"tag",foreground:"F07178"},
+      {token:"attribute.name",foreground:"FFCB6B"}
+    ],
+    colors:{
+      "editor.background":"#060d18",
+      "editor.foreground":"#dce8fa",
+      "editorLineNumber.foreground":"#526984",
+      "editorLineNumber.activeForeground":"#d6e4f8",
+      "editorCursor.foreground":"#ffffff",
+      "editor.selectionBackground":"#264b78",
+      "editor.inactiveSelectionBackground":"#1a3659",
+      "editorIndentGuide.background":"#142238",
+      "editorIndentGuide.activeBackground":"#2b4668",
+      "editorSuggestWidget.background":"#0d1a2b",
+      "editorSuggestWidget.border":"#314866",
+      "editorSuggestWidget.foreground":"#dbe8fa",
+      "editorHoverWidget.background":"#0d1a2b",
+      "editorHoverWidget.border":"#314866",
+      "editor.findMatchBackground":"#6a5513",
+      "editor.findMatchHighlightBackground":"#3c3010"
+    }
+  });
+
+  monaco.editor.setTheme("hoa-dark");
+  editor=m.editor.create($("editorHost"),{
+    model:null,
+    automaticLayout:true,
+    theme:"hoa-dark",
+    fontFamily:'"Cascadia Code","Fira Code",Consolas,monospace',
+    fontSize:13,
+    lineHeight:20,
+    tabSize:2,
+    insertSpaces:true,
+    detectIndentation:true,
+    minimap:{enabled:window.innerWidth>720 && minimapOn,renderCharacters:false,scale:1},
+    wordWrap:wordWrapOn?"on":"off",
+    wordWrapColumn:100,
+    smoothScrolling:true,
+    cursorSmoothCaretAnimation:"on",
+    cursorBlinking:"smooth",
+    folding:true,
+    foldingHighlight:true,
+    showFoldingControls:"always",
+    bracketPairColorization:{enabled:true},
+    guides:{bracketPairs:true,indentation:true,highlightActiveIndentation:true},
+    renderWhitespace:"selection",
+    renderControlCharacters:false,
+    stickyScroll:{enabled:true},
+    colorDecorators:true,
+    hover:{enabled:true},
+    links:true,
+    quickSuggestions:suggestionsOn,
+    suggestOnTriggerCharacters:suggestionsOn,
+    parameterHints:{enabled:suggestionsOn},
+    snippetSuggestions:"inline",
+    inlineSuggest:{enabled:suggestionsOn},
+    suggest:{showMethods:true,showFunctions:true,showConstructors:true,showDeprecated:true,showFields:true,showVariables:true,showClasses:true,showStructs:true,showInterfaces:true,showModules:true,showProperties:true,showEnums:true,showEnumMembers:true,showKeywords:true,showValues:true,showConstants:true,showEvents:true,showOperators:true,showUnits:true,showColors:true,preview:true},
+    unicodeHighlight:{nonBasicASCII:false,ambiguousCharacters:false},
+    scrollbar:{verticalScrollbarSize:8,horizontalScrollbarSize:8,alwaysConsumeMouseWheel:false},
+    padding:{top:12,bottom:14}
+  });
+
+  editor.onDidChangeCursorPosition(e=>{
+    $("cursorState").textContent=`Ln ${e.position.lineNumber}, Col ${e.position.column}`;
+  });
+
+  editor.onDidChangeModel(()=>{
+    currentModel=editor.getModel();
+    updateOutline();
+    updateMarkers();
+    setEditorStatus();
+  });
+
+  monaco.editor.onDidChangeMarkers(()=>{
+    updateMarkers();
+  });
+
+  registerCompletionProviders(m);
+  registerEditorCommands(m);
+  applyResponsiveEditorOptions();
+  setEditorStatus();
+}
+
+function applyResponsiveEditorOptions(){
+  if(!editor) return;
+  const mobile=window.matchMedia("(max-width:980px)").matches;
+  editor.updateOptions({
+    minimap:{enabled:!mobile && minimapOn},
+    fontSize:mobile?12:13,
+    lineHeight:mobile?19:20,
+    padding:mobile?{top:8,bottom:10}:{top:12,bottom:14},
+    scrollbar:{verticalScrollbarSize:mobile?5:12,horizontalScrollbarSize:mobile?5:12,alwaysConsumeMouseWheel:false}
+  });
+}
+
+function registerEditorCommands(m){
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyCode.KeyS,()=>requestSave());
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyCode.KeyP,()=>openQuickOpen());
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyMod.Shift|m.KeyCode.KeyF,()=>openSearchDrawer());
+  editor.addCommand(m.KeyMod.Alt|m.KeyMod.Shift|m.KeyCode.KeyF,()=>formatDocument());
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyCode.KeyH,()=>editor.getAction("editor.action.startFindReplaceAction")?.run());
+}
+
+function registerCompletionProviders(m){
+  const jsItems=[
+    ["api","HOA backend request helper","function api(action, extra = {}) { … }"],
+    ["toast","HOA toast helper","function toast(message, type = '') { … }"],
+    ["showApp","Open authenticated developer console UI","async function showApp() { … }"],
+    ["listFiles","Reload repository files","async function listFiles() { … }"],
+    ["openFile","Open repository file in Monaco","async function openFile(path) { … }"],
+    ["saveFile","Write current file through the admin Edge Function","async function saveFile() { … }"],
+    ["loginAdmin","Existing HOA admin login workflow","loginAdmin()"],
+    ["logoutAdmin","Existing HOA admin logout workflow","logoutAdmin()"],
+    ["loginStudent","Existing HOA student login workflow","loginStudent()"],
+    ["showAuth","Existing HOA auth panel workflow","showAuth('login')"],
+    ["HOA","HUB OF ASPIRANTS project namespace","window.HOA_*"],
+    ["SUPABASE_URL","Configured Supabase project URL","const SUPABASE_URL = '…'"],
+    ["FUNCTION_NAME","Developer console Edge Function name","const FUNCTION_NAME = 'admin-dev-console'"]
+  ];
+  m.languages.registerCompletionItemProvider(["javascript","typescript"],{
+    provideCompletionItems:()=>({
+      suggestions:jsItems.map(([label,detail,doc])=>({
+        label,kind:m.languages.CompletionItemKind.Function,
+        insertText:label,detail,documentation:{value:doc}
+      }))
+    })
+  });
+
+  m.languages.registerCompletionItemProvider("css",{
+    provideCompletionItems:()=>({suggestions:[
+      {label:"display:flex",kind:m.languages.CompletionItemKind.Value,insertText:"display: flex;",documentation:"Flex layout"},
+      {label:"display:grid",kind:m.languages.CompletionItemKind.Value,insertText:"display: grid;",documentation:"Grid layout"},
+      {label:"gap",kind:m.languages.CompletionItemKind.Property,insertText:"gap: ${1:12px};",insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet},
+      {label:"box-shadow",kind:m.languages.CompletionItemKind.Property,insertText:"box-shadow: 0 ${1:8px} ${2:24px} rgba(${3:0},${4:0},${5:0},${6:.12});",insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet}
+    ]})
+  });
+
+  m.languages.registerCompletionItemProvider("html",{
+    provideCompletionItems:()=>({suggestions:[
+      {label:"hoa-card",kind:m.languages.CompletionItemKind.Snippet,insertText:'<div class="hoa-card">\\n\\t$0\\n</div>',insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet},
+      {label:"button",kind:m.languages.CompletionItemKind.Keyword,insertText:'<button type="button">$0</button>',insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet},
+      {label:"section",kind:m.languages.CompletionItemKind.Keyword,insertText:'<section aria-label="$1">\\n\\t$0\\n</section>',insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet}
+    ]})
+  });
+}
+
+async function listFiles(){
+  if(busy) return;
+  setBusy(true,"list");
+  try{
+    const d=await api("list");
+    repoFiles=(d.files||[]).map(f=>({path:safePath(f.path),size:f.size||0})).sort((a,b)=>a.path.localeCompare(b.path));
+    $("fileCount").textContent=repoFiles.length;
+    renderFiles(repoFiles);
+    output({ok:true,file_count:repoFiles.length,ref:"main"});
+  }catch(e){
+    output({ok:false,action:"list",error:e.message});
+    toast("Repository files failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+function iconForFile(path){
+  const ext=path.toLowerCase().split(".").pop();
+  const icons={html:"◈",css:"◉",js:"ƒ",ts:"TS",json:"{}",md:"#",sql:"DB",png:"IMG",jpg:"IMG",jpeg:"IMG",svg:"SVG",yml:"YML",yaml:"YML"};
+  return icons[ext]||"·";
+}
+function renderFiles(files){
+  const box=$("files");
+  const filter=$("fileFilter").value.trim().toLowerCase();
+  box.innerHTML="";
+  const filtered=filter?files.filter(f=>f.path.toLowerCase().includes(filter)):files;
+  if(!filtered.length){box.innerHTML='<div class="empty">No files match the filter.</div>';return;}
+  for(const f of filtered){
+    const el=document.createElement("div");
+    el.className="file"+(f.path===currentPath?" selected":"");
+    el.dataset.path=f.path;
+    el.innerHTML=`<span>${iconForFile(f.path)}</span><span class="path" title="${escapeHtml(f.path)}">${escapeHtml(f.path)}</span><span class="size">${((f.size||0)/1024).toFixed(1)}K</span>`;
+    el.onclick=()=>openFile(f.path);
+    box.appendChild(el);
+  }
+}
+
+async function openFile(path){
+  path=safePath(path||$("path").value);
+  if(!path){toast("Enter a repository path.","err");return;}
+  if(!monacoReady) await loadMonaco();
+  if(modelByPath.has(path)){
+    activateModel(path);
+    return;
+  }
+  if(busy) return;
+  setBusy(true,"read");
+  try{
+    const d=await api("read",{path});
+    const content=d.content||"";
+    const lang=languageForPath(path);
+    languageByPath.set(path,lang);
+    originalContents.set(path,content);
+    dirtyByPath.set(path,false);
+    repoCache.set(path,content);
+
+    const uri=monaco.Uri.parse("hoa://repo/"+path);
+    const model=monaco.editor.createModel(content,lang,uri);
+    modelByPath.set(path,model);
+
+    model.onDidChangeContent(()=>{
+      const dirty=model.getValue()!==originalContents.get(path);
+      dirtyByPath.set(path,dirty);
+      updateTabs();
+      if(path===currentPath) setEditorStatus();
+      updateOutline();
+    });
+
+    activateModel(path);
+    output({ok:true,path,sha:d.sha,size:content.length,language:languageLabel(lang)});
+    toast("Loaded "+path,"ok");
+  }catch(e){
+    output({ok:false,action:"read",path,error:e.message});
+    toast("Open failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+function activateModel(path){
+  const model=modelByPath.get(path);
+  if(!model) return;
+  currentPath=path;
+  currentModel=model;
+  editor.setModel(model);
+  $("path").value=path;
+  $("workspaceTitle").textContent=path.split("/").pop();
+  document.querySelectorAll(".file").forEach(x=>x.classList.toggle("selected",x.dataset.path===path));
+  updateTabs();
+  updateOutline();
+  updateMarkers();
+  setEditorStatus();
+}
+
+function updateTabs(){
+  const tabs=$("tabs");
+  tabs.innerHTML="";
+  for(const [path] of modelByPath){
+    const tab=document.createElement("div");
+    tab.className="tab"+(path===currentPath?" active":"");
+    const dirty=!!dirtyByPath.get(path);
+    tab.innerHTML=`<span>${iconForFile(path)}</span><span title="${escapeHtml(path)}">${escapeHtml(path.split("/").pop())}</span>${dirty?'<span class="dirty">●</span>':""}<button class="close" title="Close">×</button>`;
+    tab.onclick=(e)=>{
+      if(e.target.classList.contains("close")) return;
+      activateModel(path);
+    };
+    tab.querySelector(".close").onclick=(e)=>{e.stopPropagation();closeTab(path);};
+    tabs.appendChild(tab);
+  }
+}
+
+function closeTab(path){
+  const dirty=dirtyByPath.get(path);
+  if(dirty && !confirm(`"${path}" has unsaved changes. Close without saving?`)) return;
+  const model=modelByPath.get(path);
+  modelByPath.delete(path);originalContents.delete(path);dirtyByPath.delete(path);languageByPath.delete(path);fileErrors.delete(path);
+  if(model) model.dispose();
+  if(currentPath===path){
+    const next=[...modelByPath.keys()].pop();
+    if(next) activateModel(next);
+    else{
+      currentPath="";currentModel=null;editor.setModel(null);$("path").value="";$("workspaceTitle").textContent="Code Workbench";$("outline").innerHTML='<div class="empty">Open a code file to see symbols.</div>';setEditorStatus();
+    }
+  }else updateTabs();
+}
+
+function updateOutline(){
+  const box=$("outline");
+  if(!currentModel){box.innerHTML='<div class="empty">Open a code file to see symbols.</div>';return;}
+  const lines=currentModel.getLinesContent();
+  const lang=languageByPath.get(currentPath)||"plaintext";
+  const symbols=[];
+  const push=(line,type,name)=>{
+    if(name && name.length<180) symbols.push({line,type,name});
+  };
+
+  lines.forEach((line,idx)=>{
+    const n=idx+1;
+    let m;
+    if(["javascript","typescript"].includes(lang)){
+      if((m=line.match(/^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)/))) push(n,"ƒ",m[1]+"()");
+      else if((m=line.match(/^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)/))) push(n,"C",m[1]);
+      else if((m=line.match(/^\s*(?:export\s+)?(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\(/))) push(n,"λ",m[1]+"()");
+      else if((m=line.match(/^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=/))) push(n,"v",m[1]);
+    }else if(lang==="css"){
+      if((m=line.match(/^\s*([^@][^{]{1,120})\s*\{/))) push(n,"#",m[1].trim());
+      else if((m=line.match(/^\s*@media\s*([^{]*)\{/))) push(n,"@",("@media "+m[1]).trim());
+    }else if(["html","xml"].includes(lang)){
+      if((m=line.match(/^\s*<h([1-6])[^>]*>(.*?)<\/h\1>/i))) push(n,"H",m[2].replace(/<[^>]+>/g,"").trim());
+      else if((m=line.match(/^\s*<section\b[^>]*(?:id|aria-label)="([^"]+)"/i))) push(n,"§",m[1]);
+      else if((m=line.match(/^\s*<script\b/i))) push(n,"JS","<script>");
+      else if((m=line.match(/^\s*<style\b/i))) push(n,"CSS","<style>");
+    }else if(lang==="markdown"){
+      if((m=line.match(/^\s{0,3}(#{1,6})\s+(.+)/))) push(n,"H",m[2].trim());
+    }
+  });
+
+  const filter=$("outlineFilter").value.trim().toLowerCase();
+  const list=filter?symbols.filter(s=>s.name.toLowerCase().includes(filter)):symbols;
+  if(!list.length){box.innerHTML='<div class="empty">No symbols found in this file.</div>';return;}
+  box.innerHTML="";
+  list.slice(0,600).forEach(s=>{
+    const el=document.createElement("div");
+    el.className="symbol";
+    el.innerHTML=`<span class="type">${escapeHtml(s.type)}</span>${escapeHtml(s.name)}`;
+    el.title=`Line ${s.line}`;
+    el.onclick=()=>{
+      editor.setPosition({lineNumber:s.line,column:1});
+      editor.revealLineInCenter(s.line);
+      editor.focus();
+    };
+    box.appendChild(el);
+  });
+}
+
+function updateMarkers(){
+  if(!monacoReady||!currentModel) return;
+  const markers=monaco.editor.getModelMarkers({resource:currentModel.uri});
+  const errors=markers.filter(x=>x.severity===monaco.MarkerSeverity.Error).length;
+  const warnings=markers.filter(x=>x.severity===monaco.MarkerSeverity.Warning).length;
+  const total=errors+warnings;
+  $("diagnosticState").textContent=total?`${errors} errors · ${warnings} warnings`:"0 problems";
+  $("diagnosticState").className="metric "+(errors?"err":warnings?"warn":"ok");
+  fileErrors.set(currentPath,{errors,warnings});
+}
+function setEditorStatus(){
+  if(!$("fileState")) return;
+  if(!currentPath){
+    $("fileState").textContent="No file open";
+    $("languageState").textContent="Plain Text";
+    $("dirtyState").textContent="Clean";
+    return;
+  }
+  const dirty=!!dirtyByPath.get(currentPath);
+  const lang=languageByPath.get(currentPath)||languageForPath(currentPath);
+  $("fileState").textContent=dirty?"● "+currentPath:currentPath;
+  $("languageState").textContent=languageLabel(lang);
+  $("dirtyState").textContent=dirty?"Unsaved changes":"Saved";
+  $("dirtyState").style.color=dirty?"#ffd27a":"#89b9a8";
+  const model=currentModel;
+  if(model) $("editorInfo").textContent=`${languageLabel(lang)} · ${model.getLineCount()} lines · ${(model.getValue().length/1024).toFixed(1)} KB`;
+}
+
+function requestSave(){ return saveCurrentFile(); }
+
+async function saveCurrentFile(){
+  if(!currentPath||!currentModel){toast("Open an existing repository file first.","err");return;}
+  if(!dirtyByPath.get(currentPath)){toast("No changes to save.","warn");return;}
+  const message=$("commitMessage").value.trim()||"Update from HOA Developer Console";
+  const changedChars=Math.abs(currentModel.getValue().length-(originalContents.get(currentPath)||"").length);
+  $("confirmText").textContent=`Commit "${currentPath}" to production branch main with message "${message}". The current file has unsaved edits (${changedChars} character delta).`;
+  $("confirmBackdrop").classList.add("open");
+  window.__confirmSave={message};
+}
+async function performSave(){
+  if(busy||!currentPath||!currentModel) return;
+  const path=currentPath;
+  const content=currentModel.getValue();
+  const message=window.__confirmSave?.message||"Update from HOA Developer Console";
+  $("confirmBackdrop").classList.remove("open");
+  setBusy(true,"write");
+  try{
+    const d=await api("write",{path,content,message});
+    originalContents.set(path,content);
+    dirtyByPath.set(path,false);
+    repoCache.set(path,content);
+    updateTabs();
+    setEditorStatus();
+    output(d);
+    toast("Committed successfully: "+path,"ok");
+    await refreshOneFileStat(path);
+  }catch(e){
+    output({ok:false,action:"write",path,error:e.message});
+    toast("Save failed: "+e.message,"err");
+  }finally{
+    setBusy(false);
+  }
+}
+async function refreshOneFileStat(path){
+  try{
+    const d=await api("read",{path});
+    const f=repoFiles.find(x=>x.path===path);
+    if(f&&d.content) f.size=d.content.length;
+    renderFiles(repoFiles);
+  }catch(_){}
+}
+
+async function clearEditor(){
+  for(const path of [...modelByPath.keys()]){
+    if(dirtyByPath.get(path)){
+      if(!confirm(`There are unsaved changes in "${path}". Continue and close all editor tabs?`)) return;
+      break;
+    }
+  }
+  modelByPath.forEach(m=>m.dispose());
+  modelByPath.clear();originalContents.clear();dirtyByPath.clear();languageByPath.clear();
+  currentPath="";currentModel=null;editor.setModel(null);
+  $("tabs").innerHTML="";$("path").value="";$("workspaceTitle").textContent="Code Workbench";
+  $("outline").innerHTML='<div class="empty">Open a code file to see symbols.</div>';
+  setEditorStatus();output("Editor cleared.");toast("Editor cleared","ok");
+}
+
+function formatDocument(){
+  if(!editor||!currentModel){toast("Open a file first.","warn");return;}
+  const action=editor.getAction("editor.action.formatDocument");
+  if(!action){toast("No formatter is available for this language.","warn");return;}
+  Promise.resolve(action.run()).then(()=>{
+    toast("Document formatted by Monaco.","ok");
+  }).catch(e=>toast("Format failed: "+(e.message||e),"err"));
+}
+function toggleWordWrap(){
+  wordWrapOn=!wordWrapOn;
+  editor?.updateOptions({wordWrap:wordWrapOn?"on":"off"});
+  $("wordWrapBtn").textContent=wordWrapOn?"Word Wrap: ON":"Toggle Word Wrap";
+}
+function toggleMinimap(){
+  minimapOn=!minimapOn;
+  editor?.updateOptions({minimap:{enabled:minimapOn && window.innerWidth>720}});
+  $("minimapBtn").classList.toggle("active",minimapOn);
+}
+function toggleSuggestions(){
+  suggestionsOn=!suggestionsOn;
+  editor?.updateOptions({quickSuggestions:suggestionsOn,suggestOnTriggerCharacters:suggestionsOn,parameterHints:{enabled:suggestionsOn},inlineSuggest:{enabled:suggestionsOn}});
+  $("suggestBtn").textContent=`Auto Suggestions: ${suggestionsOn?"ON":"OFF"}`;
+  $("suggestBtn").classList.toggle("active",suggestionsOn);
+}
+
+function openSearchDrawer(){
+  $("searchDrawer").classList.add("open");
+  $("repoSearchInput").focus();
+}
+function closeSearchDrawer(){ $("searchDrawer").classList.remove("open"); }
+function openQuickOpen(){
+  $("quickOpenDrawer").classList.add("open");
+  renderQuickOpen();
+  $("quickOpenInput").focus();
+}
+function closeQuickOpen(){ $("quickOpenDrawer").classList.remove("open"); }
+function renderQuickOpen(){
+  const q=$("quickOpenInput").value.trim().toLowerCase();
+  const box=$("quickOpenResults");
+  const matches=(q?repoFiles.filter(f=>f.path.toLowerCase().includes(q)):repoFiles).slice(0,250);
+  box.innerHTML="";
+  if(!matches.length){box.innerHTML='<div class="empty">No matching files.</div>';return;}
+  matches.forEach(f=>{
+    const row=document.createElement("div");row.className="result-row";
+    row.innerHTML=`<div class="result-meta">${iconForFile(f.path)} ${escapeHtml(f.path)} · ${(f.size/1024).toFixed(1)} KB</div>`;
+    row.onclick=()=>{closeQuickOpen();openFile(f.path);};
+    box.appendChild(row);
+  });
+}
+
+async function searchRepository(){
+  const query=$("repoSearchInput").value;
+  if(!query){toast("Enter a search term.","warn");return;}
+  if(busy){return;}
+  const results=$("searchResults");
+  results.innerHTML='<div class="empty">Searching repository files…</div>';
+  const searchable=repoFiles.filter(f=>isSearchable(f.path));
+  let re=null;
+  try{
+    if(searchRegex) re=new RegExp(query,searchCase?"g":"gi");
+  }catch(e){
+    results.innerHTML=`<div class="empty" style="color:#ff8999">Invalid regular expression: ${escapeHtml(e.message)}</div>`;
+    return;
+  }
+
+  let matches=[];
+  const concurrency=6;
+  let cursor=0;
+  async function worker(){
+    while(cursor<searchable.length){
+      const i=cursor++;
+      const f=searchable[i];
+      try{
+        let content=repoCache.get(f.path);
+        if(content==null){
+          const d=await api("read",{path:f.path});
+          content=d.content||"";
+          repoCache.set(f.path,content);
+        }
+        const lines=content.split(/\r?\n/);
+        lines.forEach((line,idx)=>{
+          if(matches.length>=1000) return;
+          let hit=false;
+          if(re){
+            re.lastIndex=0;hit=re.test(line);
+          }else{
+            hit=(searchCase?line:line.toLowerCase()).includes(searchCase?query:query.toLowerCase());
+          }
+          if(hit) matches.push({path:f.path,line:idx+1,text:line});
+        });
+      }catch(_){}
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(concurrency,searchable.length)},worker));
+  matches.sort((a,b)=>a.path.localeCompare(b.path)||a.line-b.line);
+  $("searchCount").textContent=`${matches.length} matches`;
+  results.innerHTML="";
+  if(!matches.length){results.innerHTML='<div class="empty">No matches found.</div>';return;}
+  matches.forEach(m=>{
+    const row=document.createElement("div");row.className="result-row";
+    const meta=document.createElement("div");meta.className="result-meta";meta.textContent=`${m.path}:${m.line}`;
+    const sn=document.createElement("div");sn.className="result-snippet";
+    sn.innerHTML=highlightSnippet(m.text,query);
+    row.append(meta,sn);
+    row.onclick=async()=>{
+      closeSearchDrawer();
+      await openFile(m.path);
+      if(editor){
+        editor.setPosition({lineNumber:m.line,column:1});
+        editor.revealLineInCenter(m.line);
+        editor.focus();
+      }
+    };
+    results.appendChild(row);
+  });
+}
+function isSearchable(path){
+  const p=path.toLowerCase();
+  if(/\.(png|jpg|jpeg|gif|webp|ico|pdf|zip|mp4|mov|woff|woff2|ttf|otf|exe|bin)$/i.test(p)) return false;
+  return true;
+}
+function highlightSnippet(text,query){
+  const escaped=escapeHtml(text);
+  if(searchRegex) return escaped;
+  if(!query) return escaped;
+  const safe=escapeHtml(query).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  try{return escaped.replace(new RegExp(`(${safe})`,searchCase?"g":"gi"),"<mark>$1</mark>");}catch{return escaped;}
+}
+
+function showDiff(){
+  if(!currentPath||!currentModel){toast("Open a file first.","warn");return;}
+  const original=originalContents.get(currentPath)||"";
+  const current=currentModel.getValue();
+  if(original===current){toast("No unsaved changes to preview.","warn");return;}
+  $("diffTitle").textContent=`Changes Preview · ${currentPath}`;
+  $("diffDrawer").classList.add("open");
+  if(diffEditor) diffEditor.dispose();
+  if(diffOriginalModel) diffOriginalModel.dispose();
+  if(diffModifiedModel) diffModifiedModel.dispose();
+
+  const lang=languageByPath.get(currentPath)||languageForPath(currentPath);
+  diffOriginalModel=monaco.editor.createModel(original,lang,monaco.Uri.parse("hoa://original/"+currentPath));
+  diffModifiedModel=monaco.editor.createModel(current,lang,monaco.Uri.parse("hoa://modified/"+currentPath));
+  diffEditor=monaco.editor.createDiffEditor($("diffHost"),{
+    theme:"hoa-dark",automaticLayout:true,readOnly:true,renderSideBySide:window.innerWidth>720,
+    minimap:{enabled:false},scrollBeyondLastLine:false,ignoreTrimWhitespace:false
+  });
+  diffEditor.setModel({original:diffOriginalModel,modified:diffModifiedModel});
+}
+function closeDiff(){
+  $("diffDrawer").classList.remove("open");
+  if(diffEditor){diffEditor.dispose();diffEditor=null;}
+  if(diffOriginalModel){diffOriginalModel.dispose();diffOriginalModel=null;}
+  if(diffModifiedModel){diffModifiedModel.dispose();diffModifiedModel=null;}
+}
+
+function runBuiltInFind(){
+  if(!editor){toast("Open a file first.","warn");return;}
+  editor.getAction("actions.find")?.run();
+  editor.focus();
+}
+function runBuiltInReplace(){
+  if(!editor){toast("Open a file first.","warn");return;}
+  editor.getAction("editor.action.startFindReplaceAction")?.run();
+  editor.focus();
+}
+
+function setBottomTab(tab){
+  document.querySelectorAll(".bottom-tabs button").forEach(b=>b.classList.remove("active"));
+  const target=tab==="problems"?$("problemsTab"):$("consoleTab");
+  target.classList.add("active");
+  if(tab==="problems"){
+    const rows=[];
+    for(const [path,m] of modelByPath){
+      const markers=monaco.editor.getModelMarkers({resource:m.uri});
+      markers.slice(0,150).forEach(x=>rows.push(`${path}:${x.startLineNumber}:${x.startColumn} — ${x.message}`));
+    }
+    output(rows.length?rows.join("\n"):"No Monaco diagnostics found in opened files.");
+  }
+}
+
+function bindEvents(){
+  $("loginForm").addEventListener("submit",signIn);
+
+  const shell=document.querySelector(".shell");
+  const mobileMenuBtn=$("mobileMenuBtn");
+  const mobileNavBackdrop=$("mobileNavBackdrop");
+  const mobileAsideClose=$("mobileAsideClose");
+  const closeMobileNav=()=>{
+    shell?.classList.remove("mobile-menu-open");
+    mobileMenuBtn?.setAttribute("aria-expanded","false");
+  };
+  mobileMenuBtn?.addEventListener("click",()=>{
+    const open=!shell.classList.contains("mobile-menu-open");
+    shell.classList.toggle("mobile-menu-open",open);
+    mobileMenuBtn.setAttribute("aria-expanded",String(open));
+  });
+  mobileNavBackdrop?.addEventListener("click",closeMobileNav);
+  mobileAsideClose?.addEventListener("click",closeMobileNav);
+  $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
+  $("open").addEventListener("click",()=>openFile());
+  $("save").addEventListener("click",requestSave);
+  $("saveTop").addEventListener("click",requestSave);
+  $("repoSearchBtn").addEventListener("click",openSearchDrawer);
+  $("repoSearchTop").addEventListener("click",openSearchDrawer);
+  $("quickOpenBtn").addEventListener("click",openQuickOpen);
+  $("findBtn").addEventListener("click",runBuiltInFind);
+  $("replaceBtn").addEventListener("click",runBuiltInReplace);
+  $("formatBtn").addEventListener("click",formatDocument);
+  $("formatTopBtn").addEventListener("click",formatDocument);
+  $("diffBtn").addEventListener("click",showDiff);
+  $("wordWrapBtn").addEventListener("click",toggleWordWrap);
+  $("suggestBtn").addEventListener("click",toggleSuggestions);
+  $("minimapBtn").addEventListener("click",toggleMinimap);
+  $("foldBtn").addEventListener("click",()=>editor?.getAction("editor.foldAll")?.run());
+  $("unfoldBtn").addEventListener("click",()=>editor?.getAction("editor.unfoldAll")?.run());
+  $("undoBtn").addEventListener("click",()=>editor?.trigger("hoa","undo",null));
+  $("redoBtn").addEventListener("click",()=>editor?.trigger("hoa","redo",null));
+  $("clearEditor").addEventListener("click",clearEditor);
+  $("reloadFiles").addEventListener("click",listFiles);
+  $("refreshOverview").addEventListener("click",runDashboardOverview);
+  $("fileFilter").addEventListener("input",()=>renderFiles(repoFiles));
+  $("outlineFilter").addEventListener("input",updateOutline);
+  $("quickOpenInput").addEventListener("input",renderQuickOpen);
+  $("repoSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchRepository();});
+  $("runSearch").addEventListener("click",searchRepository);
+  $("caseBtn").addEventListener("click",()=>{searchCase=!searchCase;$("caseBtn").classList.toggle("active",searchCase);});
+  $("regexBtn").addEventListener("click",()=>{searchRegex=!searchRegex;$("regexBtn").classList.toggle("active",searchRegex);});
+  $("closeSearch").addEventListener("click",closeSearchDrawer);
+  $("closeDiff").addEventListener("click",closeDiff);
+  $("closeQuickOpen").addEventListener("click",closeQuickOpen);
+  $("consoleTab").addEventListener("click",()=>setBottomTab("console"));
+  $("problemsTab").addEventListener("click",()=>setBottomTab("problems"));
+  $("cancelCommit").addEventListener("click",()=>{$("confirmBackdrop").classList.remove("open");window.__confirmSave=null;});
+  $("confirmCommit").addEventListener("click",performSave);
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape"){
+      closeSearchDrawer();closeDiff();closeQuickOpen();$("confirmBackdrop").classList.remove("open");
+    }
+  });
+  document.querySelector("aside")?.addEventListener("click",()=>{
+    if(window.matchMedia("(max-width:980px)").matches) closeMobileNav();
+  });
+  window.addEventListener("resize",()=>{
+    applyResponsiveEditorOptions();
+    if(window.matchMedia("(min-width:981px)").matches) closeMobileNav();
+  },{passive:true});
+
+  document.querySelectorAll("[data-action]").forEach(b=>{
+    b.type="button";
+    b.addEventListener("click",ev=>{
+      ev.preventDefault();
+      if(b.dataset.action==="overview") runDashboardOverview();
+      else runAction(b.dataset.action);
+    });
+  });
+}
+
+async function runDashboardOverview(){
+  if(busy)return;
+  setBusy(true,"overview");
+  try{
+    const status=await api("status");
+    let pages={};
+    try{pages=await api("pages");}catch(e){pages={error:e.message};}
+    const d={...status,pages_status:pages.status||pages.build_type||"Not checked",pages_ok:!pages.error};
+    output({status:d,pages});
+    toast("System status refreshed","ok");
+  }catch(e){
+    output({ok:false,action:"overview",error:e.message});
+    toast("System status failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+function actionTitle(action){
+  return ({overview:"Infrastructure Overview",status:"Connection Status",health:"Supabase Health",admins:"Admin Accounts",list:"Repository Files",commits:"Recent Commits",pages:"GitHub Pages",runs:"Deployments"})[action]||action;
+}
+function openModalResult(title,data){
+  const rows=Object.entries(data||{}).map(([k,v])=>`${k}: ${typeof v==="string"?v:JSON.stringify(v)}`).join("\n");
+  output(`${title}\n\n${rows||"No data returned."}`);
+  toast(title+" completed","ok");
+}
+async function runAction(action){
+  if(busy)return;
+  setBusy(true,action);
+  try{
+    const d=await api(action);
+    if(action==="list"){
+      repoFiles=(d.files||[]).map(f=>({path:safePath(f.path),size:f.size||0})).sort((a,b)=>a.path.localeCompare(b.path));
+      $("fileCount").textContent=repoFiles.length;
+      renderFiles(repoFiles);
+    }
+    openModalResult(actionTitle(action),d);
+  }catch(e){
+    output({ok:false,action,error:e.message});
+    toast(actionTitle(action)+" failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+async function boot(){
+  try{
+    init();bindEvents();
+    const {data}=await init().auth.getSession();
+    if(data.session) await showApp();
+  }catch(e){
+    setLogin(e.message||"Initialization failed.",true);
+  }
+}
+
+boot();
+})();
+</script>
+</body>
+</html>
