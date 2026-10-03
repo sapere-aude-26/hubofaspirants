@@ -23740,3 +23740,52 @@ textarea{
     max-height:38px !important;
   }
 }
+
+
+/* ============================================================
+   HOA EXAM — MOBILE CSS-ONLY FINAL CONSOLIDATED CORRECTION V4
+   Authoritative mobile exam layout override. CSS only.
+   ============================================================ */
+@media (max-width:767px){
+  #exam:not(.hidden){height:100dvh !important;min-height:0 !important;max-height:100dvh !important;display:flex !important;flex-direction:column !important;overflow:hidden !important;box-sizing:border-box !important;padding-top:max(0px,env(safe-area-inset-top)) !important;padding-bottom:0 !important;}
+  #exam:not(.hidden) .examTop{order:1 !important;flex:0 0 auto !important;}
+  #exam:not(.hidden) .progress{order:2 !important;flex:0 0 auto !important;}
+
+  /* Visible colour key: header -> progress -> colour key -> exam content. */
+  #exam:not(.hidden) .mobile-palette-legend{order:3 !important;display:grid !important;visibility:visible !important;opacity:1 !important;position:relative !important;z-index:30 !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:5px 8px !important;flex:0 0 auto !important;width:100% !important;min-width:0 !important;max-width:100% !important;height:auto !important;min-height:34px !important;margin:0 !important;padding:6px 10px 7px !important;box-sizing:border-box !important;background:#F7FBFE !important;border-top:1px solid #D8E7F5 !important;border-bottom:1px solid #D8E7F5 !important;color:#29415F !important;overflow:visible !important;}
+  #exam:not(.hidden) .mobile-palette-legend .legend-item{display:flex !important;align-items:center !important;justify-content:flex-start !important;min-width:0 !important;gap:4px !important;margin:0 !important;padding:0 !important;font-size:8.5px !important;line-height:1.15 !important;font-weight:700 !important;white-space:nowrap !important;overflow:visible !important;}
+  #exam:not(.hidden) .mobile-palette-legend .legend-dot{display:inline-block !important;flex:0 0 9px !important;width:9px !important;height:9px !important;min-width:9px !important;min-height:9px !important;border-radius:50% !important;border:1px solid rgba(0,0,0,.18) !important;box-sizing:border-box !important;}
+
+  /* Long question/options scroll vertically inside the question card. */
+  #exam:not(.hidden) .examGrid{order:4 !important;display:grid !important;grid-template-columns:minmax(0,1fr) !important;grid-template-rows:minmax(0,1fr) auto !important;align-items:stretch !important;gap:8px !important;flex:1 1 auto !important;min-height:0 !important;height:auto !important;max-height:none !important;overflow:hidden !important;padding:0 0 172px !important;box-sizing:border-box !important;}
+  #exam:not(.hidden) .examGrid > .card:first-child{min-height:0 !important;max-height:none !important;overflow-y:auto !important;overflow-x:hidden !important;-webkit-overflow-scrolling:touch !important;overscroll-behavior-y:contain !important;box-sizing:border-box !important;}
+
+  /* Question numbers: one horizontal row, always touch-scrollable. */
+  #exam:not(.hidden) .examGrid > .side{width:100% !important;min-width:0 !important;min-height:0 !important;height:auto !important;max-height:none !important;overflow:hidden !important;padding:7px 9px 9px !important;box-sizing:border-box !important;}
+  #exam:not(.hidden) .examGrid > .side h3{margin:0 0 5px !important;padding:0 2px !important;font-size:11px !important;line-height:1.2 !important;}
+  #exam:not(.hidden) .examGrid > .side .mission-palette-legend,#exam:not(.hidden) .examGrid > .side > .legend{display:none !important;}
+  #exam:not(.hidden) #palette,#exam:not(.hidden) .examGrid > .side #palette,#exam:not(.hidden) .examGrid > .side .palette{display:grid !important;grid-auto-flow:column !important;grid-auto-columns:40px !important;grid-template-rows:40px !important;grid-template-columns:none !important;justify-content:start !important;align-content:start !important;align-items:center !important;width:100% !important;min-width:0 !important;max-width:none !important;height:50px !important;min-height:50px !important;max-height:50px !important;margin:0 !important;padding:4px 2px 6px !important;gap:8px !important;box-sizing:border-box !important;overflow-x:auto !important;overflow-y:hidden !important;white-space:nowrap !important;touch-action:pan-x !important;overscroll-behavior-x:contain !important;overscroll-behavior-y:none !important;-webkit-overflow-scrolling:touch !important;scrollbar-width:thin !important;scrollbar-color:#8EA6BC #EAF2F8 !important;}
+  #exam:not(.hidden) #palette > button,#exam:not(.hidden) .examGrid > .side #palette > button,#exam:not(.hidden) .examGrid > .side .palette > button,#exam:not(.hidden) #palette .ui21-palette-btn,#exam:not(.hidden) .examGrid > .side #palette .ui21-palette-btn,#exam:not(.hidden) .examGrid > .side .palette .ui21-palette-btn{display:flex !important;grid-row:1 !important;grid-column:auto !important;width:40px !important;min-width:40px !important;max-width:40px !important;height:40px !important;min-height:40px !important;max-height:40px !important;margin:0 !important;padding:0 !important;flex:none !important;align-items:center !important;justify-content:center !important;box-sizing:border-box !important;border-radius:8px !important;font-size:11px !important;line-height:1 !important;}
+
+  /* Footer: stable nested grids, equal routine buttons, full-width Submit Test. */
+  #exam:not(.hidden) .ui21-bottom{position:fixed !important;left:8px !important;right:8px !important;bottom:max(52px,calc(env(safe-area-inset-bottom) + 28px)) !important;width:auto !important;height:auto !important;min-height:0 !important;margin:0 !important;padding:8px !important;display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-template-rows:40px 40px 40px !important;column-gap:7px !important;row-gap:7px !important;align-items:stretch !important;justify-items:stretch !important;box-sizing:border-box !important;z-index:12000 !important;border-radius:12px !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-nav-group{display:grid !important;grid-template-columns:repeat(2,minmax(0,1fr)) !important;grid-template-rows:40px 40px !important;grid-column:1/-1 !important;grid-row:1/span 2 !important;gap:7px !important;min-width:0 !important;min-height:0 !important;width:100% !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-nav-group #ui21Prev{grid-column:1 !important;grid-row:1 !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-nav-group #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-nav-group #ui21Clear{grid-column:1 !important;grid-row:2 !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-save-group{display:block !important;grid-column:2 !important;grid-row:2 !important;width:100% !important;min-width:0 !important;min-height:0 !important;height:40px !important;margin:0 !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-save-group #ui21SaveNext{display:block !important;width:100% !important;min-width:0 !important;max-width:none !important;height:40px !important;min-height:40px !important;max-height:40px !important;margin:0 !important;box-sizing:border-box !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-submit-zone{display:block !important;grid-column:1/-1 !important;grid-row:3 !important;width:100% !important;min-width:0 !important;height:40px !important;margin:0 !important;padding:0 !important;border:0 !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-submit-label{display:none !important;}
+  #exam:not(.hidden) .ui21-bottom .ui21-nav-group button,#exam:not(.hidden) .ui21-bottom #ui21SaveNext,#exam:not(.hidden) .ui21-bottom #ui21Submit{width:100% !important;min-width:0 !important;max-width:none !important;height:40px !important;min-height:40px !important;max-height:40px !important;margin:0 !important;padding:5px !important;border-radius:8px !important;box-sizing:border-box !important;font-size:10px !important;line-height:1.1 !important;white-space:normal !important;align-self:stretch !important;}
+  #exam:not(.hidden) .ui21-bottom #ui21SaveNext{background:#DCEFFD !important;border:1px solid #9BC8E7 !important;color:#1F5F86 !important;box-shadow:none !important;}
+  #exam:not(.hidden) .ui21-bottom #ui21Submit{display:block !important;width:100% !important;background:var(--hoa-exam-blue) !important;color:#fff !important;}
+}
+
+@media (max-width:380px){
+  #exam:not(.hidden) .mobile-palette-legend{grid-template-columns:repeat(2,minmax(0,1fr)) !important;gap:4px 6px !important;padding-left:8px !important;padding-right:8px !important;}
+  #exam:not(.hidden) .mobile-palette-legend .legend-item{font-size:8px !important;gap:3px !important;}
+  #exam:not(.hidden) .mobile-palette-legend .legend-dot{flex-basis:8px !important;width:8px !important;height:8px !important;min-width:8px !important;}
+  #exam:not(.hidden) #palette,#exam:not(.hidden) .examGrid > .side #palette,#exam:not(.hidden) .examGrid > .side .palette{grid-auto-columns:38px !important;height:48px !important;min-height:48px !important;max-height:48px !important;gap:7px !important;}
+  #exam:not(.hidden) #palette > button,#exam:not(.hidden) .examGrid > .side #palette > button,#exam:not(.hidden) .examGrid > .side .palette > button,#exam:not(.hidden) #palette .ui21-palette-btn,#exam:not(.hidden) .examGrid > .side #palette .ui21-palette-btn,#exam:not(.hidden) .examGrid > .side .palette .ui21-palette-btn{width:38px !important;min-width:38px !important;max-width:38px !important;height:38px !important;min-height:38px !important;max-height:38px !important;}
+}
