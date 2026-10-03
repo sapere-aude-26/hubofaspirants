@@ -1,0 +1,39 @@
+/*
+ * HOA Exam Responsive V8.16
+ * Palette geometry authority: exact 4px row/column gaps.
+ * Presentation-only. No exam engine behavior changes.
+ */
+
+/* Match the legacy mobile rule's selector depth so this wins regardless of
+   whether the exam is in the mobile/immersive container path. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette,
+html body.exam-active > main.container > #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette,
+html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette,
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{
+  gap:4px !important;
+  row-gap:4px !important;
+  column-gap:4px !important;
+  grid-gap:4px !important;
+}
+
+/* Keep the 4px geometry authoritative when the palette switches to the
+   compact horizontal mobile layout. */
+@media (max-width:900px){
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{
+    gap:4px !important;
+    row-gap:4px !important;
+    column-gap:4px !important;
+    grid-gap:4px !important;
+  }
+}

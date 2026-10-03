@@ -1,0 +1,299 @@
+/*
+ * HOA Exam Responsive V8.10 — real CBT presentation refinement
+ *
+ * Presentation layer only. The proven exam/runtime behavior remains untouched.
+ * This layer supersedes prior V8.x exam presentation rules without changing
+ * the runtime contract, submission flow, integrity logic, timer, scoring,
+ * or question-state model.
+ */
+
+:root{
+  --hoa810-sidebar:304px;
+  --hoa810-shell-gap:14px;
+  --hoa810-shell: min(1520px, calc(100vw - 28px));
+  --hoa810-blue:#0b4f88;
+  --hoa810-ink:#163653;
+  --hoa810-line:#cbd8e3;
+  --hoa810-nav:#eaf6fb;
+  --hoa810-nav-head:#b9dce9;
+}
+
+/* ---------------- Desktop CBT shell ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examTop,
+html body.exam-active #exam.hoa-unified-exam .examTop,
+html body.hoa-exam-live #exam.hoa-unified-exam .examTop,
+html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+html body.exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-progress,
+html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+html body.exam-active #exam.hoa-unified-exam .examGrid{
+  width:var(--hoa810-shell) !important;
+  max-width:1520px !important;
+  box-sizing:border-box !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+html body.exam-active #exam.hoa-unified-exam .examGrid,
+html body.hoa-exam-live #exam.hoa-unified-exam .examGrid{
+  grid-template-columns:minmax(0,1fr) var(--hoa810-sidebar) !important;
+  gap:var(--hoa810-shell-gap) !important;
+}
+
+/* ---------------- HOA logo slot ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark{
+  width:32px !important;
+  height:32px !important;
+  min-width:32px !important;
+  min-height:32px !important;
+  flex:0 0 32px !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:2px !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  border:1px solid #b7cada !important;
+  border-radius:5px !important;
+  background:#fff !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark img,
+html body.exam-active #exam.hoa-unified-exam .examBrandMark img,
+html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  border-radius:3px !important;
+}
+
+/* ---------------- Question panel ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard,
+html body.exam-active #exam.hoa-unified-exam .examQuestionCard,
+html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard{
+  min-width:0 !important;
+  overflow:auto !important;
+}
+
+/* No circular option marker: the proven engine already supplies A/B/C/D text. */
+html body.v13-exam-active #exam.hoa-unified-exam #options > button::before,
+html body.exam-active #exam.hoa-unified-exam #options > button::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #options > button::before{
+  content:none !important;
+  display:none !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #options > button,
+html body.exam-active #exam.hoa-unified-exam #options > button,
+html body.hoa-exam-live #exam.hoa-unified-exam #options > button{
+  padding-left:14px !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #options > button.selected,
+html body.exam-active #exam.hoa-unified-exam #options > button.selected,
+html body.hoa-exam-live #exam.hoa-unified-exam #options > button.selected{
+  padding-left:14px !important;
+}
+
+/* ---------------- Palette: never clip the fifth/last column ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examNavigator,
+html body.exam-active #exam.hoa-unified-exam .examNavigator,
+html body.hoa-exam-live #exam.hoa-unified-exam .examNavigator{
+  min-width:0 !important;
+  width:100% !important;
+  overflow:hidden !important;
+  background:var(--hoa810-nav) !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  width:auto !important;
+  max-width:calc(100% - 20px) !important;
+  box-sizing:border-box !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  padding:0 1px 1px !important;
+  margin:10px !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .pbtn,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn,
+html body.exam-active #exam.hoa-unified-exam #palette .pbtn,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .pbtn{
+  min-width:0 !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+
+/* The engine may append a review tick to marked-and-answered buttons.
+ * Keep the engine text untouched but render the visible palette number from
+ * CSS counters so review state is colour-only and never displays a tick. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  counter-reset:hoa810-question;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+html body.exam-active #exam.hoa-unified-exam #palette > button,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button{
+  counter-increment:hoa810-question;
+  font-size:0 !important;
+  line-height:1 !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button::after,
+html body.exam-active #exam.hoa-unified-exam #palette > button::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button::after{
+  content:counter(hoa810-question) !important;
+  display:block !important;
+  font-size:11px !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  color:inherit !important;
+}
+
+/* Mark/review palette state is represented only by colour — never a tick. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::before,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::after,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .pbtn::before,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .pbtn::after,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::before,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::after,
+html body.exam-active #exam.hoa-unified-exam #palette .pbtn::before,
+html body.exam-active #exam.hoa-unified-exam #palette .pbtn::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .pbtn::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .pbtn::after{
+  content:none !important;
+  display:none !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked-answered,
+html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked-answered,
+html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked-answered{
+  border-radius:50% !important;
+  box-shadow:none !important;
+}
+
+/* ---------------- Desktop bottom actions ----------------
+ * Three primary actions remain on the left; Save & Next sits at the right
+ * end of the main action area; Submit occupies the full-width sidebar strip.
+ */
+@media(min-width:901px){
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+    left:50% !important;
+    right:auto !important;
+    transform:translateX(-50%) !important;
+    width:var(--hoa810-shell) !important;
+    max-width:1520px !important;
+    box-sizing:border-box !important;
+    bottom:calc(var(--hoa83-safe-bottom) + 10px) !important;
+    height:58px !important;
+    min-height:58px !important;
+    max-height:58px !important;
+    padding:5px !important;
+    display:grid !important;
+    grid-template-columns:minmax(105px,.85fr) minmax(190px,1.65fr) minmax(130px,1.05fr) minmax(140px,1.05fr) var(--hoa810-sidebar) !important;
+    gap:7px !important;
+    align-items:stretch !important;
+    background:linear-gradient(to right,#fff 0 calc(100% - var(--hoa810-sidebar)),var(--hoa810-nav) calc(100% - var(--hoa810-sidebar)) 100%) !important;
+    border:1px solid var(--hoa810-line) !important;
+    border-radius:7px !important;
+    box-shadow:0 4px 12px rgba(25,56,82,.10) !important;
+    overflow:hidden !important;
+    z-index:10100 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev{grid-column:1 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear{grid-column:3 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext{grid-column:4 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit{grid-column:5 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button{
+    width:100% !important;
+    min-width:0 !important;
+    height:46px !important;
+    min-height:46px !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+    padding:0 8px !important;
+    border-radius:4px !important;
+  }
+  /* Submit sits visually inside the question-strip continuation. */
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit{
+    margin:0 !important;
+  }
+}
+
+/* ---------------- Mobile ---------------- */
+@media(max-width:900px){
+  :root{--hoa810-mobile-side:0px;}
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark{
+    width:28px !important;
+    height:28px !important;
+    min-width:28px !important;
+    min-height:28px !important;
+    flex-basis:28px !important;
+    padding:2px !important;
+  }
+  /* The sidebar becomes a full-width question strip on phones; Submit keeps
+     the bottom dock's dedicated final row and its own safe-area. */
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button,
+  html body.exam-active #exam.hoa-unified-exam #options > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button{
+    padding-left:14px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button::after,
+  html body.exam-active #exam.hoa-unified-exam #options > button::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button::after{
+    left:12px !important;
+    font-size:12px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+    max-width:none !important;
+    box-sizing:border-box !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+    background:linear-gradient(to bottom,#fff 0 calc(100% - 38px),var(--hoa810-nav) calc(100% - 38px) 100%) !important;
+  }
+}
+
+@media(max-width:390px){
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark{
+    width:25px !important;height:25px !important;min-width:25px !important;min-height:25px !important;flex-basis:25px !important;
+  }
+}
+
+@media(max-width:900px){
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button::after,
+  html body.exam-active #exam.hoa-unified-exam #palette > button::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button::after{
+    font-size:9px !important;
+  }
+}

@@ -23,7 +23,7 @@
 <!-- HUB OF ASPIRANTS V5.0.3 — Student/Admin historical review routing fixed -->
 <!-- HUB OF ASPIRANTS V5.0.3 — Stability fixes only -->
 <!-- HUB OF ASPIRANTS V5.0 — separated HTML/CSS/JS/logo; V4.8 logic preserved -->
-<!-- HUB OF ASPIRANTS V4.8: Admin logout fully exits Admin UI mode; V4.7 base preserved -->
+<!-- HUB OF ASPIRANTS V5.0: Clean phone CBT layout; previous V4.7/V4.8/V4.9 phone visual layers retired -->
 <!DOCTYPE html>
 
 <!-- HOA V6.1.0 — Feature-level JavaScript separation; section flow preserved. -->
@@ -31,6 +31,10 @@
 <html lang="en">
 <!-- HUB OF ASPIRANTS V4.2 — Automatic Result Management Workflow: no result publish/approval step. -->
 <head>
+<!-- HOA_EXAM_MOBILE_V4_4 — compact/scrollable mobile CBT UI -->
+<!-- HOA_EXAM_MOBILE_V4_5 — final compact mobile CBT layout correction -->
+<!-- HOA_EXAM_MOBILE_V4_5_1 — explicit three-row action dock placement -->
+<!-- HOA_EXAM_MOBILE_V4_6 — compact mobile question-number tiles -->
 <script id="hoa-free-test-route-early-gate">
 (function(){
   try{
@@ -77,6 +81,16 @@ html.hoa-free-test-route #hoaV650PaidLearningPortal{
 <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" name="viewport"/>
 <meta content="strict-origin-when-cross-origin" name="referrer"/>
 <title>HUB OF ASPIRANTS — Production V6.0.9</title>
+<style id="hoa-ui-boot-guard">
+/* V3.4: prevent legacy auth/dashboard markup from painting during async bootstrap. */
+html.hoa-ui-booting #home,
+html.hoa-ui-booting #authScreen,
+html.hoa-ui-booting #exam,
+html.hoa-ui-booting #result{display:none !important;visibility:hidden !important;}
+body.admin-ui #adminOnlyDashboard[data-hoa-admin-ready="false"]{display:none !important;visibility:hidden !important;pointer-events:none !important;}
+html,body{max-width:100%;min-width:0;overflow-x:hidden;}
+</style>
+<script>document.documentElement.classList.add('hoa-ui-booting');</script>
 <script>
 /* HUB OF ASPIRANTS V5.3 — Results & Performance Enhancement
    Additive UI/data helpers. Existing V5.2 result generation remains authoritative. */
@@ -263,7 +277,7 @@ html.hoa-free-test-route #hoaV650PaidLearningPortal{
 })();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js?v=20261003-v34-adminboot"></script>
 <script id="hoa-v621-public-header-cleanup">
 (function(){
   "use strict";
@@ -537,7 +551,9 @@ html.hoa-free-test-route #hoaV650PaidLearningPortal{
   window.hoaOwnerCredentialsAreSupabaseManaged=true;
 })();
 </script>
-<link href="./css/hoa-v6.0.8.css?v=6j-student-brand-header-v2" rel="stylesheet"/>
+<link href="./css/hoa-v6.0.8.css?v=6j-home-header-blue-outline-v2616&mobile=base-no-phone-exam" rel="stylesheet"/>
+<link href="./css/mock-tests-v4.1.css?v=20261003-mock-3section-v41" rel="stylesheet"/>
+<link href="./css/hoa-mobile.css?v=20261003-mobile-v5600-reference-clean" rel="stylesheet"/>
 <style id="hoa-result-stat-card-final-fix-v2">
 /* HOA Result Management — final statistic-card alignment repair.
    Scoped only to the Admin Result panel. */
@@ -635,6 +651,16 @@ body.v13-exam-active #hoaPublicFeedbackModal { display:none !important; }
 body.v13-exam-active .hoa-public-feedback-strip,
 body.test-instructions-active .hoa-public-feedback-strip { display:none !important; }
 </style>
+<link href="./css/hoa-exam-responsive-v8.5.css?v=20261003-exam-v8-5" rel="stylesheet"/>
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.8.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.9.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.10.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.11.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.12.css"><link rel="stylesheet" href="css/hoa-exam-responsive-v8.13.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.14.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.15.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.16.css">
+<link rel="stylesheet" href="css/hoa-exam-responsive-v8.17.css">
 </head>
 <body>
 <a href="#home" id="hoa-v601-skip-link">Skip to main content</a>
@@ -716,9 +742,15 @@ body.test-instructions-active .hoa-public-feedback-strip { display:none !importa
       <p>Explore current courses, announcements and learning updates.</p>
     </div>
     <div class="hoa-v3d-head-actions" aria-label="Showcase controls">
-      <button aria-label="Previous picture" class="hoa-v3d-control" id="hoaV3DPrev" type="button">‹</button>
-      <button aria-label="Pause animation" class="hoa-v3d-control" id="hoaV3DPause" type="button">Ⅱ</button>
-      <button aria-label="Next picture" class="hoa-v3d-control" id="hoaV3DNext" type="button">›</button>
+      <button aria-label="Previous picture" class="hoa-v3d-control" id="hoaV3DPrev" type="button">
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M19 12H5" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="m11 18-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button aria-label="Pause animation" class="hoa-v3d-control" id="hoaV3DPause" type="button">
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><rect x="6.2" y="5.3" width="4.6" height="13.4" rx="2.1" fill="currentColor"/><rect x="13.2" y="5.3" width="4.6" height="13.4" rx="2.1" fill="currentColor"/></svg>
+      </button>
+      <button aria-label="Next picture" class="hoa-v3d-control" id="hoaV3DNext" type="button">
+        <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/><path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
     </div>
   </div>
 
@@ -766,9 +798,9 @@ body.test-instructions-active .hoa-public-feedback-strip { display:none !importa
 <h2 id="hoaV648FreeContentTitle">Free Content</h2>
 <p>Choose from free learning resources. Additional free resources can be added from the Admin system later.</p>
 <div class="hoa-v648-free-grid">
-<button class="hoa-v648-free-card" onclick="hoaOpenLogin('free');hoaCloseFreeContent()" type="button"><span>📝</span><b>Free Test</b><small>Attempt available free tests.</small></button>
-<button class="hoa-v648-free-card" onclick="hoaShowFreeComingSoon('notes')" type="button"><span>📚</span><b>Free Notes</b><small>Free study materials.</small></button>
-<button class="hoa-v648-free-card" onclick="hoaShowFreeComingSoon('videos')" type="button"><span>🎥</span><b>Free Videos</b><small>Free video classes.</small></button>
+<button class="hoa-v648-free-card" onclick="hoaOpenLogin('free');hoaCloseFreeContent()" type="button"><span>📝</span><b>Mock Tests</b><small>Attempt available free mock tests.</small></button>
+<button class="hoa-v648-free-card" onclick="hoaShowFreeComingSoon('videos')" type="button"><span>🎥</span><b>Videos</b><small>Free video classes.</small></button>
+<button class="hoa-v648-free-card" onclick="hoaShowFreeComingSoon('notes')" type="button"><span>📚</span><b>Notes</b><small>Free study materials.</small></button>
 </div>
 </div>
 </div>
@@ -776,10 +808,10 @@ body.test-instructions-active .hoa-public-feedback-strip { display:none !importa
 <h2 class="hoa-front-section-title">Everything in one place</h2>
 <p class="hoa-front-section-sub">A focused preparation environment for students preparing through HUB OF ASPIRANTS.</p>
 <div class="hoa-front-features">
-<article class="hoa-front-feature-box"><div class="icon">🎯</div><h3>Mock Tests</h3><p>Practice with structured mock tests designed for competitive-exam preparation.</p></article>
-<article class="hoa-front-feature-box"><div class="icon">🎥</div><h3>Live &amp; Recorded Classes</h3><p>Attend live classes and access recorded lectures through your assigned batches.</p></article>
-<article class="hoa-front-feature-box"><div class="icon">📚</div><h3>Notes</h3><p>Access organized exam notes and study materials provided for your preparation.</p></article>
-<article class="hoa-front-feature-box"><div class="icon">🧭</div><h3>Career Guidance</h3><p>Get guidance and useful information to plan your competitive-exam preparation and career.</p></article>
+<article class="hoa-front-feature-box"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><circle cx="12" cy="12" r="8.5"></circle><path d="m8.8 12 2.1 2.1 4.8-4.8"></path></svg></div><h3>Mock Tests</h3><p>Practice with structured mock tests designed for competitive-exam preparation.</p></article>
+<article class="hoa-front-feature-box"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><rect x="3.5" y="6.5" width="12" height="11" rx="2"></rect><path d="m15.5 10 5-3v10l-5-3"></path></svg></div><h3>Live &amp; Recorded Classes</h3><p>Attend live classes and access recorded lectures through your assigned batches.</p></article>
+<article class="hoa-front-feature-box"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><path d="M5 4.5h11a3 3 0 0 1 3 3V19H8a3 3 0 0 1-3-3z"></path><path d="M8 4.5v14.2M8 16h11"></path></svg></div><h3>Notes</h3><p>Access organized exam notes and study materials provided for your preparation.</p></article>
+<article class="hoa-front-feature-box"><div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" role="img"><circle cx="12" cy="12" r="8.5"></circle><path d="m12 7 1.4 3.6L17 12l-3.6 1.4L12 17l-1.4-3.6L7 12l3.6-1.4z"></path></svg></div><h3>Career Guidance</h3><p>Get guidance and useful information to plan your competitive-exam preparation and career.</p></article>
 </div>
 </section>
 </div>
@@ -955,12 +987,6 @@ from the front page. Existing login hosts and authentication workflows remain.
 <button id="adminNavAccess" onclick="showAdminSection('access')">🔐 Student Access</button>
 <button id="adminNavResult" onclick="showAdminSection('result')">📊 Results</button>
 <button id="adminNavAdmin" onclick="showAdminSection('admin')">👑 Admin Access</button>
-</div>
-<div class="dashPanel" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
-<div style="display:flex;align-items:center;gap:12px">
-<img alt="HUB OF ASPIRANTS" class="brand-logo" src="assets/hoa-logo.png"/>
-<div><b>⚙️ Admin Dashboard</b><div style="font-size:12px;color:#5E7188">Manage students and mock tests</div></div>
-</div>
 </div>
 <div class="adminSectionPanel active" id="adminSectionMasterPanel">
 <div class="dashPanel hoa-master-panel">
@@ -1287,56 +1313,64 @@ Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;
 </div>
 </div>
 </div>
-</section><section aria-label="Active examination" class="hidden" id="exam">
-<div class="examTop">
-<div><b>Transportation Engineering</b><div class="sub" id="examMeta"></div></div>
-<div style="display:flex;align-items:center;gap:10px">
-<button class="secondary hidden" id="adminPreviewExit" onclick="exitAdminPreview()">← BACK TO ADMIN</button>
-<div class="timer" id="examTimer">10:00</div>
-</div>
-</div>
-<div class="progress"><div class="bar" id="bar"></div></div>
-<div aria-label="Question colour details" class="legend mobile-palette-legend">
-<div class="legend-item"><span class="legend-dot not-visited"></span><span>Not Visited</span></div>
-<div class="legend-item"><span class="legend-dot not-answered"></span><span>Not Answered</span></div>
-<div class="legend-item"><span class="legend-dot answered"></span><span>Answered</span></div>
-<div class="legend-item"><span class="legend-dot marked"></span><span>Marked for Review</span></div>
-<div class="legend-item"><span class="legend-dot marked-answered"></span><span>Answered &amp; Marked</span></div>
-</div>
-<div class="examGrid">
-<div class="card">
-<div class="questionNo" id="questionNo"></div>
-<div class="question" id="questionText"></div>
-<div id="options"></div>
-</div>
-<aside class="card side">
-<h3>Questions</h3>
-<!-- Mobile question numbers are horizontally scrollable; colour legend is shown above the question area. -->
-<div class="palette" id="palette"></div>
-<div aria-label="Question colour details" class="legend mission-palette-legend">
-<div class="legend-item"><span class="legend-dot not-visited"></span><span>Not Visited</span></div>
-<div class="legend-item"><span class="legend-dot not-answered"></span><span>Not Answered</span></div>
-<div class="legend-item"><span class="legend-dot answered"></span><span>Answered</span></div>
-<div class="legend-item"><span class="legend-dot marked"></span><span>Marked for Review</span></div>
-<div class="legend-item"><span class="legend-dot marked-answered"></span><span>Answered &amp; Marked</span></div>
-</div>
+</section><section aria-label="Active examination" class="hidden hoa-unified-exam" id="exam">
+  <div class="examTop">
+    <div class="examTopTitle">
+      <div class="examBrandLine">
+        <span class="examBrandMark" aria-hidden="true"><img src="assets/hoa-log.png" alt="HUB OF ASPIRANTS"></span>
+        <div>
+          <b id="examTestTitle">Mock Test</b>
+          <div class="sub" id="examMeta">Question 1 / 1</div>
+        </div>
+      </div>
+    </div>
+    <div class="examTopTools">
+      <button class="secondary hidden" id="adminPreviewExit" onclick="exitAdminPreview()" type="button">← BACK TO ADMIN</button>
+      <span class="hoa-exam-connection" id="hoaExamConnectionStatus" aria-live="polite">
+        <span class="hoa-exam-connection-dot" aria-hidden="true"></span>
+        <span>Connection Online</span>
+      </span>
+      <div class="timer" id="examTimer">10:00</div>
+    </div>
+  </div>
 
-</aside>
-</div>
-<div class="ui21-bottom" aria-label="Examination navigation and submission controls">
-<div class="grp ui21-nav-group">
-<button class="outline" id="ui21Prev" type="button">Previous</button>
-<button class="review" id="ui21MarkReview" type="button">Mark for Review &amp; Next</button>
-<button class="outline" id="ui21Clear" type="button">Clear Response</button>
-</div>
-<div class="grp ui21-save-group">
-<button class="outline" id="ui21SaveNext" type="button">Save &amp; Next</button>
-</div>
-<div class="ui21-submit-zone">
-<span class="ui21-submit-label">Finish Exam</span>
-<button class="primary" data-mission-submit="1" id="ui21Submit" type="button">Submit Test</button>
-</div>
-</div>
+  <div class="progress hoa-exam-progress" aria-label="Exam progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div class="bar" id="bar"></div>
+  </div>
+
+  <div class="examGrid">
+    <section class="card examQuestionCard" aria-label="Current question">
+      <div class="questionNo" id="questionNo">
+        <span id="questionNoText">Question 1 of 1</span>
+        <span class="examMarkBadge" id="examMarkBadge">1 Mark</span>
+      </div>
+      <div class="question" id="questionText"></div>
+      <div id="options" class="examOptions"></div>
+    </section>
+
+    <aside class="card side examNavigator" aria-label="Question navigator">
+      <div class="examNavigatorHead">
+        <h3>Questions</h3>
+        <span id="hoaPhoneNavCount">1 / 1</span>
+      </div>
+      <div class="palette" id="palette" aria-label="Question numbers"></div>
+      <div aria-label="Question colour details" class="legend mission-palette-legend">
+        <div class="legend-item"><span class="legend-dot not-visited"></span><span>Not Visited</span></div>
+        <div class="legend-item"><span class="legend-dot not-answered"></span><span>Not Answered</span></div>
+        <div class="legend-item"><span class="legend-dot answered"></span><span>Answered</span></div>
+        <div class="legend-item"><span class="legend-dot marked"></span><span>Marked for Review</span></div>
+        <div class="legend-item"><span class="legend-dot marked-answered"></span><span>Answered &amp; Marked</span></div>
+      </div>
+    </aside>
+  </div>
+
+  <nav class="ui21-bottom" aria-label="Examination navigation and submission controls">
+    <button class="outline" id="ui21Prev" type="button">Previous</button>
+    <button class="review" id="ui21MarkReview" type="button">Mark for Review &amp; Next</button>
+    <button class="outline" id="ui21Clear" type="button">Clear Response</button>
+    <button class="outline" id="ui21SaveNext" type="button">Save &amp; Next</button>
+    <button class="primary" data-mission-submit="1" id="ui21Submit" type="button">Submit Test</button>
+  </nav>
 </section></main><div aria-label="HUB OF ASPIRANTS global public footer" id="hoaGlobalPublicFooter"><footer aria-label="HUB OF ASPIRANTS social links" class="hoa-front-social-footer" id="hoaFrontSocialFooter">
 <div class="hoa-v619-social-bar">
 <div class="hoa-v619-brand">
@@ -1429,12 +1463,12 @@ Paste your Telegram-format CSV here..." rows="8" style="width:100%;padding:11px;
 <path d="M7.8 17.2 6.1 18.9a3.6 3.6 0 1 1-5.1-5.1l3.3-3.3a3.6 3.6 0 0 1 5.1 0"></path>
 <path d="m16.2 6.8 1.7-1.7a3.6 3.6 0 1 1 5.1 5.1l-3.3 3.3a3.6 3.6 0 0 1-5.1 0"></path>
 </svg>
-</span><span>Connect Us</span>
+</span><span>Contact Us</span>
 </button>
-<div aria-label="Connect with HUB OF ASPIRANTS" class="hoa-v653-connect-panel" id="hoaV653ConnectPanel" role="dialog">
+<div aria-label="Contact HUB OF ASPIRANTS" class="hoa-v653-connect-panel" id="hoaV653ConnectPanel" role="dialog">
 <div class="hoa-v653-connect-panel-title">
-<span class="hoa-connect-title-desktop">Connect with HUB OF ASPIRANTS</span>
-<span class="hoa-connect-title-mobile">Connect with HOA</span>
+<span class="hoa-connect-title-desktop">Contact HUB OF ASPIRANTS</span>
+<span class="hoa-connect-title-mobile">Contact HOA</span>
 </div>
 <div class="hoa-v653-connect-grid">
 <a aria-label="Telegram" class="hoa-v653-connect-link" href="https://t.me/owner_of_hoa" rel="noopener noreferrer" target="_blank">
@@ -2024,6 +2058,11 @@ seedTests();
 initSupabase();
 updateRegistrationTypeUI();
 
+function hoaFinishInitialUIBoot(){
+  try{ document.documentElement.classList.remove('hoa-ui-booting'); }catch(e){}
+}
+window.hoaFinishInitialUIBoot = hoaFinishInitialUIBoot;
+
 (async function bootstrapMissionTES(){
   const freeTestRoute=new URL(location.href).searchParams.get('hoa_free_page')==='test';
   currentStudent=null;
@@ -2062,7 +2101,7 @@ updateRegistrationTypeUI();
     }
   }
 
-  if(freeTestRoute) return;
+  if(freeTestRoute){ hoaFinishInitialUIBoot(); return; }
 
   // No authenticated session: remain signed out and show the public/front flow.
   document.getElementById("studentHeaderLogout")?.classList.add("hidden");
@@ -2078,6 +2117,7 @@ updateRegistrationTypeUI();
   updateHome();
   showSupabaseStatus();
   if(typeof window.hoaExitToFrontPage === 'function') window.hoaExitToFrontPage();
+  hoaFinishInitialUIBoot();
 })();
 
 /* ===== Original inline script 3 — id: mission-admin-reference-ui-script ===== */
@@ -2121,32 +2161,64 @@ updateRegistrationTypeUI();
     main.className='adminReferenceMain';
     main.appendChild(admin);
 
-    /* The original Admin Dashboard header panel becomes the reference-style top bar. */
-    const topbar=admin.querySelector(':scope > .dashPanel');
-    if(topbar){
-      topbar.classList.add('adminReferenceTopbar');
-      const oldLeft=topbar.firstElementChild;
-      if(oldLeft){
-        const titleWrap=document.createElement('div');
-        titleWrap.className='adminReferenceTopbarText';
-        titleWrap.innerHTML='<div id="adminReferencePageTitle" class="adminReferenceTopbarTitle">Dashboard</div><div id="adminReferencePageSub" class="adminReferenceTopbarSub">Manage students, mock tests and candidate results</div>';
-        oldLeft.replaceWith(titleWrap);
-      }
-      const actions=document.createElement('div');
-      actions.className='adminReferenceTopbarActions';
-      const refresh=document.createElement('button');
-      refresh.type='button';
-      refresh.className='adminReferenceRefreshBtn';
-      refresh.textContent='↻  Refresh';
-      refresh.onclick=function(){
-        const active=nav.querySelector('button.active');
-        if(active) active.click();
-      };
-      actions.appendChild(refresh);
-      topbar.appendChild(actions);
-    }
+    /* Create the single authoritative Admin top bar outside the functional dashboard.
+       The legacy header panel has been removed from the DOM, preventing the old
+       dashboard style from appearing during the initial render. */
+    const topbar=document.createElement('div');
+    topbar.className='adminReferenceTopbar';
+    topbar.innerHTML='<div class="adminReferenceTopbarText"><div id="adminReferencePageTitle" class="adminReferenceTopbarTitle">Dashboard</div><div id="adminReferencePageSub" class="adminReferenceTopbarSub">Manage students, mock tests and candidate results</div></div>';
+    const actions=document.createElement('div');
+    actions.className='adminReferenceTopbarActions';
+
+    /* One authoritative mobile section control. It reuses the existing
+       drawer and existing adminSectionNav buttons; no second navigation system. */
+    const mobileSections=document.createElement('button');
+    mobileSections.type='button';
+    mobileSections.id='hoaMobileAdminSectionsBtn';
+    mobileSections.className='hoa-mobile-admin-sections-btn';
+    mobileSections.setAttribute('data-hoa-mobile-sidebar','true');
+    mobileSections.setAttribute('aria-label','Open Admin sections');
+    mobileSections.setAttribute('aria-expanded','false');
+    mobileSections.innerHTML='<span class="hoaMobileSectionsIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span><span>Sections</span>';
+    mobileSections.onclick=function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(typeof window.hoaToggleMobileSidebar==='function') window.hoaToggleMobileSidebar();
+      else document.body.classList.toggle('hoa-sidebar-open');
+      this.setAttribute('aria-expanded',document.body.classList.contains('hoa-sidebar-open')?'true':'false');
+    };
+
+    const mobileNavRow=document.createElement('div');
+    mobileNavRow.className='hoaMobileAdminSectionsRow';
+    mobileNavRow.appendChild(mobileSections);
+
+    const refresh=document.createElement('button');
+    refresh.type='button';
+    refresh.className='adminReferenceRefreshBtn';
+    refresh.setAttribute('aria-label','Refresh current Admin section');
+    refresh.innerHTML='<span aria-hidden="true">↻</span><span>Refresh</span>';
+    refresh.onclick=function(){
+      const active=nav.querySelector('button.active');
+      if(active) active.click();
+    };
+    actions.appendChild(refresh);
+    topbar.appendChild(actions);
+
+    /* Mobile-only drawer header; desktop stays visually unchanged. */
+    const drawerHead=document.createElement('div');
+    drawerHead.className='hoaMobileAdminDrawerHead';
+    drawerHead.innerHTML='<div><strong>ADMIN SECTIONS</strong><span>Switch Admin workspace</span></div><button type="button" class="hoaMobileAdminDrawerClose" data-hoa-mobile-sidebar="true" aria-label="Close Admin sections"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    drawerHead.querySelector('button')?.addEventListener('click',function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(typeof window.hoaCloseMobileSidebar==='function') window.hoaCloseMobileSidebar();
+      else document.body.classList.remove('hoa-sidebar-open');
+    });
+    sidebar.insertBefore(drawerHead,sidebar.firstChild);
 
     shell.appendChild(sidebar);
+    main.insertBefore(topbar,admin);
+    main.insertBefore(mobileNavRow,admin);
     shell.appendChild(main);
     home.appendChild(shell);
 
@@ -2169,19 +2241,37 @@ updateRegistrationTypeUI();
       if(sub) sub.textContent=meta[1];
     }
 
-    nav.addEventListener('click',function(){setTimeout(updatePageHeading,0)});
+    nav.addEventListener('click',function(){
+      setTimeout(updatePageHeading,0);
+      if(window.matchMedia && window.matchMedia('(max-width:700px)').matches){
+        document.body.classList.remove('hoa-sidebar-open');
+        const b=document.getElementById('hoaMobileAdminSectionsBtn');
+        if(b) b.setAttribute('aria-expanded','false');
+      }
+    });
     updatePageHeading();
 
-    /* Add visual-only icons to the four existing nav labels without changing IDs or handlers. */
-    const iconMap={adminNavStudent:'⌂',adminNavTest:'▣',adminNavResult:'▤',adminNavAdmin:'⚙'};
+    /* Consistent SVG icons for every Admin destination. IDs/handlers remain unchanged. */
+    const iconMap={
+      adminNavMaster:'<svg viewBox="0 0 24 24"><path d="M3 11.2 12 4l9 7.2"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M9 20v-5.5h6V20"/></svg>',
+      adminNavStudent:'<svg viewBox="0 0 24 24"><path d="M16 20c0-2.7-2-4.5-5-4.5S6 17.3 6 20"/><circle cx="11" cy="8" r="3.2"/><path d="M17 11.5c2.1.3 3.5 1.5 4 3.5"/><path d="M16.5 5.2a3 3 0 0 1 0 5.6"/></svg>',
+      adminNavTest:'<svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>',
+      adminNavCourse:'<svg viewBox="0 0 24 24"><path d="M3.5 6.5 12 3l8.5 3.5L12 10 3.5 6.5Z"/><path d="M6 9v5.5c1.8 1.5 3.8 2.2 6 2.2s4.2-.7 6-2.2V9"/><path d="M20.5 7v6"/></svg>',
+      adminNavVideo:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/></svg>',
+      adminNavNotes:'<svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5Z"/><path d="M8 4.5V17a3 3 0 0 0 3 3"/><path d="M10 8h6M10 11.5h6"/></svg>',
+      adminNavPoster:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9" r="1.7"/><path d="m6.5 17 4.5-4 3 2.5 2-2 2 3.5"/></svg>',
+      adminNavAccess:'<svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.3"/></svg>',
+      adminNavResult:'<svg viewBox="0 0 24 24"><path d="M5 20V11M12 20V5M19 20v-8"/><path d="M3 20h18"/></svg>',
+      adminNavAdmin:'<svg viewBox="0 0 24 24"><path d="M12 4.5v2M12 17.5v2M4.5 12h2M17.5 12h2M6.7 6.7l1.4 1.4M15.9 15.9l1.4 1.4M17.3 6.7l-1.4 1.4M8.1 15.9l-1.4 1.4"/><circle cx="12" cy="12" r="4"/></svg>'
+    };
     Object.keys(iconMap).forEach(id=>{
       const b=document.getElementById(id);
       if(!b || b.querySelector('.adminRefIcon')) return;
-      const text=b.textContent.replace(/^\s*[👥📝📊⚙️]+\s*/,'').trim();
+      const text=b.textContent.replace(/^\s*[^A-Za-z0-9]+\s*/,'').trim();
       b.textContent='';
       const i=document.createElement('span');
       i.className='adminRefIcon';
-      i.textContent=iconMap[id];
+      i.innerHTML=iconMap[id];
       i.setAttribute('aria-hidden','true');
       const label=document.createElement('span');
       label.className='adminRefLabel';
@@ -2293,13 +2383,19 @@ updateRegistrationTypeUI();
     if(!q) return false;
 
     const no=document.getElementById('questionNo');
+    const noText=document.getElementById('questionNoText');
+    const markBadge=document.getElementById('examMarkBadge');
+    const examTitle=document.getElementById('examTestTitle');
     const meta=document.getElementById('examMeta');
     const text=document.getElementById('questionText');
     const box=document.getElementById('options');
     const bar=document.getElementById('bar');
     const palette=document.getElementById('palette');
     const back=document.getElementById('adminPreviewExit');
-    if(no) no.textContent=`Question ${current+1} of ${questions.length}`;
+    if(noText) noText.textContent=`Question ${current+1} of ${questions.length}`;
+    else if(no) no.textContent=`Question ${current+1} of ${questions.length}`;
+    if(examTitle) examTitle.textContent=String(testTitle||'Mock Test');
+    if(markBadge){ const marks=Number.isFinite(Number(marksPerCorrect))?Number(marksPerCorrect):1; markBadge.textContent=`▣ ${marks} Mark${marks===1?'':'s'}`; }
     if(meta) meta.textContent=`Question ${current+1} / ${questions.length}`;
     if(text) text.textContent=String(q[0]??'');
     if(box){
@@ -3599,7 +3695,8 @@ document.addEventListener("keydown",function(e){
   'use strict';
   const wrap=document.getElementById('hoaV653ConnectWrap');
   const toggle=document.getElementById('hoaV653ConnectToggle');
-  if(!wrap||!toggle)return;
+  if(!wrap||!toggle||wrap.dataset.bound==='1')return;
+  wrap.dataset.bound='1';
   function setOpen(open){wrap.classList.toggle('is-open',open);toggle.setAttribute('aria-expanded',String(open));}
   toggle.addEventListener('click',function(e){e.stopPropagation();setOpen(!wrap.classList.contains('is-open'));});
   document.addEventListener('click',function(e){if(!wrap.contains(e.target))setOpen(false);});
@@ -3664,9 +3761,17 @@ document.addEventListener("keydown",function(e){
 
     if(!target) return;
 
-    target.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
+    /* Vertical-only navigation. scrollIntoView() can also adjust the horizontal
+       scroll position when a transformed/overflowing child is present; that is
+       exactly what causes the public Home canvas to appear shifted on phones. */
+    var nav = document.querySelector("#hoaFrontPage .hoa-front-nav");
+    var navHeight = nav ? Math.ceil(nav.getBoundingClientRect().height) : 0;
+    var top = Math.max(0, window.scrollY + target.getBoundingClientRect().top - navHeight - 10);
+
+    window.scrollTo({
+      top: top,
+      left: 0,
+      behavior: "smooth"
     });
 
     /* Give keyboard users a meaningful focus target without changing the UI. */
@@ -4243,7 +4348,7 @@ function setToken(t){localStorage.setItem('hoa_free_access_token',t)}
 let hoaV70EditId=null;
 function ensureAdminPanel(){
  const nav=document.querySelector('.adminSectionNav');const dash=document.getElementById('adminOnlyDashboard');if(!nav||!dash)return null;
- if(!document.getElementById('adminNavFreeContent')){const b=document.createElement('button');b.id='adminNavFreeContent';b.textContent='🎁 Free Content';b.onclick=()=>window.showAdminSection('freecontent');nav.appendChild(b)}
+ if(!document.getElementById('adminNavFreeContent')){const b=document.createElement('button');b.id='adminNavFreeContent';b.setAttribute('data-section','freecontent');b.innerHTML='<span class="adminRefIcon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M12 5v15M4 10h16M8 3.5h8M8 3.5c0 1.7 1.3 3 3 3M16 3.5c0 1.7-1.3 3-3 3"/></svg></span><span class="adminRefLabel">Free Content</span>';b.onclick=()=>window.showAdminSection('freecontent');nav.appendChild(b)}
  let p=document.getElementById('adminSectionFreeContentPanel');if(p)return p;
  p=document.createElement('div');p.id='adminSectionFreeContentPanel';p.className='adminSectionPanel';
  p.innerHTML=`<div class="dashPanel hoa-admin-content-panel hoa-v70-admin-panel">
@@ -4417,6 +4522,27 @@ function printWindow(title,body){const w=window.open('','_blank','width=1000,hei
 
 
 
+
+<script id="hoa-phone-nav-progress-v6">
+(function(){
+  function sync(){
+    var src=document.getElementById("questionNo");
+    var out=document.getElementById("hoaPhoneNavCount");
+    if(!src || !out) return;
+    var m=(src.textContent||"").match(/(?:Question\s*)?(\d+)\s*(?:of|\/)\s*(\d+)/i);
+    if(m) out.textContent=m[1]+" / "+m[2];
+  }
+  function boot(){
+    sync();
+    var src=document.getElementById("questionNo");
+    if(src){
+      new MutationObserver(sync).observe(src,{childList:true,subtree:true,characterData:true});
+    }
+  }
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true});
+  else boot();
+})();
+<\/script>
 </body></html>`);w.document.close();w.focus();setTimeout(()=>w.print(),300)}
 
 
@@ -4500,8 +4626,6 @@ function openGate616(){
           <div class="hoa-v616-field"><label for="hoaV616Name">Full Name <span>*</span></label><input id="hoaV616Name" maxlength="100" autocomplete="name"></div>
           <div class="hoa-v616-field"><label for="hoaV616Email">Email <span>*</span></label><input id="hoaV616Email" type="email" maxlength="254" autocomplete="email"></div>
           <div class="hoa-v616-field"><label for="hoaV616Preparing">Preparing For <span>*</span></label><input id="hoaV616Preparing" maxlength="150"></div>
-          <div class="hoa-v616-field"><label for="hoaV616College">College Name <span>*</span></label><input id="hoaV616College" maxlength="200"></div>
-          <div class="hoa-v616-field"><label for="hoaV616Year">Pass Out Year <span>*</span></label><input id="hoaV616Year" inputmode="numeric" maxlength="4"></div>
           <div class="hoa-v616-field hoa-v616-wide"><label for="hoaV616Address">Address <span>*</span></label><textarea id="hoaV616Address" rows="3" maxlength="500"></textarea></div>
         </div>
       </div>
@@ -4531,17 +4655,14 @@ function openGate616(){
         if(!openPortal616()){continueBtn.disabled=false;continueBtn.textContent='CONTINUE';return;}
         return;
       }
-      const year=Number(document.getElementById('hoaV616Year').value);
       const req={
         p_mobile:mob,
         p_full_name:document.getElementById('hoaV616Name').value.trim(),
         p_email:document.getElementById('hoaV616Email').value.trim(),
         p_preparing_for:document.getElementById('hoaV616Preparing').value.trim(),
-        p_college_name:document.getElementById('hoaV616College').value.trim(),
-        p_passout_year:year,
         p_address:document.getElementById('hoaV616Address').value.trim()
       };
-      if(!req.p_full_name||!/^\S+@\S+\.\S+$/.test(req.p_email)||!req.p_preparing_for||!req.p_college_name||!req.p_address||!Number.isInteger(year)||year<1950||year>new Date().getFullYear()){
+      if(!req.p_full_name||!/^\S+@\S+\.\S+$/.test(req.p_email)||!req.p_preparing_for||!req.p_address){
         throw new Error('Please enter valid information in every required field.');
       }
       const d=await rpc616('hoa_free_profile_enter',req);
@@ -4677,7 +4798,8 @@ window.addEventListener('load',bind);
   },true);
 })();
 </script>
-<script src="js/admin-course-student.js"></script>
+<script src="js/admin-course-student.js?v=20261003-free-content-registration-v2618-home-admin-fix"></script>
+<script src="js/admin-mock-tests-v4.1.js?v=20261003-mock-3section-v41"></script>
 <script src="js/exam-result-controller-v3.js"></script>
 <script src="js/exam-runtime-unified-v4.js"></script>
 <script id="hoa-v620-theme-system">
@@ -4750,6 +4872,18 @@ window.addEventListener('load',bind);
     if(e.target.closest('[data-hoa-mobile-sidebar]')) return;
     close();
   });
+})();
+</script>
+<script id="hoa-v29-mobile-nav-state">
+(function(){
+  'use strict';
+  function sync(){
+    var b=document.getElementById('hoaMobileAdminSectionsBtn');
+    if(b) b.setAttribute('aria-expanded',document.body.classList.contains('hoa-sidebar-open')?'true':'false');
+  }
+  document.addEventListener('click',function(e){ if(e.target.closest && e.target.closest('.adminReferenceSidebar')) setTimeout(sync,0); });
+  new MutationObserver(sync).observe(document.body,{attributes:true,attributeFilter:['class']});
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',sync,{once:true}); else sync();
 })();
 </script>
 <script id="hoa-v627-data-management-ui-script">
@@ -5011,8 +5145,35 @@ window.addEventListener('load',bind);
     if(!rows.length)return '<div class="hoa-master-empty">No records found.</div>';
     return `<div class="hoa-master-table-wrap"><table><thead><tr>${headers.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>`;
   }
-  function stat(icon,label,value,sub){return `<article class="hoa-master-stat-card"><div class="hoa-master-stat-icon">${icon}</div><div><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div></article>`;}
+  function masterStatSvg(label){
+    const m={
+      'Total Students':'<svg viewBox="0 0 24 24"><path d="M16 20c0-2.7-2-4.5-5-4.5S6 17.3 6 20"/><circle cx="11" cy="8" r="3.2"/><path d="M17 11.5c2.1.3 3.5 1.5 4 3.5M16.5 5.2a3 3 0 0 1 0 5.6"/></svg>',
+      'Teachers / Admins':'<svg viewBox="0 0 24 24"><path d="M5 19c0-2.6 2.1-4.4 5-4.4s5 1.8 5 4.4"/><circle cx="10" cy="8" r="3"/><path d="M15.5 8.5h4M17.5 6.5v4.1"/></svg>',
+      'Batches':'<svg viewBox="0 0 24 24"><path d="m4 7 8-3 8 3-8 3-8-3Z"/><path d="M6.5 9.5V16c1.7 1.4 3.5 2 5.5 2s3.8-.6 5.5-2V9.5M20 8.5V14"/></svg>',
+      'Mock Tests':'<svg viewBox="0 0 24 24"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>',
+      'Questions':'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.6 2.6 0 1 1 4.7 1.5c-.8 1-2.2 1.2-2.2 2.7M12 16.8h.01"/></svg>',
+      'Classes / Videos':'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m10 9 5 3-5 3V9Z"/></svg>',
+      'Notes':'<svg viewBox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3V4.5Z"/><path d="M10 8h6M10 11.5h6"/></svg>',
+      'Posters':'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="9" cy="9" r="1.7"/><path d="m6.5 17 4.5-4 3 2.5 2-2 2 3.5"/></svg>',
+      'Free Content':'<svg viewBox="0 0 24 24"><path d="M12 3.5 14 8l4.5.4-3.4 3 1 4.5-4.1-2.3L7.9 16l1-4.5-3.4-3L10 8l2-4.5Z"/></svg>'
+    };
+    return m[label] || '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>';
+  }
+  function stat(icon,label,value,sub){return `<article class="hoa-master-stat-card"><div class="hoa-master-stat-icon" aria-hidden="true">${masterStatSvg(label)}</div><div><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div></article>`;}
   function engagement(label,value,sub){return `<article class="hoa-master-eng-card"><span class="label">${esc(label)}</span><b>${esc(value)}</b><small>${esc(sub||'')}</small></article>`;}
+
+  function decorateMasterTables(){
+    const wrap=document.getElementById('hoaMasterSections');
+    if(!wrap) return;
+    wrap.querySelectorAll('.hoa-master-table-wrap table').forEach(table=>{
+      const headers=[...table.querySelectorAll('thead th')].map(th=>th.textContent.trim());
+      table.querySelectorAll('tbody tr').forEach(row=>{
+        [...row.children].forEach((cell,i)=>{
+          if(headers[i]) cell.setAttribute('data-label',headers[i]);
+        });
+      });
+    });
+  }
 
   function render(data){
     const counts=data.counts||{}, eng=data.engagement||{}, site=data.site||{}, free=data.free_content||{};
@@ -5055,6 +5216,7 @@ window.addEventListener('load',bind);
       section('Website Analytics','Visits collected from the website visitor tracker',siteHtml,true)+
       section('Free Content Analytics','Free-content participation and activity',freeHtml,false)+
       section('Suggestions / Feedback','Latest suggestions submitted by website visitors or students',feedback?`<div class="hoa-master-feedback-list">${feedback}</div>`:'<div class="hoa-master-empty">No suggestions received yet.</div>',true);
+    decorateMasterTables();
   }
 
   async function load(){
@@ -5098,5 +5260,6 @@ window.addEventListener('load',bind);
 })();
 </script>
 
+<script src="./js/exam-ui-responsive-v8.js?v=20261003-exam-ui-v8"></script>
 </body>
 </html>

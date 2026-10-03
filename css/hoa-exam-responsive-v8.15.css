@@ -1,0 +1,10 @@
+/*
+ * HOA Exam Responsive V8.15
+ * Palette gap only: 4px horizontal and vertical spacing.
+ * No other presentation or engine behavior is changed.
+ */
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  gap:4px !important;
+}
