@@ -933,6 +933,114 @@
     pickDestinationTest(qs);
   }
 
+  var liveRenderToken=0;
+
+  function enhanceLiveExamQuestion(){
+    var exam=$('exam');
+    if(!exam||exam.classList.contains('hidden'))return;
+    if(!Array.isArray(global.questions)||!global.questions.length)return;
+
+    var i=Math.max(0,Math.min(Number(global.current)||0,global.questions.length-1));
+    var q=global.questions[i]||{};
+    var meta=q.__hoaMeta||{};
+    var type=String(meta.question_type||q.__questionType||'mcq').toLowerCase();
+    var token=++liveRenderToken;
+
+    var oldNum=$('hoaV71NumericalAnswer');
+    if(oldNum)oldNum.closest('.hoaV71-live-number-wrap')?.remove();
+    exam.querySelectorAll('.hoaV71-live-question-image,.hoaV71-live-option-image').forEach(function(x){x.remove();});
+
+    var optionsBox=$('options');
+    if(!optionsBox)return;
+
+    if(type==='numerical'){
+      optionsBox.innerHTML='';
+      var wrap=document.createElement('div');
+      wrap.className='hoaV71-live-number-wrap';
+      wrap.style.cssText='display:flex;flex-direction:column;gap:7px;margin-top:10px;';
+      var label=document.createElement('label');
+      label.textContent='Enter your answer';
+      label.style.cssText='font-weight:800;font-size:13px;color:#35536c;';
+      var input=document.createElement('input');
+      input.id='hoaV71NumericalAnswer';
+      input.type='number';
+      input.inputMode='decimal';
+      input.step='any';
+      input.autocomplete='off';
+      input.placeholder='Enter numerical answer';
+      input.className='hoaV71-number-input';
+      input.style.cssText='width:min(360px,100%);box-sizing:border-box;padding:12px;border:1px solid #b8ccdc;border-radius:10px;font:700 16px system-ui;color:#153a5b;background:#fff;';
+      var existing=(Array.isArray(global.pendingAnswers)?global.pendingAnswers[i]:null);
+      if(existing===null||existing===undefined||existing===''){
+        existing=Array.isArray(global.answers)?global.answers[i]:null;
+      }
+      if(existing!==null&&existing!==undefined)input.value=String(existing);
+      input.oninput=function(){
+        var raw=input.value.trim();
+        var value=raw===''?null:Number(raw);
+        if(!Array.isArray(global.pendingAnswers))global.pendingAnswers=[];
+        if(!Array.isArray(global.answers))global.answers=[];
+        global.pendingAnswers[i]=value;
+        global.answers[i]=value;
+        if(Array.isArray(global.visited))global.visited[i]=true;
+      };
+      wrap.appendChild(label);
+      wrap.appendChild(input);
+      optionsBox.appendChild(wrap);
+      return;
+    }
+
+    var buttons=Array.from(optionsBox.querySelectorAll('button.option'));
+    var optionMeta=Array.isArray(meta.options)?meta.options:[];
+    if(optionMeta.length){
+      optionMeta.forEach(function(o,k){
+        var path=o&&o.image?String(o.image).trim():'';
+        if(!path||!buttons[k])return;
+        mediaURL(path).then(function(url){
+          if(!url||token!==liveRenderToken||!exam.isConnected)return;
+          var img=document.createElement('img');
+          img.className='hoaV71-live-option-image';
+          img.src=url;
+          img.alt='Option '+(k+1)+' image';
+          img.loading='lazy';
+          img.style.cssText='display:block;max-width:min(360px,100%);max-height:220px;object-fit:contain;margin:7px 0 1px;border:1px solid #d8e7f5;border-radius:8px;background:#fff;';
+          buttons[k].appendChild(img);
+        }).catch(function(){});
+      });
+    }
+
+    var qImgPath=meta.question_image_path?String(meta.question_image_path).trim():'';
+    if(qImgPath){
+      mediaURL(qImgPath).then(function(url){
+        if(!url||token!==liveRenderToken||!exam.isConnected)return;
+        var textEl=$('questionText');
+        if(!textEl)return;
+        var img=document.createElement('img');
+        img.className='hoaV71-live-question-image';
+        img.src=url;
+        img.alt='Question image';
+        img.loading='lazy';
+        img.style.cssText='display:block;max-width:100%;max-height:420px;object-fit:contain;margin:10px 0;border:1px solid #d8e7f5;border-radius:10px;background:#fff;';
+        textEl.parentNode?.insertBefore(img,textEl.nextSibling);
+      }).catch(function(){});
+    }
+  }
+
+  function hookExistingExamRender(){
+    if(typeof global.render!=='function'||global.render.__hoaV71Wrapped)return false;
+    var original=global.render;
+    var wrapped=function(){
+      var result=original.apply(this,arguments);
+      try{enhanceLiveExamQuestion();}catch(e){console.warn('HOA live question media adapter:',e);}
+      return result;
+    };
+    wrapped.__hoaV71Wrapped=true;
+    wrapped.__hoaV71Original=original;
+    global.render=wrapped;
+    try{enhanceLiveExamQuestion();}catch(_){}
+    return true;
+  }
+
   function hookNavigation(){
     var old=global.showAdminSection;
     if(typeof old==='function'&&!old.__hoaV71Wrapped){
@@ -948,6 +1056,11 @@
   }
 
   function boot(){
+    hookExistingExamRender();
+    setTimeout(hookExistingExamRender,0);
+    setTimeout(hookExistingExamRender,400);
+    setTimeout(hookExistingExamRender,1200);
+    setTimeout(hookExistingExamRender,2500);
     hookNavigation();
     if(adminOK()&&$('adminSectionTestPanel'))install();
   }
