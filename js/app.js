@@ -372,22 +372,44 @@ function initSupabase() {
       })
       .map(function (q) {
         var arr = [
-          q.question_text,
-          q.option_1,
-          q.option_2,
-          q.option_3,
-          q.option_4,
+          q.question_text || '',
+          q.option_1 || '',
+          q.option_2 || '',
+          q.option_3 || '',
+          q.option_4 || '',
           q.correct_option,
           q.explanation || ''
         ];
+        var meta = {
+          question_type: String(q.question_type || 'mcq').toLowerCase(),
+          options: Array.isArray(q.options_json) ? q.options_json : [],
+          question_image_path: q.question_image_path || null,
+          source: q.source || '',
+          explanation_text: q.explanation_text || q.explanation || '',
+          explanation_image_path: q.explanation_image_path || null,
+          correct_value: q.correct_value == null ? null : Number(q.correct_value),
+          tolerance: q.tolerance == null ? null : Number(q.tolerance)
+        };
         try {
           Object.defineProperty(arr, '__id', {
             value: q.id,
             enumerable: false,
             writable: true
           });
+          Object.defineProperty(arr, '__hoaMeta', {
+            value: meta,
+            enumerable: false,
+            writable: true,
+            configurable: true
+          });
+          Object.defineProperty(arr, '__questionType', {
+            value: meta.question_type,
+            enumerable: false,
+            writable: true,
+            configurable: true
+          });
         } catch (_) {
-          /* Non-critical compatibility property. */
+          /* Non-critical compatibility properties. */
         }
         return arr;
       });
@@ -468,8 +490,8 @@ function initSupabase() {
     var isAdmin = typeof adminLoggedIn !== 'undefined' ? Boolean(adminLoggedIn) : false;
     var questionSource = isAdmin ? 'questions' : 'student_questions';
     var questionSelect = isAdmin
-      ? 'id,test_id,question_text,option_1,option_2,option_3,option_4,correct_option,explanation,question_order'
-      : 'id,test_id,question_text,option_1,option_2,option_3,option_4,question_order';
+      ? 'id,test_id,question_text,option_1,option_2,option_3,option_4,correct_option,explanation,question_order,question_type,source,options_json,question_image_path,explanation_text,explanation_image_path,correct_value,tolerance'
+      : 'id,test_id,question_text,option_1,option_2,option_3,option_4,question_order,question_type,source,options_json,question_image_path';
 
     var questionResponse = await supabaseClient
       .from(questionSource)
@@ -491,13 +513,31 @@ function initSupabase() {
         return Object.assign({}, t, {
           questions: t.questions.map(function (q) {
             var clean = [q[0], q[1], q[2], q[3], q[4]];
+            var meta = q.__hoaMeta || {};
             try {
               Object.defineProperty(clean, '__id', {
                 value: q.__id,
                 enumerable: false
               });
+              Object.defineProperty(clean, '__hoaMeta', {
+                value: {
+                  question_type: meta.question_type || q.__questionType || 'mcq',
+                  options: Array.isArray(meta.options) ? meta.options : [],
+                  question_image_path: meta.question_image_path || null,
+                  source: meta.source || ''
+                },
+                enumerable: false,
+                writable: true,
+                configurable: true
+              });
+              Object.defineProperty(clean, '__questionType', {
+                value: meta.question_type || q.__questionType || 'mcq',
+                enumerable: false,
+                writable: true,
+                configurable: true
+              });
             } catch (_) {
-              /* Non-critical compatibility property. */
+              /* Non-critical compatibility properties. */
             }
             return clean;
           })
