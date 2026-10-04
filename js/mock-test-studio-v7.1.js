@@ -505,9 +505,10 @@
       +'<div class="hoaV71-card"><div class="hoaV71-section-title">Paste / Upload Questions</div><div class="hoaV71-help" style="margin-top:5px">The parser accepts Q:/Question:, I:/Information:, 1–10 or A–J options, An:/Answer:, Ex:/Explanation:, Question Type, Correct Answer, Tolerance and [[IMG:...]].</div>'
       +'<textarea id="hoaV71FeedText" style="width:100%;box-sizing:border-box;margin-top:10px;min-height:390px;padding:11px;border:1px solid #c8d8e8;border-radius:10px;font:13px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace" placeholder="Paste your Telegram-style questions here..."></textarea>'
       +'<div class="hoaV71-actions" style="margin-top:8px"><button type="button" class="hoaV71-btn primary" id="hoaV71Parse">PARSE QUESTIONS</button><button type="button" class="hoaV71-btn" id="hoaV71FeedUpload">UPLOAD TXT / CSV</button><button type="button" class="hoaV71-btn" id="hoaV71ClearFeed">CLEAR</button></div><input id="hoaV71FeedFile" type="file" accept=".txt,.csv,text/plain,text/csv" hidden></div>'
-      +'<div class="hoaV71-card"><div class="hoaV71-head"><div><div class="hoaV71-section-title">Parsed Preview</div><div class="hoaV71-help">Edit, attach media or delete individual questions before saving.</div></div><span class="hoaV71-badge" id="hoaV71FeedStat">0 items</span></div><div id="hoaV71FeedPreview"></div><div class="hoaV71-actions" style="margin-top:9px"><button type="button" class="hoaV71-btn primary" id="hoaV71SaveFeed">SAVE VALID QUESTIONS</button></div></div>'
+      +'<div class="hoaV71-card"><div class="hoaV71-head"><div><div class="hoaV71-section-title">Parsed Preview</div><div class="hoaV71-help">Edit, attach media or delete individual questions before saving.</div></div><div class="hoaV71-actions"><span class="hoaV71-badge" id="hoaV71FeedStat">0 items</span><button type="button" class="hoaV71-btn small" id="hoaV71Reparse">RE-PARSE</button></div></div><div id="hoaV71FeedPreview"></div><div class="hoaV71-actions" style="margin-top:9px"><button type="button" class="hoaV71-btn primary" id="hoaV71SaveFeed">SAVE VALID QUESTIONS</button></div></div>'
       +'</div>';
     $('hoaV71Parse').onclick=function(){try{state._feed=parseText($('hoaV71FeedText').value);renderFeedPreview();}catch(e){fail(e);}};
+    $('hoaV71Reparse').onclick=function(){try{state._feed=parseText($('hoaV71FeedText').value);renderFeedPreview();toast('Question feed re-parsed.');}catch(e){fail(e);}};
     $('hoaV71FeedUpload').onclick=function(){$('hoaV71FeedFile').click();};
     $('hoaV71FeedFile').onchange=async function(){var f=this.files&&this.files[0];if(!f)return;try{var txt=await f.text();$('hoaV71FeedText').value=txt;state._feed=/\.csv$/i.test(f.name)?parseCSV(txt):parseText(txt);renderFeedPreview();}catch(e){fail(e);}this.value='';};
     $('hoaV71ClearFeed').onclick=function(){$('hoaV71FeedText').value='';state._feed=[];renderFeedPreview();};
@@ -590,6 +591,7 @@
     var delim=',',first=(src.split(/\r?\n/)[0]||'');
     if(first.indexOf('\t')>=0&&first.indexOf(',')<0)delim='\t';
     else if(first.indexOf(';')>=0&&first.split(';').length>=5&&first.split(',').length<5)delim=';';
+    else if(first.indexOf('|')>=0&&first.split('|').length>=5&&first.split(',').length<5)delim='|';
     var rows=[],row=[],cell='',quoted=false;
     for(var i=0;i<src.length;i++){
       var c=src[i],n=src[i+1];
@@ -670,14 +672,45 @@
     var src='<option value="">All source tests</option>'+state.tests.map(function(t){return '<option value="'+esc(t.id)+'">'+esc(t.title)+'</option>';}).join('');
     return '<div class="hoaV71-bar"><input id="hoaV71BankSearch" placeholder="Search question / option / source / explanation"><select id="hoaV71BankTest">'+src+'</select><select id="hoaV71BankType"><option value="">All types</option><option value="mcq">MCQ</option><option value="numerical">Numerical</option></select><select id="hoaV71BankSort"><option value="new">Newest</option><option value="old">Oldest</option><option value="source">Source A–Z</option><option value="title">Question A–Z</option><option value="order">Question order</option></select></div>';
   }
+  function serializeQuestions(rows){
+    var out=[];
+    (rows||[]).forEach(function(q,idx){
+      if(idx)out.push('');
+      out.push('Q: '+String(q.question_text||''));
+      if(q.question_image_path)out.push('', '[[IMG:'+String(q.question_image_path)+']]');
+      out.push('', 'I: '+String(q.source||''));
+      if(qtype(q)==='numerical'){
+        out.push('', 'Question Type: Numerical');
+        out.push('Correct Answer: '+String(q.correct_value==null?'':q.correct_value));
+        if(q.tolerance!=null)out.push('Tolerance: '+String(q.tolerance));
+      }else{
+        (q.options||[]).forEach(function(o,i){
+          out.push((i+1)+'. '+String(o&&o.text||''));
+          if(o&&o.image)out.push('[[IMG:'+String(o.image)+']]');
+        });
+        out.push('', 'An: '+String(q.correct_answer==null?'':q.correct_answer));
+      }
+      if(q.explanation_text)out.push('', 'Ex: '+String(q.explanation_text));
+      if(q.explanation_image_path)out.push('[[IMG:'+String(q.explanation_image_path)+']]');
+    });
+    return out.join('\n').trim()+'\n';
+  }
+  function downloadTextFile(filename,content){
+    var blob=new Blob([content],{type:'text/plain;charset=utf-8'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');a.href=url;a.download=filename;document.body.appendChild(a);a.click();
+    setTimeout(function(){URL.revokeObjectURL(url);a.remove();},500);
+  }
+
   function renderBankPane(){
     var p=$('hoaV71BankPane');if(!p)return;
-    p.innerHTML='<div class="hoaV71-card"><div class="hoaV71-head"><div><div class="hoaV71-section-title">Reusable Question Bank</div><div class="hoaV71-sub">Search, sort, edit, delete and reuse questions already stored in Supabase.</div></div><div class="hoaV71-actions"><button type="button" class="hoaV71-btn primary" id="hoaV71CreateSelected">＋ CREATE NEW MOCK TEST</button><button type="button" class="hoaV71-btn" id="hoaV71AddSelected">＋ ADD TO EXISTING TEST</button></div></div>'
+    p.innerHTML='<div class="hoaV71-card"><div class="hoaV71-head"><div><div class="hoaV71-section-title">Reusable Question Bank</div><div class="hoaV71-sub">Search, sort, edit, delete and reuse questions already stored in Supabase.</div></div><div class="hoaV71-actions"><button type="button" class="hoaV71-btn primary" id="hoaV71CreateSelected">＋ CREATE NEW MOCK TEST</button><button type="button" class="hoaV71-btn" id="hoaV71AddSelected">＋ ADD TO EXISTING TEST</button><button type="button" class="hoaV71-btn" id="hoaV71ExportVisible">EXPORT VISIBLE</button></div></div>'
       +bankFilters()+'<label class="hoaV71-check"><input type="checkbox" id="hoaV71BankAll"> Select all visible</label><span class="hoaV71-badge" id="hoaV71BankStat">0</span><div id="hoaV71BankList" class="hoaV71-scroll" style="margin-top:8px"></div></div>';
     $('hoaV71BankSearch').oninput=renderBankList;$('hoaV71BankTest').onchange=renderBankList;$('hoaV71BankType').onchange=renderBankList;$('hoaV71BankSort').onchange=renderBankList;
     $('hoaV71BankAll').onchange=function(){document.querySelectorAll('[data-v71-bank]').forEach(function(x){x.checked=$('hoaV71BankAll').checked;});};
     $('hoaV71CreateSelected').onclick=function(){var qs=selectedBankQuestions();if(!qs.length){toast('Select at least one question.',true);return;}openTestEditor(null,qs);};
     $('hoaV71AddSelected').onclick=function(){var qs=selectedBankQuestions();if(!qs.length){toast('Select at least one question.',true);return;}pickDestinationTest(qs);};
+    $('hoaV71ExportVisible').onclick=function(){var rows=filteredBank();if(!rows.length){toast('No questions are visible to export.',true);return;}downloadTextFile('HOA-question-bank-export.txt',serializeQuestions(rows));toast(rows.length+' question(s) exported.');};
     populateBankTestFilter();renderBankList();
   }
   function populateBankTestFilter(){
