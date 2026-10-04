@@ -785,7 +785,7 @@
 
   async function uploadImage(file){
     if(!file||!/^image\//i.test(file.type))throw new Error('Only image files are supported.');
-    if(file.size>15*1024*1024)throw new Error('Image exceeds 15 MB.');
+    if(file.size>10*1024*1024)throw new Error('Image exceeds 10 MB (Supabase question-media bucket limit).');
     var ext=(String(file.name||'png').split('.').pop()||'png').toLowerCase().replace(/[^a-z0-9]/g,'')||'png';
     var path='admin/'+await uid()+'/'+crypto.randomUUID()+'.'+ext;
     var r=await db().storage.from('question-media').upload(path,file,{contentType:file.type,upsert:false});
