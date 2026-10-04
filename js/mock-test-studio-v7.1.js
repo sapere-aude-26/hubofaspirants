@@ -488,26 +488,9 @@
       +'<div class="hoaV71-help" style="margin-top:6px">Use one <b>Q:</b> block per question. <b>I:</b> stores the source/information label. MCQ supports 2–10 options. Numerical questions use a numeric correct value and optional tolerance. A question may be text-only, image-only, or text + image. Options and explanations may also contain images.</div>'
       +'<div class="hoaV71-grid" style="margin-top:10px">'
       +'<div><div class="hoaV71-help"><b>1. Text MCQ</b></div><pre class="hoaV71-code">Q: Select the correct statement.\n\nI: JE PYQ\n1. Option A\n2. Option B\n3. Option C\n4. Option D\n\nAn: 3\n\nEx: Explanation text.</pre></div>'
-      +'<div><div class="hoaV71-help"><b>2. Picture MCQ</b></div><pre class="hoaV71-code">Q: Identify the correct figure.
-
-[[IMG:question/figure.png]]
-
-I: JE PYQ
-1. Figure A
-2. Figure B
-3. Figure C
-4. Figure D
-
-An: 3</pre></div>'
+      +'<div><div class="hoaV71-help"><b>2. Picture MCQ</b></div><pre class="hoaV71-code">Q: Identify the correct figure.\n\n[[IMG:question/figure.png]]\n\nI: JE PYQ\n1. Figure A\n2. Figure B\n3. Figure C\n4. Figure D\n\nAn: 3</pre></div>'
       +'<div><div class="hoaV71-help"><b>3. Numerical</b></div><pre class="hoaV71-code">Q: Calculate the discharge.\n\nI: JE PYQ\n\nQuestion Type: Numerical\nCorrect Answer: 42.5\nTolerance: 0.1\n\nEx: Substitution gives 42.5.</pre></div>'
-      +'<div><div class="hoaV71-help"><b>4. Picture + Numerical</b></div><pre class="hoaV71-code">Q: Calculate the value shown in the figure.
-
-I: JE PYQ
-[[IMG:question/diagram.png]]
-
-Question Type: Numerical
-Correct Answer: 18.75
-Tolerance: 0.01</pre></div>'
+      +'<div><div class="hoaV71-help"><b>4. Picture + Numerical</b></div><pre class="hoaV71-code">Q: Calculate the value shown in the figure.\n\nI: JE PYQ\n[[IMG:question/diagram.png]]\n\nQuestion Type: Numerical\nCorrect Answer: 18.75\nTolerance: 0.01</pre></div>'
       +'<div><div class="hoaV71-help"><b>5. Option image</b></div><pre class="hoaV71-code">Q: Choose the correct figure.\n\nI: JE PYQ\n1. [[IMG:options/a.png]]\n2. [[IMG:options/b.png]]\n3. Figure C\n4. Figure D\n\nAn: 2</pre></div>'
       +'<div><div class="hoaV71-help"><b>6. CSV header</b></div><pre class="hoaV71-code">Question,Source,Question Type,Option 1,Option 2,Option 3,Option 4,Correct Answer,Correct Value,Tolerance,Explanation,Question Image,Explanation Image</pre></div>'
       +'</div>'
