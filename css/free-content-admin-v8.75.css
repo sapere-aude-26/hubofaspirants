@@ -1,0 +1,21 @@
+.hoa-v72-inline-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.hoa-v72-inline-tools input{flex:1 1 250px;min-width:0}.hoa-v72-inline-tools input,.hoa-v72-inline-tools select{min-height:38px;padding:8px 10px;border:1px solid #C7D5E6;border-radius:8px}.hoa-v611-free-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0}.hoa-v611-free-tabs{display:flex;gap:8px;flex-wrap:wrap}.hoa-v611-free-tab{min-height:42px;padding:9px 13px;border:1px solid #C7D5E6;background:#fff;border-radius:9px;font-weight:800;color:#123B65}.hoa-v611-free-tab.active{background:#0B3B73;color:#fff;border-color:#0B3B73}.hoa-v611-free-toolbar-note{font-size:12px;color:#64748B}.hoa-v611-free-area{display:none}.hoa-v611-free-area.active{display:block}.hoa-v72-inline-tools+ .hoa-v70-table{margin-top:4px}@media(max-width:700px){.hoa-v611-free-tab{flex:1 1 100%}.hoa-v611-free-toolbar-note{width:100%}.hoa-v72-inline-tools{align-items:stretch}.hoa-v72-inline-tools input,.hoa-v72-inline-tools select{width:100%}}
+/* Free Content intentionally has no active/gold sidebar marker. */
+#adminNavFreeContent,#adminNavFreeContent.active,#adminNavFreeContent.v13-active{border-left:0!important;border-left-color:transparent!important;box-shadow:none!important;background:transparent!important;color:#EAF3FF!important}
+#adminNavFreeContent.active::before,#adminNavFreeContent.active::after,#adminNavFreeContent.v13-active::before,#adminNavFreeContent.v13-active::after{content:none!important;display:none!important}
+
+/* V8.74 consolidation: no observer-driven sorting; per-tab workspace stability. */
+.adminSectionPanel[data-hoa-admin-workspace="free-content"]{min-width:0;min-height:0;overflow:auto;}
+.hoa-v74-free-workspace{min-width:0;}
+.hoa-v74-free-area{display:none;min-width:0;}
+.hoa-v74-free-area.active{display:block;}
+.hoa-v74-free-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0;}
+.hoa-v74-free-tools input,.hoa-v74-free-tools select{min-width:0;flex:1 1 220px;}
+.hoa-v74-free-note{font-size:12px;color:#64748b;}
+@media (max-width:720px){.hoa-v74-free-tools{align-items:stretch}.hoa-v74-free-tools input,.hoa-v74-free-tools select,.hoa-v74-free-tools button{width:100%;flex:1 1 100%;}.hoa-v74-free-tabs{overflow-x:auto;flex-wrap:nowrap!important}.hoa-v74-free-tabs button{white-space:nowrap;flex:0 0 auto;}}
+
+/* V8.81 — Free Content to shared Mock Test builder bridge */
+.hoa-v881-free-mock-bridge{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:12px 14px;border:1px solid #d8e4ef;border-radius:12px;background:#f8fbff}
+.hoa-v881-free-mock-bridge>span{font-size:13px;color:#5e7188}
+.hoa-v881-free-mock-btn{border:1px solid #0b5fa5;border-radius:9px;background:#0b5fa5;color:#fff;padding:9px 13px;font-weight:800;cursor:pointer}
+.hoa-v881-free-mock-btn:hover{filter:brightness(.96)}
+@media (max-width:700px){.hoa-v881-free-mock-bridge{align-items:stretch}.hoa-v881-free-mock-btn{width:100%}}
