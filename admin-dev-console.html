@@ -1,0 +1,1369 @@
+\
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HUB OF ASPIRANTS — Developer Console V2.1</title>
+<link rel="icon" href="assets/hoa-logo.png">
+<style>
+:root{
+  --bg:#07101d;--panel:#0c1726;--panel2:#101d30;--panel3:#0a1320;
+  --line:#223754;--line2:#2b4364;--text:#edf4ff;--muted:#8ea1bd;
+  --blue:#2d74e6;--blue2:#4a8df5;--green:#20d9a0;--red:#ff6075;--yellow:#f1c75b;
+  --shadow:0 18px 60px rgba(0,0,0,.35)
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:#06101c;color:var(--text);font:14px Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+body{overflow:hidden}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+.login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 0,#173459 0,#06101c 46%)}
+.login-card{width:min(450px,100%);background:rgba(12,23,38,.98);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}
+.logo{width:88px;height:88px;border-radius:50%;object-fit:contain;border:1px solid #35557f;background:#fff}
+h1{font-size:24px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5;margin:0 0 24px}
+.field{margin:13px 0}.field label{display:block;color:#b6c5da;font-size:11px;letter-spacing:.05em;margin-bottom:7px}
+.field input{width:100%;padding:12px 13px;background:#08111f;color:var(--text);border:1px solid #2b3e5e;border-radius:10px;outline:0}
+.field input:focus{border-color:#4b88ed;box-shadow:0 0 0 3px rgba(50,117,237,.15)}
+.signin{width:100%;border:0;border-radius:10px;padding:13px;background:linear-gradient(135deg,#2563eb,#4f46e5);color:#fff;font-weight:800;margin-top:7px}
+.signin:disabled{opacity:.55;cursor:not-allowed}
+.login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
+
+.appbar{height:58px;background:#091220f5;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:10px;padding:0 14px;position:sticky;top:0;z-index:60}
+.brand{font-weight:850;white-space:nowrap}.pill{font-size:10px;border:1px solid #31527c;color:#aac0df;padding:5px 8px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
+.branch-pill{font-size:10px;border:1px solid #2e725f;color:#83e5c5;background:#0b211b;padding:5px 8px;border-radius:999px;white-space:nowrap}
+.user{margin-left:auto;color:var(--muted);font-size:12px;white-space:nowrap}.logout{background:#101b2d;border:1px solid var(--line);color:#dce8fa;border-radius:8px;padding:7px 10px}
+.icon-btn{background:#0e1c30;border:1px solid var(--line2);color:#dce8fa;border-radius:8px;padding:7px 9px}
+.icon-btn:hover,.btn:hover,.nav button:hover{border-color:#3a5b84;background:#132640}
+.icon-btn.active{background:#18365e;border-color:#4a7ec0}
+
+.shell{height:calc(100vh - 58px);display:grid;grid-template-columns:238px minmax(0,1fr);min-width:0}
+aside{background:#07111e;border-right:1px solid var(--line);padding:11px;overflow:auto}
+.section{color:#6f829f;font-size:10px;letter-spacing:.14em;margin:14px 5px 7px}
+.nav{display:grid;gap:5px}.nav button{width:100%;text-align:left;background:#0c192a;border:1px solid transparent;color:#d0dced;padding:9px;border-radius:8px}
+.nav button.active{background:#18365e;border-color:#315f9c;color:#fff}
+.kbd{display:inline-flex;min-width:20px;justify-content:center;border:1px solid #314966;background:#0b1524;border-radius:5px;padding:1px 5px;font:10px Consolas,monospace;color:#9bb2cf}
+.hotkeys{display:grid;gap:6px;margin-top:10px;color:#8397b2;font-size:11px}.hotkeys span{display:flex;justify-content:space-between;gap:8px}
+
+main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) 150px}
+.topbar{padding:10px 12px 8px;border-bottom:1px solid var(--line);background:#091522}
+.dashboard-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.dashboard-title{font-size:15px;font-weight:850;margin:0}.dashboard-subtitle{color:var(--muted);font-size:11px;margin:2px 0 0;line-height:1.4}
+.dashboard-actions{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.btn{border:1px solid #304562;background:#101d31;color:#dce8fa;border-radius:8px;padding:8px 10px}
+.btn.primary{background:#245eb4;border-color:#3a79d5;color:#fff;font-weight:800}.btn.danger{border-color:#8a3044;color:#ffb8c3}
+.searchbar{display:grid;grid-template-columns:minmax(180px,1fr) auto minmax(170px,1fr) auto auto;gap:6px}
+.searchbar input{min-width:0;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px}
+.statusline{display:flex;align-items:center;gap:9px;color:#8da2bd;font-size:11px;margin-top:7px}.statusline .grow{margin-left:auto}
+.metric{font-weight:750}.metric.ok{color:var(--green)}.metric.warn{color:var(--yellow)}.metric.err{color:var(--red)}
+
+.workbench{min-width:0;min-height:0;display:grid;grid-template-columns:255px minmax(0,1fr) 225px;background:#060d18}
+.files-panel{border-right:1px solid var(--line);min-width:0;display:flex;flex-direction:column}
+.panel-head{height:39px;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:780;font-size:11px;display:flex;align-items:center;gap:7px}
+.panel-head .spacer{margin-left:auto}
+.file-filter{padding:8px;border-bottom:1px solid var(--line)}.file-filter input{width:100%;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:8px}
+.files{min-height:0;overflow:auto}.file{padding:7px 9px;border-bottom:1px solid #15243a;color:#cbd7ea;cursor:pointer;font:12px/1.4 Consolas,monospace;display:flex;align-items:center;gap:7px}
+.file:hover{background:#11243e}.file.selected{background:#17345b;color:#fff}.file .path{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.file .size{margin-left:auto;color:#6f84a1;font-size:9px;white-space:nowrap}
+.empty{padding:16px;color:#71849f;font-size:11px}
+
+.editor-panel{min-width:0;min-height:0;display:flex;flex-direction:column}
+.tabs{display:flex;gap:2px;overflow:auto;border-bottom:1px solid var(--line);background:#091321;min-height:39px}
+.tab{display:flex;align-items:center;gap:7px;min-width:130px;max-width:240px;padding:8px 10px;background:#0d1829;border-right:1px solid var(--line);color:#9fb1c9;font:11px Consolas,monospace;cursor:pointer}
+.tab.active{background:#152b48;color:#fff}.tab .dirty{color:#ffd27a}.tab .close{margin-left:auto;color:#758ba6;border:0;background:transparent;padding:0 2px}
+.editor-toolbar{display:flex;align-items:center;gap:5px;padding:6px 8px;background:#0b1725;border-bottom:1px solid var(--line)}
+.editor-toolbar .spacer{margin-left:auto}.editor-info{color:#7489a6;font-size:10px;white-space:nowrap}
+#editorHost{flex:1;min-height:0}
+#fallbackEditor{display:none;width:100%;height:100%;resize:none;background:#060d18;color:#dce8fa;border:0;outline:0;padding:14px;font:13px/1.55 Consolas,"Cascadia Code",monospace}
+
+.outline-panel{min-width:0;border-left:1px solid var(--line);display:flex;flex-direction:column;background:#09131f}
+.outline-toolbar{padding:7px;border-bottom:1px solid var(--line)}.outline-toolbar input{width:100%;background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:7px;padding:7px}
+.outline{min-height:0;overflow:auto}.symbol{padding:6px 9px;color:#c6d3e6;font-size:11px;border-bottom:1px solid #142238;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.symbol:hover{background:#11243e}.symbol .type{color:#6e8caf;margin-right:5px}
+
+.bottom{border-top:1px solid var(--line);background:#08111b;display:grid;grid-template-rows:39px minmax(0,1fr);min-height:0}
+.bottom-tabs{display:flex;border-bottom:1px solid var(--line)}.bottom-tabs button{border:0;border-right:1px solid var(--line);background:#0b1725;color:#90a3be;padding:8px 11px;font-size:11px}.bottom-tabs button.active{background:#143155;color:#fff}
+.output{overflow:auto;margin:0;padding:10px;color:#b5c5da;font:11px/1.5 Consolas,monospace;white-space:pre-wrap;word-break:break-word}
+
+.search-drawer{position:fixed;inset:0;display:none;z-index:200;background:rgba(2,7,14,.66);backdrop-filter:blur(5px)}
+.search-drawer.open{display:grid;place-items:center;padding:18px}
+.search-card{width:min(1100px,96vw);height:min(760px,92vh);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 100px #000b;display:grid;grid-template-rows:auto auto minmax(0,1fr)}
+.search-head{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--line)}.search-head h2{margin:0;font-size:14px}.search-head .spacer{margin-left:auto}
+.search-controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:6px;padding:10px;border-bottom:1px solid var(--line)}
+.search-controls input{background:#08111f;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:9px}
+.search-results{min-height:0;overflow:auto}.result-row{padding:8px 11px;border-bottom:1px solid #17263c;cursor:pointer}.result-row:hover{background:#11243e}
+.result-meta{color:#7b90ac;font:10px Consolas,monospace;margin-bottom:3px}.result-snippet{color:#d7e2f1;font:12px/1.45 Consolas,monospace;white-space:pre-wrap}.result-snippet mark{background:#6a5513;color:#fff0a8;padding:0 2px;border-radius:2px}
+.count-pill{font-size:10px;border:1px solid #31527c;color:#9fb6d6;border-radius:999px;padding:4px 7px}
+
+.diff-drawer{position:fixed;inset:0;display:none;z-index:210;background:rgba(2,7,14,.66);backdrop-filter:blur(5px)}
+.diff-drawer.open{display:grid;place-items:center;padding:18px}
+.diff-card{width:min(1280px,98vw);height:min(820px,94vh);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 100px #000b;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.diff-head{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid var(--line)}.diff-head h2{margin:0;font-size:14px}.diff-head .spacer{margin-left:auto}
+#diffHost{min-height:0}
+
+.toast{position:fixed;right:18px;bottom:18px;background:#111d30;border:1px solid var(--line);padding:10px 13px;border-radius:10px;box-shadow:0 15px 40px #0008;z-index:500;max-width:480px}
+.toast.ok{border-color:#1f8f73}.toast.err{border-color:#a33b50}.toast.warn{border-color:#8f742d}
+
+.confirm-backdrop{position:fixed;inset:0;display:none;z-index:400;background:rgba(2,7,14,.72);place-items:center;padding:18px}
+.confirm-backdrop.open{display:grid}.confirm-card{width:min(520px,100%);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 90px #000b;padding:18px}
+.confirm-card h3{margin:0 0 8px;font-size:15px}.confirm-card p{margin:0;color:#9db0c9;line-height:1.55;font-size:12px}.confirm-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:16px}
+
+
+.owner-pill{font-size:10px;border:1px solid #6f5a23;color:#f4d77a;background:#201b0b;padding:5px 8px;border-radius:999px;letter-spacing:.05em;white-space:nowrap}
+.mobile-menu-btn{display:none;position:fixed;left:10px;bottom:10px;z-index:300;width:44px;height:44px;border-radius:12px;border:1px solid #355276;background:#0f2138;color:#fff;box-shadow:0 12px 35px #0009}
+.mobile-menu-backdrop{display:none}
+
+@media(max-width:1180px){.workbench{grid-template-columns:220px minmax(0,1fr) 190px}}
+@media(max-width:980px){
+  body{overflow:auto}.shell{height:auto;min-height:calc(100vh - 58px)}main{min-height:calc(100vh - 58px);grid-template-rows:auto minmax(600px,1fr) 150px}
+  .workbench{grid-template-columns:210px minmax(0,1fr)}.outline-panel{display:none}
+}
+@media(max-width:720px){
+  .shell{display:block}.appbar{padding-left:56px}.appbar .brand{font-size:12px}.pill,.branch-pill,.owner-pill{display:none}.user{display:none}
+  .mobile-menu-btn{display:block}
+  #consoleSidebar{display:block;position:fixed;left:0;top:58px;bottom:0;width:min(290px,82vw);z-index:280;transform:translateX(-105%);transition:transform .2s ease;box-shadow:18px 0 60px #0009}
+  body.mobile-nav-open #consoleSidebar{transform:translateX(0)}
+  body.mobile-nav-open .mobile-menu-backdrop{display:block;position:fixed;inset:58px 0 0;z-index:270;background:rgba(2,7,14,.62);backdrop-filter:blur(3px)}
+  main{grid-template-rows:auto minmax(600px,1fr) 140px}.searchbar{grid-template-columns:1fr 1fr}.searchbar #path{grid-column:1/-1}
+  .workbench{grid-template-columns:1fr}.files-panel{display:none}.editor-panel{min-height:600px}
+}
+
+
+/* V8.57 Project Control Center */
+.pc-drawer{position:fixed;inset:0;display:none;z-index:350;background:rgba(1,6,12,.78);backdrop-filter:blur(7px)}
+.pc-drawer.open{display:flex}
+.pc-shell{width:min(1500px,98vw);height:min(900px,96vh);margin:auto;background:#08111d;border:1px solid #2d4668;border-radius:18px;box-shadow:0 30px 120px #000c;display:grid;grid-template-rows:64px minmax(0,1fr)}
+.pc-head{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid #20334e;background:#0b1625}
+.pc-head-title{font-size:15px;font-weight:850}.pc-head-sub{color:#8094af;font-size:11px}.pc-head .spacer{margin-left:auto}
+.pc-refresh{border:1px solid #35577f;background:#10223a;color:#e6effd;border-radius:9px;padding:8px 10px}.pc-close{border:1px solid #573549;background:#1c1520;color:#f1dce4;border-radius:9px;padding:8px 10px}
+.pc-body{min-height:0;display:grid;grid-template-columns:205px minmax(0,1fr)}
+.pc-nav{background:#07101b;border-right:1px solid #20334e;padding:12px;overflow:auto}.pc-nav-label{font-size:10px;letter-spacing:.14em;color:#6d829f;margin:12px 6px 7px}.pc-nav button{width:100%;text-align:left;background:#0b192a;color:#cddbee;border:1px solid transparent;border-radius:9px;padding:9px 10px;margin-bottom:5px}.pc-nav button:hover{background:#122946;border-color:#2f527a}.pc-nav button.active{background:#17345a;border-color:#3d6fae;color:#fff;font-weight:800}
+.pc-main{min-width:0;min-height:0;overflow:auto;padding:14px}.pc-statusbar{display:flex;align-items:center;gap:8px;color:#8297b0;font-size:11px;margin-bottom:12px}.pc-dot{width:8px;height:8px;border-radius:50%;background:#20d9a0;box-shadow:0 0 12px #20d9a0}.pc-dot.bad{background:#ff6075;box-shadow:0 0 12px #ff6075}.pc-dot.warn{background:#f1c75b;box-shadow:0 0 12px #f1c75b}
+.pc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.pc-card{background:#0b1727;border:1px solid #223a58;border-radius:12px;padding:12px;min-width:0}.pc-card.clickable{cursor:pointer;transition:transform .15s,border-color .15s,background .15s}.pc-card.clickable:hover{transform:translateY(-1px);border-color:#4778b4;background:#0f2036}.pc-kicker{display:block;color:#7890ae;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.pc-value{display:block;margin-top:6px;font-size:22px;font-weight:850;line-height:1.05;word-break:break-word}.pc-meta{display:block;margin-top:5px;color:#8398b2;font-size:10px;line-height:1.4;word-break:break-word}.pc-green{color:#20d9a0}.pc-yellow{color:#f1c75b}.pc-red{color:#ff7180}.pc-blue{color:#86b5ff}
+.pc-section{margin-top:14px;background:#0b1727;border:1px solid #223a58;border-radius:12px;overflow:hidden}.pc-section-head{padding:11px 12px;border-bottom:1px solid #20344f;display:flex;align-items:center;gap:8px}.pc-section-head h3{margin:0;font-size:12px}.pc-section-head .spacer{margin-left:auto}.pc-section-body{padding:11px}
+.pc-two{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:12px}.pc-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.pc-table{width:100%;border-collapse:collapse;font-size:11px}.pc-table th{color:#7f93af;text-align:left;font-size:9px;letter-spacing:.08em;text-transform:uppercase;background:#091422}.pc-table th,.pc-table td{padding:8px 9px;border-bottom:1px solid #172a43}.pc-table td{color:#cbd7e9}.pc-table tr:last-child td{border-bottom:0}.pc-table .num{text-align:right;font-variant-numeric:tabular-nums}.pc-table .pill{display:inline-block;padding:3px 7px;border-radius:999px;border:1px solid #2c496d;background:#0c1d32;color:#a9c0df;font-size:9px}.pc-table .pill.ok{border-color:#246c5b;background:#0a251e;color:#72e4bf}.pc-table .pill.no{border-color:#6d3341;background:#2a1018;color:#ff9aab}
+.pc-code-card{display:flex;align-items:center;gap:10px}.pc-code-ext{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:#12243c;border:1px solid #2c4c70;font-weight:900;font-size:13px}.pc-code-copy{min-width:0}.pc-code-copy b{display:block;font-size:12px}.pc-code-copy span{display:block;color:#7f94b0;font-size:10px;margin-top:2px}.pc-actions{display:flex;gap:7px;flex-wrap:wrap}.pc-actions .btn{width:auto}.pc-muted{color:#758aa5;font-size:11px}.pc-error{color:#ff9aaa;padding:10px;border:1px solid #6d3341;background:#2a1018;border-radius:9px}.pc-note{color:#8ba0b8;font-size:10px;line-height:1.5}
+@media(max-width:1100px){.pc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pc-two,.pc-three{grid-template-columns:1fr 1fr}.pc-body{grid-template-columns:175px minmax(0,1fr)}}
+@media(max-width:700px){.pc-shell{width:100vw;height:100vh;border-radius:0}.pc-body{grid-template-columns:1fr}.pc-nav{display:flex;gap:5px;border-right:0;border-bottom:1px solid #20334e;overflow-x:auto;padding:8px}.pc-nav-label{display:none}.pc-nav button{width:auto;min-width:max-content;margin:0}.pc-main{padding:10px}.pc-grid,.pc-two,.pc-three{grid-template-columns:1fr}.pc-head-sub{display:none}.pc-head-title{font-size:13px}.pc-card .pc-value{font-size:19px}}
+</style>
+</head>
+<body>
+
+<section id="loginView" class="login-wrap">
+  <div class="login-card">
+    <img class="logo" src="assets/hoa-logo.png" alt="HUB OF ASPIRANTS">
+    <h1>Developer Console</h1>
+    <p class="subtitle">Owner-only production workbench for editing, searching, reviewing and safely committing HOA website code.</p>
+    <form id="loginForm">
+      <div class="field"><label>ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <button id="signIn" class="signin" type="submit">Sign in</button>
+    </form>
+    <div id="loginStatus" class="login-status">Use your registered HOA Admin account.</div>
+  </div>
+</section>
+
+<section id="appView" class="hidden">
+<header class="appbar">
+  <div class="brand">HUB OF ASPIRANTS · Developer Console</div>
+  <span class="pill">V2.1 · CODE WORKBENCH</span><span class="owner-pill">OWNER ONLY</span>
+  <span class="branch-pill">PRODUCTION · main</span>
+  <span id="userEmail" class="user"></span>
+  <button id="logout" class="logout">Logout</button>
+</header>
+
+<div class="shell">
+<button id="mobileMenuBtn" class="mobile-menu-btn" type="button" aria-label="Open developer console navigation">☰</button>
+<aside id="consoleSidebar">
+  <div class="section">PROJECT</div>
+  <div class="nav"><button id="projectControlBtn">Project Control <span class="kbd">F2</span></button></div>
+  <div class="section">SYSTEM</div>
+  <div class="nav">
+    <button data-action="overview">System Overview</button>
+    <button data-action="status">Connection Status</button>
+    <button data-action="health">Supabase Health</button>
+    <button data-action="admins">Admin Accounts</button>
+  </div>
+
+  <div class="section">GITHUB</div>
+  <div class="nav">
+    <button data-action="list">Repository Files</button>
+    <button data-action="commits">Recent Commits</button>
+    <button data-action="pages">GitHub Pages</button>
+    <button data-action="runs">Deployments</button>
+  </div>
+
+  <div class="section">CODE</div>
+  <div class="nav">
+    <button id="repoSearchBtn">Search in Files <span class="kbd">Ctrl+Shift+F</span></button>
+    <button id="quickOpenBtn">Quick Open <span class="kbd">Ctrl+P</span></button>
+    <button id="findBtn">Find <span class="kbd">Ctrl+F</span></button>
+    <button id="replaceBtn">Replace <span class="kbd">Ctrl+H</span></button>
+    <button id="formatBtn">Format Document <span class="kbd">Alt+Shift+F</span></button>
+    <button id="diffBtn">Preview Changes</button>
+  </div>
+
+  <div class="section">EDITOR</div>
+  <div class="nav">
+    <button id="clearEditor">New / Clear</button>
+    <button id="save" class="primary">Save & Commit <span class="kbd">Ctrl+S</span></button>
+    <button id="wordWrapBtn">Toggle Word Wrap</button>
+    <button id="suggestBtn" class="active">Auto Suggestions: ON</button>
+  </div>
+
+  <div class="section">SHORTCUTS</div>
+  <div class="hotkeys">
+    <span><b>Command Palette</b><span class="kbd">F1</span></span>
+    <span><b>Go to line</b><span class="kbd">Ctrl+G</span></span>
+    <span><b>Quick Open</b><span class="kbd">Ctrl+P</span></span>
+    <span><b>Search repository</b><span class="kbd">Ctrl+Shift+F</span></span>
+    <span><b>Format</b><span class="kbd">Alt+Shift+F</span></span>
+    <span><b>Save</b><span class="kbd">Ctrl+S</span></span>
+  </div>
+</aside>
+<div id="mobileMenuBackdrop" class="mobile-menu-backdrop" aria-hidden="true"></div>
+
+<main>
+  <div class="topbar">
+    <div class="dashboard-head">
+      <div>
+        <h2 id="workspaceTitle" class="dashboard-title">Code Workbench</h2>
+        <p class="dashboard-subtitle">Syntax highlighting · IntelliSense · diagnostics · folding · minimap · find/replace · repository-wide search · diff preview</p>
+      </div>
+      <div class="dashboard-actions">
+        <button id="refreshOverview" class="btn primary">Refresh</button>
+      </div>
+    </div>
+
+    <div class="searchbar">
+      <input id="path" placeholder="Repository path, e.g. index.html">
+      <button id="open" class="btn">Open</button>
+      <input id="commitMessage" value="Update from HOA Developer Console" placeholder="Commit message">
+      <button id="saveTop" class="btn primary">Save</button>
+      <button id="repoSearchTop" class="btn">Search Code</button>
+    </div>
+
+    <div class="statusline">
+      <span id="fileState" class="metric">No file open</span>
+      <span id="languageState">Plain Text</span>
+      <span id="diagnosticState" class="metric ok">0 problems</span>
+      <span class="grow"></span>
+      <span id="cursorState">Ln 1, Col 1</span>
+      <span id="dirtyState">Clean</span>
+    </div>
+  </div>
+
+  <section class="workbench">
+    <div class="files-panel">
+      <div class="panel-head">Repository Files <span id="fileCount" class="count-pill">0</span><span class="spacer"></span><button id="reloadFiles" class="icon-btn" title="Reload files">↻</button></div>
+      <div class="file-filter"><input id="fileFilter" placeholder="Filter files..."></div>
+      <div id="files" class="files"><div class="empty">Click “Repository Files” to load the repository.</div></div>
+    </div>
+
+    <div class="editor-panel">
+      <div id="tabs" class="tabs"></div>
+      <div class="editor-toolbar">
+        <button id="undoBtn" class="icon-btn" title="Undo">↶</button>
+        <button id="redoBtn" class="icon-btn" title="Redo">↷</button>
+        <button id="formatTopBtn" class="icon-btn" title="Format Document">Format</button>
+        <button id="minimapBtn" class="icon-btn active" title="Toggle minimap">Minimap</button>
+        <button id="foldBtn" class="icon-btn" title="Fold all">Fold</button>
+        <button id="unfoldBtn" class="icon-btn" title="Unfold all">Unfold</button>
+        <span class="spacer"></span>
+        <span id="editorInfo" class="editor-info">Open a file to start editing.</span>
+      </div>
+      <div id="editorHost"></div>
+      <textarea id="fallbackEditor" spellcheck="false"></textarea>
+    </div>
+
+    <div class="outline-panel">
+      <div class="panel-head">Code Outline</div>
+      <div class="outline-toolbar"><input id="outlineFilter" placeholder="Filter symbols..."></div>
+      <div id="outline" class="outline"><div class="empty">Open a code file to see functions, classes, selectors and headings.</div></div>
+    </div>
+  </section>
+
+  <section class="bottom">
+    <div class="bottom-tabs">
+      <button id="consoleTab" class="active">Console Output</button>
+      <button id="problemsTab">Problems</button>
+    </div>
+    <pre id="output" class="output">Ready.</pre>
+  </section>
+</main>
+</div>
+</section>
+
+
+<div id="projectControlDrawer" class="pc-drawer" aria-hidden="true">
+  <section class="pc-shell" role="dialog" aria-modal="true" aria-label="HOA Project Control Center">
+    <header class="pc-head">
+      <div><div class="pc-head-title">HUB OF ASPIRANTS · Project Control Center</div><div class="pc-head-sub">HTML · CSS · JavaScript · Supabase DB · Storage · GitHub · Pages · Main Branch · Deployments</div></div>
+      <span id="pcLastRefresh" class="pc-head-sub"></span><span class="spacer"></span>
+      <button id="pcRefresh" class="pc-refresh" type="button">↻ Refresh</button>
+      <button id="pcClose" class="pc-close" type="button">✕ Close</button>
+    </header>
+    <div class="pc-body">
+      <nav class="pc-nav" aria-label="Project Control sections">
+        <div class="pc-nav-label">PROJECT</div>
+        <button data-pc-tab="overview" class="active">Overview</button>
+        <button data-pc-tab="frontend">HTML / CSS / JS</button>
+        <div class="pc-nav-label">SUPABASE</div>
+        <button data-pc-tab="database">Database</button>
+        <button data-pc-tab="storage">Storage</button>
+        <div class="pc-nav-label">GITHUB / HOST</div>
+        <button data-pc-tab="github">Repository</button>
+        <button data-pc-tab="branches">Branches</button>
+        <button data-pc-tab="hosting">GitHub Pages</button>
+        <button data-pc-tab="deployments">Deployments</button>
+      </nav>
+      <main id="pcMain" class="pc-main"><div class="pc-muted">Loading project control…</div></main>
+    </div>
+  </section>
+</div>
+
+<div id="searchDrawer" class="search-drawer">
+  <div class="search-card">
+    <div class="search-head">
+      <h2>Repository Search</h2>
+      <span id="searchCount" class="count-pill">0 matches</span>
+      <span class="spacer"></span>
+      <button id="closeSearch" class="btn">Close</button>
+    </div>
+    <div class="search-controls">
+      <input id="repoSearchInput" placeholder="Search all code files...">
+      <button id="caseBtn" class="btn">Aa</button>
+      <button id="regexBtn" class="btn">.*</button>
+      <button id="runSearch" class="btn primary">Search</button>
+    </div>
+    <div id="searchResults" class="search-results"><div class="empty">Search the repository for a function, class, selector, text, ID, Supabase table name, error message, etc.</div></div>
+  </div>
+</div>
+
+<div id="diffDrawer" class="diff-drawer">
+  <div class="diff-card">
+    <div class="diff-head">
+      <h2 id="diffTitle">Changes Preview</h2>
+      <span class="spacer"></span>
+      <button id="closeDiff" class="btn">Close</button>
+    </div>
+    <div id="diffHost"></div>
+  </div>
+</div>
+
+<div id="quickOpenDrawer" class="search-drawer">
+  <div class="search-card">
+    <div class="search-head">
+      <h2>Quick Open</h2>
+      <span class="spacer"></span>
+      <button id="closeQuickOpen" class="btn">Close</button>
+    </div>
+    <div class="search-controls" style="grid-template-columns:1fr">
+      <input id="quickOpenInput" placeholder="Type a file name...">
+    </div>
+    <div id="quickOpenResults" class="search-results"></div>
+  </div>
+</div>
+
+<div id="confirmBackdrop" class="confirm-backdrop">
+  <div class="confirm-card">
+    <h3>Confirm production commit</h3>
+    <p id="confirmText"></p>
+    <div class="confirm-actions">
+      <button id="cancelCommit" class="btn">Cancel</button>
+      <button id="confirmCommit" class="btn primary">Commit Changes</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(() => {
+"use strict";
+
+const SUPABASE_URL = "https://pnzhtiwwqiqnnkecogcc.supabase.co";
+const SUPABASE_KEY = "sb_publishable_Qwq-5g_j446D3fEyJn5MOg_p9y6JNBC";
+const FUNCTION_NAME = "admin-dev-console";
+const MONACO_VERSION = "0.55.1";
+const $ = id => document.getElementById(id);
+
+let sb = null;
+let busy = false;
+let monacoReady = false;
+let editor = null;
+let currentPath = "";
+let currentModel = null;
+let diffEditor = null;
+let diffOriginalModel = null;
+let diffModifiedModel = null;
+let repoFiles = [];
+let repoCache = new Map();
+let originalContents = new Map();
+let modelByPath = new Map();
+let languageByPath = new Map();
+let dirtyByPath = new Map();
+let fileErrors = new Map();
+let wordWrapOn = false;
+let minimapOn = true;
+let suggestionsOn = true;
+let searchCase = false;
+let searchRegex = false;
+
+function output(value){
+  $("output").textContent = typeof value === "string" ? value : JSON.stringify(value,null,2);
+}
+function toast(message,type=""){
+  const t=$("toast");
+  t.textContent=message;
+  t.className="toast "+(type||"");
+  clearTimeout(window.__hoaToast);
+  window.__hoaToast=setTimeout(()=>t.className="toast hidden",3600);
+}
+function setLogin(message,error=false){
+  $("loginStatus").textContent=message;
+  $("loginStatus").className="login-status"+(error?" error":" ok");
+}
+function escapeHtml(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+}
+function safePath(path){ return String(path||"").replace(/\\/g,"/").replace(/^\/+/,""); }
+
+function init(){
+  if(!window.supabase || !window.supabase.createClient) throw new Error("Supabase library did not load.");
+  if(!sb) sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{
+    auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}
+  });
+  return sb;
+}
+async function session(){
+  const {data,error}=await init().auth.getSession();
+  if(error) throw error;
+  if(!data.session) throw new Error("Your session has expired. Please sign in again.");
+  return data.session;
+}
+async function api(action,extra={}){
+  const s=await session();
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(),30000);
+  try{
+    const response=await fetch(`${SUPABASE_URL}/functions/v1/${FUNCTION_NAME}`,{
+      method:"POST",
+      signal:controller.signal,
+      headers:{
+        "Content-Type":"application/json",
+        "apikey":SUPABASE_KEY,
+        "Authorization":"Bearer "+s.access_token
+      },
+      body:JSON.stringify({action,...extra})
+    });
+    const raw=await response.text();
+    let data={};
+    try{data=raw?JSON.parse(raw):{};}catch{data={raw};}
+    if(!response.ok) throw new Error((data&&data.error)||(data&&data.message)||`Edge Function HTTP ${response.status}`);
+    if(data&&data.error) throw new Error(data.error);
+    return data;
+  }catch(e){
+    if(e.name==="AbortError") throw new Error("Request timed out after 30 seconds.");
+    throw e;
+  }finally{clearTimeout(timer);}
+}
+function setBusy(value,action=""){
+  busy=value;
+  if(value) output("Running "+action+"…");
+}
+
+async function signIn(ev){
+  ev.preventDefault();
+  const button=$("signIn");
+  button.disabled=true;button.textContent="Signing in…";setLogin("Authenticating…");
+  try{
+    const {error}=await init().auth.signInWithPassword({
+      email:$("email").value.trim(),password:$("password").value
+    });
+    if(error) throw error;
+    await showApp();
+    setLogin("Authenticated.");
+  }catch(e){
+    setLogin(e.message||"Sign in failed.",true);
+  }finally{
+    button.disabled=false;button.textContent="Sign in";
+  }
+}
+async function showApp(){
+  const {data,error}=await init().auth.getUser();
+  if(error||!data.user) throw new Error("Signed in, but the session could not be verified.");
+
+  // Fail closed: verify Owner/Admin authorization with the backend before revealing the console.
+  const status = await api("status");
+  if(status?.owner !== true || status?.admin !== true){
+    await init().auth.signOut().catch(()=>{});
+    throw new Error("This account is not authorized for the HOA Developer Console.");
+  }
+
+  $("userEmail").textContent=data.user.email||"";
+  $("loginView").classList.add("hidden");
+  $("appView").classList.remove("hidden");
+  setEditorStatus();
+  // V8.57: keep startup light. Load Monaco and the full repository tree only when the user opens the editor.
+  try{openProjectControl("overview");}catch(e){output({ok:false,action:"startup:project-control",error:e.message});}
+}
+
+function languageForPath(path){
+  const p=safePath(path).toLowerCase();
+  const ext=p.includes(".")?p.slice(p.lastIndexOf(".")+1):"";
+  if(["html","htm"].includes(ext)) return "html";
+  if(["css","scss","less"].includes(ext)) return "css";
+  if(["js","mjs","cjs"].includes(ext)) return "javascript";
+  if(["ts","tsx"].includes(ext)) return "typescript";
+  if(["jsx"].includes(ext)) return "javascript";
+  if(["json","jsonc"].includes(ext)) return "json";
+  if(["md","markdown"].includes(ext)) return "markdown";
+  if(["xml","svg"].includes(ext)) return "xml";
+  if(["sql"].includes(ext)) return "sql";
+  if(["yaml","yml"].includes(ext)) return "yaml";
+  if(["sh","bash"].includes(ext)) return "shell";
+  if(["ps1"].includes(ext)) return "powershell";
+  if(["py"].includes(ext)) return "python";
+  if(["java"].includes(ext)) return "java";
+  if(["cpp","cc","cxx","h","hpp"].includes(ext)) return "cpp";
+  return "plaintext";
+}
+function languageLabel(lang){
+  const map={javascript:"JavaScript",typescript:"TypeScript",html:"HTML",css:"CSS",json:"JSON",markdown:"Markdown",xml:"XML",sql:"SQL",yaml:"YAML",shell:"Shell",powershell:"PowerShell",python:"Python",java:"Java",cpp:"C++",plaintext:"Plain Text"};
+  return map[lang]||lang;
+}
+
+function monacoWorkerSetup(){
+  window.MonacoEnvironment={
+    getWorker:function(){
+      const workerCode=`
+        self.MonacoEnvironment={baseUrl:'https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/'};
+        importScripts('https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs/base/worker/workerMain.js');
+      `;
+      return "data:text/javascript;charset=utf-8,"+encodeURIComponent(workerCode);
+    }
+  };
+}
+function loadMonaco(){
+  return new Promise((resolve,reject)=>{
+    if(window.monaco){initMonaco(window.monaco);resolve();return;}
+    const script=document.createElement("script");
+    script.src=`https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs/loader.js`;
+    script.onload=()=>{
+      try{
+        monacoWorkerSetup();
+        window.require.config({paths:{vs:`https://cdn.jsdelivr.net/npm/monaco-editor@${MONACO_VERSION}/min/vs`}});
+        window.require(["vs/editor/editor.main"],()=>{
+          try{initMonaco(window.monaco);resolve();}catch(e){reject(e);}
+        });
+      }catch(e){reject(e);}
+    };
+    script.onerror=()=>reject(new Error("Monaco Editor failed to load from CDN."));
+    document.head.appendChild(script);
+  });
+}
+
+function initMonaco(m){
+  if(monacoReady) return;
+  monacoReady=true;
+
+  m.editor.defineTheme("hoa-dark",{
+    base:"vs-dark",inherit:true,rules:[
+      {token:"comment",foreground:"6C8AAF"},
+      {token:"keyword",foreground:"C792EA"},
+      {token:"string",foreground:"A8E6CF"},
+      {token:"number",foreground:"F6C177"},
+      {token:"type",foreground:"82AAFF"},
+      {token:"tag",foreground:"F07178"},
+      {token:"attribute.name",foreground:"FFCB6B"}
+    ],
+    colors:{
+      "editor.background":"#060d18",
+      "editor.foreground":"#dce8fa",
+      "editorLineNumber.foreground":"#526984",
+      "editorLineNumber.activeForeground":"#d6e4f8",
+      "editorCursor.foreground":"#ffffff",
+      "editor.selectionBackground":"#264b78",
+      "editor.inactiveSelectionBackground":"#1a3659",
+      "editorIndentGuide.background":"#142238",
+      "editorIndentGuide.activeBackground":"#2b4668",
+      "editorSuggestWidget.background":"#0d1a2b",
+      "editorSuggestWidget.border":"#314866",
+      "editorSuggestWidget.foreground":"#dbe8fa",
+      "editorHoverWidget.background":"#0d1a2b",
+      "editorHoverWidget.border":"#314866",
+      "editor.findMatchBackground":"#6a5513",
+      "editor.findMatchHighlightBackground":"#3c3010"
+    }
+  });
+
+  monaco.editor.setTheme("hoa-dark");
+  editor=m.editor.create($("editorHost"),{
+    model:null,
+    automaticLayout:true,
+    theme:"hoa-dark",
+    fontFamily:'"Cascadia Code","Fira Code",Consolas,monospace',
+    fontSize:13,
+    lineHeight:20,
+    tabSize:2,
+    insertSpaces:true,
+    detectIndentation:true,
+    minimap:{enabled:true,renderCharacters:false,scale:1},
+    wordWrap:wordWrapOn?"on":"off",
+    wordWrapColumn:100,
+    smoothScrolling:true,
+    cursorSmoothCaretAnimation:"on",
+    cursorBlinking:"smooth",
+    folding:true,
+    foldingHighlight:true,
+    showFoldingControls:"always",
+    bracketPairColorization:{enabled:true},
+    guides:{bracketPairs:true,indentation:true,highlightActiveIndentation:true},
+    renderWhitespace:"selection",
+    renderControlCharacters:false,
+    stickyScroll:{enabled:true},
+    colorDecorators:true,
+    hover:{enabled:true},
+    links:true,
+    quickSuggestions:suggestionsOn,
+    suggestOnTriggerCharacters:suggestionsOn,
+    parameterHints:{enabled:suggestionsOn},
+    snippetSuggestions:"inline",
+    inlineSuggest:{enabled:suggestionsOn},
+    suggest:{showMethods:true,showFunctions:true,showConstructors:true,showDeprecated:true,showFields:true,showVariables:true,showClasses:true,showStructs:true,showInterfaces:true,showModules:true,showProperties:true,showEnums:true,showEnumMembers:true,showKeywords:true,showValues:true,showConstants:true,showEvents:true,showOperators:true,showUnits:true,showColors:true,preview:true},
+    unicodeHighlight:{nonBasicASCII:false,ambiguousCharacters:false},
+    scrollbar:{verticalScrollbarSize:12,horizontalScrollbarSize:12},
+    padding:{top:12,bottom:14}
+  });
+
+  editor.onDidChangeCursorPosition(e=>{
+    $("cursorState").textContent=`Ln ${e.position.lineNumber}, Col ${e.position.column}`;
+  });
+
+  editor.onDidChangeModel(()=>{
+    currentModel=editor.getModel();
+    updateOutline();
+    updateMarkers();
+    setEditorStatus();
+  });
+
+  monaco.editor.onDidChangeMarkers(()=>{
+    updateMarkers();
+  });
+
+  registerCompletionProviders(m);
+  registerEditorCommands(m);
+  setEditorStatus();
+}
+
+function registerEditorCommands(m){
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyCode.KeyS,()=>requestSave());
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyCode.KeyP,()=>openQuickOpen());
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyMod.Shift|m.KeyCode.KeyF,()=>openSearchDrawer());
+  editor.addCommand(m.KeyMod.Alt|m.KeyMod.Shift|m.KeyCode.KeyF,()=>formatDocument());
+  editor.addCommand(m.KeyMod.CtrlCmd|m.KeyCode.KeyH,()=>editor.getAction("editor.action.startFindReplaceAction")?.run());
+}
+
+function registerCompletionProviders(m){
+  const jsItems=[
+    ["api","HOA backend request helper","function api(action, extra = {}) { … }"],
+    ["toast","HOA toast helper","function toast(message, type = '') { … }"],
+    ["showApp","Open authenticated developer console UI","async function showApp() { … }"],
+    ["listFiles","Reload repository files","async function listFiles() { … }"],
+    ["openFile","Open repository file in Monaco","async function openFile(path) { … }"],
+    ["saveFile","Write current file through the admin Edge Function","async function saveFile() { … }"],
+    ["loginAdmin","Existing HOA admin login workflow","loginAdmin()"],
+    ["logoutAdmin","Existing HOA admin logout workflow","logoutAdmin()"],
+    ["loginStudent","Existing HOA student login workflow","loginStudent()"],
+    ["showAuth","Existing HOA auth panel workflow","showAuth('login')"],
+    ["HOA","HUB OF ASPIRANTS project namespace","window.HOA_*"],
+    ["SUPABASE_URL","Configured Supabase project URL","const SUPABASE_URL = '…'"],
+    ["FUNCTION_NAME","Developer console Edge Function name","const FUNCTION_NAME = 'admin-dev-console'"]
+  ];
+  m.languages.registerCompletionItemProvider(["javascript","typescript"],{
+    provideCompletionItems:()=>({
+      suggestions:jsItems.map(([label,detail,doc])=>({
+        label,kind:m.languages.CompletionItemKind.Function,
+        insertText:label,detail,documentation:{value:doc}
+      }))
+    })
+  });
+
+  m.languages.registerCompletionItemProvider("css",{
+    provideCompletionItems:()=>({suggestions:[
+      {label:"display:flex",kind:m.languages.CompletionItemKind.Value,insertText:"display: flex;",documentation:"Flex layout"},
+      {label:"display:grid",kind:m.languages.CompletionItemKind.Value,insertText:"display: grid;",documentation:"Grid layout"},
+      {label:"gap",kind:m.languages.CompletionItemKind.Property,insertText:"gap: ${1:12px};",insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet},
+      {label:"box-shadow",kind:m.languages.CompletionItemKind.Property,insertText:"box-shadow: 0 ${1:8px} ${2:24px} rgba(${3:0},${4:0},${5:0},${6:.12});",insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet}
+    ]})
+  });
+
+  m.languages.registerCompletionItemProvider("html",{
+    provideCompletionItems:()=>({suggestions:[
+      {label:"hoa-card",kind:m.languages.CompletionItemKind.Snippet,insertText:'<div class="hoa-card">\\n\\t$0\\n</div>',insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet},
+      {label:"button",kind:m.languages.CompletionItemKind.Keyword,insertText:'<button type="button">$0</button>',insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet},
+      {label:"section",kind:m.languages.CompletionItemKind.Keyword,insertText:'<section aria-label="$1">\\n\\t$0\\n</section>',insertTextRules:m.languages.CompletionItemInsertTextRule.InsertAsSnippet}
+    ]})
+  });
+}
+
+async function listFiles(){
+  if(busy) return;
+  setBusy(true,"list");
+  try{
+    const d=await api("list");
+    repoFiles=(d.files||[]).map(f=>({path:safePath(f.path),size:f.size||0})).sort((a,b)=>a.path.localeCompare(b.path));
+    $("fileCount").textContent=repoFiles.length;
+    renderFiles(repoFiles);
+    output({ok:true,file_count:repoFiles.length,ref:"main"});
+  }catch(e){
+    output({ok:false,action:"list",error:e.message});
+    toast("Repository files failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+function iconForFile(path){
+  const ext=path.toLowerCase().split(".").pop();
+  const icons={html:"◈",css:"◉",js:"ƒ",ts:"TS",json:"{}",md:"#",sql:"DB",png:"IMG",jpg:"IMG",jpeg:"IMG",svg:"SVG",yml:"YML",yaml:"YML"};
+  return icons[ext]||"·";
+}
+function renderFiles(files){
+  const box=$("files");
+  const filter=$("fileFilter").value.trim().toLowerCase();
+  box.innerHTML="";
+  const filtered=filter?files.filter(f=>f.path.toLowerCase().includes(filter)):files;
+  if(!filtered.length){box.innerHTML='<div class="empty">No files match the filter.</div>';return;}
+  for(const f of filtered){
+    const el=document.createElement("div");
+    el.className="file"+(f.path===currentPath?" selected":"");
+    el.dataset.path=f.path;
+    el.innerHTML=`<span>${iconForFile(f.path)}</span><span class="path" title="${escapeHtml(f.path)}">${escapeHtml(f.path)}</span><span class="size">${((f.size||0)/1024).toFixed(1)}K</span>`;
+    el.onclick=()=>openFile(f.path);
+    box.appendChild(el);
+  }
+}
+
+async function openFile(path){
+  path=safePath(path||$("path").value);
+  if(!path){toast("Enter a repository path.","err");return;}
+  if(!monacoReady) await loadMonaco();
+  if(modelByPath.has(path)){
+    activateModel(path);
+    return;
+  }
+  if(busy) return;
+  setBusy(true,"read");
+  try{
+    const d=await api("read",{path});
+    const content=d.content||"";
+    const lang=languageForPath(path);
+    languageByPath.set(path,lang);
+    originalContents.set(path,content);
+    dirtyByPath.set(path,false);
+    repoCache.set(path,content);
+
+    const uri=monaco.Uri.parse("hoa://repo/"+path);
+    const model=monaco.editor.createModel(content,lang,uri);
+    modelByPath.set(path,model);
+
+    model.onDidChangeContent(()=>{
+      const dirty=model.getValue()!==originalContents.get(path);
+      dirtyByPath.set(path,dirty);
+      updateTabs();
+      if(path===currentPath) setEditorStatus();
+      updateOutline();
+    });
+
+    activateModel(path);
+    output({ok:true,path,sha:d.sha,size:content.length,language:languageLabel(lang)});
+    toast("Loaded "+path,"ok");
+  }catch(e){
+    output({ok:false,action:"read",path,error:e.message});
+    toast("Open failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+function activateModel(path){
+  const model=modelByPath.get(path);
+  if(!model) return;
+  currentPath=path;
+  currentModel=model;
+  editor.setModel(model);
+  $("path").value=path;
+  $("workspaceTitle").textContent=path.split("/").pop();
+  document.querySelectorAll(".file").forEach(x=>x.classList.toggle("selected",x.dataset.path===path));
+  updateTabs();
+  updateOutline();
+  updateMarkers();
+  setEditorStatus();
+}
+
+function updateTabs(){
+  const tabs=$("tabs");
+  tabs.innerHTML="";
+  for(const [path] of modelByPath){
+    const tab=document.createElement("div");
+    tab.className="tab"+(path===currentPath?" active":"");
+    const dirty=!!dirtyByPath.get(path);
+    tab.innerHTML=`<span>${iconForFile(path)}</span><span title="${escapeHtml(path)}">${escapeHtml(path.split("/").pop())}</span>${dirty?'<span class="dirty">●</span>':""}<button class="close" title="Close">×</button>`;
+    tab.onclick=(e)=>{
+      if(e.target.classList.contains("close")) return;
+      activateModel(path);
+    };
+    tab.querySelector(".close").onclick=(e)=>{e.stopPropagation();closeTab(path);};
+    tabs.appendChild(tab);
+  }
+}
+
+function closeTab(path){
+  const dirty=dirtyByPath.get(path);
+  if(dirty && !confirm(`"${path}" has unsaved changes. Close without saving?`)) return;
+  const model=modelByPath.get(path);
+  modelByPath.delete(path);originalContents.delete(path);dirtyByPath.delete(path);languageByPath.delete(path);fileErrors.delete(path);
+  if(model) model.dispose();
+  if(currentPath===path){
+    const next=[...modelByPath.keys()].pop();
+    if(next) activateModel(next);
+    else{
+      currentPath="";currentModel=null;editor.setModel(null);$("path").value="";$("workspaceTitle").textContent="Code Workbench";$("outline").innerHTML='<div class="empty">Open a code file to see symbols.</div>';setEditorStatus();
+    }
+  }else updateTabs();
+}
+
+function updateOutline(){
+  const box=$("outline");
+  if(!currentModel){box.innerHTML='<div class="empty">Open a code file to see symbols.</div>';return;}
+  const lines=currentModel.getLinesContent();
+  const lang=languageByPath.get(currentPath)||"plaintext";
+  const symbols=[];
+  const push=(line,type,name)=>{
+    if(name && name.length<180) symbols.push({line,type,name});
+  };
+
+  lines.forEach((line,idx)=>{
+    const n=idx+1;
+    let m;
+    if(["javascript","typescript"].includes(lang)){
+      if((m=line.match(/^\s*(?:export\s+)?(?:async\s+)?function\s+([A-Za-z_$][\w$]*)/))) push(n,"ƒ",m[1]+"()");
+      else if((m=line.match(/^\s*(?:export\s+)?class\s+([A-Za-z_$][\w$]*)/))) push(n,"C",m[1]);
+      else if((m=line.match(/^\s*(?:export\s+)?(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?\(/))) push(n,"λ",m[1]+"()");
+      else if((m=line.match(/^\s*(?:export\s+)?const\s+([A-Za-z_$][\w$]*)\s*=/))) push(n,"v",m[1]);
+    }else if(lang==="css"){
+      if((m=line.match(/^\s*([^@][^{]{1,120})\s*\{/))) push(n,"#",m[1].trim());
+      else if((m=line.match(/^\s*@media\s*([^{]*)\{/))) push(n,"@",("@media "+m[1]).trim());
+    }else if(["html","xml"].includes(lang)){
+      if((m=line.match(/^\s*<h([1-6])[^>]*>(.*?)<\/h\1>/i))) push(n,"H",m[2].replace(/<[^>]+>/g,"").trim());
+      else if((m=line.match(/^\s*<section\b[^>]*(?:id|aria-label)="([^"]+)"/i))) push(n,"§",m[1]);
+      else if((m=line.match(/^\s*<script\b/i))) push(n,"JS","<script>");
+      else if((m=line.match(/^\s*<style\b/i))) push(n,"CSS","<style>");
+    }else if(lang==="markdown"){
+      if((m=line.match(/^\s{0,3}(#{1,6})\s+(.+)/))) push(n,"H",m[2].trim());
+    }
+  });
+
+  const filter=$("outlineFilter").value.trim().toLowerCase();
+  const list=filter?symbols.filter(s=>s.name.toLowerCase().includes(filter)):symbols;
+  if(!list.length){box.innerHTML='<div class="empty">No symbols found in this file.</div>';return;}
+  box.innerHTML="";
+  list.slice(0,600).forEach(s=>{
+    const el=document.createElement("div");
+    el.className="symbol";
+    el.innerHTML=`<span class="type">${escapeHtml(s.type)}</span>${escapeHtml(s.name)}`;
+    el.title=`Line ${s.line}`;
+    el.onclick=()=>{
+      editor.setPosition({lineNumber:s.line,column:1});
+      editor.revealLineInCenter(s.line);
+      editor.focus();
+    };
+    box.appendChild(el);
+  });
+}
+
+function updateMarkers(){
+  if(!monacoReady||!currentModel) return;
+  const markers=monaco.editor.getModelMarkers({resource:currentModel.uri});
+  const errors=markers.filter(x=>x.severity===monaco.MarkerSeverity.Error).length;
+  const warnings=markers.filter(x=>x.severity===monaco.MarkerSeverity.Warning).length;
+  const total=errors+warnings;
+  $("diagnosticState").textContent=total?`${errors} errors · ${warnings} warnings`:"0 problems";
+  $("diagnosticState").className="metric "+(errors?"err":warnings?"warn":"ok");
+  fileErrors.set(currentPath,{errors,warnings});
+}
+function setEditorStatus(){
+  if(!$("fileState")) return;
+  if(!currentPath){
+    $("fileState").textContent="No file open";
+    $("languageState").textContent="Plain Text";
+    $("dirtyState").textContent="Clean";
+    return;
+  }
+  const dirty=!!dirtyByPath.get(currentPath);
+  const lang=languageByPath.get(currentPath)||languageForPath(currentPath);
+  $("fileState").textContent=dirty?"● "+currentPath:currentPath;
+  $("languageState").textContent=languageLabel(lang);
+  $("dirtyState").textContent=dirty?"Unsaved changes":"Saved";
+  $("dirtyState").style.color=dirty?"#ffd27a":"#89b9a8";
+  const model=currentModel;
+  if(model) $("editorInfo").textContent=`${languageLabel(lang)} · ${model.getLineCount()} lines · ${(model.getValue().length/1024).toFixed(1)} KB`;
+}
+
+function requestSave(){ return saveCurrentFile(); }
+
+async function saveCurrentFile(){
+  if(!currentPath||!currentModel){toast("Open an existing repository file first.","err");return;}
+  if(!dirtyByPath.get(currentPath)){toast("No changes to save.","warn");return;}
+  const message=$("commitMessage").value.trim()||"Update from HOA Developer Console";
+  const changedChars=Math.abs(currentModel.getValue().length-(originalContents.get(currentPath)||"").length);
+  $("confirmText").textContent=`Commit "${currentPath}" to production branch main with message "${message}". The current file has unsaved edits (${changedChars} character delta).`;
+  $("confirmBackdrop").classList.add("open");
+  window.__confirmSave={message};
+}
+async function performSave(){
+  if(busy||!currentPath||!currentModel) return;
+  const path=currentPath;
+  const content=currentModel.getValue();
+  const message=window.__confirmSave?.message||"Update from HOA Developer Console";
+  $("confirmBackdrop").classList.remove("open");
+  setBusy(true,"write");
+  try{
+    const d=await api("write",{path,content,message});
+    originalContents.set(path,content);
+    dirtyByPath.set(path,false);
+    repoCache.set(path,content);
+    updateTabs();
+    setEditorStatus();
+    output(d);
+    toast("Committed successfully: "+path,"ok");
+    await refreshOneFileStat(path);
+  }catch(e){
+    output({ok:false,action:"write",path,error:e.message});
+    toast("Save failed: "+e.message,"err");
+  }finally{
+    setBusy(false);
+  }
+}
+async function refreshOneFileStat(path){
+  try{
+    const d=await api("read",{path});
+    const f=repoFiles.find(x=>x.path===path);
+    if(f&&d.content) f.size=d.content.length;
+    renderFiles(repoFiles);
+  }catch(_){}
+}
+
+async function clearEditor(){
+  for(const path of [...modelByPath.keys()]){
+    if(dirtyByPath.get(path)){
+      if(!confirm(`There are unsaved changes in "${path}". Continue and close all editor tabs?`)) return;
+      break;
+    }
+  }
+  modelByPath.forEach(m=>m.dispose());
+  modelByPath.clear();originalContents.clear();dirtyByPath.clear();languageByPath.clear();
+  currentPath="";currentModel=null;editor.setModel(null);
+  $("tabs").innerHTML="";$("path").value="";$("workspaceTitle").textContent="Code Workbench";
+  $("outline").innerHTML='<div class="empty">Open a code file to see symbols.</div>';
+  setEditorStatus();output("Editor cleared.");toast("Editor cleared","ok");
+}
+
+function formatDocument(){
+  if(!editor||!currentModel){toast("Open a file first.","warn");return;}
+  const action=editor.getAction("editor.action.formatDocument");
+  if(!action){toast("No formatter is available for this language.","warn");return;}
+  Promise.resolve(action.run()).then(()=>{
+    toast("Document formatted by Monaco.","ok");
+  }).catch(e=>toast("Format failed: "+(e.message||e),"err"));
+}
+function toggleWordWrap(){
+  wordWrapOn=!wordWrapOn;
+  editor?.updateOptions({wordWrap:wordWrapOn?"on":"off"});
+  $("wordWrapBtn").textContent=wordWrapOn?"Word Wrap: ON":"Toggle Word Wrap";
+}
+function toggleMinimap(){
+  minimapOn=!minimapOn;
+  editor?.updateOptions({minimap:{enabled:minimapOn}});
+  $("minimapBtn").classList.toggle("active",minimapOn);
+}
+function toggleSuggestions(){
+  suggestionsOn=!suggestionsOn;
+  editor?.updateOptions({quickSuggestions:suggestionsOn,suggestOnTriggerCharacters:suggestionsOn,parameterHints:{enabled:suggestionsOn},inlineSuggest:{enabled:suggestionsOn}});
+  $("suggestBtn").textContent=`Auto Suggestions: ${suggestionsOn?"ON":"OFF"}`;
+  $("suggestBtn").classList.toggle("active",suggestionsOn);
+}
+
+function openSearchDrawer(){
+  $("searchDrawer").classList.add("open");
+  $("repoSearchInput").focus();
+}
+function closeSearchDrawer(){ $("searchDrawer").classList.remove("open"); }
+function openQuickOpen(){
+  $("quickOpenDrawer").classList.add("open");
+  renderQuickOpen();
+  $("quickOpenInput").focus();
+}
+function closeQuickOpen(){ $("quickOpenDrawer").classList.remove("open"); }
+function renderQuickOpen(){
+  const q=$("quickOpenInput").value.trim().toLowerCase();
+  const box=$("quickOpenResults");
+  const matches=(q?repoFiles.filter(f=>f.path.toLowerCase().includes(q)):repoFiles).slice(0,250);
+  box.innerHTML="";
+  if(!matches.length){box.innerHTML='<div class="empty">No matching files.</div>';return;}
+  matches.forEach(f=>{
+    const row=document.createElement("div");row.className="result-row";
+    row.innerHTML=`<div class="result-meta">${iconForFile(f.path)} ${escapeHtml(f.path)} · ${(f.size/1024).toFixed(1)} KB</div>`;
+    row.onclick=()=>{closeQuickOpen();openFile(f.path);};
+    box.appendChild(row);
+  });
+}
+
+async function searchRepository(){
+  const query=$("repoSearchInput").value;
+  if(!query){toast("Enter a search term.","warn");return;}
+  if(busy){return;}
+  const results=$("searchResults");
+  results.innerHTML='<div class="empty">Searching repository files…</div>';
+  const searchable=repoFiles.filter(f=>isSearchable(f.path));
+  let re=null;
+  try{
+    if(searchRegex) re=new RegExp(query,searchCase?"g":"gi");
+  }catch(e){
+    results.innerHTML=`<div class="empty" style="color:#ff8999">Invalid regular expression: ${escapeHtml(e.message)}</div>`;
+    return;
+  }
+
+  let matches=[];
+  const concurrency=6;
+  let cursor=0;
+  async function worker(){
+    while(cursor<searchable.length){
+      const i=cursor++;
+      const f=searchable[i];
+      try{
+        let content=repoCache.get(f.path);
+        if(content==null){
+          const d=await api("read",{path:f.path});
+          content=d.content||"";
+          repoCache.set(f.path,content);
+        }
+        const lines=content.split(/\r?\n/);
+        lines.forEach((line,idx)=>{
+          if(matches.length>=1000) return;
+          let hit=false;
+          if(re){
+            re.lastIndex=0;hit=re.test(line);
+          }else{
+            hit=(searchCase?line:line.toLowerCase()).includes(searchCase?query:query.toLowerCase());
+          }
+          if(hit) matches.push({path:f.path,line:idx+1,text:line});
+        });
+      }catch(_){}
+    }
+  }
+  await Promise.all(Array.from({length:Math.min(concurrency,searchable.length)},worker));
+  matches.sort((a,b)=>a.path.localeCompare(b.path)||a.line-b.line);
+  $("searchCount").textContent=`${matches.length} matches`;
+  results.innerHTML="";
+  if(!matches.length){results.innerHTML='<div class="empty">No matches found.</div>';return;}
+  matches.forEach(m=>{
+    const row=document.createElement("div");row.className="result-row";
+    const meta=document.createElement("div");meta.className="result-meta";meta.textContent=`${m.path}:${m.line}`;
+    const sn=document.createElement("div");sn.className="result-snippet";
+    sn.innerHTML=highlightSnippet(m.text,query);
+    row.append(meta,sn);
+    row.onclick=async()=>{
+      closeSearchDrawer();
+      await openFile(m.path);
+      if(editor){
+        editor.setPosition({lineNumber:m.line,column:1});
+        editor.revealLineInCenter(m.line);
+        editor.focus();
+      }
+    };
+    results.appendChild(row);
+  });
+}
+function isSearchable(path){
+  const p=path.toLowerCase();
+  if(/\.(png|jpg|jpeg|gif|webp|ico|pdf|zip|mp4|mov|woff|woff2|ttf|otf|exe|bin)$/i.test(p)) return false;
+  return true;
+}
+function highlightSnippet(text,query){
+  const escaped=escapeHtml(text);
+  if(searchRegex) return escaped;
+  if(!query) return escaped;
+  const safe=escapeHtml(query).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  try{return escaped.replace(new RegExp(`(${safe})`,searchCase?"g":"gi"),"<mark>$1</mark>");}catch{return escaped;}
+}
+
+function showDiff(){
+  if(!currentPath||!currentModel){toast("Open a file first.","warn");return;}
+  const original=originalContents.get(currentPath)||"";
+  const current=currentModel.getValue();
+  if(original===current){toast("No unsaved changes to preview.","warn");return;}
+  $("diffTitle").textContent=`Changes Preview · ${currentPath}`;
+  $("diffDrawer").classList.add("open");
+  if(diffEditor) diffEditor.dispose();
+  if(diffOriginalModel) diffOriginalModel.dispose();
+  if(diffModifiedModel) diffModifiedModel.dispose();
+
+  const lang=languageByPath.get(currentPath)||languageForPath(currentPath);
+  diffOriginalModel=monaco.editor.createModel(original,lang,monaco.Uri.parse("hoa://original/"+currentPath));
+  diffModifiedModel=monaco.editor.createModel(current,lang,monaco.Uri.parse("hoa://modified/"+currentPath));
+  diffEditor=monaco.editor.createDiffEditor($("diffHost"),{
+    theme:"hoa-dark",automaticLayout:true,readOnly:true,renderSideBySide:true,
+    minimap:{enabled:false},scrollBeyondLastLine:false,ignoreTrimWhitespace:false
+  });
+  diffEditor.setModel({original:diffOriginalModel,modified:diffModifiedModel});
+}
+function closeDiff(){
+  $("diffDrawer").classList.remove("open");
+  if(diffEditor){diffEditor.dispose();diffEditor=null;}
+  if(diffOriginalModel){diffOriginalModel.dispose();diffOriginalModel=null;}
+  if(diffModifiedModel){diffModifiedModel.dispose();diffModifiedModel=null;}
+}
+
+function runBuiltInFind(){
+  if(!editor){toast("Open a file first.","warn");return;}
+  editor.getAction("actions.find")?.run();
+  editor.focus();
+}
+function runBuiltInReplace(){
+  if(!editor){toast("Open a file first.","warn");return;}
+  editor.getAction("editor.action.startFindReplaceAction")?.run();
+  editor.focus();
+}
+
+function setBottomTab(tab){
+  document.querySelectorAll(".bottom-tabs button").forEach(b=>b.classList.remove("active"));
+  const target=tab==="problems"?$("problemsTab"):$("consoleTab");
+  target.classList.add("active");
+  if(tab==="problems"){
+    const rows=[];
+    for(const [path,m] of modelByPath){
+      const markers=monaco.editor.getModelMarkers({resource:m.uri});
+      markers.slice(0,150).forEach(x=>rows.push(`${path}:${x.startLineNumber}:${x.startColumn} — ${x.message}`));
+    }
+    output(rows.length?rows.join("\n"):"No Monaco diagnostics found in opened files.");
+  }
+}
+
+
+const pcState={cache:{},tab:"overview",loading:false,lastRefresh:0};
+const pcEsc=(v)=>String(v??"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]});
+const pcNum=(n)=>Number(n||0).toLocaleString();
+const pcBytes=(n)=>{const x=Number(n||0);if(x<1024)return x+" B";if(x<1024**2)return (x/1024).toFixed(1)+" KB";if(x<1024**3)return (x/1024**2).toFixed(2)+" MB";return (x/1024**3).toFixed(2)+" GB"};
+const pcTime=(d)=>d?new Date(d).toLocaleString():"—";
+function pcCard(kicker,value,meta,cls,click){
+  return '<div class="pc-card'+(click?' clickable':'')+'"'+(click?' data-pc-open="'+pcEsc(click)+'"':'')+'><span class="pc-kicker">'+pcEsc(kicker)+'</span><span class="pc-value '+(cls||'')+'">'+value+'</span><span class="pc-meta">'+meta+'</span></div>';
+}
+function pcSection(title,body){return '<section class="pc-section"><div class="pc-section-head"><h3>'+pcEsc(title)+'</h3></div><div class="pc-section-body">'+body+'</div></section>';}
+function pcPill(text,ok){return '<span class="pill '+(ok===false?'no':'ok')+'">'+pcEsc(text)+'</span>';}
+function pcErr(e){return '<div class="pc-error">'+pcEsc(e&&e.message?e.message:(e||'Unable to load this section.'))+'</div>';}
+function pcSetTab(tab){pcState.tab=tab;document.querySelectorAll('[data-pc-tab]').forEach(function(b){b.classList.toggle('active',b.dataset.pcTab===tab)});loadProjectControl(tab,true);}
+function openProjectControl(tab){$("projectControlDrawer").classList.add('open');$("projectControlDrawer").setAttribute('aria-hidden','false');pcSetTab(tab||'overview');}
+function closeProjectControl(){$("projectControlDrawer").classList.remove('open');$("projectControlDrawer").setAttribute('aria-hidden','true');}
+async function loadPcData(tab,force){
+  if(!force&&pcState.cache[tab])return pcState.cache[tab];
+  if(tab==='overview'){
+    const r=await Promise.allSettled([api('status'),api('repo_summary'),api('inventory'),api('pages'),api('runs'),api('branches')]);
+    const out=r.map(function(x){return x.status==='fulfilled'?x.value:{error:x.reason&&x.reason.message?x.reason.message:'Request failed'}});
+    return pcState.cache[tab]={status:out[0],repo:out[1],db:out[2],pages:out[3],runs:out[4],branches:out[5]};
+  }
+  if(tab==='frontend')return pcState.cache[tab]={repo:await api('repo_summary'),files:await api('list')};
+  if(tab==='database'||tab==='storage')return pcState.cache[tab]={db:await api('inventory')};
+  if(tab==='github')return pcState.cache[tab]={repo:await api('repo_summary'),commits:await api('commits')};
+  if(tab==='branches')return pcState.cache[tab]=await api('branches');
+  if(tab==='hosting')return pcState.cache[tab]={pages:await api('pages')};
+  if(tab==='deployments')return pcState.cache[tab]={runs:await api('runs')};
+  return {};
+}
+function renderPcOverview(d){
+  const db=d.db||{}, repo=d.repo&&d.repo.repo?d.repo.repo:{}, groups=d.repo&&d.repo.groups?d.repo.groups:{}, status=d.status||{}, pages=d.pages||{}, runs=d.runs&&d.runs.runs?d.runs.runs:[], branches=d.branches&&d.branches.branches?d.branches.branches:[];
+  const storage=(db.storage||[]).reduce(function(a,x){return a+Number(x.total_bytes||0)},0);
+  const cards=[
+    pcCard('SUPABASE DATABASE',pcEsc(db.database&&db.database.size_pretty||'—'),pcNum(db.table_count)+' public tables · PostgreSQL '+pcEsc(db.database&&db.database.postgres_version||'—'),'pc-blue','database'),
+    pcCard('SUPABASE STORAGE',pcBytes(storage),pcNum(db.storage_bucket_count)+' buckets','pc-blue','storage'),
+    pcCard('GITHUB REPOSITORY',pcBytes(repo.size_bytes),pcEsc(repo.full_name||'—')+' · '+pcEsc(repo.visibility||'—'),'pc-yellow','github'),
+    pcCard('HOST / GITHUB PAGES',pcEsc(pages.status||'Unknown'),pcEsc(pages.url||'Pages not checked'),pages.status==='built'?'pc-green':'pc-yellow','hosting')
+  ].join('');
+  const code=pcCard('HTML',pcNum(groups.html&&groups.html.count||0),pcBytes(groups.html&&groups.html.bytes||0),'pc-blue','frontend')+pcCard('CSS',pcNum(groups.css&&groups.css.count||0),pcBytes(groups.css&&groups.css.bytes||0),'pc-blue','frontend')+pcCard('JAVASCRIPT',pcNum(groups.js&&groups.js.count||0),pcBytes(groups.js&&groups.js.bytes||0),'pc-blue','frontend');
+  const branchRows=branches.slice(0,10).map(function(b){return '<tr><td>'+pcEsc(b.name)+' '+(b.name===repo.default_branch?'<span class="pill">MAIN</span>':'')+'</td><td>'+pcPill(b.protected?'Protected':'Unprotected',b.protected)+'</td><td class="num"><code>'+pcEsc(String(b.sha||'').slice(0,9))+'</code></td></tr>';}).join('');
+  const run=runs[0];
+  return '<div class="pc-grid">'+cards+'</div>'+
+    pcSection('Code footprint','<div class="pc-three">'+code+'</div>')+
+    pcSection('System','<div class="pc-statusbar"><span class="pc-dot'+(status.github_ok?'':' bad')+'"></span><b>'+(status.github_ok?'Connected':'Attention required')+'</b><span>'+pcEsc(status.repo||'')+' · '+pcEsc(status.branch||'main')+'</span></div><div class="pc-actions"><button class="btn" data-pc-action="refresh">↻ Refresh All</button><button class="btn" data-pc-action="editor">Open Code Editor</button></div>')+
+    pcSection('Main / Branches','<div style="overflow:auto"><table class="pc-table"><thead><tr><th>Branch</th><th>Protection</th><th>Commit</th></tr></thead><tbody>'+(branchRows||'<tr><td colspan="3" class="pc-muted">No branches returned.</td></tr>')+'</tbody></table></div>')+
+    pcSection('Database + storage','<div class="pc-two"><div><b>Database</b><div class="pc-meta">'+pcEsc(db.database&&db.database.size_pretty||'—')+' · '+pcNum(db.table_count)+' tables</div></div><div><b>Storage</b><div class="pc-meta">'+pcBytes(storage)+' · '+pcNum(db.storage_bucket_count)+' buckets</div></div></div>')+
+    pcSection('Deployment',run?'<b>'+pcEsc(run.name)+'</b><div class="pc-meta">'+pcEsc(run.conclusion||run.status||'unknown')+' · '+pcTime(run.updated_at||run.created_at)+'</div>':'<span class="pc-muted">No deployment data returned.</span>')+
+    '<div class="pc-note" style="margin-top:10px">GitHub repository size is the API repository-size field, shown as an informational footprint rather than a billing quota.</div>';
+}
+function renderPcFrontend(d){
+  const g=d.repo&&d.repo.groups?d.repo.groups:{}, fs=(d.files&&d.files.files?d.files.files:[]).filter(function(f){return /\.(html?|css|js|mjs|cjs|ts|tsx|jsx)$/i.test(f.path)});
+  const codeCards=pcCard('HTML',pcNum(g.html&&g.html.count||0),pcBytes(g.html&&g.html.bytes||0),'pc-blue')+pcCard('CSS',pcNum(g.css&&g.css.count||0),pcBytes(g.css&&g.css.bytes||0),'pc-blue')+pcCard('JAVASCRIPT',pcNum(g.js&&g.js.count||0),pcBytes(g.js&&g.js.bytes||0),'pc-blue');
+  const rows=fs.slice(0,300).map(function(f){return '<tr><td>'+pcEsc(f.path)+'</td><td>'+pcEsc((f.path.split('.').pop()||'').toUpperCase())+'</td><td class="num">'+pcBytes(f.size)+'</td><td><button class="btn" style="width:auto" data-pc-open-file="'+pcEsc(f.path)+'">Open</button></td></tr>';}).join('');
+  return pcSection('HTML / CSS / JavaScript footprint','<div class="pc-three">'+codeCards+'</div>')+pcSection('Code files','<div style="max-height:520px;overflow:auto"><table class="pc-table"><thead><tr><th>Path</th><th>Type</th><th class="num">Size</th><th></th></tr></thead><tbody>'+(rows||'<tr><td colspan="4" class="pc-muted">No code files found.</td></tr>')+'</tbody></table></div>')+'<div class="pc-note">Use Open to load the selected file into the existing Monaco workbench.</div>';
+}
+function renderPcDatabase(d){
+  const db=d.db||{},tables=db.tables||[],sum=tables.reduce(function(a,x){return a+Number(x.size_bytes||0)},0);
+  const cards=pcCard('DATABASE SIZE',pcEsc(db.database&&db.database.size_pretty||'—'),pcBytes(db.database&&db.database.size_bytes||0)+' · PostgreSQL '+pcEsc(db.database&&db.database.postgres_version||'—'))+pcCard('PUBLIC TABLES',pcNum(db.table_count),'RLS and policy state shown below')+pcCard('EXTENSIONS',pcNum(db.extension_count),'Installed PostgreSQL extensions')+pcCard('TABLE FOOTPRINT',pcBytes(sum),'Sum of public table sizes');
+  const rows=tables.map(function(t){return '<tr><td>'+pcEsc(t.name)+'</td><td class="num">'+pcNum(t.row_estimate)+'</td><td class="num">'+pcEsc(t.size_pretty)+'</td><td>'+pcPill(t.rls_enabled?'Enabled':'Disabled',t.rls_enabled)+'</td><td class="num">'+pcNum(t.policy_count)+'</td></tr>';}).join('');
+  return pcSection('Database overview','<div class="pc-grid">'+cards+'</div>')+pcSection('Public tables','<div style="max-height:560px;overflow:auto"><table class="pc-table"><thead><tr><th>Table</th><th class="num">Rows*</th><th class="num">Size</th><th>RLS</th><th class="num">Policies</th></tr></thead><tbody>'+rows+'</tbody></table></div>')+'<div class="pc-note">* Row counts are PostgreSQL planner estimates for speed. Database size is the actual PostgreSQL database footprint.</div>';
+}
+function renderPcStorage(d){
+  const buckets=d.db&&d.db.storage?d.db.storage:[],total=buckets.reduce(function(a,x){return a+Number(x.total_bytes||0)},0);
+  const cards=pcCard('TOTAL STORAGE',pcBytes(total),pcNum(buckets.length)+' buckets')+pcCard('OBJECTS',pcNum(buckets.reduce(function(a,x){return a+Number(x.object_count||0)},0)),'Across configured buckets')+pcCard('PRIVATE BUCKETS',pcNum(buckets.filter(function(x){return !x.public}).length),'Recommended for protected content')+pcCard('PUBLIC BUCKETS',pcNum(buckets.filter(function(x){return x.public}).length),'Review public exposure');
+  const rows=buckets.map(function(b){return '<tr><td>'+pcEsc(b.name)+'</td><td>'+pcPill(b.public?'Public':'Private',b.public)+'</td><td class="num">'+pcNum(b.object_count)+'</td><td class="num">'+pcEsc(b.total_size_pretty)+'</td><td>'+pcBytes(b.file_size_limit)+'</td></tr>';}).join('');
+  return pcSection('Storage overview','<div class="pc-grid">'+cards+'</div>')+pcSection('Storage buckets','<div style="overflow:auto"><table class="pc-table"><thead><tr><th>Bucket</th><th>Access</th><th class="num">Objects</th><th class="num">Used</th><th>File limit</th></tr></thead><tbody>'+(rows||'<tr><td colspan="5" class="pc-muted">No buckets found.</td></tr>')+'</tbody></table></div>')+'<div class="pc-note">Storage is tracked separately from PostgreSQL database size.</div>';
+}
+function renderPcGithub(d){
+  const r=d.repo||{},i=r.repo||{},g=r.groups||{},c=d.commits&&d.commits.commits?d.commits.commits:[];
+  const cards=pcCard('REPOSITORY',pcEsc(i.full_name||'—'),pcEsc(i.html_url||''))+pcCard('VISIBILITY',pcEsc(i.visibility||'—'),i.archived?'Archived':'Active')+pcCard('REPOSITORY SIZE',pcBytes(i.size_bytes),'GitHub API footprint')+pcCard('DEFAULT BRANCH',pcEsc(i.default_branch||'—'),'Last push · '+pcTime(i.pushed_at));
+  const rows=c.map(function(x){return '<tr><td title="'+pcEsc(x.message||'')+'"><code>'+pcEsc(String(x.sha||'').slice(0,10))+'</code> '+pcEsc((x.message||'').split('\n')[0])+'</td><td>'+pcEsc(x.author||'—')+'</td><td>'+pcTime(x.date)+'</td></tr>';}).join('');
+  return pcSection('Repository','<div class="pc-grid">'+cards+'</div>')+pcSection('Code footprint','<div class="pc-three">'+pcCard('HTML',pcNum(g.html&&g.html.count||0),pcBytes(g.html&&g.html.bytes||0))+pcCard('CSS',pcNum(g.css&&g.css.count||0),pcBytes(g.css&&g.css.bytes||0))+pcCard('JAVASCRIPT',pcNum(g.js&&g.js.count||0),pcBytes(g.js&&g.js.bytes||0))+'</div>')+pcSection('Recent commits','<div style="overflow:auto"><table class="pc-table"><thead><tr><th>Commit</th><th>Author</th><th>Date</th></tr></thead><tbody>'+(rows||'<tr><td colspan="3" class="pc-muted">No commits returned.</td></tr>')+'</tbody></table></div>');
+}
+function renderPcBranches(d){const rows=(d.branches||[]).map(function(b){return '<tr><td><b>'+pcEsc(b.name)+'</b> '+(b.name===d.default_branch?'<span class="pill">MAIN</span>':'')+'</td><td>'+pcPill(b.protected?'Protected':'Unprotected',b.protected)+'</td><td><code>'+pcEsc(b.sha||'—')+'</code></td></tr>';}).join('');return pcSection('Branches','<table class="pc-table"><thead><tr><th>Branch</th><th>Protection</th><th>Commit SHA</th></tr></thead><tbody>'+(rows||'<tr><td colspan="3" class="pc-muted">No branches returned.</td></tr>')+'</tbody></table>')}
+function renderPcHosting(d){const p=d.pages||{};return pcSection('GitHub Pages host','<div class="pc-grid">'+pcCard('STATUS',pcEsc(p.status||'Unknown'),pcEsc(p.url||'No URL'),p.status==='built'?'pc-green':'pc-yellow')+pcCard('BUILD TYPE',pcEsc(p.build_type||'—'),'GitHub Pages')+pcCard('SOURCE BRANCH',pcEsc(p.source&&p.source.branch||'main'),pcEsc(p.source&&p.source.path||'/'),'pc-blue')+pcCard('CUSTOM DOMAIN',pcEsc(p.cname||'None'),p.cname?'Configured':'Default Pages domain')+'</div>')+'<div class="pc-note" style="margin-top:12px">Hosting is separated from the database. Deployments are shown in the Deployments section.</div>'}
+function renderPcDeployments(d){const rows=d.runs&&d.runs.runs?d.runs.runs:[];const body=rows.map(function(x){return '<tr><td>'+pcEsc(x.name)+'</td><td>'+pcPill(x.conclusion||x.status||'unknown',x.conclusion==='success')+'</td><td>'+pcTime(x.created_at)+'</td><td>'+pcTime(x.updated_at)+'</td><td>'+(x.url?'<a class="btn" style="display:inline-block;text-decoration:none" href="'+pcEsc(x.url)+'" target="_blank" rel="noopener">Open</a>':'')+'</td></tr>';}).join('');return pcSection('Deployments','<table class="pc-table"><thead><tr><th>Workflow</th><th>Status</th><th>Started</th><th>Updated</th><th></th></tr></thead><tbody>'+(body||'<tr><td colspan="5" class="pc-muted">No workflow runs returned.</td></tr>')+'</tbody></table>')}
+function renderProjectControl(tab,d){
+  $("pcMain").innerHTML=tab==='overview'?renderPcOverview(d):tab==='frontend'?renderPcFrontend(d):tab==='database'?renderPcDatabase(d):tab==='storage'?renderPcStorage(d):tab==='github'?renderPcGithub(d):tab==='branches'?renderPcBranches(d):tab==='hosting'?renderPcHosting(d):tab==='deployments'?renderPcDeployments(d):pcErr('Unknown section');
+  $("pcLastRefresh").textContent='Updated '+new Date().toLocaleTimeString();
+}
+async function loadProjectControl(tab,force){
+  tab=tab||pcState.tab;if(pcState.loading&&!force)return;pcState.loading=true;$("pcMain").innerHTML='<div class="pc-muted">Loading '+pcEsc(tab)+'…</div>';
+  try{renderProjectControl(tab,await loadPcData(tab,!!force))}catch(e){$("pcMain").innerHTML=pcErr(e)}finally{pcState.loading=false}
+}
+function initProjectControlEvents(){
+  $("projectControlBtn")?.addEventListener('click',function(){openProjectControl('overview')});
+  $("pcClose")?.addEventListener('click',closeProjectControl);
+  $("pcRefresh")?.addEventListener('click',function(){pcState.cache={};loadProjectControl(pcState.tab,true)});
+  document.querySelectorAll('[data-pc-tab]').forEach(function(b){b.addEventListener('click',function(){pcSetTab(b.dataset.pcTab)})});
+  $("projectControlDrawer")?.addEventListener('click',async function(e){
+    if(e.target.id==='projectControlDrawer')closeProjectControl();
+    const card=e.target.closest('[data-pc-open]');if(card){pcSetTab(card.dataset.pcOpen);return}
+    const f=e.target.closest('[data-pc-open-file]');if(f&&f.dataset.pcOpenFile){closeProjectControl();await openFile(f.dataset.pcOpenFile);return}
+    const a=e.target.closest('[data-pc-action]');if(!a)return;
+    if(a.dataset.pcAction==='editor'){closeProjectControl();await openFile('index.html');}
+    if(a.dataset.pcAction==='refresh'){pcState.cache={};loadProjectControl(pcState.tab,true)}
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='F2'&&!e.ctrlKey&&!e.altKey&&!e.metaKey){e.preventDefault();openProjectControl('overview')}});
+}
+
+function bindEvents(){
+  initProjectControlEvents();
+  initProjectControlEvents();
+  const mobileMenuBtn=$("mobileMenuBtn");
+  const mobileMenuBackdrop=$("mobileMenuBackdrop");
+  const closeMobileMenu=()=>{document.body.classList.remove("mobile-nav-open");mobileMenuBackdrop?.setAttribute("aria-hidden","true");};
+  mobileMenuBtn?.addEventListener("click",()=>{document.body.classList.toggle("mobile-nav-open");mobileMenuBackdrop?.setAttribute("aria-hidden","false");});
+  mobileMenuBackdrop?.addEventListener("click",closeMobileMenu);
+  $("loginForm").addEventListener("submit",signIn);
+  $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
+  $("open").addEventListener("click",()=>openFile());
+  $("save").addEventListener("click",requestSave);
+  $("saveTop").addEventListener("click",requestSave);
+  $("repoSearchBtn").addEventListener("click",openSearchDrawer);
+  $("repoSearchTop").addEventListener("click",openSearchDrawer);
+  $("quickOpenBtn").addEventListener("click",openQuickOpen);
+  $("findBtn").addEventListener("click",runBuiltInFind);
+  $("replaceBtn").addEventListener("click",runBuiltInReplace);
+  $("formatBtn").addEventListener("click",formatDocument);
+  $("formatTopBtn").addEventListener("click",formatDocument);
+  $("diffBtn").addEventListener("click",showDiff);
+  $("wordWrapBtn").addEventListener("click",toggleWordWrap);
+  $("suggestBtn").addEventListener("click",toggleSuggestions);
+  $("minimapBtn").addEventListener("click",toggleMinimap);
+  $("foldBtn").addEventListener("click",()=>editor?.getAction("editor.foldAll")?.run());
+  $("unfoldBtn").addEventListener("click",()=>editor?.getAction("editor.unfoldAll")?.run());
+  $("undoBtn").addEventListener("click",()=>editor?.trigger("hoa","undo",null));
+  $("redoBtn").addEventListener("click",()=>editor?.trigger("hoa","redo",null));
+  $("clearEditor").addEventListener("click",clearEditor);
+  $("reloadFiles").addEventListener("click",listFiles);
+  $("refreshOverview").addEventListener("click",runDashboardOverview);
+  $("fileFilter").addEventListener("input",()=>renderFiles(repoFiles));
+  $("outlineFilter").addEventListener("input",updateOutline);
+  $("quickOpenInput").addEventListener("input",renderQuickOpen);
+  $("repoSearchInput").addEventListener("keydown",e=>{if(e.key==="Enter")searchRepository();});
+  $("runSearch").addEventListener("click",searchRepository);
+  $("caseBtn").addEventListener("click",()=>{searchCase=!searchCase;$("caseBtn").classList.toggle("active",searchCase);});
+  $("regexBtn").addEventListener("click",()=>{searchRegex=!searchRegex;$("regexBtn").classList.toggle("active",searchRegex);});
+  $("closeSearch").addEventListener("click",closeSearchDrawer);
+  $("closeDiff").addEventListener("click",closeDiff);
+  $("closeQuickOpen").addEventListener("click",closeQuickOpen);
+  $("consoleTab").addEventListener("click",()=>setBottomTab("console"));
+  $("problemsTab").addEventListener("click",()=>setBottomTab("problems"));
+  $("cancelCommit").addEventListener("click",()=>{$("confirmBackdrop").classList.remove("open");window.__confirmSave=null;});
+  $("confirmCommit").addEventListener("click",performSave);
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape"){
+      closeSearchDrawer();closeDiff();closeQuickOpen();$("confirmBackdrop").classList.remove("open");
+    }
+  });
+  document.querySelectorAll("[data-action]").forEach(b=>{
+    b.type="button";
+    b.addEventListener("click",ev=>{
+      ev.preventDefault();
+      closeMobileMenu();
+      if(b.dataset.action==="overview") runDashboardOverview();
+      else runAction(b.dataset.action);
+    });
+  });
+}
+
+async function runDashboardOverview(){
+  if(busy)return;
+  setBusy(true,"overview");
+  try{
+    const status=await api("status");
+    let pages={};
+    try{pages=await api("pages");}catch(e){pages={error:e.message};}
+    const d={...status,pages_status:pages.status||pages.build_type||"Not checked",pages_ok:!pages.error};
+    output({status:d,pages});
+    toast("System status refreshed","ok");
+  }catch(e){
+    output({ok:false,action:"overview",error:e.message});
+    toast("System status failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+function actionTitle(action){
+  return ({overview:"Infrastructure Overview",status:"Connection Status",health:"Supabase Health",admins:"Admin Accounts",list:"Repository Files",commits:"Recent Commits",pages:"GitHub Pages",runs:"Deployments"})[action]||action;
+}
+function openModalResult(title,data){
+  const rows=Object.entries(data||{}).map(([k,v])=>`${k}: ${typeof v==="string"?v:JSON.stringify(v)}`).join("\n");
+  output(`${title}\n\n${rows||"No data returned."}`);
+  toast(title+" completed","ok");
+}
+async function runAction(action){
+  if(busy)return;
+  setBusy(true,action);
+  try{
+    const d=await api(action);
+    if(action==="list"){
+      repoFiles=(d.files||[]).map(f=>({path:safePath(f.path),size:f.size||0})).sort((a,b)=>a.path.localeCompare(b.path));
+      $("fileCount").textContent=repoFiles.length;
+      renderFiles(repoFiles);
+    }
+    openModalResult(actionTitle(action),d);
+  }catch(e){
+    output({ok:false,action,error:e.message});
+    toast(actionTitle(action)+" failed: "+e.message,"err");
+  }finally{setBusy(false);}
+}
+
+async function boot(){
+  try{
+    init();bindEvents();
+    const {data}=await init().auth.getSession();
+    if(data.session) await showApp();
+  }catch(e){
+    setLogin(e.message||"Initialization failed.",true);
+  }
+}
+
+boot();
+})();
+</script>
+</body>
+</html>
