@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>HOA Developer Console V2.0 — Code Workbench</title>
+<title>HUB OF ASPIRANTS — Developer Console V2.1</title>
 <link rel="icon" href="assets/hoa-logo.png">
 <style>
 :root{
@@ -18,15 +18,6 @@ html,body{margin:0;min-height:100%;background:#06101c;color:var(--text);font:14p
 body{overflow:hidden}
 button,input{font:inherit}
 button{cursor:pointer}
-
-/* Compact scrollbars: keep the workbench usable without oversized browser tracks. */
-html{scrollbar-width:thin;scrollbar-color:#52657f transparent}
-*{scrollbar-width:thin;scrollbar-color:#52657f transparent}
-*::-webkit-scrollbar{width:6px;height:6px}
-*::-webkit-scrollbar-track{background:transparent}
-*::-webkit-scrollbar-thumb{background:#52657f;border-radius:999px}
-*::-webkit-scrollbar-thumb:hover{background:#6a7f9d}
-*::-webkit-scrollbar-button{display:none;width:0;height:0}
 .hidden{display:none!important}
 .login-wrap{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 0,#173459 0,#06101c 46%)}
 .login-card{width:min(450px,100%);background:rgba(12,23,38,.98);border:1px solid var(--line);border-radius:22px;padding:30px;box-shadow:var(--shadow)}
@@ -39,7 +30,6 @@ h1{font-size:24px;margin:18px 0 6px}.subtitle{color:var(--muted);line-height:1.5
 .signin:disabled{opacity:.55;cursor:not-allowed}
 .login-status{min-height:20px;margin-top:14px;color:var(--muted);font-size:12px}.login-status.error{color:var(--red)}.login-status.ok{color:var(--green)}
 
-.mobile-menu-btn{display:none}
 .appbar{height:58px;background:#091220f5;border-bottom:1px solid var(--line);backdrop-filter:blur(14px);display:flex;align-items:center;gap:10px;padding:0 14px;position:sticky;top:0;z-index:60}
 .brand{font-weight:850;white-space:nowrap}.pill{font-size:10px;border:1px solid #31527c;color:#aac0df;padding:5px 8px;border-radius:999px;letter-spacing:.06em;white-space:nowrap}
 .branch-pill{font-size:10px;border:1px solid #2e725f;color:#83e5c5;background:#0b211b;padding:5px 8px;border-radius:999px;white-space:nowrap}
@@ -118,155 +108,43 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
 .confirm-backdrop.open{display:grid}.confirm-card{width:min(520px,100%);background:#0b1524;border:1px solid #314866;border-radius:14px;box-shadow:0 30px 90px #000b;padding:18px}
 .confirm-card h3{margin:0 0 8px;font-size:15px}.confirm-card p{margin:0;color:#9db0c9;line-height:1.55;font-size:12px}.confirm-actions{display:flex;justify-content:flex-end;gap:7px;margin-top:16px}
 
-@media(max-width:1180px){
-  .workbench{grid-template-columns:220px minmax(0,1fr) 190px}
-}
 
+.owner-pill{font-size:10px;border:1px solid #6f5a23;color:#f4d77a;background:#201b0b;padding:5px 8px;border-radius:999px;letter-spacing:.05em;white-space:nowrap}
+.mobile-menu-btn{display:none;position:fixed;left:10px;bottom:10px;z-index:300;width:44px;height:44px;border-radius:12px;border:1px solid #355276;background:#0f2138;color:#fff;box-shadow:0 12px 35px #0009}
+.mobile-menu-backdrop{display:none}
+
+@media(max-width:1180px){.workbench{grid-template-columns:220px minmax(0,1fr) 190px}}
 @media(max-width:980px){
-  html,body{width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
-  body{overflow:hidden}
-  .appbar{position:sticky;top:0;z-index:200}
-  .appbar .brand{min-width:0;overflow:hidden;text-overflow:ellipsis;font-size:12px;font-weight:850}
-  .pill,.branch-pill,.user{display:none}
-  .logout{flex:0 0 auto;min-height:40px;padding:8px 10px;font-size:11px}
-
-  .shell{display:block;height:calc(100svh - 58px);min-height:0;position:relative;overflow:hidden}
-  .mobile-menu-btn{
-    display:inline-flex;align-items:center;justify-content:center;gap:5px;
-    flex:0 0 auto;min-width:44px;min-height:42px;padding:8px 10px;
-    border:1px solid var(--line2);border-radius:10px;background:#0e1c30;
-    color:#fff;font-size:17px;font-weight:800;line-height:1
-  }
-  .mobile-menu-btn span{font-size:10px;font-weight:800;letter-spacing:.03em}
-  .shell aside{
-    display:block;position:fixed;top:58px;left:0;bottom:0;
-    width:min(330px,86vw);max-width:330px;padding:0 12px 18px;margin:0;
-    z-index:190;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;
-    background:#07111e;border-right:1px solid #315078;
-    box-shadow:24px 0 70px rgba(0,0,0,.45);
-    transform:translateX(-110%);transition:transform .22s ease
-  }
-  .shell.mobile-menu-open aside{transform:translateX(0)}
-  .mobile-aside-head{
-    display:flex;align-items:center;gap:8px;position:sticky;top:0;padding:12px 2px 10px;
-    background:#07111e;border-bottom:1px solid var(--line);z-index:2;margin-bottom:4px
-  }
-  .mobile-aside-head strong{font-size:12px;letter-spacing:.04em}
-  .mobile-aside-head .spacer{margin-left:auto}
-  .mobile-aside-close{
-    min-width:38px;min-height:38px;border:1px solid var(--line2);border-radius:9px;
-    background:#0e1c30;color:#dce8fa;font-size:18px
-  }
-  .mobile-nav-backdrop{display:none}
-  .shell.mobile-menu-open .mobile-nav-backdrop{
-    display:block;position:fixed;inset:58px 0 0;z-index:180;
-    background:rgba(2,7,14,.62);backdrop-filter:blur(2px)
-  }
-  .section{margin:12px 4px 7px;font-size:9px}
-  .nav{gap:6px}
-  .nav button{min-height:42px;padding:10px 11px;font-size:12px;border-color:#192d47}
-  .hotkeys{display:none}
-  .kbd{font-size:9px}
-
-  main{
-    width:100%;height:100%;min-height:0;overflow:hidden;
-    grid-template-rows:auto minmax(0,1fr) 96px
-  }
-  .topbar{padding:8px var(--mobile-pad) 7px}
-  .dashboard-head{align-items:center;gap:8px;margin-bottom:7px;min-height:34px}
-  .dashboard-title{font-size:15px;line-height:1.2}
-  .dashboard-subtitle{display:none}
-  .dashboard-actions{margin-left:auto;flex:0 0 auto}
-  .dashboard-actions .btn{width:38px;min-width:38px;height:38px;min-height:38px;padding:0;font-size:0;border-radius:9px}
-  .dashboard-actions .btn::before{content:"↻";font-size:19px;line-height:1}
-
-  .searchbar{grid-template-columns:minmax(0,1fr) auto;gap:5px}
-  .searchbar #path{grid-column:1}
-  .searchbar #open{grid-column:2}
-  .searchbar #commitMessage{grid-column:1/-1}
-  .searchbar #saveTop{grid-column:1}
-  .searchbar #repoSearchTop{grid-column:2}
-  .searchbar input{min-height:40px;padding:8px 10px;font-size:12px}
-  .searchbar .btn{min-height:40px;padding:8px 11px}
-
-  .statusline{
-    display:flex;align-items:center;gap:8px;margin-top:6px;font-size:9px;min-width:0;
-    white-space:nowrap;overflow:hidden
-  }
-  .statusline .grow,#languageState,#cursorState{display:none}
-  #fileState{min-width:0;overflow:hidden;text-overflow:ellipsis}
-  #diagnosticState,#dirtyState{flex:0 0 auto}
-  #dirtyState{margin-left:auto}
-
-  .workbench{min-height:0;height:100%;display:grid;grid-template-columns:1fr;background:#060d18;overflow:hidden}
-  .files-panel,.outline-panel{display:none}
-  .editor-panel{min-height:0;height:100%;overflow:hidden}
-
-  .tabs{
-    min-height:38px;height:38px;overflow-x:auto;
-    scrollbar-width:none;-webkit-overflow-scrolling:touch
-  }
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;min-width:118px;max-width:190px;height:38px;padding:8px 9px;font-size:10px}
-
-  .editor-toolbar{
-    min-height:48px;padding:5px 7px;gap:5px;overflow-x:auto;
-    overscroll-behavior-x:contain;scrollbar-width:none;-webkit-overflow-scrolling:touch
-  }
-  .editor-toolbar::-webkit-scrollbar{display:none}
-  .editor-toolbar .spacer,.editor-info{display:none}
-  .editor-toolbar .icon-btn{flex:0 0 auto;min-width:40px;min-height:38px;padding:8px 9px}
-  #formatTopBtn{min-width:58px}
-  #minimapBtn{min-width:66px}
-  #foldBtn,#unfoldBtn{min-width:54px}
-  #editorHost{min-height:0}
-  #fallbackEditor{padding:12px;font-size:12px;line-height:1.5}
-
-  .bottom{min-height:96px;height:96px;grid-template-rows:36px minmax(0,1fr);overflow:hidden}
-  .bottom-tabs{overflow:hidden}
-  .bottom-tabs button{min-height:38px;padding:8px 12px;white-space:nowrap;font-size:10px}
-  .output{padding:7px 9px;font-size:10px;line-height:1.4;scrollbar-width:thin}
-
-  .search-drawer.open,.diff-drawer.open{padding:8px}
-  .search-card{
-    width:100%;height:min(92svh,760px);border-radius:12px;
-    grid-template-rows:auto auto minmax(0,1fr)
-  }
-  .search-head,.diff-head{padding:10px;gap:6px}
-  .search-head h2,.diff-head h2{
-    min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px
-  }
-  .search-head .btn,.diff-head .btn{min-height:38px}
-  .search-controls{grid-template-columns:minmax(0,1fr) 1fr 1fr;gap:6px;padding:8px}
-  .search-controls input{grid-column:1/-1;min-width:0;min-height:42px}
-  .search-controls .btn{min-height:40px}
-  .result-row{padding:10px}
-  .result-meta{font-size:9px}
-  .result-snippet{font-size:11px;line-height:1.4}
-  .diff-card{width:100%;height:min(94svh,820px);border-radius:12px}
-
-  .confirm-backdrop{padding:12px}
-  .confirm-card{width:100%;max-width:520px;padding:15px;border-radius:12px}
-  .confirm-actions{display:grid;grid-template-columns:1fr 1fr}
-  .confirm-actions .btn{min-height:42px}
-
-  .toast{
-    left:10px;right:10px;bottom:max(10px,env(safe-area-inset-bottom));
-    max-width:none;font-size:11px
-  }
+  body{overflow:auto}.shell{height:auto;min-height:calc(100vh - 58px)}main{min-height:calc(100vh - 58px);grid-template-rows:auto minmax(600px,1fr) 150px}
+  .workbench{grid-template-columns:210px minmax(0,1fr)}.outline-panel{display:none}
+}
+@media(max-width:720px){
+  .shell{display:block}.appbar{padding-left:56px}.appbar .brand{font-size:12px}.pill,.branch-pill,.owner-pill{display:none}.user{display:none}
+  .mobile-menu-btn{display:block}
+  #consoleSidebar{display:block;position:fixed;left:0;top:58px;bottom:0;width:min(290px,82vw);z-index:280;transform:translateX(-105%);transition:transform .2s ease;box-shadow:18px 0 60px #0009}
+  body.mobile-nav-open #consoleSidebar{transform:translateX(0)}
+  body.mobile-nav-open .mobile-menu-backdrop{display:block;position:fixed;inset:58px 0 0;z-index:270;background:rgba(2,7,14,.62);backdrop-filter:blur(3px)}
+  main{grid-template-rows:auto minmax(600px,1fr) 140px}.searchbar{grid-template-columns:1fr 1fr}.searchbar #path{grid-column:1/-1}
+  .workbench{grid-template-columns:1fr}.files-panel{display:none}.editor-panel{min-height:600px}
 }
 
-@media(max-width:380px){
-  .appbar .brand{font-size:11px}
-  .mobile-menu-btn span{display:none}
-  .mobile-menu-btn{min-width:40px}
-  .logout{font-size:10px;padding-inline:9px}
-  .dashboard-title{font-size:15px}
-  .searchbar .btn{padding-inline:10px}
-  .editor-toolbar .icon-btn{min-width:38px;padding-inline:7px}
-  .bottom{min-height:90px;height:90px}
-  .searchbar .btn{white-space:nowrap}
-}
+
+/* V8.57 Project Control Center */
+.pc-drawer{position:fixed;inset:0;display:none;z-index:350;background:rgba(1,6,12,.78);backdrop-filter:blur(7px)}
+.pc-drawer.open{display:flex}
+.pc-shell{width:min(1500px,98vw);height:min(900px,96vh);margin:auto;background:#08111d;border:1px solid #2d4668;border-radius:18px;box-shadow:0 30px 120px #000c;display:grid;grid-template-rows:64px minmax(0,1fr)}
+.pc-head{display:flex;align-items:center;gap:10px;padding:0 16px;border-bottom:1px solid #20334e;background:#0b1625}
+.pc-head-title{font-size:15px;font-weight:850}.pc-head-sub{color:#8094af;font-size:11px}.pc-head .spacer{margin-left:auto}
+.pc-refresh{border:1px solid #35577f;background:#10223a;color:#e6effd;border-radius:9px;padding:8px 10px}.pc-close{border:1px solid #573549;background:#1c1520;color:#f1dce4;border-radius:9px;padding:8px 10px}
+.pc-body{min-height:0;display:grid;grid-template-columns:205px minmax(0,1fr)}
+.pc-nav{background:#07101b;border-right:1px solid #20334e;padding:12px;overflow:auto}.pc-nav-label{font-size:10px;letter-spacing:.14em;color:#6d829f;margin:12px 6px 7px}.pc-nav button{width:100%;text-align:left;background:#0b192a;color:#cddbee;border:1px solid transparent;border-radius:9px;padding:9px 10px;margin-bottom:5px}.pc-nav button:hover{background:#122946;border-color:#2f527a}.pc-nav button.active{background:#17345a;border-color:#3d6fae;color:#fff;font-weight:800}
+.pc-main{min-width:0;min-height:0;overflow:auto;padding:14px}.pc-statusbar{display:flex;align-items:center;gap:8px;color:#8297b0;font-size:11px;margin-bottom:12px}.pc-dot{width:8px;height:8px;border-radius:50%;background:#20d9a0;box-shadow:0 0 12px #20d9a0}.pc-dot.bad{background:#ff6075;box-shadow:0 0 12px #ff6075}.pc-dot.warn{background:#f1c75b;box-shadow:0 0 12px #f1c75b}
+.pc-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.pc-card{background:#0b1727;border:1px solid #223a58;border-radius:12px;padding:12px;min-width:0}.pc-card.clickable{cursor:pointer;transition:transform .15s,border-color .15s,background .15s}.pc-card.clickable:hover{transform:translateY(-1px);border-color:#4778b4;background:#0f2036}.pc-kicker{display:block;color:#7890ae;font-size:9px;letter-spacing:.12em;text-transform:uppercase}.pc-value{display:block;margin-top:6px;font-size:22px;font-weight:850;line-height:1.05;word-break:break-word}.pc-meta{display:block;margin-top:5px;color:#8398b2;font-size:10px;line-height:1.4;word-break:break-word}.pc-green{color:#20d9a0}.pc-yellow{color:#f1c75b}.pc-red{color:#ff7180}.pc-blue{color:#86b5ff}
+.pc-section{margin-top:14px;background:#0b1727;border:1px solid #223a58;border-radius:12px;overflow:hidden}.pc-section-head{padding:11px 12px;border-bottom:1px solid #20344f;display:flex;align-items:center;gap:8px}.pc-section-head h3{margin:0;font-size:12px}.pc-section-head .spacer{margin-left:auto}.pc-section-body{padding:11px}
+.pc-two{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:12px}.pc-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.pc-table{width:100%;border-collapse:collapse;font-size:11px}.pc-table th{color:#7f93af;text-align:left;font-size:9px;letter-spacing:.08em;text-transform:uppercase;background:#091422}.pc-table th,.pc-table td{padding:8px 9px;border-bottom:1px solid #172a43}.pc-table td{color:#cbd7e9}.pc-table tr:last-child td{border-bottom:0}.pc-table .num{text-align:right;font-variant-numeric:tabular-nums}.pc-table .pill{display:inline-block;padding:3px 7px;border-radius:999px;border:1px solid #2c496d;background:#0c1d32;color:#a9c0df;font-size:9px}.pc-table .pill.ok{border-color:#246c5b;background:#0a251e;color:#72e4bf}.pc-table .pill.no{border-color:#6d3341;background:#2a1018;color:#ff9aab}
+.pc-code-card{display:flex;align-items:center;gap:10px}.pc-code-ext{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:#12243c;border:1px solid #2c4c70;font-weight:900;font-size:13px}.pc-code-copy{min-width:0}.pc-code-copy b{display:block;font-size:12px}.pc-code-copy span{display:block;color:#7f94b0;font-size:10px;margin-top:2px}.pc-actions{display:flex;gap:7px;flex-wrap:wrap}.pc-actions .btn{width:auto}.pc-muted{color:#758aa5;font-size:11px}.pc-error{color:#ff9aaa;padding:10px;border:1px solid #6d3341;background:#2a1018;border-radius:9px}.pc-note{color:#8ba0b8;font-size:10px;line-height:1.5}
+@media(max-width:1100px){.pc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.pc-two,.pc-three{grid-template-columns:1fr 1fr}.pc-body{grid-template-columns:175px minmax(0,1fr)}}
+@media(max-width:700px){.pc-shell{width:100vw;height:100vh;border-radius:0}.pc-body{grid-template-columns:1fr}.pc-nav{display:flex;gap:5px;border-right:0;border-bottom:1px solid #20334e;overflow-x:auto;padding:8px}.pc-nav-label{display:none}.pc-nav button{width:auto;min-width:max-content;margin:0}.pc-main{padding:10px}.pc-grid,.pc-two,.pc-three{grid-template-columns:1fr}.pc-head-sub{display:none}.pc-head-title{font-size:13px}.pc-card .pc-value{font-size:19px}}
 </style>
 </head>
 <body>
@@ -275,10 +153,10 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
   <div class="login-card">
     <img class="logo" src="assets/hoa-logo.png" alt="HUB OF ASPIRANTS">
     <h1>Developer Console</h1>
-    <p class="subtitle">A VS Code-style production workbench for editing, searching, understanding and safely committing HOA website code.</p>
+    <p class="subtitle">Owner-only production workbench for editing, searching, reviewing and safely committing HOA website code.</p>
     <form id="loginForm">
-      <div class="field"><label>ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required></div>
-      <div class="field"><label>PASSWORD</label><input id="password" type="password" autocomplete="current-password" required></div>
+      <div class="field"><label for="email">ADMIN EMAIL</label><input id="email" type="email" autocomplete="username" required></div>
+      <div class="field"><label for="password">PASSWORD</label><input id="password" type="password" autocomplete="current-password" required></div>
       <button id="signIn" class="signin" type="submit">Sign in</button>
     </form>
     <div id="loginStatus" class="login-status">Use your registered HOA Admin account.</div>
@@ -287,17 +165,18 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
 
 <section id="appView" class="hidden">
 <header class="appbar">
-  <button id="mobileMenuBtn" class="mobile-menu-btn" type="button" aria-label="Open navigation" aria-expanded="false">☰<span>Menu</span></button>
   <div class="brand">HUB OF ASPIRANTS · Developer Console</div>
-  <span class="pill">V2.0 · CODE WORKBENCH</span>
+  <span class="pill">V2.1 · CODE WORKBENCH</span><span class="owner-pill">OWNER ONLY</span>
   <span class="branch-pill">PRODUCTION · main</span>
   <span id="userEmail" class="user"></span>
   <button id="logout" class="logout">Logout</button>
 </header>
 
 <div class="shell">
-<aside>
-  <div class="mobile-aside-head"><strong>HOA NAVIGATION</strong><span class="spacer"></span><button id="mobileAsideClose" class="mobile-aside-close" type="button" aria-label="Close navigation">×</button></div>
+<button id="mobileMenuBtn" class="mobile-menu-btn" type="button" aria-label="Open developer console navigation">☰</button>
+<aside id="consoleSidebar">
+  <div class="section">PROJECT</div>
+  <div class="nav"><button id="projectControlBtn">Project Control <span class="kbd">F2</span></button></div>
   <div class="section">SYSTEM</div>
   <div class="nav">
     <button data-action="overview">System Overview</button>
@@ -342,7 +221,7 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
     <span><b>Save</b><span class="kbd">Ctrl+S</span></span>
   </div>
 </aside>
-<div id="mobileNavBackdrop" class="mobile-nav-backdrop" aria-hidden="true"></div>
+<div id="mobileMenuBackdrop" class="mobile-menu-backdrop" aria-hidden="true"></div>
 
 <main>
   <div class="topbar">
@@ -414,6 +293,34 @@ main{min-width:0;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)
 </main>
 </div>
 </section>
+
+
+<div id="projectControlDrawer" class="pc-drawer" aria-hidden="true">
+  <section class="pc-shell" role="dialog" aria-modal="true" aria-label="HOA Project Control Center">
+    <header class="pc-head">
+      <div><div class="pc-head-title">HUB OF ASPIRANTS · Project Control Center</div><div class="pc-head-sub">HTML · CSS · JavaScript · Supabase DB · Storage · GitHub · Pages · Main Branch · Deployments</div></div>
+      <span id="pcLastRefresh" class="pc-head-sub"></span><span class="spacer"></span>
+      <button id="pcRefresh" class="pc-refresh" type="button">↻ Refresh</button>
+      <button id="pcClose" class="pc-close" type="button">✕ Close</button>
+    </header>
+    <div class="pc-body">
+      <nav class="pc-nav" aria-label="Project Control sections">
+        <div class="pc-nav-label">PROJECT</div>
+        <button data-pc-tab="overview" class="active">Overview</button>
+        <button data-pc-tab="frontend">HTML / CSS / JS</button>
+        <div class="pc-nav-label">SUPABASE</div>
+        <button data-pc-tab="database">Database</button>
+        <button data-pc-tab="storage">Storage</button>
+        <div class="pc-nav-label">GITHUB / HOST</div>
+        <button data-pc-tab="github">Repository</button>
+        <button data-pc-tab="branches">Branches</button>
+        <button data-pc-tab="hosting">GitHub Pages</button>
+        <button data-pc-tab="deployments">Deployments</button>
+      </nav>
+      <main id="pcMain" class="pc-main"><div class="pc-muted">Loading project control…</div></main>
+    </div>
+  </section>
+</div>
 
 <div id="searchDrawer" class="search-drawer">
   <div class="search-card">
@@ -587,12 +494,20 @@ async function signIn(ev){
 async function showApp(){
   const {data,error}=await init().auth.getUser();
   if(error||!data.user) throw new Error("Signed in, but the session could not be verified.");
+
+  // Fail closed: verify Owner/Admin authorization with the backend before revealing the console.
+  const status = await api("status");
+  if(status?.owner !== true || status?.admin !== true){
+    await init().auth.signOut().catch(()=>{});
+    throw new Error("This account is not authorized for the HOA Developer Console.");
+  }
+
   $("userEmail").textContent=data.user.email||"";
   $("loginView").classList.add("hidden");
   $("appView").classList.remove("hidden");
   setEditorStatus();
-  if(!monacoReady) await loadMonaco();
-  try{await listFiles();}catch(e){output({ok:false,action:"startup:list",error:e.message});}
+  // V8.57: keep startup light. Load Monaco and the full repository tree only when the user opens the editor.
+  try{openProjectControl("overview");}catch(e){output({ok:false,action:"startup:project-control",error:e.message});}
 }
 
 function languageForPath(path){
@@ -695,7 +610,7 @@ function initMonaco(m){
     tabSize:2,
     insertSpaces:true,
     detectIndentation:true,
-    minimap:{enabled:window.innerWidth>720 && minimapOn,renderCharacters:false,scale:1},
+    minimap:{enabled:true,renderCharacters:false,scale:1},
     wordWrap:wordWrapOn?"on":"off",
     wordWrapColumn:100,
     smoothScrolling:true,
@@ -719,7 +634,7 @@ function initMonaco(m){
     inlineSuggest:{enabled:suggestionsOn},
     suggest:{showMethods:true,showFunctions:true,showConstructors:true,showDeprecated:true,showFields:true,showVariables:true,showClasses:true,showStructs:true,showInterfaces:true,showModules:true,showProperties:true,showEnums:true,showEnumMembers:true,showKeywords:true,showValues:true,showConstants:true,showEvents:true,showOperators:true,showUnits:true,showColors:true,preview:true},
     unicodeHighlight:{nonBasicASCII:false,ambiguousCharacters:false},
-    scrollbar:{verticalScrollbarSize:8,horizontalScrollbarSize:8,alwaysConsumeMouseWheel:false},
+    scrollbar:{verticalScrollbarSize:12,horizontalScrollbarSize:12},
     padding:{top:12,bottom:14}
   });
 
@@ -740,20 +655,7 @@ function initMonaco(m){
 
   registerCompletionProviders(m);
   registerEditorCommands(m);
-  applyResponsiveEditorOptions();
   setEditorStatus();
-}
-
-function applyResponsiveEditorOptions(){
-  if(!editor) return;
-  const mobile=window.matchMedia("(max-width:980px)").matches;
-  editor.updateOptions({
-    minimap:{enabled:!mobile && minimapOn},
-    fontSize:mobile?12:13,
-    lineHeight:mobile?19:20,
-    padding:mobile?{top:8,bottom:10}:{top:12,bottom:14},
-    scrollbar:{verticalScrollbarSize:mobile?5:12,horizontalScrollbarSize:mobile?5:12,alwaysConsumeMouseWheel:false}
-  });
 }
 
 function registerEditorCommands(m){
@@ -1081,7 +983,7 @@ function toggleWordWrap(){
 }
 function toggleMinimap(){
   minimapOn=!minimapOn;
-  editor?.updateOptions({minimap:{enabled:minimapOn && window.innerWidth>720}});
+  editor?.updateOptions({minimap:{enabled:minimapOn}});
   $("minimapBtn").classList.toggle("active",minimapOn);
 }
 function toggleSuggestions(){
@@ -1210,7 +1112,7 @@ function showDiff(){
   diffOriginalModel=monaco.editor.createModel(original,lang,monaco.Uri.parse("hoa://original/"+currentPath));
   diffModifiedModel=monaco.editor.createModel(current,lang,monaco.Uri.parse("hoa://modified/"+currentPath));
   diffEditor=monaco.editor.createDiffEditor($("diffHost"),{
-    theme:"hoa-dark",automaticLayout:true,readOnly:true,renderSideBySide:window.innerWidth>720,
+    theme:"hoa-dark",automaticLayout:true,readOnly:true,renderSideBySide:true,
     minimap:{enabled:false},scrollBeyondLastLine:false,ignoreTrimWhitespace:false
   });
   diffEditor.setModel({original:diffOriginalModel,modified:diffModifiedModel});
@@ -1247,24 +1149,117 @@ function setBottomTab(tab){
   }
 }
 
-function bindEvents(){
-  $("loginForm").addEventListener("submit",signIn);
 
-  const shell=document.querySelector(".shell");
-  const mobileMenuBtn=$("mobileMenuBtn");
-  const mobileNavBackdrop=$("mobileNavBackdrop");
-  const mobileAsideClose=$("mobileAsideClose");
-  const closeMobileNav=()=>{
-    shell?.classList.remove("mobile-menu-open");
-    mobileMenuBtn?.setAttribute("aria-expanded","false");
-  };
-  mobileMenuBtn?.addEventListener("click",()=>{
-    const open=!shell.classList.contains("mobile-menu-open");
-    shell.classList.toggle("mobile-menu-open",open);
-    mobileMenuBtn.setAttribute("aria-expanded",String(open));
+const pcState={cache:{},tab:"overview",loading:false,lastRefresh:0};
+const pcEsc=(v)=>String(v??"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]});
+const pcNum=(n)=>Number(n||0).toLocaleString();
+const pcBytes=(n)=>{const x=Number(n||0);if(x<1024)return x+" B";if(x<1024**2)return (x/1024).toFixed(1)+" KB";if(x<1024**3)return (x/1024**2).toFixed(2)+" MB";return (x/1024**3).toFixed(2)+" GB"};
+const pcTime=(d)=>d?new Date(d).toLocaleString():"—";
+function pcCard(kicker,value,meta,cls,click){
+  return '<div class="pc-card'+(click?' clickable':'')+'"'+(click?' data-pc-open="'+pcEsc(click)+'"':'')+'><span class="pc-kicker">'+pcEsc(kicker)+'</span><span class="pc-value '+(cls||'')+'">'+value+'</span><span class="pc-meta">'+meta+'</span></div>';
+}
+function pcSection(title,body){return '<section class="pc-section"><div class="pc-section-head"><h3>'+pcEsc(title)+'</h3></div><div class="pc-section-body">'+body+'</div></section>';}
+function pcPill(text,ok){return '<span class="pill '+(ok===false?'no':'ok')+'">'+pcEsc(text)+'</span>';}
+function pcErr(e){return '<div class="pc-error">'+pcEsc(e&&e.message?e.message:(e||'Unable to load this section.'))+'</div>';}
+function pcSetTab(tab){pcState.tab=tab;document.querySelectorAll('[data-pc-tab]').forEach(function(b){b.classList.toggle('active',b.dataset.pcTab===tab)});loadProjectControl(tab,true);}
+function openProjectControl(tab){$("projectControlDrawer").classList.add('open');$("projectControlDrawer").setAttribute('aria-hidden','false');pcSetTab(tab||'overview');}
+function closeProjectControl(){$("projectControlDrawer").classList.remove('open');$("projectControlDrawer").setAttribute('aria-hidden','true');}
+async function loadPcData(tab,force){
+  if(!force&&pcState.cache[tab])return pcState.cache[tab];
+  if(tab==='overview'){
+    const r=await Promise.allSettled([api('status'),api('repo_summary'),api('inventory'),api('pages'),api('runs'),api('branches')]);
+    const out=r.map(function(x){return x.status==='fulfilled'?x.value:{error:x.reason&&x.reason.message?x.reason.message:'Request failed'}});
+    return pcState.cache[tab]={status:out[0],repo:out[1],db:out[2],pages:out[3],runs:out[4],branches:out[5]};
+  }
+  if(tab==='frontend')return pcState.cache[tab]={repo:await api('repo_summary'),files:await api('list')};
+  if(tab==='database'||tab==='storage')return pcState.cache[tab]={db:await api('inventory')};
+  if(tab==='github')return pcState.cache[tab]={repo:await api('repo_summary'),commits:await api('commits')};
+  if(tab==='branches')return pcState.cache[tab]=await api('branches');
+  if(tab==='hosting')return pcState.cache[tab]={pages:await api('pages')};
+  if(tab==='deployments')return pcState.cache[tab]={runs:await api('runs')};
+  return {};
+}
+function renderPcOverview(d){
+  const db=d.db||{}, repo=d.repo&&d.repo.repo?d.repo.repo:{}, groups=d.repo&&d.repo.groups?d.repo.groups:{}, status=d.status||{}, pages=d.pages||{}, runs=d.runs&&d.runs.runs?d.runs.runs:[], branches=d.branches&&d.branches.branches?d.branches.branches:[];
+  const storage=(db.storage||[]).reduce(function(a,x){return a+Number(x.total_bytes||0)},0);
+  const cards=[
+    pcCard('SUPABASE DATABASE',pcEsc(db.database&&db.database.size_pretty||'—'),pcNum(db.table_count)+' public tables · PostgreSQL '+pcEsc(db.database&&db.database.postgres_version||'—'),'pc-blue','database'),
+    pcCard('SUPABASE STORAGE',pcBytes(storage),pcNum(db.storage_bucket_count)+' buckets','pc-blue','storage'),
+    pcCard('GITHUB REPOSITORY',pcBytes(repo.size_bytes),pcEsc(repo.full_name||'—')+' · '+pcEsc(repo.visibility||'—'),'pc-yellow','github'),
+    pcCard('HOST / GITHUB PAGES',pcEsc(pages.status||'Unknown'),pcEsc(pages.url||'Pages not checked'),pages.status==='built'?'pc-green':'pc-yellow','hosting')
+  ].join('');
+  const code=pcCard('HTML',pcNum(groups.html&&groups.html.count||0),pcBytes(groups.html&&groups.html.bytes||0),'pc-blue','frontend')+pcCard('CSS',pcNum(groups.css&&groups.css.count||0),pcBytes(groups.css&&groups.css.bytes||0),'pc-blue','frontend')+pcCard('JAVASCRIPT',pcNum(groups.js&&groups.js.count||0),pcBytes(groups.js&&groups.js.bytes||0),'pc-blue','frontend');
+  const branchRows=branches.slice(0,10).map(function(b){return '<tr><td>'+pcEsc(b.name)+' '+(b.name===repo.default_branch?'<span class="pill">MAIN</span>':'')+'</td><td>'+pcPill(b.protected?'Protected':'Unprotected',b.protected)+'</td><td class="num"><code>'+pcEsc(String(b.sha||'').slice(0,9))+'</code></td></tr>';}).join('');
+  const run=runs[0];
+  return '<div class="pc-grid">'+cards+'</div>'+
+    pcSection('Code footprint','<div class="pc-three">'+code+'</div>')+
+    pcSection('System','<div class="pc-statusbar"><span class="pc-dot'+(status.github_ok?'':' bad')+'"></span><b>'+(status.github_ok?'Connected':'Attention required')+'</b><span>'+pcEsc(status.repo||'')+' · '+pcEsc(status.branch||'main')+'</span></div><div class="pc-actions"><button class="btn" data-pc-action="refresh">↻ Refresh All</button><button class="btn" data-pc-action="editor">Open Code Editor</button></div>')+
+    pcSection('Main / Branches','<div style="overflow:auto"><table class="pc-table"><thead><tr><th>Branch</th><th>Protection</th><th>Commit</th></tr></thead><tbody>'+(branchRows||'<tr><td colspan="3" class="pc-muted">No branches returned.</td></tr>')+'</tbody></table></div>')+
+    pcSection('Database + storage','<div class="pc-two"><div><b>Database</b><div class="pc-meta">'+pcEsc(db.database&&db.database.size_pretty||'—')+' · '+pcNum(db.table_count)+' tables</div></div><div><b>Storage</b><div class="pc-meta">'+pcBytes(storage)+' · '+pcNum(db.storage_bucket_count)+' buckets</div></div></div>')+
+    pcSection('Deployment',run?'<b>'+pcEsc(run.name)+'</b><div class="pc-meta">'+pcEsc(run.conclusion||run.status||'unknown')+' · '+pcTime(run.updated_at||run.created_at)+'</div>':'<span class="pc-muted">No deployment data returned.</span>')+
+    '<div class="pc-note" style="margin-top:10px">GitHub repository size is the API repository-size field, shown as an informational footprint rather than a billing quota.</div>';
+}
+function renderPcFrontend(d){
+  const g=d.repo&&d.repo.groups?d.repo.groups:{}, fs=(d.files&&d.files.files?d.files.files:[]).filter(function(f){return /\.(html?|css|js|mjs|cjs|ts|tsx|jsx)$/i.test(f.path)});
+  const codeCards=pcCard('HTML',pcNum(g.html&&g.html.count||0),pcBytes(g.html&&g.html.bytes||0),'pc-blue')+pcCard('CSS',pcNum(g.css&&g.css.count||0),pcBytes(g.css&&g.css.bytes||0),'pc-blue')+pcCard('JAVASCRIPT',pcNum(g.js&&g.js.count||0),pcBytes(g.js&&g.js.bytes||0),'pc-blue');
+  const rows=fs.slice(0,300).map(function(f){return '<tr><td>'+pcEsc(f.path)+'</td><td>'+pcEsc((f.path.split('.').pop()||'').toUpperCase())+'</td><td class="num">'+pcBytes(f.size)+'</td><td><button class="btn" style="width:auto" data-pc-open-file="'+pcEsc(f.path)+'">Open</button></td></tr>';}).join('');
+  return pcSection('HTML / CSS / JavaScript footprint','<div class="pc-three">'+codeCards+'</div>')+pcSection('Code files','<div style="max-height:520px;overflow:auto"><table class="pc-table"><thead><tr><th>Path</th><th>Type</th><th class="num">Size</th><th></th></tr></thead><tbody>'+(rows||'<tr><td colspan="4" class="pc-muted">No code files found.</td></tr>')+'</tbody></table></div>')+'<div class="pc-note">Use Open to load the selected file into the existing Monaco workbench.</div>';
+}
+function renderPcDatabase(d){
+  const db=d.db||{},tables=db.tables||[],sum=tables.reduce(function(a,x){return a+Number(x.size_bytes||0)},0);
+  const cards=pcCard('DATABASE SIZE',pcEsc(db.database&&db.database.size_pretty||'—'),pcBytes(db.database&&db.database.size_bytes||0)+' · PostgreSQL '+pcEsc(db.database&&db.database.postgres_version||'—'))+pcCard('PUBLIC TABLES',pcNum(db.table_count),'RLS and policy state shown below')+pcCard('EXTENSIONS',pcNum(db.extension_count),'Installed PostgreSQL extensions')+pcCard('TABLE FOOTPRINT',pcBytes(sum),'Sum of public table sizes');
+  const rows=tables.map(function(t){return '<tr><td>'+pcEsc(t.name)+'</td><td class="num">'+pcNum(t.row_estimate)+'</td><td class="num">'+pcEsc(t.size_pretty)+'</td><td>'+pcPill(t.rls_enabled?'Enabled':'Disabled',t.rls_enabled)+'</td><td class="num">'+pcNum(t.policy_count)+'</td></tr>';}).join('');
+  return pcSection('Database overview','<div class="pc-grid">'+cards+'</div>')+pcSection('Public tables','<div style="max-height:560px;overflow:auto"><table class="pc-table"><thead><tr><th>Table</th><th class="num">Rows*</th><th class="num">Size</th><th>RLS</th><th class="num">Policies</th></tr></thead><tbody>'+rows+'</tbody></table></div>')+'<div class="pc-note">* Row counts are PostgreSQL planner estimates for speed. Database size is the actual PostgreSQL database footprint.</div>';
+}
+function renderPcStorage(d){
+  const buckets=d.db&&d.db.storage?d.db.storage:[],total=buckets.reduce(function(a,x){return a+Number(x.total_bytes||0)},0);
+  const cards=pcCard('TOTAL STORAGE',pcBytes(total),pcNum(buckets.length)+' buckets')+pcCard('OBJECTS',pcNum(buckets.reduce(function(a,x){return a+Number(x.object_count||0)},0)),'Across configured buckets')+pcCard('PRIVATE BUCKETS',pcNum(buckets.filter(function(x){return !x.public}).length),'Recommended for protected content')+pcCard('PUBLIC BUCKETS',pcNum(buckets.filter(function(x){return x.public}).length),'Review public exposure');
+  const rows=buckets.map(function(b){return '<tr><td>'+pcEsc(b.name)+'</td><td>'+pcPill(b.public?'Public':'Private',b.public)+'</td><td class="num">'+pcNum(b.object_count)+'</td><td class="num">'+pcEsc(b.total_size_pretty)+'</td><td>'+pcBytes(b.file_size_limit)+'</td></tr>';}).join('');
+  return pcSection('Storage overview','<div class="pc-grid">'+cards+'</div>')+pcSection('Storage buckets','<div style="overflow:auto"><table class="pc-table"><thead><tr><th>Bucket</th><th>Access</th><th class="num">Objects</th><th class="num">Used</th><th>File limit</th></tr></thead><tbody>'+(rows||'<tr><td colspan="5" class="pc-muted">No buckets found.</td></tr>')+'</tbody></table></div>')+'<div class="pc-note">Storage is tracked separately from PostgreSQL database size.</div>';
+}
+function renderPcGithub(d){
+  const r=d.repo||{},i=r.repo||{},g=r.groups||{},c=d.commits&&d.commits.commits?d.commits.commits:[];
+  const cards=pcCard('REPOSITORY',pcEsc(i.full_name||'—'),pcEsc(i.html_url||''))+pcCard('VISIBILITY',pcEsc(i.visibility||'—'),i.archived?'Archived':'Active')+pcCard('REPOSITORY SIZE',pcBytes(i.size_bytes),'GitHub API footprint')+pcCard('DEFAULT BRANCH',pcEsc(i.default_branch||'—'),'Last push · '+pcTime(i.pushed_at));
+  const rows=c.map(function(x){return '<tr><td title="'+pcEsc(x.message||'')+'"><code>'+pcEsc(String(x.sha||'').slice(0,10))+'</code> '+pcEsc((x.message||'').split('\n')[0])+'</td><td>'+pcEsc(x.author||'—')+'</td><td>'+pcTime(x.date)+'</td></tr>';}).join('');
+  return pcSection('Repository','<div class="pc-grid">'+cards+'</div>')+pcSection('Code footprint','<div class="pc-three">'+pcCard('HTML',pcNum(g.html&&g.html.count||0),pcBytes(g.html&&g.html.bytes||0))+pcCard('CSS',pcNum(g.css&&g.css.count||0),pcBytes(g.css&&g.css.bytes||0))+pcCard('JAVASCRIPT',pcNum(g.js&&g.js.count||0),pcBytes(g.js&&g.js.bytes||0))+'</div>')+pcSection('Recent commits','<div style="overflow:auto"><table class="pc-table"><thead><tr><th>Commit</th><th>Author</th><th>Date</th></tr></thead><tbody>'+(rows||'<tr><td colspan="3" class="pc-muted">No commits returned.</td></tr>')+'</tbody></table></div>');
+}
+function renderPcBranches(d){const rows=(d.branches||[]).map(function(b){return '<tr><td><b>'+pcEsc(b.name)+'</b> '+(b.name===d.default_branch?'<span class="pill">MAIN</span>':'')+'</td><td>'+pcPill(b.protected?'Protected':'Unprotected',b.protected)+'</td><td><code>'+pcEsc(b.sha||'—')+'</code></td></tr>';}).join('');return pcSection('Branches','<table class="pc-table"><thead><tr><th>Branch</th><th>Protection</th><th>Commit SHA</th></tr></thead><tbody>'+(rows||'<tr><td colspan="3" class="pc-muted">No branches returned.</td></tr>')+'</tbody></table>')}
+function renderPcHosting(d){const p=d.pages||{};return pcSection('GitHub Pages host','<div class="pc-grid">'+pcCard('STATUS',pcEsc(p.status||'Unknown'),pcEsc(p.url||'No URL'),p.status==='built'?'pc-green':'pc-yellow')+pcCard('BUILD TYPE',pcEsc(p.build_type||'—'),'GitHub Pages')+pcCard('SOURCE BRANCH',pcEsc(p.source&&p.source.branch||'main'),pcEsc(p.source&&p.source.path||'/'),'pc-blue')+pcCard('CUSTOM DOMAIN',pcEsc(p.cname||'None'),p.cname?'Configured':'Default Pages domain')+'</div>')+'<div class="pc-note" style="margin-top:12px">Hosting is separated from the database. Deployments are shown in the Deployments section.</div>'}
+function renderPcDeployments(d){const rows=d.runs&&d.runs.runs?d.runs.runs:[];const body=rows.map(function(x){return '<tr><td>'+pcEsc(x.name)+'</td><td>'+pcPill(x.conclusion||x.status||'unknown',x.conclusion==='success')+'</td><td>'+pcTime(x.created_at)+'</td><td>'+pcTime(x.updated_at)+'</td><td>'+(x.url?'<a class="btn" style="display:inline-block;text-decoration:none" href="'+pcEsc(x.url)+'" target="_blank" rel="noopener">Open</a>':'')+'</td></tr>';}).join('');return pcSection('Deployments','<table class="pc-table"><thead><tr><th>Workflow</th><th>Status</th><th>Started</th><th>Updated</th><th></th></tr></thead><tbody>'+(body||'<tr><td colspan="5" class="pc-muted">No workflow runs returned.</td></tr>')+'</tbody></table>')}
+function renderProjectControl(tab,d){
+  $("pcMain").innerHTML=tab==='overview'?renderPcOverview(d):tab==='frontend'?renderPcFrontend(d):tab==='database'?renderPcDatabase(d):tab==='storage'?renderPcStorage(d):tab==='github'?renderPcGithub(d):tab==='branches'?renderPcBranches(d):tab==='hosting'?renderPcHosting(d):tab==='deployments'?renderPcDeployments(d):pcErr('Unknown section');
+  $("pcLastRefresh").textContent='Updated '+new Date().toLocaleTimeString();
+}
+async function loadProjectControl(tab,force){
+  tab=tab||pcState.tab;if(pcState.loading&&!force)return;pcState.loading=true;$("pcMain").innerHTML='<div class="pc-muted">Loading '+pcEsc(tab)+'…</div>';
+  try{renderProjectControl(tab,await loadPcData(tab,!!force))}catch(e){$("pcMain").innerHTML=pcErr(e)}finally{pcState.loading=false}
+}
+function initProjectControlEvents(){
+  if(window.__HOA_PROJECT_CONTROL_EVENTS_BOUND__)return;
+  window.__HOA_PROJECT_CONTROL_EVENTS_BOUND__=true;
+  $("projectControlBtn")?.addEventListener('click',function(){openProjectControl('overview')});
+  $("pcClose")?.addEventListener('click',closeProjectControl);
+  $("pcRefresh")?.addEventListener('click',function(){pcState.cache={};loadProjectControl(pcState.tab,true)});
+  document.querySelectorAll('[data-pc-tab]').forEach(function(b){b.addEventListener('click',function(){pcSetTab(b.dataset.pcTab)})});
+  $("projectControlDrawer")?.addEventListener('click',async function(e){
+    if(e.target.id==='projectControlDrawer')closeProjectControl();
+    const card=e.target.closest('[data-pc-open]');if(card){pcSetTab(card.dataset.pcOpen);return}
+    const f=e.target.closest('[data-pc-open-file]');if(f&&f.dataset.pcOpenFile){closeProjectControl();await openFile(f.dataset.pcOpenFile);return}
+    const a=e.target.closest('[data-pc-action]');if(!a)return;
+    if(a.dataset.pcAction==='editor'){closeProjectControl();await openFile('index.html');}
+    if(a.dataset.pcAction==='refresh'){pcState.cache={};loadProjectControl(pcState.tab,true)}
   });
-  mobileNavBackdrop?.addEventListener("click",closeMobileNav);
-  mobileAsideClose?.addEventListener("click",closeMobileNav);
+  document.addEventListener('keydown',function(e){if(e.key==='F2'&&!e.ctrlKey&&!e.altKey&&!e.metaKey){e.preventDefault();openProjectControl('overview')}});
+}
+
+function bindEvents(){
+  initProjectControlEvents();
+  const mobileMenuBtn=$("mobileMenuBtn");
+  const mobileMenuBackdrop=$("mobileMenuBackdrop");
+  const closeMobileMenu=()=>{document.body.classList.remove("mobile-nav-open");mobileMenuBackdrop?.setAttribute("aria-hidden","true");};
+  mobileMenuBtn?.addEventListener("click",()=>{document.body.classList.toggle("mobile-nav-open");mobileMenuBackdrop?.setAttribute("aria-hidden","false");});
+  mobileMenuBackdrop?.addEventListener("click",closeMobileMenu);
+  $("loginForm").addEventListener("submit",signIn);
   $("logout").addEventListener("click",async()=>{await init().auth.signOut();location.reload();});
   $("open").addEventListener("click",()=>openFile());
   $("save").addEventListener("click",requestSave);
@@ -1306,18 +1301,11 @@ function bindEvents(){
       closeSearchDrawer();closeDiff();closeQuickOpen();$("confirmBackdrop").classList.remove("open");
     }
   });
-  document.querySelector("aside")?.addEventListener("click",()=>{
-    if(window.matchMedia("(max-width:980px)").matches) closeMobileNav();
-  });
-  window.addEventListener("resize",()=>{
-    applyResponsiveEditorOptions();
-    if(window.matchMedia("(min-width:981px)").matches) closeMobileNav();
-  },{passive:true});
-
   document.querySelectorAll("[data-action]").forEach(b=>{
     b.type="button";
     b.addEventListener("click",ev=>{
       ev.preventDefault();
+      closeMobileMenu();
       if(b.dataset.action==="overview") runDashboardOverview();
       else runAction(b.dataset.action);
     });
