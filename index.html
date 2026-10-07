@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+<!-- HUB OF ASPIRANTS V8.55 — Student/Public Portal (Admin isolated) --><!-- HUB OF ASPIRANTS V8.50 — Current Affairs / Other resource options -->
+
+<!-- HOA V6.1.0 — Feature-level JavaScript separation; section flow preserved. -->
+<!-- HOA V6.0.123 — large poster section; existing poster images/data preserved -->
+<html data-hoa-portal="public" lang="en">
+<!-- HUB OF ASPIRANTS V4.2 — Automatic Result Management Workflow: no result publish/approval step. -->
+<head>
+<!-- HOA_EXAM_MOBILE_V4_4 — compact/scrollable mobile CBT UI -->
+<!-- HOA_EXAM_MOBILE_V4_5 — final compact mobile CBT layout correction -->
+<!-- HOA_EXAM_MOBILE_V4_5_1 — explicit three-row action dock placement -->
+<!-- HOA_EXAM_MOBILE_V4_6 — compact mobile question-number tiles -->
+<script id="hoa-free-test-route-early-gate">
+(function(){
+  try{
+    const p=new URLSearchParams(location.search);
+    if(p.get('hoa_free_page')==='test' || p.get('hoa_free_test_link')) document.documentElement.classList.add('hoa-free-test-route');
+    if(p.get('hoa_free_result_link')) document.documentElement.classList.add('hoa-free-result-route');
+  }catch(_){}
+})();
+</script>
+<style id="hoa-free-test-route-early-style">
+html.hoa-free-test-route #hoaFrontPage,
+html.hoa-free-test-route #authScreen,
+html.hoa-free-test-route #home,
+html.hoa-free-test-route #studentOnlyDashboard,
+html.hoa-free-test-route #adminOnlyDashboard,
+html.hoa-free-test-route #hoaGlobalPublicFooter,
+html.hoa-free-test-route #hoaPublicFeedbackStrip,
+html.hoa-free-test-route #hoaPublicFeedbackModal,
+html.hoa-free-test-route #hoaFeedbackModal,
+html.hoa-free-test-route #hoaV650PaidLearningPortal{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+</style>
+<style id="hoa-free-share-route-early-style">
+html.hoa-free-result-route #hoaFrontPage,
+html.hoa-free-result-route #home,
+html.hoa-free-result-route > body > .header,
+html.hoa-free-result-route #hoaGlobalPublicFooter,
+html.hoa-free-result-route #hoaPublicFeedbackStrip,
+html.hoa-free-result-route #hoaPublicFeedbackModal,
+html.hoa-free-result-route #hoaFeedbackModal,
+html.hoa-free-result-route #hoaV650PaidLearningPortal,
+html.hoa-free-result-route #studentOnlyDashboard,
+html.hoa-free-result-route #adminOnlyDashboard{
+  display:none !important;
+  visibility:hidden !important;
+  pointer-events:none !important;
+}
+</style>
+<script id="hoa-share-link-early-route">
+(function(){
+  try{
+    const p=new URLSearchParams(location.search);
+    const root=document.documentElement;
+    if(p.has("hoa_test_link")) root.classList.add("hoa-test-share-route");
+    if(p.has("hoa_result_link")) root.classList.add("hoa-result-share-route");
+  }catch(_){}
+})();
+</script>
+<!-- V4.2: Real student data isolation. Auth identity is authoritative; final scoring uses submit_test_v4; student question reads omit answer keys. -->
+<!--
+ V4.2 PRODUCTION SECURITY HARDENING
+ - Correct answers/explanations are not placed in ordinary student test cache.
+ - Password hashes are never selected into browser-side student profiles.
+ - Student history is restricted to completed attempts.
+ - Historical review never identifies an attempt by title alone.
+ - Current pending selection is committed before submission.
+ IMPORTANT: Final scoring and answer-key access should be enforced by a
+ Supabase Edge Function/RPC with RLS before public launch; client-side
+ JavaScript cannot itself be a security boundary.
+-->
+<meta content="#061F40" name="theme-color"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="HUB OF ASPIRANTS" name="apple-mobile-web-app-title"/>
+<link href="assets/hoa-favicon.png" rel="icon" type="image/png"/>
+<link href="assets/hoa-apple-touch.png" rel="apple-touch-icon"/>
+<meta content="assets/hoa-logo.png" property="og:image"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content" name="viewport"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<title>HUB OF ASPIRANTS — Production V8.51</title>
+<style id="hoa-ui-boot-guard">
+/* V3.4: prevent legacy auth/dashboard markup from painting during async bootstrap. */
+html.hoa-ui-booting #home,
+html.hoa-ui-booting #authScreen,
+html.hoa-ui-booting #exam,
+html.hoa-ui-booting #result,
+html.hoa-ui-booting > body > .header{display:none !important;visibility:hidden !important;pointer-events:none !important;}
+body.admin-ui #adminOnlyDashboard[data-hoa-admin-ready="false"]{display:none !important;visibility:hidden !important;pointer-events:none !important;}
+html,body{max-width:100%;min-width:0;overflow-x:hidden;}
+</style>
+<script id="hoa-early-boot-runtime">
+document.documentElement.classList.add('hoa-ui-booting');
+
+/* HUB OF ASPIRANTS V5.3 — Results & Performance Enhancement
+   Additive UI/data helpers. Existing V5.2 result generation remains authoritative. */
+(function(){
+  "use strict";
+
+  function num(v){
+    var n = Number(v);
+    return Number.isFinite(n) ? n : 0;
+  }
+
+  function pct(v){
+    return Math.round(num(v) * 100) / 100;
+  }
+
+  function normalizeResult(r){
+    if(!r || typeof r !== "object") return null;
+    return {
+      score: num(r.score ?? r.total_score ?? r.marks ?? r.obtained_marks),
+      percentage: pct(r.percentage ?? r.percent ?? r.score_percentage),
+      correct: num(r.correct ?? r.correct_count),
+      wrong: num(r.wrong ?? r.wrong_count),
+      skipped: num(r.skipped ?? r.unanswered ?? r.skip_count),
+      timeTaken: r.time_taken ?? r.timeTaken ?? r.duration ?? "",
+      testName: r.test_name ?? r.testName ?? r.title ?? "Test",
+      attemptedAt: r.attempted_at ?? r.attemptedAt ?? r.created_at ?? null
+    };
+  }
+
+  window.HOA_performance = {
+    normalize: normalizeResult,
+
+    summarize: function(results){
+      var rows = (Array.isArray(results) ? results : [])
+        .map(normalizeResult).filter(Boolean);
+
+      if(!rows.length) return {
+        tests: 0, averageScore: 0, bestScore: 0,
+        averagePercentage: 0, totalCorrect: 0,
+        totalWrong: 0, totalSkipped: 0
+      };
+
+      var scores = rows.map(function(x){return x.score;});
+      var percentages = rows.map(function(x){return x.percentage;});
+
+      return {
+        tests: rows.length,
+        averageScore: pct(scores.reduce((a,b)=>a+b,0) / rows.length),
+        bestScore: Math.max.apply(null, scores),
+        averagePercentage: pct(percentages.reduce((a,b)=>a+b,0) / rows.length),
+        totalCorrect: rows.reduce((a,b)=>a+b.correct,0),
+        totalWrong: rows.reduce((a,b)=>a+b.wrong,0),
+        totalSkipped: rows.reduce((a,b)=>a+b.skipped,0)
+      };
+    }
+  };
+
+  /* Creates a compact performance panel only when explicitly requested.
+     Existing pages are not rearranged automatically. */
+  window.HOA_renderPerformance = function(container, results){
+    if(!container) return;
+
+    var s = window.HOA_performance.summarize(results);
+    container.innerHTML =
+      '<div class="hoa-performance-panel">' +
+        '<div class="hoa-performance-title">My Performance</div>' +
+        '<div class="hoa-performance-grid">' +
+          '<div><strong>'+s.tests+'</strong><span>Tests</span></div>' +
+          '<div><strong>'+s.averagePercentage+'%</strong><span>Average</span></div>' +
+          '<div><strong>'+s.bestScore+'</strong><span>Best Score</span></div>' +
+          '<div><strong>'+s.totalCorrect+'</strong><span>Correct</span></div>' +
+          '<div><strong>'+s.totalWrong+'</strong><span>Wrong</span></div>' +
+          '<div><strong>'+s.totalSkipped+'</strong><span>Skipped</span></div>' +
+        '</div>' +
+      '</div>';
+  };
+})();
+
+/* HUB OF ASPIRANTS V5.2 — Test Attempt Reliability Layer
+   The existing Supabase attempt/submission logic remains authoritative.
+   This layer provides browser-side recovery for an active test. */
+(function(){
+  const KEY = "hoa_v5_2_active_attempt";
+
+  function safeGet(){
+    try { return JSON.parse(localStorage.getItem(KEY) || "null"); }
+    catch(e){ return null; }
+  }
+  function safeSet(v){
+    try { localStorage.setItem(KEY, JSON.stringify(v)); } catch(e){}
+  }
+  function clearRecovery(){
+    try { localStorage.removeItem(KEY); } catch(e){}
+  }
+
+  window.HOA_attemptRecovery = {
+    save: function(payload){
+      if(!payload || typeof payload !== "object") return;
+      safeSet({
+        savedAt: Date.now(),
+        payload: payload
+      });
+    },
+    load: function(){
+      const v = safeGet();
+      return v && v.payload ? v : null;
+    },
+    clear: clearRecovery
+  };
+
+  /* Prevent accidental loss on refresh/navigation while a test is active.
+     No blocking prompt is shown when the page is being submitted normally. */
+  window.addEventListener("beforeunload", function(e){
+    try{
+      const active =
+        window.HOA_testActive === true ||
+        window.currentTestActive === true ||
+        document.querySelector(
+          "#testScreen:not(.hidden), #testInterface:not(.hidden), #testPage:not(.hidden)"
+        );
+      if(active){
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    }catch(_){}
+  });
+
+  /* If the application exposes a current answer collection, periodically
+     snapshot it without changing the existing submission flow. */
+  setInterval(function(){
+    try{
+      if(window.HOA_testActive !== true && window.currentTestActive !== true) return;
+
+      const candidateNames = [
+        "userAnswers","answers","selectedAnswers",
+        "currentAnswers","testAnswers"
+      ];
+
+      let data = null;
+      for(const name of candidateNames){
+        if(window[name] && typeof window[name] === "object"){
+          data = window[name];
+          break;
+        }
+      }
+
+      if(data) window.HOA_attemptRecovery.save({
+        answers: data,
+        testId: window.currentTestId || window.activeTestId || null
+      });
+    }catch(_){}
+  }, 5000);
+
+  /* Expose an explicit clear hook for successful submission handlers. */
+  window.HOA_clearAttemptRecovery = clearRecovery;
+})();
+
+/* HUB OF ASPIRANTS V5.1
+   Answer-key exposure safety layer.
+   Database RLS/functions remain the authoritative security boundary. */
+(function(){
+  const ANSWER_KEY_FIELDS = [
+    'correct_option','correct_answer','correctAnswer','answer',
+    'answer_key','answerKey','explanation'
+  ];
+
+  function sanitizeQuestionObject(obj){
+    if(!obj || typeof obj !== 'object') return obj;
+    const clean = Array.isArray(obj) ? obj.slice() : Object.assign({}, obj);
+    ANSWER_KEY_FIELDS.forEach(function(k){
+      if(Object.prototype.hasOwnProperty.call(clean,k)){
+        delete clean[k];
+      }
+    });
+    return clean;
+  }
+
+  window.HOA_sanitizeQuestion = sanitizeQuestionObject;
+  window.HOA_sanitizeQuestions = function(list){
+    return Array.isArray(list) ? list.map(sanitizeQuestionObject) : list;
+  };
+})();
+
+</script>
+<link crossorigin="" href="https://cdn.jsdelivr.net" rel="preconnect"/>
+<link href="https://pnzhtiwwqiqnnkecogcc.supabase.co" rel="preconnect"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+<script src="js/app.js?v=20261004-v853-auth-recovery"></script>
+<script id="hoa-preserve-app-free-gate">
+(function(){
+  if(typeof window.freeGateLoginSubmit === "function") {
+    window.__HOA_APP_FREE_GATE_LOGIN_SUBMIT__ = window.freeGateLoginSubmit;
+  }
+})();
+</script>
+<script src="js/hoa-head-runtime-v8.19.js?v=20261003-v819-clean2"></script>
+<link href="./css/hoa-v6.0.8.css?v=20261004-v853-auth-recovery" rel="stylesheet"/>
+<link href="./css/hoa-exam-v8.89.css?v=20261005-v889" rel="stylesheet"/>
+<link href="./css/hoa-mobile.css?v=20261004-v853-auth-recovery" rel="stylesheet">
+<link href="css/hoa-v8.19-clean-overrides.css?v=20261004-v853-auth-recovery" rel="stylesheet">
+<link href="css/hoa-exam-responsive-v8.17.css?v=20261004-v853-auth-recovery" rel="stylesheet"/>
+<link href="css/hoa-pdf-viewer.css?v=20261004-v5" rel="stylesheet"/>
+<link href="css/hoa-share-links.css?v=20261004-v853-auth-recovery" rel="stylesheet"/>
+<link href="css/hoa-free-content-other.css?v=20261004-v853-auth-recovery" rel="stylesheet"/>
+</head>
+<body>
+<a href="#home" id="hoa-v601-skip-link">Skip to main content</a>
+<div class="countdownOverlay hidden" id="testCountdownOverlay">
+<div class="countdownCard">
+<div class="countdownTitle">GET READY</div>
+<div class="countdownTestTitle" id="countdownTestTitle">Mock Test</div>
+<div class="countdownNumber" id="countdownNumber">5</div>
+<div class="countdownMessage" id="countdownMessage">Starting in...</div>
+<div class="countdownHint">The test timer will start after “LET'S BEGIN”.</div>
+</div>
+</div>
+<header class="header">
+<div aria-label="HUB OF ASPIRANTS student dashboard branding" class="hoa-student-header-brand">
+<img alt="HUB OF ASPIRANTS logo" decoding="async" height="56" src="assets/hoa-logo.webp" width="56"/>
+<div class="hoa-student-header-brand-copy">
+<strong>HUB OF ASPIRANTS</strong>
+<span>Dream. Prepare. Conquer.</span>
+</div>
+</div>
+<div class="headerRight">
+<button class="headerLogoutBtn hidden" id="studentHeaderLogout" onclick="logoutStudent()">🚪 STUDENT LOGOUT</button>
+
+<div class="timer hidden" id="headerTimer">60:00</div>
+</div>
+</header>
+<main class="container">
+<section aria-label="HUB OF ASPIRANTS public front page" id="hoaFrontPage">
+<nav aria-label="Main navigation" class="hoa-front-nav">
+<div class="hoa-front-brand">
+<img alt="HUB OF ASPIRANTS" decoding="async" height="48" src="assets/hoa-logo.webp" width="48"/>
+<div>
+<div class="hoa-front-brand-name">HUB OF ASPIRANTS</div>
+<div class="hoa-front-brand-tag">Dream. Prepare. Conquer.</div>
+</div>
+</div>
+<div class="hoa-front-navlinks">
+<button aria-label="Login" class="hoa-v6058-nav-login hoa-v6060-login-card" onclick="hoaScrollToStudentArea()" title="Go to Student Area" type="button">
+<span class="hoa-v6058-login-icon">🎓</span><span>LOGIN</span>
+</button>
+<button onclick="document.getElementById('hoaFrontFeatures').scrollIntoView({behavior:'smooth',block:'start'})" type="button">Features</button>
+<button onclick="document.getElementById('hoaFrontSocialFooter').scrollIntoView({behavior:'smooth',block:'start'})" type="button">Connect</button>
+</div>
+</nav>
+<div class="hoa-front-content">
+<section class="hoa-front-hero">
+<div>
+<h1 class="hoa-front-title">Prepare smarter.<br/><span>Learn better.<br/>Perform stronger.</span></h1>
+<p class="hoa-front-copy">
+          A complete preparation platform for Mock Tests, Live &amp; Recorded Classes,
+          Notes, Career Guidance and your learning journey with HUB OF ASPIRANTS.
+        </p>
+</div>
+<div aria-hidden="true" class="hoa-front-visual">
+<div class="hoa-front-orb"></div>
+<div class="hoa-front-card-stack">
+<div class="hoa-front-feature">
+<div class="hoa-front-feature-icon">📝</div>
+<div><b>Mock Tests</b><span>Structured practice for competitive-exam preparation.</span></div>
+</div>
+<div class="hoa-front-feature">
+<div class="hoa-front-feature-icon">🎥</div>
+<div><b>Live &amp; Recorded Classes</b><span>Learn through live sessions and recorded lectures.</span></div>
+</div>
+<div class="hoa-front-feature">
+<div class="hoa-front-feature-icon">📚</div>
+<div><b>Notes &amp; Career Guidance</b><span>Access study materials and useful career guidance in one place.</span></div>
+</div>
+</div>
+</div>
+</section>
+<section aria-labelledby="hoaV3DTitle" class="hoa-v3d-showcase" id="hoaDynamicShowcase">
+<div class="hoa-v3d-head">
+<div>
+<span class="hoa-v3d-kicker">HUB OF ASPIRANTS</span>
+<h2 id="hoaV3DTitle">Latest Updates</h2>
+<p>Explore current courses, announcements and learning updates.</p>
+</div>
+<div aria-label="Showcase controls" class="hoa-v3d-head-actions">
+<button aria-label="Previous picture" class="hoa-v3d-control" id="hoaV3DPrev" type="button">
+<svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M19 12H5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"></path><path d="m11 18-6-6 6-6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8"></path></svg>
+</button>
+<button aria-label="Pause animation" class="hoa-v3d-control" id="hoaV3DPause" type="button">
+<svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><rect fill="currentColor" height="13.4" rx="2.1" width="4.6" x="6.2" y="5.3"></rect><rect fill="currentColor" height="13.4" rx="2.1" width="4.6" x="13.2" y="5.3"></rect></svg>
+</button>
+<button aria-label="Next picture" class="hoa-v3d-control" id="hoaV3DNext" type="button">
+<svg aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M5 12h14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2.8"></path><path d="m13 6 6 6-6 6" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8"></path></svg>
+</button>
+</div>
+</div>
+<div aria-label="Dynamic HUB OF ASPIRANTS picture showcase" aria-live="polite" class="hoa-v3d-stage" id="hoaV3DStage" tabindex="0">
+<div class="hoa-v3d-stage-glow"></div>
+<div class="hoa-v3d-floor"></div>
+<div class="hoa-v3d-track" id="hoaV3DTrack">
+<div class="hoa-v3d-loading">Connecting…</div>
+</div>
+</div>
+<div aria-label="Showcase navigation" class="hoa-v3d-indicators" id="hoaV3DIndicators"></div>
+</section>
+<section aria-labelledby="hoaV648StudentOptionsTitle" class="hoa-v648-student-options" id="hoaV648StudentOptions">
+<div class="hoa-v648-section-head centered">
+<div>
+<span class="hoa-v648-kicker">STUDENT AREA</span>
+<h2 id="hoaV648StudentOptionsTitle">Start Your Preparation</h2>
+<p>Choose how you want to continue with HUB OF ASPIRANTS.</p>
+</div>
+</div>
+<div class="hoa-v648-option-grid">
+<button aria-label="Student Login" class="hoa-v648-option-card" onclick="hoaOpenLogin('login')" type="button">
+<span class="hoa-v648-option-icon">🎓</span><span class="hoa-v648-option-title">Student Login</span><span class="hoa-v648-option-copy">Access your tests, results, notes and batches.</span><span class="hoa-v648-option-link">LOGIN →</span>
+</button>
+<button aria-label="Register" class="hoa-v648-option-card" onclick="hoaOpenLogin('register')" type="button">
+<span class="hoa-v648-option-icon">📝</span><span class="hoa-v648-option-title">Register</span><span class="hoa-v648-option-copy">Create your student account and start your preparation.</span><span class="hoa-v648-option-link">REGISTER →</span>
+</button>
+<button aria-label="Free Content" class="hoa-v648-option-card" onclick="hoaOpenFreeContent()" type="button">
+<span class="hoa-v648-option-icon">🎁</span><span class="hoa-v648-option-title">Free Content</span><span class="hoa-v648-option-copy">Explore free tests, notes and videos available for everyone.</span><span class="hoa-v648-option-link">EXPLORE →</span>
+</button>
+</div>
+</section>
+<div aria-labelledby="hoaV648FreeContentTitle" aria-modal="true" class="hoa-v648-modal hidden" id="hoaV648FreeContentModal" role="dialog">
+<div class="hoa-v648-modal-backdrop" onclick="hoaCloseFreeContent()"></div>
+<div class="hoa-v648-modal-card">
+<button aria-label="Close" class="hoa-v648-modal-close" onclick="hoaCloseFreeContent()" type="button">×</button>
+<span class="hoa-v648-kicker">FREE ACCESS</span>
+<h2 id="hoaV648FreeContentTitle">Free Content</h2>
+<p>Free Tests, Videos and Notes are available from the dedicated Free Content Library. Continue below to verify your Free Student access.</p>
+<div class="hoa-v648-free-grid">
+<button class="hoa-v648-free-card" onclick="hoaOpenFreeContent()" type="button"><span>🎁</span><b>OPEN FREE CONTENT LIBRARY</b><small>Verify access and browse Mock Tests, Videos, Notes and other published resources.</small></button>
+</div>
+</div>
+</div>
+<section class="hoa-front-section" id="hoaFrontFeatures">
+<h2 class="hoa-front-section-title">Everything in one place</h2>
+<p class="hoa-front-section-sub">A focused preparation environment for students preparing through HUB OF ASPIRANTS.</p>
+<div class="hoa-front-features">
+<article class="hoa-front-feature-box"><div aria-hidden="true" class="icon"><svg role="img" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="m8.8 12 2.1 2.1 4.8-4.8"></path></svg></div><h3>Mock Tests</h3><p>Practice with structured mock tests designed for competitive-exam preparation.</p></article>
+<article class="hoa-front-feature-box"><div aria-hidden="true" class="icon"><svg role="img" viewbox="0 0 24 24"><rect height="11" rx="2" width="12" x="3.5" y="6.5"></rect><path d="m15.5 10 5-3v10l-5-3"></path></svg></div><h3>Live &amp; Recorded Classes</h3><p>Attend live classes and access recorded lectures through your assigned batches.</p></article>
+<article class="hoa-front-feature-box"><div aria-hidden="true" class="icon"><svg role="img" viewbox="0 0 24 24"><path d="M5 4.5h11a3 3 0 0 1 3 3V19H8a3 3 0 0 1-3-3z"></path><path d="M8 4.5v14.2M8 16h11"></path></svg></div><h3>Notes</h3><p>Access organized exam notes and study materials provided for your preparation.</p></article>
+<article class="hoa-front-feature-box"><div aria-hidden="true" class="icon"><svg role="img" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="m12 7 1.4 3.6L17 12l-3.6 1.4L12 17l-1.4-3.6L7 12l3.6-1.4z"></path></svg></div><h3>Career Guidance</h3><p>Get guidance and useful information to plan your competitive-exam preparation and career.</p></article>
+</div>
+</section>
+</div>
+</section>
+<!--
+V6.0.123:
+The former intermediate "Access Your Portal" screen has intentionally been
+removed. Student/Admin login pages remain separate and are reached directly
+from the front page. Existing login hosts and authentication workflows remain.
+-->
+<!-- V6.0.123: Intermediate "Access Your Portal" screen removed permanently.
+     Front Page -> Student Login. Admin -> dedicated admin.html portal. -->
+<section aria-label="HUB OF ASPIRANTS login page" class="hoa-login-page-shell" id="hoaLoginPage">
+<header class="hoa-login-page-top">
+<div class="hoa-login-page-brand">
+<img alt="HUB OF ASPIRANTS" decoding="async" height="48" src="assets/hoa-logo.webp" width="48"/>
+<strong>HUB OF ASPIRANTS</strong>
+</div>
+<button class="hoa-login-page-back" onclick="hoaShowFrontPage()" type="button">← HOME</button>
+</header>
+<main class="hoa-login-page-content">
+<div class="hoa-login-panel" id="hoaStudentPortalPanel">
+<div class="hoa-login-panel-head">
+<div class="icon">🎓</div>
+<div><h2>Student Login</h2><p>HUB OF ASPIRANTS Mock Test Platform</p></div>
+</div>
+<div id="hoaStudentLoginHost"></div>
+</div>
+</main>
+</section>
+<section class="card" id="authScreen" style="max-width:520px;margin:35px auto">
+<div style="text-align:center;margin-bottom:20px">
+<button class="hoa-front-back" onclick="hoaShowFrontPage()" type="button">← MAIN PAGE</button>
+<img alt="HUB OF ASPIRANTS" class="mission-logo" decoding="async" height="78" src="assets/hoa-logo.webp" width="78"/>
+<h1 style="margin-bottom:6px">HUB OF ASPIRANTS</h1>
+<p style="color:#5E7188;margin:0">Mock Test Platform</p>
+</div>
+<div class="dashPanel" style="box-shadow:none;border:1px solid #D8E7F5">
+<h2 style="margin-top:0">🎓 Student</h2>
+<div class="authTabs">
+<button class="authTab" id="loginTab" onclick="showAuth('login')">🔐 STUDENT LOGIN</button>
+<button class="authTab" id="registerTab" onclick="showAuth('register')">📝 PAID REGISTER</button>
+<button class="authTab" id="freeTab" onclick="showFreeGate()">🎁 FREE TEST</button>
+</div>
+<div id="loginBox">
+<div class="formGroup"><label>Email / Mobile</label><input autocomplete="username" id="loginId" placeholder="Enter registered email or mobile"/></div>
+<div class="formGroup"><label>Password</label><input autocomplete="current-password" id="loginPassword" placeholder="Password given by Admin" type="password"/></div>
+<button class="primary hoa-student-login-submit" onclick="loginStudent()" type="button">STUDENT LOGIN</button>
+</div>
+<div class="hidden" id="freeGateBox">
+<div style="background:#FFF7D9;border:1px solid #f1d58a;padding:12px;border-radius:9px;margin-bottom:14px;font-size:13px;color:#7a5a00">🎁 <b>Free Test Access</b><br/>New candidate: use <b>MISSIONTES</b> / <b>TES@2026</b> to complete registration.</div>
+<div style="background:#eef6ff;border:1px solid #bfd7f5;padding:11px;border-radius:9px;margin-bottom:14px;font-size:13px;color:#164a78">🔑 <b>Already registered?</b> Use your <b>registered email ID</b> with password <b>TES@2026</b>. No second registration is required.</div>
+<div class="formGroup"><label>Free Test Login ID / Registered Email</label><input autocomplete="username" id="freeGateLogin" placeholder="MISSIONTES or your registered email"/></div>
+<div class="formGroup"><label>Free Test Password</label><input autocomplete="current-password" id="freeGatePassword" placeholder="TES@2026" type="password"/></div>
+<button class="primary" onclick="freeGateLoginSubmit()" style="width:100%">CONTINUE</button>
+</div>
+<div class="hidden" id="freeRegisterBox">
+<div style="background:#eefbf4;border:1px solid #b7e4c7;padding:12px;border-radius:9px;margin-bottom:14px;font-size:13px;color:#17633a">✓ Free access verified. Complete your registration to start the free test.</div>
+<div class="formGroup"><label>Full Name *</label><input id="freeRegName" maxlength="60" placeholder="Enter your full name"/></div>
+<div class="formGroup"><label>Email *</label><input id="freeRegEmail" placeholder="Enter your email" type="email"/></div>
+<div class="formGroup"><label>Qualification *</label>
+<select id="freeRegQualification" style="width:100%;padding:11px;border:1px solid #C8D8E8;border-radius:8px">
+<option value="">Select Degree / Diploma</option><option value="Degree">Degree</option><option value="Diploma">Diploma</option><option value="Both">Both</option>
+</select></div>
+<div class="formGroup"><label>Passout Year *</label><input id="freeRegPassoutYear" inputmode="numeric" maxlength="4" placeholder="e.g. 2024"/></div>
+<div class="formGroup"><label>College / Institution *</label><input id="freeRegCollege" maxlength="120" placeholder="Enter your college name"/></div>
+<button class="primary" onclick="registerFreeCandidate()" style="width:100%">COMPLETE REGISTRATION &amp; ENTER</button>
+</div>
+<div class="hidden" id="registerBox">
+<div class="formGroup"><label>Candidate Type *</label>
+<select id="regAccessType" onchange="updateRegistrationTypeUI()" style="width:100%;padding:11px;border:1px solid #C8D8E8;border-radius:8px">
+<option value="paid">💰 Paid Candidate</option>
+</select></div>
+<div class="formGroup"><label>Full Name *</label><input id="regName" maxlength="60" placeholder="Enter your full name"/></div>
+<div class="formGroup"><label>Email *</label><input id="regEmail" placeholder="Enter your email" type="email"/></div>
+<div class="formGroup" id="regMobileGroup"><label>Mobile Number *</label><input id="regMobile" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number"/></div>
+<div class="formGroup"><label>Qualification *</label>
+<select id="regQualification" style="width:100%;padding:11px;border:1px solid #C8D8E8;border-radius:8px">
+<option value="">Select Degree / Diploma</option>
+<option value="Degree">Degree</option>
+<option value="Diploma">Diploma</option>
+<option value="Both">Both</option>
+</select></div>
+<div class="formGroup"><label>Passout Year *</label><input id="regPassoutYear" inputmode="numeric" maxlength="4" placeholder="e.g. 2024"/></div>
+<div class="formGroup"><label>College Name *</label><input id="regCollege" maxlength="120" placeholder="Enter your college name"/></div>
+<div id="registrationTypeNote" style="background:#FFF7D9;border:1px solid #f1d58a;padding:11px;border-radius:8px;font-size:12px;color:#7a5a00;margin-bottom:12px">
+<b>Paid Candidate:</b> Email and mobile number are mandatory. After registration, the Admin will provide the unique login password.
+</div>
+<button class="primary" onclick="registerStudent()" style="width:100%">REGISTER FOR MOCK TEST</button>
+</div>
+<div id="studentAuthMessage" style="margin-top:12px;font-size:13px;text-align:center"></div>
+</div>
+<div style="height:18px"></div>
+<div class="dashPanel homeAdminPanel hoa-admin-shell" id="homeAdminPanel">
+<div class="homeAdminHeader"><div><h2 style="margin:0">🔐 Admin</h2></div>
+<a class="homeAdminToggle" href="admin.html" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center">OPEN ADMIN PORTAL</a></div>
+<div style="padding:12px 0 0;color:#5E7188;font-size:13px">Administrator access is handled in the secure Admin Portal.</div>
+</div>
+<div style="margin-top:14px;text-align:center;font-size:11px;color:#94a3b8">
+</div>
+</section>
+<section class="card" id="home">
+<div class="hidden" id="studentOnlyDashboard" style="margin-top:20px">
+<!-- Student Section belongs only to the authenticated Student Dashboard. -->
+<div aria-label="Student Section" class="hoa-student-section-strip">
+<span class="hoa-student-section-pill">🎓 Student Section</span>
+</div>
+<div aria-label="Candidate dashboard sections" class="candidateSectionNav">
+<button class="active" id="candidateNavTest" onclick="showCandidateSection('test')">📝 <span>Test Section</span></button>
+<button id="candidateNavResult" onclick="showCandidateSection('result')">📊 <span>Result Section</span></button>
+</div>
+<div class="profileCard">
+<div class="avatar" id="avatar">S</div>
+<div class="profileInfo">
+<div class="profileNameText" id="profileName">Student</div>
+<div class="profileContact" id="profileEmail"></div>
+<div class="profileAcademic" id="profileAcademic"></div>
+</div>
+<div class="profileLabel">CANDIDATE</div>
+</div>
+<div class="candidateSectionPanel active" id="candidateSectionTestPanel">
+<div class="dashGrid">
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">▣</span><b id="dashTests">0</b><span>Available Tests</span></div>
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">✓</span><b id="dashAttempts">0</b><span>Tests Attempted</span></div>
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">★</span><b id="dashBest">0%</b><span>Best Score</span></div>
+<div class="dashStat"><span aria-hidden="true" class="dashStatIcon">↗</span><b id="dashAvg">0%</b><span>Average Percentage</span></div>
+</div>
+<div class="dashPanel">
+<div class="studentPanelHeading"><div><h3>Available Mock Tests</h3><p>Choose a test below to begin your preparation.</p></div><span class="testCountBadge" id="availableTestsBadge">0 TESTS</span></div>
+<div id="studentTests"></div>
+</div>
+</div>
+<div class="candidateSectionPanel" id="candidateSectionResultPanel">
+<div class="dashPanel">
+<div class="studentPanelHeading">
+<div>
+<h3 style="margin-top:0">📊 Result Section</h3>
+<p style="font-size:13px;color:#5E7188">All your attempted mock tests are listed below.</p>
+</div>
+<span class="testCountBadge" id="candidateResultsBadge">0 TESTS</span>
+</div>
+<div id="candidateResultsList"></div>
+</div>
+</div>
+</div>
+<!-- Admin dashboard is never shown to a student. It is only entered after Admin Login. -->
+</section>
+<section class="hidden" id="result">
+<div class="resultSingleWindow">
+<div class="resultHeader">
+<div>
+<div class="resultEyebrow">TEST RESULT</div>
+<h1 id="resultTitle">Test Completed</h1>
+<div class="resultScoreLine">
+<span id="score"></span>
+<span class="resultDivider">•</span>
+<span id="percentage"></span>
+</div>
+<div class="resultStatusRow">
+<span class="resultStatusPill">✓ TEST SUBMITTED</span>
+</div>
+<div class="resultInfoGrid resultInfoGridFive">
+<div class="resultInfoItem resultMetricCorrect">
+<span>CORRECT</span><b id="resultCorrectInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricWrong">
+<span>WRONG</span><b id="resultWrongInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricSkipped">
+<span>SKIPPED</span><b id="resultSkippedInfo">—</b>
+</div>
+<div class="resultInfoItem resultMetricTime">
+<span>TIME TAKEN</span><b id="resultTimeInfo">—</b>
+</div>
+</div>
+</div>
+<button class="secondary resultBackBtn" id="resultBackBtn" onclick="returnToStudentDashboard()" type="button">← BACK TO DASHBOARD</button>
+</div>
+<div class="reviewHeading">
+<div>
+<div class="reviewEyebrow">PERFORMANCE REVIEW</div>
+<h3>Answer Review</h3>
+<p>Review your answers and see the correct answer for every question.</p>
+</div>
+<div class="reviewSummary" id="reviewSummary">—</div>
+</div>
+<div class="reviewLayout">
+<aside class="reviewNavCard">
+<h4>Questions</h4>
+<div class="reviewPalette" id="reviewPalette"></div>
+<div class="reviewLegend">
+          🟢 Correct answer<br/>
+          🔴 Your wrong answer<br/>
+          ⚪ Not answered
+        </div>
+</aside>
+<div class="reviewQuestionCard">
+<div class="reviewQuestionNo" id="reviewQuestionNo"></div>
+<div class="reviewQuestionText" id="reviewQuestionText"></div>
+<div id="reviewOptions"></div>
+<div class="reviewStatus" id="reviewStatus"></div>
+<div class="reviewExplanation" id="reviewExplanation"></div>
+<div class="reviewBottomNav">
+<button onclick="previousReviewQuestion()" type="button">← Previous</button>
+<button onclick="nextReviewQuestion()" type="button">Next →</button>
+</div>
+</div>
+</div>
+</div>
+</section><section aria-label="Active examination" class="hidden hoa-unified-exam" id="exam">
+<div class="examTop">
+<div class="examTopTitle">
+<div class="examBrandLine">
+<span aria-hidden="true" class="examBrandMark"><img alt="HUB OF ASPIRANTS" decoding="async" height="48" src="assets/hoa-logo.webp" width="48"/></span>
+<div>
+<b id="examTestTitle">Mock Test</b>
+<div class="sub" id="examMeta">Question 1 / 1</div>
+</div>
+</div>
+</div>
+<div class="examTopTools">
+
+<span aria-live="polite" class="hoa-exam-connection" id="hoaExamConnectionStatus">
+<span aria-hidden="true" class="hoa-exam-connection-dot"></span>
+<span>Connection Online</span>
+</span>
+<div class="timer" id="examTimer">10:00</div>
+</div>
+</div>
+<div aria-label="Exam progress" aria-valuemax="100" aria-valuemin="0" aria-valuenow="0" class="progress hoa-exam-progress" role="progressbar">
+<div class="bar" id="bar"></div>
+</div>
+<div class="examGrid">
+<section aria-label="Current question" class="card examQuestionCard">
+<div class="questionNo" id="questionNo">
+<span id="questionNoText">Question 1 of 1</span>
+<span class="examMarkBadge" id="examMarkBadge">1 Mark</span>
+</div>
+<div class="question" id="questionText"></div>
+<div class="examOptions" id="options"></div>
+</section>
+<aside aria-label="Question navigator" class="card side examNavigator">
+<div class="examNavigatorHead">
+<h3>Questions</h3>
+<span id="hoaPhoneNavCount">1 / 1</span>
+</div>
+<div aria-label="Question numbers" class="palette" id="palette"></div>
+<div aria-label="Question colour details" class="legend mission-palette-legend">
+<div class="legend-item"><span class="legend-dot not-visited"></span><span>Not Visited</span></div>
+<div class="legend-item"><span class="legend-dot not-answered"></span><span>Not Answered</span></div>
+<div class="legend-item"><span class="legend-dot answered"></span><span>Answered</span></div>
+<div class="legend-item"><span class="legend-dot marked"></span><span>Marked for Review</span></div>
+<div class="legend-item"><span class="legend-dot marked-answered"></span><span>Answered &amp; Marked</span></div>
+</div>
+</aside>
+</div>
+<nav aria-label="Examination navigation and submission controls" class="ui21-bottom">
+<button class="outline" id="ui21Prev" type="button">Previous</button>
+<button class="review" id="ui21MarkReview" type="button">Mark for Review &amp; Next</button>
+<button class="outline" id="ui21Clear" type="button">Clear Response</button>
+<button class="outline" id="ui21SaveNext" type="button">Save &amp; Next</button>
+<button class="primary" data-mission-submit="1" id="ui21Submit" type="button">Submit Test</button>
+</nav>
+</section></main><div aria-label="HUB OF ASPIRANTS global public footer" id="hoaGlobalPublicFooter"><footer aria-label="HUB OF ASPIRANTS social links" class="hoa-front-social-footer" id="hoaFrontSocialFooter">
+<div class="hoa-v619-social-bar">
+<div class="hoa-v619-brand">
+<img alt="HUB OF ASPIRANTS" decoding="async" height="48" src="assets/hoa-logo.webp" width="48"/>
+<div>
+<div class="hoa-v619-brand-name">HUB OF ASPIRANTS</div>
+<div class="hoa-v619-brand-tag">Dream. Prepare. Conquer.</div>
+</div>
+</div>
+<div class="hoa-v619-actions">
+<span class="hoa-v619-follow-label">Follow us on</span>
+<a aria-label="YouTube" class="hoa-v619-social" href="https://www.youtube.com/@hubofaspirants" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.9V8.1l6.6 3.9-6.6 3.9z" fill="currentColor"></path></svg>
+<span>YouTube</span>
+</a>
+<a aria-label="Telegram" class="hoa-v619-social" href="https://t.me/HOA_TES_PWD" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M21.7 3.2 2.8 10.5c-1.3.5-1.3 1.2-.2 1.5l4.8 1.5 1.8 5.5c.2.6.1.8.7.8.5 0 .7-.2 1-.5l2.3-2.2 4.8 3.5c.9.5 1.5.3 1.7-.8l3.1-14.5c.3-1.3-.5-1.9-1.1-1.6zM8.2 13.2l9.9-6.2c.5-.3 1-.1.6.3l-8.1 7.3-.3 3.1-1.1-4.5-1-.3z" fill="currentColor"></path></svg>
+<span>Telegram</span>
+</a>
+<a aria-label="Facebook" class="hoa-v619-social" href="https://www.facebook.com/profile.php?id=100071764417229" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M13.7 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.2-.1-2.2-.1-2.2 0-3.8 1.4-3.8 4v2.4H8.5V13H11v8h2.7z" fill="currentColor"></path></svg>
+<span>Facebook</span>
+</a>
+<a aria-label="WhatsApp" class="hoa-v619-social" href="https://chat.whatsapp.com/JxQKxEhxGgaCPrmc3KNFJT" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" viewbox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .1 5.4.1 12c0 2.1.5 4.1 1.5 5.9L0 24l6.3-1.6a12 12 0 0 0 5.8 1.5h.1c6.6 0 11.9-5.4 11.9-12 0-3.2-1.3-6.2-3.6-8.4zM12.1 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.8 9.8 0 0 1 2.1 12c0-5.5 4.5-9.9 10-9.9 2.7 0 5.2 1 7 2.9a9.8 9.8 0 0 1 2.9 7c0 5.4-4.5 9.8-9.9 9.8zm5.4-7.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.8 1.1-.2.2-.3.2-.6.1-1.5-.8-2.5-1.4-3.5-3.2-.3-.5.3-.5.8-1.6.1-.2 0-.4-.1-.6-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.1-1.4-.1-.2-.3-.3-.6-.4z" fill="currentColor"></path></svg>
+<span>WhatsApp</span>
+</a>
+
+</div>
+</div>
+</footer><footer class="hoa-professional-footer" id="hoaProfessionalFooter">
+<div class="hoa-footer-inner">
+<section aria-labelledby="hoaFooterAboutTitle" class="hoa-footer-about">
+<div class="hoa-footer-heading" id="hoaFooterAboutTitle">About Us</div>
+<p>HUB OF ASPIRANTS is a learning platform focused on structured preparation, study resources, mock tests and guidance for aspirants.</p>
+</section>
+<div class="hoa-footer-brand">
+<div class="hoa-footer-brand-name">HUB OF ASPIRANTS</div>
+<div class="hoa-footer-tagline">Dream • Prepare • Conquer</div>
+</div>
+<nav aria-label="Footer navigation" class="hoa-footer-links">
+<a href="#hoaFrontPage">Home</a>
+<a href="#hoaFrontFeatures">Features</a>
+<a aria-label="Career Opportunities — Coming Soon" href="#hoaCareerComingSoon" title="Career opportunities at HUB OF ASPIRANTS">Career Opportunities <span class="hoa-career-soon">Coming Soon</span></a>
+<a href="#hoaV648StudentOptions">Student Area</a>
+</nav>
+<div class="hoa-footer-contact">
+<div class="hoa-footer-heading">Contact</div>
+<a href="mailto:hubofaspirants@gmail.com">hubofaspirants@gmail.com</a>
+</div>
+</div>
+<div class="hoa-footer-divider"></div>
+<div class="hoa-footer-bottom">
+<span>© 2026 HUB OF ASPIRANTS. All Right Reserved.</span>
+<span class="hoa-footer-developer"><em>Developed and designed by @Sapere_Aude. V 0.1</em></span>
+</div>
+</footer>
+<div class="hoa-public-feedback-strip" id="hoaPublicFeedbackStrip">
+<div class="hoa-public-feedback-copy"><strong>Help us improve HUB OF ASPIRANTS</strong><span>Share a suggestion, report an issue or tell us what you want next.</span></div>
+<button aria-label="Give a Suggestion" class="hoa-public-feedback-btn" id="hoaFeedbackOpen" type="button"><span aria-hidden="true" class="hoa-suggestion-bulb">💡</span><span class="hoa-suggestion-label">GIVE A SUGGESTION</span></button>
+</div>
+<div aria-hidden="true" class="hoa-feedback-modal hidden" id="hoaFeedbackModal">
+<div class="hoa-feedback-backdrop" data-feedback-close=""></div>
+<section aria-labelledby="hoaFeedbackTitle" aria-modal="true" class="hoa-feedback-card" role="dialog">
+<button aria-label="Close" class="hoa-feedback-close" data-feedback-close="" type="button">×</button>
+<div class="hoa-feedback-kicker">YOUR FEEDBACK MATTERS</div>
+<h3 id="hoaFeedbackTitle">Send a Suggestion</h3>
+<p>Tell us what would make HUB OF ASPIRANTS better for students.</p>
+<div class="hoa-feedback-grid">
+<label>Category<select id="hoaFeedbackCategory"><option value="suggestion">Suggestion</option><option value="bug">Report an Issue</option><option value="content">Content Request</option><option value="feature">Feature Request</option><option value="other">Other</option></select></label>
+<label>Rating<select id="hoaFeedbackRating"><option value="">No rating</option><option value="5">★★★★★</option><option value="4">★★★★☆</option><option value="3">★★★☆☆</option><option value="2">★★☆☆☆</option><option value="1">★☆☆☆☆</option></select></label>
+<label class="hoa-feedback-wide">Email (optional)<input id="hoaFeedbackEmail" maxlength="320" placeholder="Your email" type="email"/></label>
+<label class="hoa-feedback-wide">Suggestion / Feedback<textarea id="hoaFeedbackMessage" maxlength="3000" placeholder="Write your suggestion here..." rows="5"></textarea></label>
+</div>
+<div class="hoa-feedback-actions">
+<span id="hoaFeedbackMsg"></span>
+<button class="secondary" data-feedback-close="" type="button">Cancel</button>
+<button class="primary" id="hoaFeedbackSubmit" type="button">SEND FEEDBACK</button>
+</div>
+</section>
+</div>
+<div class="hoa-v653-connect-wrap" id="hoaV653ConnectWrap">
+<button aria-controls="hoaV653ConnectPanel" aria-expanded="false" class="hoa-v653-connect-toggle" id="hoaV653ConnectToggle" type="button">
+<span aria-hidden="true" class="hoa-v653-connect-icon">
+<svg focusable="false" viewbox="0 0 24 24">
+<path d="M9.5 14.5 14.5 9.5"></path>
+<path d="M7.8 17.2 6.1 18.9a3.6 3.6 0 1 1-5.1-5.1l3.3-3.3a3.6 3.6 0 0 1 5.1 0"></path>
+<path d="m16.2 6.8 1.7-1.7a3.6 3.6 0 1 1 5.1 5.1l-3.3 3.3a3.6 3.6 0 0 1-5.1 0"></path>
+</svg>
+</span><span>Contact Us</span>
+</button>
+<div aria-label="Contact HUB OF ASPIRANTS" class="hoa-v653-connect-panel" id="hoaV653ConnectPanel" role="dialog">
+<div class="hoa-v653-connect-panel-title">
+<span class="hoa-connect-title-desktop">Contact HUB OF ASPIRANTS</span>
+<span class="hoa-connect-title-mobile">Contact HOA</span>
+</div>
+<div class="hoa-v653-connect-grid">
+<a aria-label="Telegram" class="hoa-v653-connect-link" href="https://t.me/owner_of_hoa" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="hoa-v653-placeholder-icon hoa-icon-telegram">
+<svg viewbox="0 0 24 24"><path d="M21.6 3.6 2.9 10.8c-.8.3-.8 1.1-.1 1.4l4.8 1.8 1.8 5.7c.2.7.7.8 1.2.4l2.7-2.5 4.9 3.6c.6.4 1.2.1 1.4-.6l3.1-16.1c.2-.9-.5-1.4-1.1-1.1ZM9.1 13.6l9.1-7.2c.4-.3.8-.1.5.2l-7.5 8.1-.3 3.1-1.8-4.2Z"></path></svg>
+</span><span>Telegram</span>
+</a>
+<a aria-label="WhatsApp" class="hoa-v653-connect-link" href="https://wa.me/qr/W67WRMXRYPWAA1" rel="noopener noreferrer" target="_blank">
+<span aria-hidden="true" class="hoa-v653-placeholder-icon hoa-icon-whatsapp">
+<svg viewbox="0 0 24 24"><path d="M12 2.2a9.8 9.8 0 0 0-8.5 14.7L2.2 21.8l5.1-1.3A9.8 9.8 0 1 0 12 2.2Zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9Zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.2-.3.2-.5.1a6.4 6.4 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.6c-.1-.2 0-.3.1-.5l.4-.5c.1-.2.1-.3 0-.5l-.7-1.7c-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.2-.9.9-.9 2.1s.9 2.4 1 2.5c.1.2 1.8 2.8 4.4 3.9 2.2 1 2.2.7 2.6.7.4 0 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.3-.1-.5-.2Z"></path></svg>
+</span><span>WhatsApp</span>
+</a>
+<a aria-label="Email HUB OF ASPIRANTS" class="hoa-v653-connect-link" href="mailto:hubofaspirants@gmail.com">
+<span aria-hidden="true" class="hoa-v653-placeholder-icon hoa-icon-email">
+<svg viewbox="0 0 24 24"><path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10A1.5 1.5 0 0 1 21 18.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm0 1.8v.1l9 6.1 9-6.1v-.1H3Zm18 9.4V9.5l-8.5 5.8a.9.9 0 0 1-1 0L3 9.5v7.2c0 .1.1.2.2.2h17.6c.1 0 .2-.1.2-.2Z"></path></svg>
+</span><span>Email</span>
+</a>
+<button aria-label="Call — coming soon" class="hoa-v653-connect-link hoa-v653-connect-disabled" disabled="" type="button">
+<span aria-hidden="true" class="hoa-v653-placeholder-icon hoa-icon-call">
+<svg viewbox="0 0 24 24"><path d="M6.6 2.5 9.2 2c.6-.1 1.1.2 1.3.8l1.2 3.4c.2.5 0 1-.4 1.3L9.8 9a14.7 14.7 0 0 0 5.2 5.2l1.5-1.5c.4-.4.9-.5 1.3-.3l3.4 1.2c.6.2.9.7.8 1.3l-.5 2.6c-.1.6-.7 1-1.3 1C11.3 18.5 5.5 12.7 5.5 5.8c0-.6.4-1.2 1.1-1.3Z"></path></svg>
+</span><span>Call</span>
+</button>
+</div>
+</div>
+</div></div>
+<div aria-hidden="true" class="mission-submit-overlay" id="missionSubmitConfirm" style="display:none">
+<div aria-labelledby="missionSubmitTitle" aria-modal="true" class="mission-submit-modal" role="dialog">
+<div class="mission-submit-modal-head">
+<div>
+<div class="mission-submit-kicker">EXAMINATION SUBMISSION</div>
+<h2 id="missionSubmitTitle">Submit your test</h2>
+</div>
+<button aria-label="Close" class="mission-submit-x" id="missionSubmitCloseX" type="button">×</button>
+</div>
+<div class="mission-submit-table-wrap">
+<table class="mission-submit-table">
+<thead>
+<tr>
+<th>Section</th>
+<th>No. of questions</th>
+<th>Answered</th>
+<th>Not Answered</th>
+<th>Marked for Review</th>
+<th>Not Visited</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Test</td>
+<td id="submitSummaryTotal">0</td>
+<td id="submitSummaryAnswered">0</td>
+<td id="submitSummaryNotAnswered">0</td>
+<td id="submitSummaryReview">0</td>
+<td id="submitSummaryNotVisited">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="mission-submit-note">
+      Please review the summary carefully. Once you click <b>Submit</b>, your test will be evaluated and the result will be generated.
+    </div>
+<div class="mission-submit-actions">
+<button class="mission-submit-btn secondary" id="missionSubmitClose" type="button">Close</button>
+<button class="mission-submit-btn primary" id="missionSubmitConfirmBtn" type="button">Submit</button>
+</div>
+</div>
+</div>
+<!-- =========================================================
+     HUB OF ASPIRANTS — V1.2 PATCH
+     Major fixes only. Existing Supabase configuration and core
+     authentication/test backend are preserved.
+     ========================================================= -->
+<!-- =========================================================
+     HUB OF ASPIRANTS — V1.5 CLEAN TEST + RESULT CONTROLLER
+     Scope: Test Making, Admin Preview, Result Management.
+     Protected: Supabase/authentication/database/scoring/student flow.
+     ========================================================= -->
+<!-- HUB OF ASPIRANTS: Pre-Test Instructions Modal -->
+<div class="hidden" id="testInstructionsModal">
+<div class="testInstructionsOverlay">
+<div class="testInstructionsCard">
+<div class="testInstructionsHeader">
+<div>
+<div class="testInstructionsEyebrow">HUB OF ASPIRANTS</div>
+<h2>Exam Instructions &amp; Readiness</h2>
+<p>Read the instructions carefully, choose your default language, and confirm that you are ready before starting the examination.</p>
+</div>
+<button aria-label="Close" class="testInstructionsClose" onclick="closeTestInstructions()" type="button">×</button>
+</div>
+<div class="testInstructionsBody">
+<div class="testInfoGrid">
+<div class="testInfoItem"><span>TEST</span><b id="instructionTestName">Mock Test</b></div>
+<div class="testInfoItem"><span>QUESTIONS</span><b id="instructionQuestions">—</b></div>
+<div class="testInfoItem"><span>TOTAL MARKS</span><b id="instructionTotalMarks">—</b></div>
+<div class="testInfoItem"><span>DURATION</span><b id="instructionDuration">—</b></div>
+<div class="testInfoItem"><span>CORRECT ANSWER</span><b id="instructionPositiveMarks">—</b></div>
+<div class="testInfoItem"><span>WRONG ANSWER</span><b id="instructionNegativeMarks">—</b></div>
+</div>
+<div class="testInstructionSection">
+<h3>General Instructions</h3>
+<ol>
+<li>Read each question carefully before selecting your answer.</li>
+<li>Each correct answer will receive the specified positive marks.</li>
+<li>A wrong answer will attract the specified negative marking.</li>
+<li>An unanswered question will receive <strong>0 marks</strong>.</li>
+<li>The test will be automatically submitted when the allotted time expires.</li>
+<li>Once the test is submitted, it cannot be resumed or edited.</li>
+<li>Do not refresh, close, or navigate away from the test window while the test is in progress.</li>
+<li>Make sure you have a stable internet connection before starting.</li>
+<li>Use the available time wisely and review your answers before final submission whenever possible.</li>
+<li>Your result and answer review will be available after submission.</li>
+</ol>
+</div>
+<div class="testLanguageRow">
+<label for="testLanguageSelect">Choose your default language</label>
+<select id="testLanguageSelect">
+<option selected="" value="english">English</option>
+</select>
+<span>English is selected by default. Language support can be expanded later.</span>
+</div>
+<label class="testReadyCheck">
+<input id="testReadyCheckbox" onchange="toggleTestReady()" type="checkbox"/>
+<span>I have read and understood all the instructions and I am ready to take this test.</span>
+</label>
+</div>
+<div class="testInstructionsFooter">
+<button class="testCancelButton" onclick="closeTestInstructions()" type="button">Back to Dashboard</button>
+<button class="testBeginButton" disabled="" id="beginTestButton" onclick="confirmAndStartTest()" type="button">Start Exam</button>
+</div>
+</div>
+</div>
+</div>
+<!-- V4.2 — Admin attempt review return-path fix -->
+<script src="js/hoa-core-runtime-v8.19.js?v=20261004-v844-test-links"></script>
+<script id="hoa-v581-attempt-safety">
+(function(){
+  window.HOA_v581_attemptDeletePolicy = {
+    functionName: "admin-delete-attempt",
+    requiresAuthenticatedAdmin: true,
+    requiresServerSideAdminCheck: true,
+    destructive: true
+  };
+})();
+</script>
+<script src="js/hoa-runtime-stage1-v8.19.js?v=20261004-v853-auth-recovery"></script>
+<script src="js/hoa-runtime-stage2-v8.19.js?v=20261004-v853-auth-recovery"></script>
+<script src="js/admin-course-student.js?v=20261007-v890-phase2-p2"></script>
+<script src="js/exam-result-controller-v3.js?v=20261004-v853-auth-recovery"></script>
+<script src="js/exam-runtime-unified-v4.js"></script>
+<script src="js/hoa-runtime-stage3-v8.19.js?v=20261003-v819-clean2"></script>
+<script src="./js/exam-ui-responsive-v8.js?v=20261003-exam-ui-v8"></script>
+<script src="js/hoa-pdf-viewer-v2.js?v=20261004-v5"></script>
+<script src="js/hoa-share-links-v1.js?v=20261004-v853-auth-recovery"></script>
+<script src="js/hoa-free-share-links-v1.js?v=20261007-v890-cross-page-fix"></script>
+<script id="hoa-index-v90-public-free-fixes">
+(function(){
+  "use strict";
+
+  /* Restore the canonical Free Test login implementation from app.js.
+     hoa-core-runtime-v8.19 historically overwrote this global later in the page. */
+  var canonicalFreeGate = window.__HOA_APP_FREE_GATE_LOGIN_SUBMIT__;
+  if(typeof canonicalFreeGate === "function") {
+    window.freeGateLoginSubmit = canonicalFreeGate;
+  }
+})();
+</script>
+</body>
+</html>
