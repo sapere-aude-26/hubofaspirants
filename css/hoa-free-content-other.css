@@ -1,0 +1,20 @@
+/* V8.50 — Current Affairs / Other resource options */
+#hoaV70OtherResourceField.hidden{display:none !important;}
+#hoaV70OtherResourceField select{min-width:0;}
+#hoaV70OtherResourceField small{line-height:1.4;}
+
+/* HOA V8.90.13+ Free Content Mock Test: answer-only post-submit/history state. Preserved through V8.90.16. */
+.hoa-attempted-answers-only{max-width:1120px;margin:22px auto 38px;padding:0 18px;color:#12304d}
+.hoa-attempted-answers-head{padding:18px 20px;margin-bottom:14px;border:1px solid #d6e6f5;border-radius:16px;background:linear-gradient(135deg,#f2f8ff,#fff)}
+.hoa-attempted-answers-head h2{margin:0 0 6px;font-size:clamp(20px,2vw,26px);line-height:1.25;color:#123f70}
+.hoa-attempted-answers-head p{margin:0;color:#52677e;font-size:13px;line-height:1.55}
+.hoa-attempted-answers-list{display:grid;gap:12px}
+.hoa-attempted-answer-card{padding:16px 18px;border:1px solid #dce7f1;border-radius:14px;background:#fff;box-shadow:0 4px 15px rgba(19,55,87,.045);min-width:0}
+.hoa-attempted-answer-number{margin-bottom:8px;color:#51708e;font-size:11px;letter-spacing:.09em;font-weight:800}
+.hoa-attempted-answer-prompt{color:#183954;font-size:15px;line-height:1.6;overflow-wrap:anywhere;white-space:pre-wrap}
+.hoa-attempted-answer-image{display:block;max-width:100%;max-height:320px;object-fit:contain;margin-top:10px;border-radius:8px}
+.hoa-attempted-answer-response{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;margin-top:12px;padding:11px 13px;border-radius:10px;background:#f2f7fc;border:1px solid #e0eaf5}
+.hoa-attempted-answer-label{color:#536b80;font-size:12px;font-weight:700;min-width:86px}
+.hoa-attempted-answer-response b{flex:1;min-width:140px;color:#123f70;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.hoa-attempted-answer-empty{padding:16px;border-radius:12px;background:#f8fafc;color:#52677e}
+@media(max-width:640px){.hoa-attempted-answers-only{padding:0 10px;margin:14px auto 25px}.hoa-attempted-answers-head{padding:14px}.hoa-attempted-answer-card{padding:13px}.hoa-attempted-answer-response{display:grid;gap:5px}.hoa-attempted-answer-response b{min-width:0}}
