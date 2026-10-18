@@ -1,0 +1,3574 @@
+/* ===== Consolidated from hoa-exam-responsive-v8.5.css ===== */
+/*
+  HOA EXAM RESPONSIVE V8.3
+  Single authoritative presentation layer.
+  Core exam/runtime behavior is intentionally not modified.
+*/
+:root{
+  --hoa83-bg:#f3f6f9;
+  --hoa83-panel:#fff;
+  --hoa83-ink:#163653;
+  --hoa83-strong:#0b2e52;
+  --hoa83-muted:#637991;
+  --hoa83-line:#cbd8e3;
+  --hoa83-blue:#0b4f88;
+  --hoa83-blue-2:#116aa8;
+  --hoa83-blue-soft:#eaf3f9;
+  --hoa83-nav:#eaf6fb;
+  --hoa83-nav-head:#b9dce9;
+  --hoa83-green:#1f9b50;
+  --hoa83-amber:#d8a52b;
+  --hoa83-amber-soft:#fff6d9;
+  --hoa83-red:#ef4444;
+  --hoa83-purple:#8258dc;
+  --hoa83-safe-top:env(safe-area-inset-top,0px);
+  --hoa83-safe-bottom:env(safe-area-inset-bottom,0px);
+  --hoa83-shell:min(1520px,calc(100vw - 32px));
+}
+html,body{max-width:100%;overflow-x:hidden;}
+
+/* Active exam owns the viewport. */
+#exam.hoa-unified-exam:not(.hidden){
+  position:fixed !important;
+  inset:0 !important;
+  z-index:10000 !important;
+  width:100vw !important;
+  height:100dvh !important;
+  min-height:100dvh !important;
+  max-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  box-sizing:border-box !important;
+  display:block !important;
+  overflow:hidden !important;
+  background:var(--hoa83-bg) !important;
+  color:var(--hoa83-ink) !important;
+  isolation:isolate !important;
+}
+html body.hoa-exam-live > main.container,
+html body.v13-exam-active > main.container,
+html body.hoa-local-exam-immersive > main.container{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* Shared centered shell. */
+#exam.hoa-unified-exam .examTop,
+#exam.hoa-unified-exam .hoa-exam-progress,
+#exam.hoa-unified-exam .examGrid,
+#exam.hoa-unified-exam .ui21-bottom{
+  width:var(--hoa83-shell) !important;
+  max-width:1520px !important;
+  box-sizing:border-box !important;
+  position:absolute !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+}
+
+/* Header: restrained CBT console, not a web-app banner. */
+#exam.hoa-unified-exam .examTop{
+  top:calc(10px + var(--hoa83-safe-top)) !important;
+  height:64px !important;
+  min-height:64px !important;
+  padding:9px 14px !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:18px !important;
+  background:#fff !important;
+  color:var(--hoa83-ink) !important;
+  border:1px solid #d2dee8 !important;
+  border-radius:6px !important;
+  overflow:hidden !important;
+}
+#exam.hoa-unified-exam .examBrandLine{
+  display:flex !important;align-items:center !important;min-width:0 !important;flex:1 1 auto !important;
+}
+#exam.hoa-unified-exam .examBrandMark{
+  width:30px !important;height:30px !important;flex:0 0 30px !important;
+  display:grid !important;place-items:center !important;
+  border:1px solid #b7cada !important;border-radius:5px !important;
+  color:var(--hoa83-blue) !important;font-size:9px !important;font-weight:900 !important;
+}
+#exam.hoa-unified-exam #examTestTitle{
+  display:block !important;max-width:min(68vw,900px) !important;margin:0 !important;
+  overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important;
+  color:var(--hoa83-strong) !important;font-size:clamp(17px,1.65vw,23px) !important;
+  font-weight:900 !important;line-height:1.08 !important;
+}
+#exam.hoa-unified-exam #examMeta{margin-top:3px !important;color:#6b8196 !important;font-size:11px !important;line-height:1.1 !important;font-weight:700 !important;}
+#exam.hoa-unified-exam .examTopTools{
+  display:flex !important;align-items:center !important;justify-content:flex-end !important;gap:8px !important;min-width:0 !important;flex:0 0 auto !important;
+}
+#exam.hoa-unified-exam .hoa-exam-connection{
+  display:inline-flex !important;align-items:center !important;justify-content:center !important;gap:6px !important;
+  min-height:34px !important;padding:0 10px !important;border:1px solid #c9d9e5 !important;border-radius:6px !important;
+  background:#f8fbfd !important;color:#31526e !important;font-size:10px !important;font-weight:800 !important;white-space:nowrap !important;
+}
+#exam.hoa-unified-exam .hoa-exam-connection-dot{width:7px !important;height:7px !important;flex:0 0 7px !important;border-radius:50% !important;background:#2baa59 !important;}
+#exam.hoa-unified-exam .hoa-exam-connection.is-offline{border-color:#e4b8b8 !important;background:#fff8f8 !important;color:#8e3838 !important;}
+#exam.hoa-unified-exam .hoa-exam-connection.is-offline .hoa-exam-connection-dot{background:#e04c4c !important;}
+/* Only the real status element is kept. Any duplicate injected into the same tool row is hidden. */
+#exam.hoa-unified-exam .examTopTools .hoa-exam-connection:not(#hoaExamConnectionStatus){display:none !important;}
+#exam.hoa-unified-exam .timer{
+  min-width:92px !important;height:36px !important;display:grid !important;place-items:center !important;
+  padding:0 11px !important;box-sizing:border-box !important;border:1px solid #ccd9e5 !important;border-radius:6px !important;
+  background:#fff !important;color:var(--hoa83-strong) !important;font-size:16px !important;font-weight:900 !important;
+  line-height:1 !important;
+}
+
+/* Progress line. */
+#exam.hoa-unified-exam .hoa-exam-progress{
+  top:calc(10px + var(--hoa83-safe-top) + 64px) !important;
+  height:4px !important;min-height:4px !important;margin:0 !important;padding:0 !important;
+  background:#d9e5ef !important;border:0 !important;border-radius:0 !important;overflow:hidden !important;box-shadow:none !important;
+}
+#exam.hoa-unified-exam .hoa-exam-progress .bar{display:block !important;height:100% !important;min-height:100% !important;margin:0 !important;padding:0 !important;background:var(--hoa83-blue) !important;border-radius:0 !important;transition:width .18s ease !important;}
+
+/* Main desktop region. Bottom reserve matches the actual dock height plus breathing room. */
+#exam.hoa-unified-exam .examGrid{
+  top:calc(10px + var(--hoa83-safe-top) + 64px + 4px + 14px) !important;
+  bottom:calc(var(--hoa83-safe-bottom) + 78px) !important;
+  min-width:0 !important;min-height:0 !important;
+  display:grid !important;grid-template-columns:minmax(0,1fr) 290px !important;gap:14px !important;align-items:stretch !important;
+  overflow:hidden !important;
+}
+#exam.hoa-unified-exam .examQuestionCard,
+#exam.hoa-unified-exam .examNavigator{
+  min-width:0 !important;min-height:0 !important;box-sizing:border-box !important;
+  border:1px solid var(--hoa83-line) !important;border-radius:6px !important;background:#fff !important;
+  box-shadow:0 2px 8px rgba(27,59,85,.05) !important;
+}
+#exam.hoa-unified-exam .examQuestionCard{
+  display:block !important;overflow:auto !important;overflow-x:hidden !important;overscroll-behavior:contain !important;
+  -webkit-overflow-scrolling:touch !important;padding:14px !important;
+}
+#exam.hoa-unified-exam .questionNo{
+  min-height:42px !important;padding:0 11px !important;margin:0 !important;display:flex !important;align-items:center !important;
+  justify-content:space-between !important;gap:10px !important;box-sizing:border-box !important;border:1px solid #d3e1ec !important;
+  border-radius:5px !important;color:var(--hoa83-strong) !important;font-size:13px !important;font-weight:900 !important;
+}
+#exam.hoa-unified-exam #questionNoText{min-width:0 !important;overflow:hidden !important;text-overflow:ellipsis !important;white-space:nowrap !important;}
+#exam.hoa-unified-exam .examMarkBadge{flex:0 0 auto !important;padding:5px 8px !important;border:1px solid #cbd9e6 !important;border-radius:5px !important;background:#f8fbfd !important;color:var(--hoa83-blue) !important;font-size:10px !important;font-weight:900 !important;white-space:nowrap !important;}
+#exam.hoa-unified-exam .question{min-height:0 !important;margin:18px 2px 0 !important;padding:0 !important;overflow:visible !important;font-size:clamp(15px,1.1vw,19px) !important;line-height:1.52 !important;overflow-wrap:anywhere !important;}
+#exam.hoa-unified-exam #options,
+#exam.hoa-unified-exam .examOptions{display:grid !important;gap:9px !important;margin:20px 0 0 !important;padding:0 0 18px !important;}
+#exam.hoa-unified-exam #options > button,
+#exam.hoa-unified-exam .examOptions .option{
+  position:relative !important;width:100% !important;min-height:48px !important;margin:0 !important;padding:11px 13px 11px 42px !important;
+  box-sizing:border-box !important;display:flex !important;align-items:center !important;text-align:left !important;
+  border:1px solid #cbd7e1 !important;border-radius:4px !important;background:#fff !important;color:#213b53 !important;
+  font-size:14px !important;font-weight:700 !important;line-height:1.35 !important;overflow-wrap:anywhere !important;cursor:pointer !important;box-shadow:none !important;
+}
+#exam.hoa-unified-exam #options > button::before,
+#exam.hoa-unified-exam .examOptions .option::before{
+  content:'' !important;position:absolute !important;left:13px !important;top:50% !important;transform:translateY(-50%) !important;
+  width:17px !important;height:17px !important;border:2px solid #9aacbc !important;border-radius:50% !important;background:#fff !important;box-sizing:border-box !important;
+}
+#exam.hoa-unified-exam #options > button:hover,
+#exam.hoa-unified-exam .examOptions .option:hover{background:#fbfdff !important;border-color:#9fb6ca !important;}
+#exam.hoa-unified-exam #options > button.selected,
+#exam.hoa-unified-exam .examOptions .option.selected{background:#edf6ff !important;border-color:#1b6eab !important;}
+#exam.hoa-unified-exam #options > button.selected::before,
+#exam.hoa-unified-exam .examOptions .option.selected::before{border-color:#1b6eab !important;background:#1b6eab !important;box-shadow:inset 0 0 0 4px #edf6ff !important;}
+
+/* Desktop question navigator. */
+#exam.hoa-unified-exam .examNavigator{display:flex !important;flex-direction:column !important;overflow:hidden !important;padding:0 !important;}
+#exam.hoa-unified-exam .examNavigatorHead{flex:0 0 auto !important;min-height:40px !important;padding:0 11px !important;display:flex !important;align-items:center !important;justify-content:space-between !important;gap:8px !important;border:0 !important;border-radius:0 !important;color:var(--hoa83-strong) !important;}
+#exam.hoa-unified-exam .examNavigatorHead h3{margin:0 !important;font-size:13px !important;font-weight:900 !important;text-transform:uppercase !important;}
+#exam.hoa-unified-exam .examNavigatorHead span{font-size:10px !important;font-weight:900 !important;color:#567089 !important;}
+#exam.hoa-unified-exam #palette{flex:0 1 auto !important;min-height:0 !important;max-height:46% !important;display:grid !important;grid-template-columns:repeat(5,minmax(0,1fr)) !important;align-content:start !important;gap:7px !important;margin:10px !important;padding:0 !important;overflow:auto !important;overscroll-behavior:contain !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn,
+#exam.hoa-unified-exam #palette .pbtn{width:100% !important;min-width:0 !important;height:36px !important;min-height:36px !important;padding:0 !important;margin:0 !important;display:grid !important;place-items:center !important;box-sizing:border-box !important;border:1px solid #aebdca !important;border-radius:4px !important;background:#e9eff4 !important;color:#2b4256 !important;font-size:11px !important;font-weight:900 !important;line-height:1 !important;cursor:pointer !important;box-shadow:none !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.not-visited,#exam.hoa-unified-exam #palette .pbtn.not-visited{background:#edf2f6 !important;color:#30495e !important;border-color:#c3ced8 !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.not-answered,#exam.hoa-unified-exam #palette .pbtn.not-answered{background:#ef4444 !important;color:#fff !important;border-color:#c92f2f !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.answered,#exam.hoa-unified-exam #palette .pbtn.answered{background:#30b968 !important;color:#fff !important;border-color:#1e914d !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.marked,#exam.hoa-unified-exam #palette .pbtn.marked{background:#8258dc !important;color:#fff !important;border-color:#6c43c6 !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered,#exam.hoa-unified-exam #palette .pbtn.marked-answered{background:#6f55c9 !important;color:#fff !important;border-color:#5f45b4 !important;}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.current,#exam.hoa-unified-exam #palette .pbtn.current{outline:2px solid #111827 !important;outline-offset:1px !important;}
+#exam.hoa-unified-exam .mission-palette-legend{flex:1 1 auto !important;min-height:0 !important;display:grid !important;grid-template-columns:1fr 1fr !important;align-content:start !important;gap:8px 10px !important;margin:0 10px 10px !important;padding:10px 0 0 !important;border-top:1px solid #c9dfe8 !important;overflow:auto !important;}
+#exam.hoa-unified-exam .mission-palette-legend .legend-item{display:flex !important;align-items:center !important;min-width:0 !important;gap:6px !important;font-size:10px !important;font-weight:700 !important;line-height:1.15 !important;white-space:nowrap !important;}
+#exam.hoa-unified-exam .mission-palette-legend .legend-dot{flex:0 0 10px !important;width:10px !important;height:10px !important;border-radius:50% !important;border:1px solid rgba(40,60,80,.22) !important;}
+#exam.hoa-unified-exam .legend-dot.not-visited{background:#edf2f6 !important;}#exam.hoa-unified-exam .legend-dot.not-answered{background:#ef4444 !important;}#exam.hoa-unified-exam .legend-dot.answered{background:#30b968 !important;border-color:#1e914d !important;}#exam.hoa-unified-exam .legend-dot.marked{background:#8258dc !important;border-color:#6c43c6 !important;}#exam.hoa-unified-exam .legend-dot.marked-answered{background:#6f55c9 !important;border-color:#5f45b4 !important;}
+
+/* Exactly five controls, one coherent exam bar. */
+#exam.hoa-unified-exam .ui21-bottom{
+  bottom:calc(var(--hoa83-safe-bottom) + 10px) !important;
+  top:auto !important;
+  height:56px !important;min-height:56px !important;max-height:56px !important;
+  padding:5px !important;display:grid !important;
+  grid-template-columns:minmax(110px,.78fr) minmax(190px,1.75fr) minmax(130px,1.1fr) minmax(130px,1.1fr) minmax(135px,1.1fr) !important;
+  gap:7px !important;align-items:stretch !important;
+  background:#fff !important;border:1px solid #cbd8e3 !important;border-radius:7px !important;
+  box-shadow:0 4px 12px rgba(25,56,82,.10) !important;overflow:hidden !important;z-index:10100 !important;
+}
+#exam.hoa-unified-exam .ui21-bottom .grp,#exam.hoa-unified-exam .ui21-bottom .ui21-submit-zone{display:contents !important;}
+#exam.hoa-unified-exam .ui21-bottom .ui21-submit-label{display:none !important;}
+#exam.hoa-unified-exam .ui21-bottom button{
+  width:100% !important;min-width:0 !important;height:44px !important;min-height:44px !important;margin:0 !important;padding:0 8px !important;
+  box-sizing:border-box !important;display:inline-flex !important;align-items:center !important;justify-content:center !important;
+  border-radius:4px !important;font-size:11px !important;font-weight:900 !important;line-height:1.1 !important;white-space:nowrap !important;overflow:hidden !important;text-overflow:clip !important;cursor:pointer !important;box-shadow:none !important;
+}
+#exam.hoa-unified-exam .ui21-bottom #ui21Prev,#exam.hoa-unified-exam .ui21-bottom #ui21Clear{border:1px solid #aab8c5 !important;background:#fff !important;color:#254159 !important;}
+#exam.hoa-unified-exam .ui21-bottom #ui21MarkReview{border:1px solid #d7a82e !important;background:var(--hoa83-amber-soft) !important;color:#785800 !important;}
+#exam.hoa-unified-exam .ui21-bottom #ui21SaveNext{border:1px solid #168845 !important;background:var(--hoa83-green) !important;color:#fff !important;}
+#exam.hoa-unified-exam .ui21-bottom #ui21Submit{border:1px solid #0b5e9d !important;background:#116db0 !important;color:#fff !important;}
+
+/* Content safety. */
+#exam.hoa-unified-exam .examQuestionCard table{max-width:100% !important;}#exam.hoa-unified-exam .examQuestionCard img,#exam.hoa-unified-exam .examQuestionCard svg{max-width:100% !important;height:auto !important;}
+
+/* ---------- Responsive reflow ---------- */
+@media(max-width:900px){
+  :root{--hoa83-shell:calc(100vw - 12px);}
+  #exam.hoa-unified-exam .examTop,#exam.hoa-unified-exam .hoa-exam-progress,#exam.hoa-unified-exam .examGrid{max-width:none !important;}
+  #exam.hoa-unified-exam .examTop{top:calc(5px + var(--hoa83-safe-top)) !important;height:56px !important;min-height:56px !important;padding:8px 9px !important;border-radius:6px !important;gap:8px !important;}
+  #exam.hoa-unified-exam .examBrandMark{width:25px !important;height:25px !important;flex-basis:25px !important;font-size:8px !important;}
+  #exam.hoa-unified-exam #examTestTitle{max-width:54vw !important;font-size:15px !important;}
+  #exam.hoa-unified-exam #examMeta{font-size:9px !important;}
+  #exam.hoa-unified-exam .examTopTools{gap:5px !important;}
+  #exam.hoa-unified-exam .hoa-exam-connection{min-height:29px !important;padding:0 7px !important;font-size:8.5px !important;}
+  #exam.hoa-unified-exam .timer{min-width:70px !important;height:31px !important;font-size:14px !important;padding:0 7px !important;}
+  #exam.hoa-unified-exam .hoa-exam-progress{top:calc(5px + var(--hoa83-safe-top) + 56px) !important;height:4px !important;}
+  #exam.hoa-unified-exam .examGrid{top:calc(5px + var(--hoa83-safe-top) + 56px + 4px + 7px) !important;bottom:calc(var(--hoa83-safe-bottom) + 112px) !important;grid-template-columns:minmax(0,1fr) !important;grid-template-rows:minmax(0,1fr) 100px !important;gap:5px !important;overflow:hidden !important;}
+  #exam.hoa-unified-exam .examQuestionCard{border-radius:6px !important;}
+  #exam.hoa-unified-exam .questionNo{font-size:10.5px !important;}
+  #exam.hoa-unified-exam .examMarkBadge{padding:4px 6px !important;font-size:8.5px !important;}
+  #exam.hoa-unified-exam .question{margin:12px 1px 0 !important;}
+  #exam.hoa-unified-exam #options,#exam.hoa-unified-exam .examOptions{gap:7px !important;margin-top:13px !important;padding-bottom:12px !important;}
+  #exam.hoa-unified-exam #options > button,#exam.hoa-unified-exam .examOptions .option{min-height:42px !important;padding:9px 10px 9px 37px !important;border-radius:4px !important;font-size:11.5px !important;}
+  #exam.hoa-unified-exam #options > button::before,#exam.hoa-unified-exam .examOptions .option::before{left:11px !important;width:15px !important;height:15px !important;}
+  #exam.hoa-unified-exam .examNavigator{min-height:0 !important;border-radius:6px !important;}
+  #exam.hoa-unified-exam .examNavigatorHead{min-height:29px !important;padding:0 8px !important;}
+  #exam.hoa-unified-exam .examNavigatorHead h3{font-size:10px !important;}
+  #exam.hoa-unified-exam .examNavigatorHead span{font-size:8.5px !important;}
+  #exam.hoa-unified-exam #palette{display:flex !important;flex:0 0 34px !important;max-height:none !important;height:34px !important;gap:5px !important;margin:5px 7px 0 !important;padding:0 !important;overflow-x:auto !important;overflow-y:hidden !important;}
+  #exam.hoa-unified-exam #palette .ui21-palette-btn,#exam.hoa-unified-exam #palette .pbtn{flex:0 0 29px !important;width:29px !important;min-width:29px !important;height:29px !important;min-height:29px !important;font-size:9px !important;}
+  #exam.hoa-unified-exam .mission-palette-legend{flex:1 1 auto !important;display:flex !important;flex-wrap:nowrap !important;gap:8px !important;margin:4px 7px 4px !important;padding:4px 0 0 !important;overflow-x:auto !important;overflow-y:hidden !important;}
+  #exam.hoa-unified-exam .mission-palette-legend .legend-item{flex:0 0 auto !important;font-size:8px !important;gap:4px !important;}
+  #exam.hoa-unified-exam .ui21-bottom{position:fixed !important;left:0 !important;right:0 !important;bottom:0 !important;top:auto !important;transform:none !important;width:100% !important;max-width:none !important;height:calc(108px + var(--hoa83-safe-bottom)) !important;min-height:calc(108px + var(--hoa83-safe-bottom)) !important;max-height:calc(108px + var(--hoa83-safe-bottom)) !important;padding:5px 6px calc(5px + var(--hoa83-safe-bottom)) !important;display:grid !important;grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;grid-template-rows:32px 32px 34px !important;gap:4px !important;border-radius:7px 7px 0 0 !important;border-bottom:0 !important;box-shadow:0 -4px 12px rgba(25,56,82,.12) !important;}
+  #exam.hoa-unified-exam .ui21-bottom #ui21Prev{grid-column:1 !important;grid-row:1 !important;}#exam.hoa-unified-exam .ui21-bottom #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;}#exam.hoa-unified-exam .ui21-bottom #ui21Clear{grid-column:1 !important;grid-row:2 !important;}#exam.hoa-unified-exam .ui21-bottom #ui21SaveNext{grid-column:2 !important;grid-row:2 !important;}#exam.hoa-unified-exam .ui21-bottom #ui21Submit{grid-column:1 / -1 !important;grid-row:3 !important;}
+  #exam.hoa-unified-exam .ui21-bottom button{height:100% !important;min-height:0 !important;padding:0 5px !important;font-size:9.5px !important;border-radius:4px !important;}
+}
+@media(max-width:520px){
+  #exam.hoa-unified-exam .hoa-exam-connection{display:none !important;}
+  #exam.hoa-unified-exam #examTestTitle{max-width:64vw !important;font-size:14px !important;}
+}
+@media(max-width:390px){
+  :root{--hoa83-shell:calc(100vw - 8px);}
+  #exam.hoa-unified-exam .examTop{height:52px !important;min-height:52px !important;padding:7px !important;}
+  #exam.hoa-unified-exam .examBrandMark{display:none !important;}
+  #exam.hoa-unified-exam #examTestTitle{max-width:66vw !important;font-size:13.5px !important;}
+  #exam.hoa-unified-exam #examMeta{font-size:8.5px !important;}
+  #exam.hoa-unified-exam .timer{min-width:64px !important;height:29px !important;font-size:13px !important;}
+  #exam.hoa-unified-exam .hoa-exam-progress{top:calc(5px + var(--hoa83-safe-top) + 52px) !important;}
+  #exam.hoa-unified-exam .examGrid{top:calc(5px + var(--hoa83-safe-top) + 52px + 4px + 6px) !important;bottom:calc(var(--hoa83-safe-bottom) + 108px) !important;grid-template-rows:minmax(0,1fr) 92px !important;}
+  #exam.hoa-unified-exam .ui21-bottom{height:calc(104px + var(--hoa83-safe-bottom)) !important;min-height:calc(104px + var(--hoa83-safe-bottom)) !important;grid-template-rows:31px 31px 34px !important;gap:4px !important;}
+  #exam.hoa-unified-exam .ui21-bottom button{font-size:9px !important;}
+}
+@media(max-height:620px) and (max-width:900px){
+  #exam.hoa-unified-exam .examTop{height:48px !important;min-height:48px !important;}
+  #exam.hoa-unified-exam #examTestTitle{font-size:12.5px !important;}
+  #exam.hoa-unified-exam .timer{height:27px !important;font-size:12px !important;}
+  #exam.hoa-unified-exam .hoa-exam-progress{top:calc(5px + var(--hoa83-safe-top) + 48px) !important;}
+  #exam.hoa-unified-exam .examGrid{top:calc(5px + var(--hoa83-safe-top) + 48px + 4px + 5px) !important;bottom:calc(var(--hoa83-safe-bottom) + 103px) !important;grid-template-rows:minmax(0,1fr) 86px !important;}
+  #exam.hoa-unified-exam .ui21-bottom{height:calc(99px + var(--hoa83-safe-bottom)) !important;min-height:calc(99px + var(--hoa83-safe-bottom)) !important;grid-template-rows:29px 29px 33px !important;}
+  #exam.hoa-unified-exam .ui21-bottom button{font-size:8.5px !important;}
+}
+
+/* ========================================================================
+   HOA EXAM RESPONSIVE V8.4 — LEGACY CASCADE LOCK
+   Presentation-only. The proven exam engine is not modified.
+   This block intentionally has higher specificity than legacy v13 rules.
+   ======================================================================== */
+
+/* The active exam must own the full browser viewport, not the dashboard's
+   legacy .container width. */
+html body.v13-exam-active > main.container,
+html body.exam-active > main.container,
+html body.hoa-exam-live > main.container,
+html body.v13-exam-active > main,
+html body.exam-active > main,
+html body.hoa-exam-live > main{
+  width:100vw !important;
+  max-width:none !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+}
+
+/* One authoritative exam canvas. */
+html body.v13-exam-active #exam.hoa-unified-exam:not(.hidden),
+html body.exam-active #exam.hoa-unified-exam:not(.hidden),
+html body.hoa-exam-live #exam.hoa-unified-exam:not(.hidden){
+  width:100vw !important;
+  max-width:none !important;
+  min-width:0 !important;
+  height:100dvh !important;
+  max-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+
+/* Center all major desktop regions against the viewport, not the old
+   dashboard container. */
+html body.v13-exam-active #exam.hoa-unified-exam .examTop,
+html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+html body.exam-active #exam.hoa-unified-exam .examTop,
+html body.exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+html body.exam-active #exam.hoa-unified-exam .examGrid,
+html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+html body.hoa-exam-live #exam.hoa-unified-exam .examTop,
+html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-progress,
+html body.hoa-exam-live #exam.hoa-unified-exam .examGrid,
+html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+  left:50% !important;
+  right:auto !important;
+  width:min(1520px,calc(100vw - 24px)) !important;
+  max-width:1520px !important;
+  margin-left:0 !important;
+  margin-right:0 !important;
+  transform:translateX(-50%) !important;
+}
+
+/* Header must remain the clean CBT white header. */
+html body.v13-exam-active #exam.hoa-unified-exam .examTop,
+html body.exam-active #exam.hoa-unified-exam .examTop,
+html body.hoa-exam-live #exam.hoa-unified-exam .examTop{
+  background:#fff !important;
+  color:var(--hoa83-ink) !important;
+  border:1px solid #d2dee8 !important;
+  border-radius:6px !important;
+  box-shadow:0 3px 10px rgba(27,59,85,.07) !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #examTestTitle,
+html body.exam-active #exam.hoa-unified-exam #examTestTitle,
+html body.hoa-exam-live #exam.hoa-unified-exam #examTestTitle{
+  color:var(--hoa83-strong) !important;
+}
+
+/* There must be exactly one connection-status chip. The legacy V5.9.8
+   injected #hoaV598ExamStatus is presentation-only and conflicts with the
+   authoritative #hoaExamConnectionStatus element. */
+html body.v13-exam-active #exam.hoa-unified-exam #hoaV598ExamStatus,
+html body.exam-active #exam.hoa-unified-exam #hoaV598ExamStatus,
+html body.hoa-exam-live #exam.hoa-unified-exam #hoaV598ExamStatus,
+html body.v13-exam-active #exam.hoa-unified-exam .hoa-v598-exam-status,
+html body.exam-active #exam.hoa-unified-exam .hoa-v598-exam-status,
+html body.hoa-exam-live #exam.hoa-unified-exam .hoa-v598-exam-status{
+  display:none !important;
+  visibility:hidden !important;
+  width:0 !important;
+  min-width:0 !important;
+  max-width:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  overflow:hidden !important;
+}
+
+/* Desktop five-button bar: centered inside the same shell and never clipped
+   by the old right:270px / right:220px rules. */
+html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+  position:fixed !important;
+  top:auto !important;
+  bottom:10px !important;
+  right:auto !important;
+  height:56px !important;
+  min-height:56px !important;
+  max-height:56px !important;
+  padding:5px !important;
+  display:grid !important;
+  grid-template-columns:minmax(110px,.78fr) minmax(190px,1.75fr) minmax(130px,1.1fr) minmax(130px,1.1fr) minmax(135px,1.1fr) !important;
+  gap:7px !important;
+  overflow:hidden !important;
+  z-index:10100 !important;
+}
+
+/* Keep the exam content above the bottom bar with a predictable reserve. */
+html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+html body.exam-active #exam.hoa-unified-exam .examGrid,
+html body.hoa-exam-live #exam.hoa-unified-exam .examGrid{
+  bottom:calc(var(--hoa83-safe-bottom) + 78px) !important;
+}
+
+/* The old .nav button / .ui17 controls must not alter the five-button bar. */
+html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom button,
+html body.exam-active #exam.hoa-unified-exam .ui21-bottom button,
+html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom button{
+  width:100% !important;
+  min-width:0 !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+}
+
+/* ========================================================================
+   MOBILE — retain the same shell, reflow the same five controls.
+   ======================================================================== */
+@media(max-width:900px){
+  html body.v13-exam-active > main.container,
+  html body.exam-active > main.container,
+  html body.hoa-exam-live > main.container{
+    width:100vw !important;
+    max-width:none !important;
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examTop,
+  html body.exam-active #exam.hoa-unified-exam .examTop,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examTop,
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+  html body.exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-progress,
+  html body.v13-exam-active #exam.hoa-unified-exam .examGrid{
+    left:50% !important;
+    right:auto !important;
+    width:calc(100vw - 12px) !important;
+    max-width:none !important;
+    transform:translateX(-50%) !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+    left:0 !important;
+    right:0 !important;
+    width:100% !important;
+    max-width:none !important;
+    transform:none !important;
+    bottom:0 !important;
+    height:calc(108px + var(--hoa83-safe-bottom)) !important;
+    min-height:calc(108px + var(--hoa83-safe-bottom)) !important;
+    max-height:calc(108px + var(--hoa83-safe-bottom)) !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+  html body.exam-active #exam.hoa-unified-exam .examGrid,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examGrid{
+    bottom:calc(var(--hoa83-safe-bottom) + 112px) !important;
+  }
+}
+
+/* ========================================================================
+   HOA EXAM RESPONSIVE V8.5 — CASCADE + VIEWPORT HARDENING
+   Presentation-only. The proven exam engine is untouched.
+   ======================================================================== */
+:root{
+  --hoa85-safe-top:env(safe-area-inset-top,0px);
+  --hoa85-safe-bottom:env(safe-area-inset-bottom,0px);
+  --hoa85-shell:min(1520px,calc(100vw - 24px));
+  --hoa85-mobile-shell:calc(100vw - 12px);
+  --hoa85-dock-desktop:62px;
+  --hoa85-dock-mobile:112px;
+}
+
+/* The legacy application container has several :has()/!important width rules.
+   Match and exceed them so the active exam can genuinely own the viewport. */
+html body:not(.admin-ui):has(#exam:not(.hidden)) > main.container,
+html body.hoa-exam-live > main.container,
+html body.v13-exam-active > main.container,
+html body.hoa-local-exam-immersive > main.container{
+  position:relative !important;
+  width:100vw !important;
+  max-width:none !important;
+  min-width:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+}
+
+/* Full-width exam canvas with an isolated stacking context. */
+html body:not(.admin-ui):has(#exam:not(.hidden)) > main.container > #exam.hoa-unified-exam:not(.hidden),
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden),
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden),
+html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden){
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100dvh !important;
+  min-width:0 !important;
+  min-height:100dvh !important;
+  max-width:none !important;
+  max-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+  z-index:2147482000 !important;
+}
+
+/* Header: defeat legacy blue/height rules while retaining the V8.1 CBT style. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop{
+  position:absolute !important;
+  left:50% !important;
+  right:auto !important;
+  top:calc(10px + var(--hoa85-safe-top)) !important;
+  transform:translateX(-50%) !important;
+  width:var(--hoa85-shell) !important;
+  max-width:1520px !important;
+  height:64px !important;
+  min-height:64px !important;
+  max-height:64px !important;
+  box-sizing:border-box !important;
+  padding:9px 14px !important;
+  margin:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  background:#fff !important;
+  color:#163653 !important;
+  border:1px solid #d2dee8 !important;
+  border-radius:6px !important;
+  box-shadow:0 3px 10px rgba(27,59,85,.07) !important;
+  overflow:hidden !important;
+  z-index:20 !important;
+}
+
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop .examTopTitle,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop .examTopTitle,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop .examTopTitle{min-width:0 !important;flex:1 1 auto !important;}
+
+/* Exactly one visible connection status. The legacy injected status may still
+   exist for offline-note behavior, but it must not occupy visual space. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam #hoaV598ExamStatus,
+html body.exam-active > main.container > #exam.hoa-unified-exam #hoaV598ExamStatus,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #hoaV598ExamStatus,
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam .hoa-v598-exam-status,
+html body.exam-active > main.container > #exam.hoa-unified-exam .hoa-v598-exam-status,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam .hoa-v598-exam-status{
+  display:none !important;
+  visibility:hidden !important;
+  width:0 !important;
+  max-width:0 !important;
+  min-width:0 !important;
+  height:0 !important;
+  max-height:0 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  overflow:hidden !important;
+}
+
+/* Progress line: always directly beneath the header. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress{
+  position:absolute !important;
+  left:50% !important;
+  right:auto !important;
+  top:calc(10px + var(--hoa85-safe-top) + 64px) !important;
+  transform:translateX(-50%) !important;
+  width:var(--hoa85-shell) !important;
+  max-width:1520px !important;
+  height:4px !important;
+  min-height:4px !important;
+  max-height:4px !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:#d9e5ef !important;
+  border:0 !important;
+  overflow:hidden !important;
+  z-index:19 !important;
+}
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress .bar,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress .bar,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress .bar{
+  display:block !important;
+  height:100% !important;
+  min-height:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  background:#0b4f88 !important;
+}
+
+/* Desktop content shell. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid{
+  position:absolute !important;
+  left:50% !important;
+  right:auto !important;
+  top:calc(10px + var(--hoa85-safe-top) + 64px + 4px + 14px) !important;
+  bottom:calc(var(--hoa85-safe-bottom) + var(--hoa85-dock-desktop) + 16px) !important;
+  transform:translateX(-50%) !important;
+  width:var(--hoa85-shell) !important;
+  max-width:1520px !important;
+  min-width:0 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 290px !important;
+  gap:14px !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+  z-index:10 !important;
+}
+
+/* Desktop action dock: same specificity family as legacy :has() rules, plus
+   :not(.hidden), so legacy right:270px/right:220px declarations cannot win. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom{
+  position:fixed !important;
+  left:50% !important;
+  right:auto !important;
+  top:auto !important;
+  bottom:10px !important;
+  transform:translateX(-50%) !important;
+  width:var(--hoa85-shell) !important;
+  max-width:1520px !important;
+  height:var(--hoa85-dock-desktop) !important;
+  min-height:var(--hoa85-dock-desktop) !important;
+  max-height:var(--hoa85-dock-desktop) !important;
+  margin:0 !important;
+  padding:6px !important;
+  box-sizing:border-box !important;
+  display:grid !important;
+  grid-template-columns:minmax(105px,.82fr) minmax(190px,1.62fr) minmax(125px,1fr) minmax(125px,1fr) minmax(135px,1.02fr) !important;
+  gap:7px !important;
+  align-items:stretch !important;
+  background:#fff !important;
+  border:1px solid #cbd8e3 !important;
+  border-radius:6px !important;
+  box-shadow:0 4px 12px rgba(25,56,82,.10) !important;
+  overflow:hidden !important;
+  z-index:2147482100 !important;
+}
+
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button{
+  position:relative !important;
+  inset:auto !important;
+  float:none !important;
+  flex:none !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  margin:0 !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  padding:0 8px !important;
+  box-sizing:border-box !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+  white-space:nowrap !important;
+  text-overflow:clip !important;
+  border-radius:4px !important;
+  font-size:11px !important;
+  font-weight:900 !important;
+  line-height:1.1 !important;
+}
+
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Prev,
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Clear,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Prev,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Clear,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Prev,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Clear{
+  border:1px solid #aab8c5 !important;
+  background:#fff !important;
+  color:#254159 !important;
+}
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21MarkReview,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21MarkReview,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21MarkReview{
+  border:1px solid #d7a82e !important;
+  background:#fff6d9 !important;
+  color:#785800 !important;
+}
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21SaveNext,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21SaveNext,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21SaveNext{
+  border:1px solid #168845 !important;
+  background:#1f9b50 !important;
+  color:#fff !important;
+}
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Submit,
+html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Submit,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Submit{
+  border:1px solid #0b5f9f !important;
+  background:#116db0 !important;
+  color:#fff !important;
+}
+
+/* ========================================================================
+   MOBILE — same CBT shell, reflowed without a second mobile UI.
+   ======================================================================== */
+@media (max-width:900px){
+  html body:not(.admin-ui):has(#exam:not(.hidden)) > main.container,
+  html body.hoa-exam-live > main.container,
+  html body.v13-exam-active > main.container,
+  html body.hoa-local-exam-immersive > main.container{
+    width:100vw !important;
+    max-width:none !important;
+    padding:0 !important;
+    margin:0 !important;
+    overflow:visible !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop{
+    top:calc(6px + var(--hoa85-safe-top)) !important;
+    width:var(--hoa85-mobile-shell) !important;
+    max-width:none !important;
+    height:56px !important;
+    min-height:56px !important;
+    max-height:56px !important;
+    padding:7px 8px !important;
+    gap:7px !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress{
+    top:calc(6px + var(--hoa85-safe-top) + 56px) !important;
+    width:var(--hoa85-mobile-shell) !important;
+    max-width:none !important;
+    height:4px !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid{
+    top:calc(6px + var(--hoa85-safe-top) + 56px + 4px + 7px) !important;
+    width:var(--hoa85-mobile-shell) !important;
+    max-width:none !important;
+    bottom:calc(var(--hoa85-safe-bottom) + var(--hoa85-dock-mobile) + 6px) !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:minmax(0,1fr) 102px !important;
+    gap:5px !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom{
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100vw !important;
+    max-width:none !important;
+    transform:none !important;
+    height:calc(var(--hoa85-dock-mobile) + var(--hoa85-safe-bottom)) !important;
+    min-height:calc(var(--hoa85-dock-mobile) + var(--hoa85-safe-bottom)) !important;
+    max-height:calc(var(--hoa85-dock-mobile) + var(--hoa85-safe-bottom)) !important;
+    padding:5px 6px calc(5px + var(--hoa85-safe-bottom)) !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    grid-template-rows:34px 34px 34px !important;
+    gap:5px !important;
+    border-radius:6px 6px 0 0 !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Prev,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Prev,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Prev{grid-column:1 !important;grid-row:1 !important;}
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21MarkReview,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21MarkReview,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;}
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Clear,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Clear,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Clear{grid-column:1 !important;grid-row:2 !important;}
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21SaveNext,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21SaveNext,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21SaveNext{grid-column:2 !important;grid-row:2 !important;}
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Submit,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom #ui21Submit{grid-column:1 / -1 !important;grid-row:3 !important;}
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button{
+    min-height:0 !important;
+    height:100% !important;
+    padding:0 5px !important;
+    font-size:9.5px !important;
+    border-radius:4px !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard{
+    padding:9px !important;
+    border-radius:6px !important;
+  }
+}
+
+@media (max-width:560px){
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid{
+    grid-template-rows:minmax(0,1fr) 98px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom{
+    --hoa85-dock-mobile:108px;
+    grid-template-rows:31px 31px 34px !important;
+    gap:4px !important;
+  }
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.8.css ===== */
+
+/* HOA Exam Responsive V8.8 — overlay stacking repair
+ * Presentation-layer only. The proven exam engine remains unchanged.
+ * Critical rule: modal overlays MUST sit above the active exam shell. */
+#examIntegrityWarning{
+  z-index:2147483002 !important;
+  position:fixed !important;
+  inset:0 !important;
+  pointer-events:auto !important;
+}
+
+#missionSubmitConfirm.mission-submit-overlay,
+body #missionSubmitConfirm.mission-submit-overlay{
+  z-index:2147483003 !important;
+  position:fixed !important;
+  inset:0 !important;
+  pointer-events:auto !important;
+}
+
+#missionSubmitConfirm.mission-submit-overlay[aria-hidden="false"],
+#missionSubmitConfirm.mission-submit-overlay.show{
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+#examIntegrityWarning[style*="display: flex"],
+#examIntegrityWarning[style*="display:flex"]{
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+
+@media (max-width:700px){
+  #examIntegrityWarning{
+    padding:
+      calc(12px + env(safe-area-inset-top))
+      12px
+      calc(12px + env(safe-area-inset-bottom)) !important;
+    box-sizing:border-box !important;
+  }
+  #missionSubmitConfirm.mission-submit-overlay{
+    padding:
+      calc(12px + env(safe-area-inset-top))
+      12px
+      calc(12px + env(safe-area-inset-bottom)) !important;
+    box-sizing:border-box !important;
+  }
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.9.css ===== */
+/* HOA Exam Responsive V8.9 — CBT micro-polish
+ * Presentation only. No exam engine behavior is changed. */
+
+/* Keep the V8.8 overlay repair authoritative. This file deliberately does not
+   touch overlay z-index, exam lifecycle, or button event routing. */
+
+#exam.hoa-unified-exam .examTop{
+  box-shadow:0 2px 8px rgba(24,55,82,.06) !important;
+}
+#exam.hoa-unified-exam .examBrandLine{gap:10px !important;}
+#exam.hoa-unified-exam .examBrandMark{
+  background:#f7fafc !important;
+  border-color:#c2d0dc !important;
+}
+#exam.hoa-unified-exam #examTestTitle{
+  letter-spacing:-.01em !important;
+}
+#exam.hoa-unified-exam #examMeta{
+  letter-spacing:.01em !important;
+}
+#exam.hoa-unified-exam .timer{
+  font-variant-numeric:tabular-nums !important;
+  letter-spacing:.02em !important;
+}
+
+#exam.hoa-unified-exam .examQuestionCard{
+  scrollbar-width:thin !important;
+}
+#exam.hoa-unified-exam .questionNo{
+  border-color:#c7d7e3 !important;
+  background:#eef5fa !important;
+}
+#exam.hoa-unified-exam .questionNo:focus-within{
+  box-shadow:0 0 0 2px rgba(17,109,176,.10) !important;
+}
+#exam.hoa-unified-exam .question{
+  color:#18344d !important;
+  font-weight:700 !important;
+}
+#exam.hoa-unified-exam #options > button,
+#exam.hoa-unified-exam .examOptions .option{
+  transition:border-color .12s ease, background .12s ease, box-shadow .12s ease !important;
+}
+#exam.hoa-unified-exam #options > button:focus-visible,
+#exam.hoa-unified-exam .examOptions .option:focus-visible{
+  outline:2px solid #6aa8d1 !important;
+  outline-offset:1px !important;
+}
+#exam.hoa-unified-exam #options > button.selected,
+#exam.hoa-unified-exam .examOptions .option.selected{
+  box-shadow:inset 3px 0 0 #1b6eab, 0 0 0 1px rgba(27,110,171,.08) !important;
+}
+
+#exam.hoa-unified-exam .examNavigator{
+  background:#eef5f9 !important;
+}
+#exam.hoa-unified-exam .examNavigatorHead{
+  background:#c6e0eb !important;
+}
+#exam.hoa-unified-exam #palette .ui21-palette-btn.current,
+#exam.hoa-unified-exam #palette .pbtn.current{
+  outline:2px solid #0b2e52 !important;
+  outline-offset:1px !important;
+  box-shadow:0 0 0 1px rgba(11,46,82,.12) !important;
+}
+#exam.hoa-unified-exam .mission-palette-legend .legend-item{
+  color:#3f5c74 !important;
+}
+
+/* Keep button geometry intact; refine only visual finish. */
+#exam.hoa-unified-exam .ui21-bottom button{
+  transition:background-color .12s ease, border-color .12s ease, box-shadow .12s ease, transform .04s ease !important;
+}
+#exam.hoa-unified-exam .ui21-bottom button:active{
+  transform:translateY(1px) !important;
+}
+#exam.hoa-unified-exam .ui21-bottom #ui21Prev:hover,
+#exam.hoa-unified-exam .ui21-bottom #ui21Clear:hover{
+  background:#f4f8fb !important;
+  border-color:#91a6b8 !important;
+}
+#exam.hoa-unified-exam .ui21-bottom #ui21MarkReview:hover{
+  background:#fff1bf !important;
+  border-color:#c49520 !important;
+}
+#exam.hoa-unified-exam .ui21-bottom #ui21SaveNext:hover{
+  background:#168a47 !important;
+  border-color:#0f773c !important;
+}
+#exam.hoa-unified-exam .ui21-bottom #ui21Submit:hover{
+  background:#0f639f !important;
+  border-color:#095384 !important;
+}
+
+/* Mobile: preserve V8.8 geometry and improve readability without increasing
+   the reserved bottom-dock height. */
+@media (max-width:900px){
+  #exam.hoa-unified-exam .examQuestionCard{
+    padding:10px !important;
+  }
+  #exam.hoa-unified-exam .questionNo{
+    min-height:40px !important;
+    padding:0 10px !important;
+  }
+  #exam.hoa-unified-exam .question{
+    margin-top:14px !important;
+    font-size:15px !important;
+    line-height:1.48 !important;
+  }
+  #exam.hoa-unified-exam #options,
+  #exam.hoa-unified-exam .examOptions{
+    gap:8px !important;
+    margin-top:15px !important;
+    padding-bottom:16px !important;
+  }
+  #exam.hoa-unified-exam #options > button,
+  #exam.hoa-unified-exam .examOptions .option{
+    min-height:46px !important;
+    padding:10px 12px 10px 40px !important;
+    font-size:13.5px !important;
+  }
+  #exam.hoa-unified-exam #options > button::before,
+  #exam.hoa-unified-exam .examOptions .option::before{
+    left:12px !important;
+    width:16px !important;
+    height:16px !important;
+  }
+  #exam.hoa-unified-exam #palette .ui21-palette-btn.current,
+  #exam.hoa-unified-exam #palette .pbtn.current{
+    outline-width:2px !important;
+  }
+}
+
+@media (max-width:560px){
+  #exam.hoa-unified-exam .question{
+    font-size:14px !important;
+    line-height:1.46 !important;
+  }
+  #exam.hoa-unified-exam #options > button,
+  #exam.hoa-unified-exam .examOptions .option{
+    min-height:44px !important;
+    font-size:13px !important;
+  }
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.10.css ===== */
+/*
+ * HOA Exam Responsive V8.10 — real CBT presentation refinement
+ *
+ * Presentation layer only. The proven exam/runtime behavior remains untouched.
+ * This layer supersedes prior V8.x exam presentation rules without changing
+ * the runtime contract, submission flow, integrity logic, timer, scoring,
+ * or question-state model.
+ */
+
+:root{
+  --hoa810-sidebar:304px;
+  --hoa810-shell-gap:14px;
+  --hoa810-shell: min(1520px, calc(100vw - 28px));
+  --hoa810-blue:#0b4f88;
+  --hoa810-ink:#163653;
+  --hoa810-line:#cbd8e3;
+  --hoa810-nav:#eaf6fb;
+  --hoa810-nav-head:#b9dce9;
+}
+
+/* ---------------- Desktop CBT shell ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examTop,
+html body.exam-active #exam.hoa-unified-exam .examTop,
+html body.hoa-exam-live #exam.hoa-unified-exam .examTop,
+html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+html body.exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-progress,
+html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+html body.exam-active #exam.hoa-unified-exam .examGrid{
+  width:var(--hoa810-shell) !important;
+  max-width:1520px !important;
+  box-sizing:border-box !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam .examGrid,
+html body.exam-active #exam.hoa-unified-exam .examGrid,
+html body.hoa-exam-live #exam.hoa-unified-exam .examGrid{
+  grid-template-columns:minmax(0,1fr) var(--hoa810-sidebar) !important;
+  gap:var(--hoa810-shell-gap) !important;
+}
+
+/* ---------------- HOA logo slot ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark{
+  width:32px !important;
+  height:32px !important;
+  min-width:32px !important;
+  min-height:32px !important;
+  flex:0 0 32px !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:2px !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  border:1px solid #b7cada !important;
+  border-radius:5px !important;
+  background:#fff !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark img,
+html body.exam-active #exam.hoa-unified-exam .examBrandMark img,
+html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark img{
+  display:block !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:contain !important;
+  border-radius:3px !important;
+}
+
+/* ---------------- Question panel ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard,
+html body.exam-active #exam.hoa-unified-exam .examQuestionCard,
+html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard{
+  min-width:0 !important;
+  overflow:auto !important;
+}
+
+/* No circular option marker: the proven engine already supplies A/B/C/D text. */
+html body.v13-exam-active #exam.hoa-unified-exam #options > button::before,
+html body.exam-active #exam.hoa-unified-exam #options > button::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #options > button::before{
+  content:none !important;
+  display:none !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #options > button,
+html body.exam-active #exam.hoa-unified-exam #options > button,
+html body.hoa-exam-live #exam.hoa-unified-exam #options > button{
+  padding-left:14px !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #options > button.selected,
+html body.exam-active #exam.hoa-unified-exam #options > button.selected,
+html body.hoa-exam-live #exam.hoa-unified-exam #options > button.selected{
+  padding-left:14px !important;
+}
+
+/* ---------------- Palette: never clip the fifth/last column ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam .examNavigator,
+html body.exam-active #exam.hoa-unified-exam .examNavigator,
+html body.hoa-exam-live #exam.hoa-unified-exam .examNavigator{
+  min-width:0 !important;
+  width:100% !important;
+  overflow:hidden !important;
+  background:var(--hoa810-nav) !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  width:auto !important;
+  max-width:calc(100% - 20px) !important;
+  box-sizing:border-box !important;
+  grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+  padding:0 1px 1px !important;
+  margin:10px !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .pbtn,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn,
+html body.exam-active #exam.hoa-unified-exam #palette .pbtn,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .pbtn{
+  min-width:0 !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+}
+
+/* The engine may append a review tick to marked-and-answered buttons.
+ * Keep the engine text untouched but render the visible palette number from
+ * CSS counters so review state is colour-only and never displays a tick. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  counter-reset:hoa810-question;
+}
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+html body.exam-active #exam.hoa-unified-exam #palette > button,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button{
+  counter-increment:hoa810-question;
+}
+
+/* Mark/review palette state is represented only by colour — never a tick. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::before,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::after,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .pbtn::before,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .pbtn::after,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::before,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn::after,
+html body.exam-active #exam.hoa-unified-exam #palette .pbtn::before,
+html body.exam-active #exam.hoa-unified-exam #palette .pbtn::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .pbtn::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .pbtn::after{
+  content:none !important;
+  display:none !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked-answered,
+html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked-answered,
+html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked-answered{
+  border-radius:50% !important;
+  box-shadow:none !important;
+}
+
+/* ---------------- Desktop bottom actions ----------------
+ * Three primary actions remain on the left; Save & Next sits at the right
+ * end of the main action area; Submit occupies the full-width sidebar strip.
+ */
+@media(min-width:901px){
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+    left:50% !important;
+    right:auto !important;
+    transform:translateX(-50%) !important;
+    width:var(--hoa810-shell) !important;
+    max-width:1520px !important;
+    box-sizing:border-box !important;
+    bottom:calc(var(--hoa83-safe-bottom) + 10px) !important;
+    height:58px !important;
+    min-height:58px !important;
+    max-height:58px !important;
+    border:1px solid var(--hoa810-line) !important;
+    border-radius:7px !important;
+    box-shadow:0 4px 12px rgba(25,56,82,.10) !important;
+    overflow:hidden !important;
+    z-index:10100 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev{grid-column:1 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear{grid-column:3 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext{grid-column:4 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit{grid-column:5 !important;grid-row:1 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button{
+    width:100% !important;
+    min-width:0 !important;
+    height:46px !important;
+    min-height:46px !important;
+    box-sizing:border-box !important;
+    margin:0 !important;
+    padding:0 8px !important;
+    border-radius:4px !important;
+  }
+  /* Submit sits visually inside the question-strip continuation. */
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit{
+    margin:0 !important;
+  }
+}
+
+/* ---------------- Mobile ---------------- */
+@media(max-width:900px){
+  :root{--hoa810-mobile-side:0px;}
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark{
+    width:28px !important;
+    height:28px !important;
+    min-width:28px !important;
+    min-height:28px !important;
+    flex-basis:28px !important;
+    padding:2px !important;
+  }
+  /* The sidebar becomes a full-width question strip on phones; Submit keeps
+     the bottom dock's dedicated final row and its own safe-area. */
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button,
+  html body.exam-active #exam.hoa-unified-exam #options > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button{
+    padding-left:14px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button::after,
+  html body.exam-active #exam.hoa-unified-exam #options > button::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button::after{
+    left:12px !important;
+    font-size:12px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+    max-width:none !important;
+    box-sizing:border-box !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+    background:linear-gradient(to bottom,#fff 0 calc(100% - 38px),var(--hoa810-nav) calc(100% - 38px) 100%) !important;
+  }
+}
+
+@media(max-width:390px){
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark{
+    width:25px !important;height:25px !important;min-width:25px !important;min-height:25px !important;flex-basis:25px !important;
+  }
+}
+
+@media(max-width:900px){
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.11.css ===== */
+/*
+ * HOA Exam Responsive V8.11
+ *
+ * Targeted presentation correction requested after V8.10:
+ * - restore visible question numbers in the palette
+ * - guarantee the fifth/rightmost palette column fits
+ * - compact Previous / Mark / Clear controls and keep them on the left
+ * - keep Save & Next at the right edge of the main question area
+ * - keep Submit Test inside the light-blue navigator strip
+ * - preserve A/B/C/D option styling without circular markers
+ * - keep marked states colour-only; no review tick is rendered
+ *
+ * Presentation-only. No exam-engine logic is changed here.
+ */
+
+/* ---------------- Palette numbers: final authoritative rule ---------------- */
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+html body.exam-active #exam.hoa-unified-exam #palette > button,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button{
+  overflow:hidden !important;
+}
+
+/* V8.10's no-pseudo-marker rule remains intact; this later rule restores only
+   the question number after it. The engine's literal " ✓" stays hidden. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button::after,
+html body.exam-active #exam.hoa-unified-exam #palette > button::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button::after{
+  place-items:center !important;
+  position:absolute !important;
+  inset:0 !important;
+  margin:0 !important;
+  font-size:12px !important;
+  line-height:1 !important;
+  font-weight:900 !important;
+  color:inherit !important;
+  pointer-events:none !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  counter-reset:hoa810-question !important;
+}
+
+/* ---------------- Palette geometry: leave enough room for column 5 ---------------- */
+@media(min-width:901px){
+  html body.v13-exam-active #exam.hoa-unified-exam .examNavigator,
+  html body.exam-active #exam.hoa-unified-exam .examNavigator,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examNavigator{
+    min-width:0 !important;
+    overflow:hidden !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+    width:calc(100% - 16px) !important;
+    max-width:none !important;
+    margin:10px 8px !important;
+    padding:0 !important;
+    gap:6px !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+  html body.exam-active #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button{
+    min-width:0 !important;
+    width:100% !important;
+    height:38px !important;
+    min-height:38px !important;
+  }
+
+  /* Bottom actions: left three compact, Save & Next at the main-area right,
+     Submit Test remains in the navigator-width light-blue strip. */
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom{
+    display:grid !important;
+    grid-template-columns:96px 205px 112px minmax(110px,1fr) 304px !important;
+    gap:7px !important;
+    align-items:stretch !important;
+    padding:5px !important;
+    background:linear-gradient(to right,#fff 0 calc(100% - 304px),var(--hoa810-nav) calc(100% - 304px) 100%) !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev{
+    width:96px !important;
+    max-width:96px !important;
+    justify-self:start !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview{
+    width:205px !important;
+    max-width:205px !important;
+    justify-self:start !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear{
+    width:112px !important;
+    max-width:112px !important;
+    justify-self:start !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext{
+    width:110px !important;
+    max-width:110px !important;
+    justify-self:end !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit{
+    width:100% !important;
+    max-width:none !important;
+    justify-self:stretch !important;
+    align-self:stretch !important;
+    border-radius:4px !important;
+    background:#116db0 !important;
+    color:#fff !important;
+  }
+}
+
+/* Mobile: retain the compact CBT dock and make the palette numbers visible. */
+@media(max-width:900px){
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button::after,
+  html body.exam-active #exam.hoa-unified-exam #palette > button::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button::after{
+    font-size:10px !important;
+  }
+}
+
+/* Explicitly suppress any legacy review glyphs/icons in the palette only. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button::before,
+html body.exam-active #exam.hoa-unified-exam #palette > button::before,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button::before{
+  content:none !important;
+  display:none !important;
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.12.css ===== */
+/*
+ * HOA Exam Responsive V8.12
+ * Single-purpose spacing correction:
+ * Reduce the visual distance between Previous, Mark for Review & Next,
+ * and Clear Response only. No other exam behavior/layout is changed.
+ */
+@media (min-width:901px){
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active > main.container > #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam .ui21-bottom{
+    grid-template-columns:96px 205px 112px minmax(110px,1fr) 304px !important;
+    column-gap:7px !important;
+  }
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.13.css ===== */
+/*
+ * HOA Exam Responsive V8.13
+ * Marked-for-review indicator only.
+ * Adds a black check indicator to the review-state palette markers.
+ * No exam behavior, navigation, spacing, or other UI styling is changed.
+ */
+
+/* Legend: black check inside the purple Marked for Review marker. */
+html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked,
+html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked{
+  position:relative !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  color:#111 !important;
+  font-size:8px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked::after,
+html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked::after,
+html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot.marked::after{
+  content:"✓" !important;
+  color:#111 !important;
+  font-size:8px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+}
+
+/* Palette buttons: retain the purple review state and add a black check at the right. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn.marked,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered{
+  position:relative !important;
+  padding-right:18px !important;
+}
+
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked::after,
+html body.v13-exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered::after,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked::after,
+html body.exam-active #exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn.marked::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette .ui21-palette-btn.marked-answered::after{
+  content:"✓" !important;
+  position:absolute !important;
+  top:50% !important;
+  right:4px !important;
+  transform:translateY(-50%) !important;
+  color:#111 !important;
+  font-size:10px !important;
+  font-weight:900 !important;
+  line-height:1 !important;
+  margin:0 !important;
+  text-shadow:none !important;
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.14.css ===== */
+/*
+ * HOA Exam Responsive V8.14
+ * Palette visibility + current-question border correction.
+ * Presentation-only: does not modify exam engine behavior.
+ */
+
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+html body.exam-active #exam.hoa-unified-exam #palette > button,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button{
+  font-size:11px !important;
+  line-height:1 !important;
+  text-indent:0 !important;
+  color:#2b4256 !important;
+  position:relative !important;
+  visibility:visible !important;
+}
+
+/* Restore the actual question number text generated by the exam engine. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button::after,
+html body.exam-active #exam.hoa-unified-exam #palette > button::after,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button::after{
+  content:none !important;
+  display:none !important;
+}
+
+/* Do not allow old pseudo-glyph layers to hide the literal number. */
+
+
+/* Guarantee the current question has a visible black border inside the box. */
+html body.v13-exam-active #exam.hoa-unified-exam #palette > button.current,
+html body.exam-active #exam.hoa-unified-exam #palette > button.current,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.current{
+  border-color:#111827 !important;
+  box-shadow:inset 0 0 0 2px #111827 !important;
+  outline:none !important;
+  z-index:2 !important;
+  font-weight:900 !important;
+}
+
+@media(max-width:900px){
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+  html body.exam-active #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button{
+    font-size:10px !important;
+  }
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.15.css ===== */
+/*
+ * HOA Exam Responsive V8.15
+ * Palette gap only: 4px horizontal and vertical spacing.
+ * No other presentation or engine behavior is changed.
+ */
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette{
+  gap:4px !important;
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.16.css ===== */
+/*
+ * HOA Exam Responsive V8.16
+ * Palette geometry authority: exact 4px row/column gaps.
+ * Presentation-only. No exam engine behavior changes.
+ */
+
+/* Match the legacy mobile rule's selector depth so this wins regardless of
+   whether the exam is in the mobile/immersive container path. */
+html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette,
+html body.exam-active > main.container > #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette,
+html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette,
+html body.v13-exam-active #exam.hoa-unified-exam #palette,
+html body.exam-active #exam.hoa-unified-exam #palette,
+html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{
+  gap:4px !important;
+  row-gap:4px !important;
+  column-gap:4px !important;
+  grid-gap:4px !important;
+}
+
+/* Keep the 4px geometry authoritative when the palette switches to the
+   compact horizontal mobile layout. */
+@media (max-width:900px){
+}
+
+/* ===== Consolidated from hoa-exam-responsive-v8.17.css ===== */
+/*
+ * HOA Exam Responsive V8.17
+ * Palette-only authoritative geometry correction.
+ * Keeps V8.14 visibility/current-border and V8.16 safeguards, but takes
+ * complete ownership of desktop palette track sizing so visual gap is exactly 4px.
+ * Presentation-only. No exam engine behavior changes.
+ */
+
+/* Desktop: the track itself must equal the button height; otherwise an older
+   grid-auto-rows value can create apparent extra space around a 4px gap. */
+@media (min-width:901px){
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{
+    display:grid !important;
+    grid-template-columns:repeat(5,minmax(0,1fr)) !important;
+    grid-template-rows:none !important;
+    grid-auto-rows:38px !important;
+    align-content:start !important;
+    align-items:start !important;
+    gap:4px !important;
+    row-gap:4px !important;
+    column-gap:4px !important;
+    grid-gap:4px !important;
+    width:calc(100% - 20px) !important;
+    max-width:none !important;
+    box-sizing:border-box !important;
+    margin:10px !important;
+    padding:0 !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+  html body.exam-active #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button{
+    width:100% !important;
+    min-width:0 !important;
+    height:38px !important;
+    min-height:38px !important;
+    max-height:38px !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    align-self:start !important;
+    justify-self:stretch !important;
+  }
+}
+
+/* Mobile/compact strip: explicit 4px gap with zero item margins. */
+@media (max-width:900px){
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{
+    display:flex !important;
+    flex-direction:row !important;
+    flex-wrap:nowrap !important;
+    gap:4px !important;
+    row-gap:4px !important;
+    column-gap:4px !important;
+    grid-gap:4px !important;
+    margin-left:7px !important;
+    margin-right:7px !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+  html body.exam-active #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button{
+    flex:0 0 29px !important;
+    width:29px !important;
+    min-width:29px !important;
+    max-width:29px !important;
+    height:29px !important;
+    min-height:29px !important;
+    max-height:29px !important;
+    margin:0 !important;
+    padding:0 !important;
+    box-sizing:border-box !important;
+  }
+}
+
+/* ========================================================================
+   P50 — Mobile exam UI polish (presentation only).
+   Keeps the existing exam engine, answer model, timer logic, and anti-cheat
+   handlers intact. Provides legible timer/state cues and a usable phone palette.
+   ======================================================================== */
+@media (max-width:900px){
+  :root{
+    --hoa50-mobile-nav-height:148px;
+    --hoa50-mobile-dock-height:122px;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.v13-exam-active #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam:not(.hidden) .examTop{
+    top:calc(5px + env(safe-area-inset-top,0px)) !important;
+    height:56px !important;
+    min-height:56px !important;
+    max-height:56px !important;
+    padding:7px 9px !important;
+    gap:7px !important;
+    border-radius:12px !important;
+    background:rgba(255,255,255,.98) !important;
+    border:1px solid #d9e5f0 !important;
+    box-shadow:0 4px 14px rgba(15,45,75,.08) !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandLine,
+  html body.exam-active #exam.hoa-unified-exam .examBrandLine,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandLine,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examBrandLine{
+    gap:7px !important;
+    min-width:0 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examBrandMark{
+    display:grid !important;
+    width:26px !important;
+    height:26px !important;
+    min-width:26px !important;
+    min-height:26px !important;
+    flex:0 0 26px !important;
+    padding:2px !important;
+    border-radius:8px !important;
+    background:#f3f8fd !important;
+    border:1px solid #d4e3f0 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #examTestTitle,
+  html body.exam-active #exam.hoa-unified-exam #examTestTitle,
+  html body.hoa-exam-live #exam.hoa-unified-exam #examTestTitle,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #examTestTitle{
+    max-width:calc(100vw - 150px) !important;
+    font-size:clamp(12px,3.7vw,15px) !important;
+    line-height:1.1 !important;
+    letter-spacing:-.015em !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #examMeta,
+  html body.exam-active #exam.hoa-unified-exam #examMeta,
+  html body.hoa-exam-live #exam.hoa-unified-exam #examMeta,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #examMeta{
+    margin-top:3px !important;
+    font-size:9px !important;
+    line-height:1.1 !important;
+    color:#657b91 !important;
+    font-variant-numeric:tabular-nums !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examTopTools,
+  html body.exam-active #exam.hoa-unified-exam .examTopTools,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examTopTools,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examTopTools{
+    flex:0 0 auto !important;
+    gap:5px !important;
+    margin-left:auto !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #hoaExamConnectionStatus,
+  html body.exam-active #exam.hoa-unified-exam #hoaExamConnectionStatus,
+  html body.hoa-exam-live #exam.hoa-unified-exam #hoaExamConnectionStatus,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #hoaExamConnectionStatus{
+    min-height:26px !important;
+    padding:0 7px !important;
+    border-radius:999px !important;
+    font-size:8px !important;
+    gap:4px !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .timer,
+  html body.exam-active #exam.hoa-unified-exam .timer,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer{
+    display:inline-flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:5px !important;
+    min-width:84px !important;
+    width:auto !important;
+    height:36px !important;
+    padding:0 10px !important;
+    border-radius:999px !important;
+    border:1px solid #b9d8f0 !important;
+    background:linear-gradient(180deg,#f3f9ff 0%,#e7f3ff 100%) !important;
+    color:#123f68 !important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.95),0 2px 6px rgba(20,75,120,.08) !important;
+    font-size:14px !important;
+    line-height:1 !important;
+    font-weight:900 !important;
+    letter-spacing:.035em !important;
+    font-variant-numeric:tabular-nums !important;
+    white-space:nowrap !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .timer::before,
+  html body.exam-active #exam.hoa-unified-exam .timer::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer::before{
+    content:"◷" !important;
+    display:inline-block !important;
+    flex:0 0 auto !important;
+    color:currentColor !important;
+    font-family:system-ui,sans-serif !important;
+    font-size:16px !important;
+    font-weight:700 !important;
+    line-height:1 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .timer.is-warning,
+  html body.exam-active #exam.hoa-unified-exam .timer.is-warning,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer.is-warning,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer.is-warning{
+    color:#8a4b08 !important;
+    background:#fff7e6 !important;
+    border-color:#f0c36b !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .timer.is-critical,
+  html body.exam-active #exam.hoa-unified-exam .timer.is-critical,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer.is-critical,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer.is-critical{
+    color:#b42318 !important;
+    background:#fff0ef !important;
+    border-color:#f2aaa5 !important;
+    animation:hoa50TimerPulse 1.25s ease-in-out infinite !important;
+  }
+
+  @keyframes hoa50TimerPulse{
+    0%,100%{box-shadow:0 0 0 0 rgba(217,45,32,.05);}
+    50%{box-shadow:0 0 0 3px rgba(217,45,32,.12);}
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+  html body.exam-active #exam.hoa-unified-exam .hoa-exam-progress,
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-progress,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .hoa-exam-progress{
+    top:calc(5px + env(safe-area-inset-top,0px) + 56px) !important;
+    height:4px !important;
+    border-radius:999px !important;
+    overflow:hidden !important;
+    background:#dfeaf4 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-progress .bar,
+  html body.exam-active #exam.hoa-unified-exam .hoa-exam-progress .bar,
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-progress .bar,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .hoa-exam-progress .bar{
+    border-radius:999px !important;
+    background:linear-gradient(90deg,#0b65a6,#2d9ad6) !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.v13-exam-active #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam:not(.hidden) .examGrid{
+    top:calc(5px + env(safe-area-inset-top,0px) + 56px + 4px + 7px) !important;
+    bottom:calc(env(safe-area-inset-bottom,0px) + var(--hoa50-mobile-dock-height) + 6px) !important;
+    grid-template-columns:minmax(0,1fr) !important;
+    grid-template-rows:minmax(0,1fr) var(--hoa50-mobile-nav-height) !important;
+    gap:6px !important;
+    overflow:hidden !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard,
+  html body.exam-active #exam.hoa-unified-exam .examQuestionCard,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examQuestionCard{
+    padding:12px !important;
+    border-radius:12px !important;
+    border-color:#d7e4ef !important;
+    box-shadow:0 3px 12px rgba(15,45,75,.045) !important;
+    scrollbar-width:thin !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .questionNo,
+  html body.exam-active #exam.hoa-unified-exam .questionNo,
+  html body.hoa-exam-live #exam.hoa-unified-exam .questionNo,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .questionNo{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:8px !important;
+    min-height:40px !important;
+    padding:0 10px !important;
+    border-radius:9px !important;
+    background:#eff6fc !important;
+    border:1px solid #d6e5f2 !important;
+    font-size:12px !important;
+    line-height:1.1 !important;
+    font-variant-numeric:tabular-nums !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #questionNoText,
+  html body.exam-active #exam.hoa-unified-exam #questionNoText,
+  html body.hoa-exam-live #exam.hoa-unified-exam #questionNoText,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #questionNoText{
+    flex:1 1 auto !important;
+    min-width:0 !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+    color:#214563 !important;
+    font-size:12px !important;
+    font-weight:900 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examMarkBadge,
+  html body.exam-active #exam.hoa-unified-exam .examMarkBadge,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examMarkBadge,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examMarkBadge{
+    padding:5px 7px !important;
+    border-radius:999px !important;
+    background:#fff !important;
+    border-color:#d2e1ee !important;
+    color:#315b7d !important;
+    font-size:9px !important;
+    line-height:1 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .question,
+  html body.exam-active #exam.hoa-unified-exam .question,
+  html body.hoa-exam-live #exam.hoa-unified-exam .question,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .question{
+    margin:15px 1px 0 !important;
+    font-size:15px !important;
+    line-height:1.55 !important;
+    font-weight:650 !important;
+    color:#163653 !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #options,
+  html body.exam-active #exam.hoa-unified-exam #options,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options,
+  html body.v13-exam-active #exam.hoa-unified-exam .examOptions,
+  html body.exam-active #exam.hoa-unified-exam .examOptions,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examOptions,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examOptions{
+    gap:9px !important;
+    margin:16px 0 0 !important;
+    padding:0 0 16px !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button,
+  html body.exam-active #exam.hoa-unified-exam #options > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button,
+  html body.v13-exam-active #exam.hoa-unified-exam .examOptions .option,
+  html body.exam-active #exam.hoa-unified-exam .examOptions .option,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examOptions .option,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examOptions .option{
+    min-height:48px !important;
+    padding:12px 12px !important;
+    border-radius:10px !important;
+    border-color:#d3e0eb !important;
+    background:#fff !important;
+    color:#213c55 !important;
+    font-size:14px !important;
+    font-weight:650 !important;
+    line-height:1.4 !important;
+    box-shadow:0 1px 2px rgba(18,55,84,.025) !important;
+    touch-action:manipulation !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button.selected,
+  html body.exam-active #exam.hoa-unified-exam #options > button.selected,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button.selected,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button.selected,
+  html body.v13-exam-active #exam.hoa-unified-exam .examOptions .option.selected,
+  html body.exam-active #exam.hoa-unified-exam .examOptions .option.selected,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examOptions .option.selected,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examOptions .option.selected{
+    border-color:#2177b5 !important;
+    background:#eef7ff !important;
+    box-shadow:inset 3px 0 0 #1674b7,0 0 0 1px rgba(22,116,183,.08) !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examNavigator,
+  html body.exam-active #exam.hoa-unified-exam .examNavigator,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examNavigator,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examNavigator{
+    display:flex !important;
+    flex-direction:column !important;
+    min-height:0 !important;
+    height:100% !important;
+    padding:0 4px 3px !important;
+    border:1px solid #d5e3ef !important;
+    border-radius:12px !important;
+    background:#f8fbfe !important;
+    box-shadow:0 3px 12px rgba(15,45,75,.04) !important;
+    overflow:hidden !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examNavigatorHead,
+  html body.exam-active #exam.hoa-unified-exam .examNavigatorHead,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examNavigatorHead,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examNavigatorHead{
+    flex:0 0 22px !important;
+    min-height:22px !important;
+    height:22px !important;
+    padding:0 5px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:space-between !important;
+    gap:6px !important;
+    border:0 !important;
+    background:transparent !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .examNavigatorHead h3,
+  html body.exam-active #exam.hoa-unified-exam .examNavigatorHead h3,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examNavigatorHead h3,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examNavigatorHead h3{
+    margin:0 !important;
+    color:#31526e !important;
+    font-size:9.5px !important;
+    font-weight:900 !important;
+    letter-spacing:.07em !important;
+    text-transform:uppercase !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #hoaPhoneNavCount,
+  html body.exam-active #exam.hoa-unified-exam #hoaPhoneNavCount,
+  html body.hoa-exam-live #exam.hoa-unified-exam #hoaPhoneNavCount,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #hoaPhoneNavCount{
+    color:#305b80 !important;
+    font-size:9px !important;
+    font-weight:900 !important;
+    font-variant-numeric:tabular-nums !important;
+    padding:2px 6px !important;
+    border-radius:999px !important;
+    background:#eaf3fb !important;
+    border:1px solid #d4e3f1 !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{
+    display:grid !important;
+    flex:1 1 auto !important;
+    min-height:0 !important;
+    height:auto !important;
+    max-height:none !important;
+    grid-template-columns:repeat(8,minmax(0,1fr)) !important;
+    grid-auto-rows:23px !important;
+    align-content:start !important;
+    align-items:stretch !important;
+    gap:3px !important;
+    row-gap:3px !important;
+    column-gap:3px !important;
+    margin:1px 3px 2px !important;
+    padding:0 1px !important;
+    box-sizing:border-box !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    overscroll-behavior:contain !important;
+    scrollbar-width:thin !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam #palette > button,
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+  html body.exam-active #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button{
+    position:relative !important;
+    display:grid !important;
+    place-items:center !important;
+    width:100% !important;
+    min-width:0 !important;
+    max-width:none !important;
+    height:23px !important;
+    min-height:23px !important;
+    max-height:23px !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:1px solid #cbd8e5 !important;
+    border-radius:7px !important;
+    background:#edf2f7 !important;
+    color:#405870 !important;
+    font-family:inherit !important;
+    font-size:10px !important;
+    font-weight:850 !important;
+    line-height:1 !important;
+    font-variant-numeric:tabular-nums !important;
+    text-indent:0 !important;
+    text-align:center !important;
+    overflow:hidden !important;
+    box-shadow:none !important;
+    outline:none !important;
+    touch-action:manipulation !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.not-visited,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.not-visited,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.not-visited,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.not-visited{background:#eef2f6 !important;border-color:#d2dbe4 !important;color:#405870 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.not-answered,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.not-answered,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.not-answered,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.not-answered{background:#fff0ef !important;border-color:#f0a6a0 !important;color:#b42318 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.answered,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.answered,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.answered,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.answered{background:#dcfce7 !important;border-color:#86d8a4 !important;color:#166534 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.marked,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.marked,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.marked,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.marked{background:#f1e8ff !important;border-color:#c7a7fa !important;color:#6b21a8 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.marked-answered,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.marked-answered,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.marked-answered,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.marked-answered{background:#6d43c6 !important;border-color:#5a35ac !important;color:#fff !important;}
+
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.current,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.current,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.current,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.current{
+    z-index:2 !important;
+    border-color:#143b5c !important;
+    box-shadow:inset 0 0 0 1.5px #143b5c,0 0 0 1px rgba(255,255,255,.9) !important;
+    font-weight:950 !important;
+  }
+
+  /* A compact corner check distinguishes answered + review-marked without
+     appending a glyph to the question number itself. */
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button.marked-answered::after,
+  html body.exam-active #exam.hoa-unified-exam #palette > button.marked-answered::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button.marked-answered::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button.marked-answered::after{
+    content:"✓" !important;
+    display:block !important;
+    position:absolute !important;
+    top:1px !important;
+    right:2px !important;
+    margin:0 !important;
+    font-size:7px !important;
+    line-height:1 !important;
+    font-weight:950 !important;
+    color:#fff !important;
+    pointer-events:none !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend,
+  html body.exam-active #exam.hoa-unified-exam .mission-palette-legend,
+  html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .mission-palette-legend{
+    flex:0 0 14px !important;
+    min-height:14px !important;
+    height:14px !important;
+    display:flex !important;
+    flex-flow:row nowrap !important;
+    align-items:center !important;
+    justify-content:flex-start !important;
+    gap:8px !important;
+    margin:0 3px !important;
+    padding:0 1px !important;
+    overflow-x:auto !important;
+    overflow-y:hidden !important;
+    white-space:nowrap !important;
+    scrollbar-width:none !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-item,
+  html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-item,
+  html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-item,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .mission-palette-legend .legend-item{
+    display:inline-flex !important;
+    flex:0 0 auto !important;
+    align-items:center !important;
+    gap:3px !important;
+    margin:0 !important;
+    padding:0 !important;
+    color:#526a81 !important;
+    font-size:7px !important;
+    line-height:1 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot,
+  html body.exam-active #exam.hoa-unified-exam .mission-palette-legend .legend-dot,
+  html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend .legend-dot,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .mission-palette-legend .legend-dot{
+    width:6px !important;
+    height:6px !important;
+    min-width:6px !important;
+    min-height:6px !important;
+    border:0 !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom{
+    height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;
+    min-height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;
+    max-height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;
+    padding:5px 7px calc(5px + env(safe-area-inset-bottom,0px)) !important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+    grid-template-rows:34px 34px 34px !important;
+    gap:4px !important;
+    border:1px solid #d4e1ed !important;
+    border-bottom:0 !important;
+    border-radius:15px 15px 0 0 !important;
+    background:rgba(255,255,255,.98) !important;
+    box-shadow:0 -6px 20px rgba(17,48,77,.12) !important;
+    backdrop-filter:blur(12px) !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom > button{
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:5px !important;
+    width:100% !important;
+    min-width:0 !important;
+    min-height:34px !important;
+    height:34px !important;
+    max-height:34px !important;
+    margin:0 !important;
+    padding:0 5px !important;
+    border-radius:9px !important;
+    font-size:0 !important;
+    line-height:1 !important;
+    font-weight:850 !important;
+    white-space:nowrap !important;
+    overflow:hidden !important;
+    text-overflow:clip !important;
+    box-shadow:0 1px 2px rgba(16,45,72,.06) !important;
+    touch-action:manipulation !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button::before,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom > button::before{
+    display:inline-block !important;
+    position:static !important;
+    inset:auto !important;
+    transform:none !important;
+    flex:0 0 auto !important;
+    width:auto !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    border-radius:0 !important;
+    background:none !important;
+    box-shadow:none !important;
+    color:currentColor !important;
+    font-family:system-ui,sans-serif !important;
+    font-size:14px !important;
+    font-weight:900 !important;
+    line-height:1 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom > button::after{
+    display:inline-block !important;
+    position:static !important;
+    inset:auto !important;
+    transform:none !important;
+    flex:0 1 auto !important;
+    width:auto !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:0 !important;
+    border:0 !important;
+    background:none !important;
+    box-shadow:none !important;
+    color:inherit !important;
+    font-family:inherit !important;
+    font-size:10px !important;
+    font-weight:850 !important;
+    line-height:1 !important;
+    white-space:nowrap !important;
+    pointer-events:none !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Prev{grid-column:1 !important;grid-row:1 !important;border:1px solid #cbd9e5 !important;background:#f7fafc !important;color:#24455f !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview{grid-column:2 !important;grid-row:1 !important;border:1px solid #edce79 !important;background:#fff8e5 !important;color:#815a08 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Clear{grid-column:1 !important;grid-row:2 !important;border:1px solid #cbd9e5 !important;background:#fff !important;color:#425d74 !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext{grid-column:2 !important;grid-row:2 !important;border:1px solid #188746 !important;background:#219653 !important;color:#fff !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit{grid-column:1 / -1 !important;grid-row:3 !important;border:1px solid #0d5d98 !important;background:linear-gradient(180deg,#1679b9,#0f639f) !important;color:#fff !important;}
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev::before,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Prev::before{content:"←" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::before,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::before{content:"⚑" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear::before,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Clear::before{content:"×" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::before,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::before{content:"→" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::before,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit::before{content:"✓" !important;}
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after{content:"Previous" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after{content:"Review & Next" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after{content:"Clear response" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21SaveNext::after{content:"Save & Next" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after{content:"Submit Test" !important;}
+
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button:focus-visible,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button:focus-visible,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button:focus-visible,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom > button:focus-visible{
+    outline:3px solid #69a9d7 !important;
+    outline-offset:1px !important;
+  }
+}
+
+@media (max-width:370px){
+  html body.v13-exam-active #exam.hoa-unified-exam #examTestTitle,
+  html body.exam-active #exam.hoa-unified-exam #examTestTitle,
+  html body.hoa-exam-live #exam.hoa-unified-exam #examTestTitle,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #examTestTitle{max-width:calc(100vw - 138px) !important;font-size:12px !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Prev::after{content:"Prev" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21MarkReview::after{content:"Review" !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Clear::after{content:"Clear" !important;}
+}
+
+@media (max-height:620px) and (max-width:900px){
+  :root{--hoa50-mobile-nav-height:98px;--hoa50-mobile-dock-height:104px;}
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.v13-exam-active #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam:not(.hidden) .examGrid{
+    top:calc(5px + env(safe-area-inset-top,0px) + 48px + 4px + 5px) !important;
+    bottom:calc(env(safe-area-inset-bottom,0px) + var(--hoa50-mobile-dock-height) + 5px) !important;
+    grid-template-rows:minmax(0,1fr) var(--hoa50-mobile-nav-height) !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam:not(.hidden) .examTop{height:48px !important;min-height:48px !important;max-height:48px !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.exam-active #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.hoa-exam-live #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress{top:calc(5px + env(safe-area-inset-top,0px) + 48px) !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .examNavigatorHead,
+  html body.exam-active #exam.hoa-unified-exam .examNavigatorHead,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examNavigatorHead,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examNavigatorHead{flex-basis:20px !important;min-height:20px !important;height:20px !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam #palette,
+  html body.exam-active #exam.hoa-unified-exam #palette,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette{grid-auto-rows:21px !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam #palette > button,
+  html body.exam-active #exam.hoa-unified-exam #palette > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #palette > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #palette > button{height:21px !important;min-height:21px !important;max-height:21px !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .mission-palette-legend,
+  html body.exam-active #exam.hoa-unified-exam .mission-palette-legend,
+  html body.hoa-exam-live #exam.hoa-unified-exam .mission-palette-legend,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .mission-palette-legend{display:none !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom{height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;min-height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;max-height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;grid-template-rows:28px 28px 32px !important;gap:3px !important;padding-top:4px !important;}
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom > button{height:100% !important;min-height:0 !important;max-height:none !important;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html body.v13-exam-active #exam.hoa-unified-exam .timer.is-critical,
+  html body.exam-active #exam.hoa-unified-exam .timer.is-critical,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer.is-critical,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer.is-critical{animation:none !important;}
+}
+
+/* P50 final cascade lock — take priority over legacy !important control rules. */
+@media (max-width:900px){
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom{
+    height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;
+    min-height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;
+    max-height:calc(var(--hoa50-mobile-dock-height) + env(safe-area-inset-bottom,0px)) !important;
+    grid-template-rows:34px 34px 34px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button{
+    font-size:0 !important;
+    display:flex !important;
+    flex-direction:row !important;
+    align-items:center !important;
+    justify-content:center !important;
+    gap:5px !important;
+    min-height:34px !important;
+    height:34px !important;
+    max-height:34px !important;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before{
+    font-size:14px !important;
+    font-family:system-ui,-apple-system,"Segoe UI Symbol",sans-serif !important;
+    line-height:1 !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after{
+    font-size:10px !important;
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif !important;
+    line-height:1 !important;
+    position:static !important;
+    inset:auto !important;
+    transform:none !important;
+    width:auto !important;
+    height:auto !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:none !important;
+    border:0 !important;
+    box-shadow:none !important;
+    color:inherit !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button{
+    font-family:system-ui,-apple-system,"Segoe UI",sans-serif !important;
+  }
+}
+
+@media (max-height:620px) and (max-width:900px){
+  :root{--hoa50-mobile-nav-height:124px;--hoa50-mobile-dock-height:104px;}
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid{
+    grid-template-rows:minmax(0,1fr) 124px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom{
+    height:calc(104px + env(safe-area-inset-bottom,0px)) !important;
+    min-height:calc(104px + env(safe-area-inset-bottom,0px)) !important;
+    max-height:calc(104px + env(safe-area-inset-bottom,0px)) !important;
+    grid-template-rows:28px 28px 32px !important;
+    gap:3px !important;
+    padding-top:4px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button{
+    min-height:0 !important;
+    height:100% !important;
+    max-height:none !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette{
+    grid-auto-rows:21px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button{
+    height:21px !important;min-height:21px !important;max-height:21px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend{display:none !important;}
+}
+
+/* P56 — mobile timer, question typography and option media fit.
+   Presentation-only overrides; no timer, navigation, scoring or anti-cheat logic changed. */
+@media (max-width: 900px) {
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop {
+    min-width: 0 !important;
+    overflow: hidden !important;
+    gap: 6px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examTopTitle,
+  html body.exam-active #exam.hoa-unified-exam .examTopTitle,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examTopTitle,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examTopTitle,
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandLine,
+  html body.exam-active #exam.hoa-unified-exam .examBrandLine,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandLine,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examBrandLine {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex: 1 1 0% !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandLine > div,
+  html body.exam-active #exam.hoa-unified-exam .examBrandLine > div,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandLine > div,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examBrandLine > div {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    flex: 1 1 auto !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examTopTools,
+  html body.exam-active #exam.hoa-unified-exam .examTopTools,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examTopTools,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examTopTools {
+    min-width: 0 !important;
+    flex: 0 0 auto !important;
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+    margin-left: auto !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .timer,
+  html body.exam-active #exam.hoa-unified-exam .timer,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    width: max-content !important;
+    min-width: 84px !important;
+    max-width: none !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 8px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .timer::before,
+  html body.exam-active #exam.hoa-unified-exam .timer::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer::before {
+    display: inline-grid !important;
+    flex: 0 0 14px !important;
+    width: 14px !important;
+    height: 14px !important;
+    place-items: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+    transform: none !important;
+  }
+
+  html body.v13-exam-active #exam.hoa-unified-exam .question,
+  html body.exam-active #exam.hoa-unified-exam .question,
+  html body.hoa-exam-live #exam.hoa-unified-exam .question,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .question,
+  html body.v13-exam-active #exam.hoa-unified-exam #questionText,
+  html body.exam-active #exam.hoa-unified-exam #questionText,
+  html body.hoa-exam-live #exam.hoa-unified-exam #questionText,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #questionText {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    font-size: clamp(15px, 3.1vw, 18px) !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    white-space: pre-wrap !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options,
+  html body.exam-active #exam.hoa-unified-exam #options,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button,
+  html body.exam-active #exam.hoa-unified-exam #options > button,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button {
+    display: grid !important;
+    grid-template-columns: 25px minmax(0, 1fr) !important;
+    grid-template-areas: "label body" ". image" !important;
+    align-items: start !important;
+    justify-content: stretch !important;
+    justify-items: stretch !important;
+    gap: 5px 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 44px !important;
+    height: auto !important;
+    padding: 11px 12px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-size: clamp(14px, 2.7vw, 16px) !important;
+    line-height: 1.42 !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button::before,
+  html body.exam-active #exam.hoa-unified-exam #options > button::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button::before {
+    content: none !important;
+    display: none !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button > .hoa89-option-label,
+  html body.exam-active #exam.hoa-unified-exam #options > button > .hoa89-option-label,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button > .hoa89-option-label,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button > .hoa89-option-label {
+    grid-area: label !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 1em !important;
+    line-height: inherit !important;
+    font-weight: 850 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button > .hoa89-option-body,
+  html body.exam-active #exam.hoa-unified-exam #options > button > .hoa89-option-body,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button > .hoa89-option-body,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button > .hoa89-option-body {
+    grid-area: body !important;
+    display: block !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    font-size: 1em !important;
+    line-height: inherit !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #options > button > img.hoa89-option-image,
+  html body.exam-active #exam.hoa-unified-exam #options > button > img.hoa89-option-image,
+  html body.hoa-exam-live #exam.hoa-unified-exam #options > button > img.hoa89-option-image,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #options > button > img.hoa89-option-image {
+    grid-area: image !important;
+    display: block !important;
+    justify-self: start !important;
+    align-self: start !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: min(28vh, 220px) !important;
+    object-fit: contain !important;
+    object-position: left top !important;
+    margin: 4px 0 0 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #hoa89QuestionImage,
+  html body.exam-active #exam.hoa-unified-exam #hoa89QuestionImage,
+  html body.hoa-exam-live #exam.hoa-unified-exam #hoa89QuestionImage,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #hoa89QuestionImage,
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa89-question-image,
+  html body.exam-active #exam.hoa-unified-exam .hoa89-question-image,
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa89-question-image,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .hoa89-question-image {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: min(42vh, 340px) !important;
+    object-fit: contain !important;
+    object-position: center top !important;
+    margin: 10px auto !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard,
+  html body.exam-active #exam.hoa-unified-exam .examQuestionCard,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examQuestionCard {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior-x: none !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard * ,
+  html body.exam-active #exam.hoa-unified-exam .examQuestionCard * ,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard * ,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examQuestionCard * {
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard table,
+  html body.exam-active #exam.hoa-unified-exam .examQuestionCard table,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard table,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examQuestionCard table {
+    max-width: 100% !important;
+    height: auto !important;
+    border-collapse: collapse !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examQuestionCard pre,
+  html body.exam-active #exam.hoa-unified-exam .examQuestionCard pre,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examQuestionCard pre,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examQuestionCard pre {
+    max-width: 100% !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+@media (max-width: 520px) {
+  html body.v13-exam-active #exam.hoa-unified-exam .examTop,
+  html body.exam-active #exam.hoa-unified-exam .examTop,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examTop,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examTop {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) max-content !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 5px 7px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-connection,
+  html body.exam-active #exam.hoa-unified-exam .hoa-exam-connection,
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-connection,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .hoa-exam-connection {
+    flex: 0 0 18px !important;
+    width: 18px !important;
+    min-width: 18px !important;
+    max-width: 18px !important;
+    height: 26px !important;
+    min-height: 26px !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-connection > span:not(.hoa-exam-connection-dot),
+  html body.exam-active #exam.hoa-unified-exam .hoa-exam-connection > span:not(.hoa-exam-connection-dot),
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-connection > span:not(.hoa-exam-connection-dot),
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .hoa-exam-connection > span:not(.hoa-exam-connection-dot) {
+    display: none !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .hoa-exam-connection-dot,
+  html body.exam-active #exam.hoa-unified-exam .hoa-exam-connection-dot,
+  html body.hoa-exam-live #exam.hoa-unified-exam .hoa-exam-connection-dot,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .hoa-exam-connection-dot {
+    display: block !important;
+    width: 7px !important;
+    height: 7px !important;
+    min-width: 7px !important;
+    min-height: 7px !important;
+    margin: auto !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .timer,
+  html body.exam-active #exam.hoa-unified-exam .timer,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer {
+    min-width: 82px !important;
+    height: 31px !important;
+    min-height: 31px !important;
+    padding: 0 7px !important;
+    gap: 4px !important;
+    font-size: 12.5px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .timer::before,
+  html body.exam-active #exam.hoa-unified-exam .timer::before,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer::before,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer::before {
+    flex-basis: 13px !important;
+    width: 13px !important;
+    height: 13px !important;
+    font-size: 13px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #examTestTitle,
+  html body.exam-active #exam.hoa-unified-exam #examTestTitle,
+  html body.hoa-exam-live #exam.hoa-unified-exam #examTestTitle,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #examTestTitle {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    font-size: clamp(11px, 3.25vw, 14px) !important;
+    line-height: 1.12 !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam #examMeta,
+  html body.exam-active #exam.hoa-unified-exam #examMeta,
+  html body.hoa-exam-live #exam.hoa-unified-exam #examMeta,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam #examMeta {
+    font-size: clamp(8px, 2.3vw, 10px) !important;
+    line-height: 1.1 !important;
+    white-space: nowrap !important;
+  }
+}
+
+@media (max-width: 370px) {
+  html body.v13-exam-active #exam.hoa-unified-exam .timer,
+  html body.exam-active #exam.hoa-unified-exam .timer,
+  html body.hoa-exam-live #exam.hoa-unified-exam .timer,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .timer {
+    min-width: 76px !important;
+    padding: 0 5px !important;
+    gap: 3px !important;
+    font-size: 11.5px !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.exam-active #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-exam-live #exam.hoa-unified-exam .examBrandMark,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .examBrandMark {
+    width: 23px !important;
+    height: 23px !important;
+    min-width: 23px !important;
+    min-height: 23px !important;
+    flex-basis: 23px !important;
+  }
+}
+
+/* ========================================================================
+   P57 — FINAL AUDIT-BACKED MOBILE EXAM LAYOUT
+   This is the final responsive authority after the older compatibility layers.
+   Presentation only: no timing, answer-state, scoring, submission or integrity JS.
+   ======================================================================== */
+@media (max-width: 900px) {
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: clamp(10px, 2.6vw, 16px) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    font-size: clamp(15px, calc(12px + 1vw), 18px) !important;
+    line-height: 1.5 !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    white-space: pre-wrap !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examOptions,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examOptions,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examOptions,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examOptions {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    gap: clamp(7px, 1.8vw, 10px) !important;
+    margin-top: clamp(13px, 2.8vw, 18px) !important;
+    padding: 0 0 18px !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button {
+    display: grid !important;
+    grid-template-columns: 24px minmax(0, 1fr) !important;
+    grid-template-areas: "label body" "image image" !important;
+    align-items: start !important;
+    justify-items: stretch !important;
+    gap: 4px 8px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    min-height: 46px !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 11px 12px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    font-size: clamp(13.5px, calc(11px + .9vw), 16px) !important;
+    line-height: 1.42 !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    touch-action: manipulation !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-label,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-label,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-label,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-label {
+    grid-area: label !important;
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 1em !important;
+    line-height: inherit !important;
+    font-weight: 850 !important;
+    white-space: nowrap !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-body,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-body,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-body,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > .hoa89-option-body {
+    grid-area: body !important;
+    display: block !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+    font-size: 1em !important;
+    line-height: inherit !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > img.hoa89-option-image,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > img.hoa89-option-image,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > img.hoa89-option-image,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options > button > img.hoa89-option-image {
+    grid-area: image !important;
+    display: block !important;
+    justify-self: start !important;
+    align-self: start !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: min(40vh, 260px) !important;
+    object-fit: contain !important;
+    object-position: left top !important;
+    margin: 4px 0 0 !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #hoa89QuestionImage,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #hoa89QuestionImage,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #hoa89QuestionImage,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #hoa89QuestionImage,
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-question-image,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-question-image,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-question-image,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-question-image {
+    display: block !important;
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: min(46vh, 360px) !important;
+    object-fit: contain !important;
+    object-position: center top !important;
+    margin: 12px auto !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard img,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard img,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard img,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard img,
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard svg,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard svg,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard svg,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard svg {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-number-wrap,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-number-wrap,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-number-wrap,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-number-wrap {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-numerical-input,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-numerical-input,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-numerical-input,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa89-numerical-input {
+    display: block !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    font-size: 16px !important;
+  }
+}
+
+/* The header gets its own timer track on phones; it never sizes the timer
+   from leftover title width. A 94px box safely holds the clock icon plus
+   MM:SS / HH:MM:SS, including the last-minute warning style. */
+@media (max-width: 520px) {
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) max-content !important;
+    align-items: center !important;
+    gap: 6px !important;
+    overflow: hidden !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTitle,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTitle,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTitle,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTitle {
+    display: block !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    flex-wrap: nowrap !important;
+    min-width: 0 !important;
+    max-width: max-content !important;
+    gap: 5px !important;
+    margin: 0 0 0 auto !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .timer,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .timer,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .timer,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .timer {
+    display: inline-flex !important;
+    flex: 0 0 94px !important;
+    width: 94px !important;
+    min-width: 94px !important;
+    max-width: 94px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    padding: 0 8px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    white-space: nowrap !important;
+    font-size: 12px !important;
+    font-weight: 900 !important;
+    line-height: 1 !important;
+    letter-spacing: 0 !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .timer::before,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .timer::before,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .timer::before,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .timer::before {
+    display: inline-grid !important;
+    flex: 0 0 14px !important;
+    width: 14px !important;
+    min-width: 14px !important;
+    height: 14px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    place-items: center !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #examTestTitle,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #examTestTitle,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #examTestTitle,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #examTestTitle {
+    display: block !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: clamp(11px, calc(8.5px + 1vw), 14px) !important;
+    line-height: 1.12 !important;
+  }
+
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #examMeta,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #examMeta,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #examMeta,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #examMeta {
+    display: block !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    font-size: clamp(8px, calc(6.5px + .7vw), 10px) !important;
+    line-height: 1.1 !important;
+  }
+}
+
+@media (max-width: 360px) {
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examBrandMark,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examBrandMark,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examBrandMark,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examBrandMark {
+    display: none !important;
+  }
+}
+
+/* P57 audit follow-up: protect the working question area on short landscape screens.
+   The prior short-height rule reserved 124px for the question palette plus 104px for
+   controls, leaving only a thin strip of the question card on 390px-tall phones. */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTop {
+    top: calc(4px + var(--hoa83-safe-top)) !important;
+    height: 46px !important;
+    min-height: 46px !important;
+    max-height: 46px !important;
+    padding: 3px 8px !important;
+    gap: 8px !important;
+    border-radius: 6px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .hoa-exam-progress {
+    top: calc(4px + var(--hoa83-safe-top) + 46px) !important;
+    height: 3px !important;
+    min-height: 3px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examGrid {
+    top: calc(4px + var(--hoa83-safe-top) + 46px + 3px + 5px) !important;
+    bottom: calc(var(--hoa83-safe-bottom) + 88px) !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: minmax(0, 1fr) 78px !important;
+    gap: 5px !important;
+    overflow: hidden !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examQuestionCard {
+    padding: 8px 10px !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    overscroll-behavior: contain !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .questionNo,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .questionNo,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .questionNo,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .questionNo {
+    min-height: 28px !important;
+    height: auto !important;
+    padding: 2px 8px !important;
+    font-size: 11px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examMarkBadge,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examMarkBadge,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examMarkBadge,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examMarkBadge {
+    padding: 3px 6px !important;
+    font-size: 9px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText {
+    margin: 8px 1px 0 !important;
+    font-size: clamp(14px, calc(12px + .65vh), 16px) !important;
+    line-height: 1.4 !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options {
+    gap: 6px !important;
+    margin-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator {
+    min-height: 0 !important;
+    padding: 0 !important;
+    border-radius: 6px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead {
+    min-height: 22px !important;
+    height: 22px !important;
+    padding: 0 8px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead h3,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead h3,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead h3,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead h3 {
+    font-size: 10px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette {
+    flex: 1 1 auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    grid-template-columns: repeat(16, minmax(0, 1fr)) !important;
+    grid-auto-rows: 20px !important;
+    align-content: start !important;
+    gap: 3px !important;
+    margin: 3px 6px 5px !important;
+    padding: 0 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    height: 20px !important;
+    min-height: 20px !important;
+    max-height: 20px !important;
+    padding: 0 !important;
+    font-size: 9px !important;
+    border-radius: 4px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .mission-palette-legend {
+    display: none !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom {
+    position: absolute !important;
+    left: 50% !important;
+    right: auto !important;
+    bottom: var(--hoa83-safe-bottom) !important;
+    top: auto !important;
+    transform: translateX(-50%) !important;
+    width: 100% !important;
+    max-width: none !important;
+    height: calc(84px + var(--hoa83-safe-bottom)) !important;
+    min-height: calc(84px + var(--hoa83-safe-bottom)) !important;
+    max-height: calc(84px + var(--hoa83-safe-bottom)) !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    grid-template-rows: 24px 24px 24px !important;
+    gap: 3px !important;
+    padding: 3px 6px calc(3px + var(--hoa83-safe-bottom)) !important;
+    border-radius: 8px 8px 0 0 !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button {
+    min-height: 0 !important;
+    height: 100% !important;
+    max-height: none !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::before {
+    font-size: 12px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .ui21-bottom > button::after {
+    font-size: 9px !important;
+  }
+}
+
+
+/* ============================================================
+   HOA P58 — Screenshot-driven mobile exam correction
+   Fixes verified from the supplied 432x413 CSS-viewport screenshot:
+   - remove duplicate Submit Test label from ::after while preserving button text
+   - replace 16 cramped columns with a 13-column, two-row palette at phone-width short viewports
+   - keep timer icon/digits in one stable, non-overlapping row
+   - preserve question scrolling and responsive media sizing
+   Presentation-only: no test, attempt, timer, anti-cheat, URL or submission logic changed.
+   ============================================================ */
+@media (max-width: 767px) {
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit {
+    font-size: clamp(12px, 3.1vw, 14px) !important;
+    letter-spacing: 0 !important;
+    white-space: nowrap !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after {
+    content: none !important;
+    display: none !important;
+  }
+}
+
+/* On narrow, short phone viewports Chrome's bars can leave a nearly square
+   CSS viewport. Do not infer a wide landscape canvas from orientation alone. */
+@media (min-width: 400px) and (max-width: 560px) and (max-height: 520px) {
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette {
+    display: grid !important;
+    grid-template-columns: repeat(13, minmax(0, 1fr)) !important;
+    grid-auto-rows: 18px !important;
+    align-content: start !important;
+    gap: 3px !important;
+    height: 39px !important;
+    min-height: 39px !important;
+    max-height: 39px !important;
+    margin: 2px 5px 2px !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    scrollbar-width: none !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette::-webkit-scrollbar,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette::-webkit-scrollbar,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette::-webkit-scrollbar,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette::-webkit-scrollbar {
+    display: none !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #palette > button {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    height: 18px !important;
+    min-height: 18px !important;
+    max-height: 18px !important;
+    padding: 0 !important;
+    font-size: 10px !important;
+    line-height: 18px !important;
+    border-radius: 4px !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigator {
+    padding: 2px 0 !important;
+    min-height: 0 !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examNavigatorHead {
+    height: 20px !important;
+    min-height: 20px !important;
+    padding: 0 8px !important;
+    margin: 0 !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .examTopTools {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 6px !important;
+    min-width: 0 !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .timer,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .timer,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .timer,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .timer {
+    display: flex !important;
+    flex: 0 0 94px !important;
+    width: 94px !important;
+    min-width: 94px !important;
+    max-width: 94px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    font-variant-numeric: tabular-nums !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) .question,
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #questionText {
+    font-size: clamp(14px, calc(12px + .65vh), 16px) !important;
+    line-height: 1.4 !important;
+    overflow-wrap: anywhere !important;
+  }
+  html body.v13-exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > *,
+  html body.exam-active > main.container > #exam.hoa-unified-exam:not(.hidden) #options > *,
+  html body.hoa-exam-live > main.container > #exam.hoa-unified-exam:not(.hidden) #options > *,
+  html body.hoa-local-exam-immersive > main.container > #exam.hoa-unified-exam:not(.hidden) #options > * {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-wrap: anywhere !important;
+  }
+}
+
+
+/* Also suppress the old duplicate pseudo-label on short landscape tablets. */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit {
+    font-size: clamp(12px, 1.7vw, 14px) !important;
+  }
+  html body.v13-exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.exam-active #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.hoa-exam-live #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after,
+  html body.hoa-local-exam-immersive #exam.hoa-unified-exam .ui21-bottom #ui21Submit::after {
+    content: none !important;
+    display: none !important;
+  }
+}

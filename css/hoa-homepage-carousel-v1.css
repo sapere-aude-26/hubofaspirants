@@ -1,0 +1,299 @@
+/* HOA V8.90.46 — portrait poster height increased further; carousel styles correctly scoped to the sibling showcase section.
+   Presentation-only overrides. Targets #hoaDynamicShowcase directly because it is a sibling of #hoaFrontPage in index.html. Keeps existing poster RPC, IDs, records, admin controls, navigation, pause, dots and lazy loading. */
+
+#hoaDynamicShowcase {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 22px 0 !important;
+  padding: 22px 0 18px !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(180deg, #f8fbff 0%, #eef4fa 100%) !important;
+  box-shadow: none !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-head {
+  width: min(1040px, calc(100% - 40px)) !important;
+  margin: 0 auto 14px !important;
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-head h2 {
+  font-size: clamp(22px, 2.4vw, 30px) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -.02em !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-head p {
+  margin-top: 6px !important;
+  font-size: 13px !important;
+  line-height: 1.45 !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-stage {
+  box-sizing: border-box !important;
+  position: relative !important;
+  width: min(1040px, calc(100% - 40px)) !important;
+  height: clamp(900px, 58vw, 1100px) !important;
+  min-height: 900px !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  border: 1px solid #dce6f0 !important;
+  border-radius: 18px !important;
+  perspective: none !important;
+  perspective-origin: initial !important;
+  transform-style: flat !important;
+  background: #edf3f9 !important;
+  outline: none !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-stage-glow,
+#hoaDynamicShowcase .hoa-v3d-floor {
+  display: none !important;
+  content: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-track {
+  box-sizing: border-box !important;
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform-style: flat !important;
+  transition: transform .42s cubic-bezier(.22,.7,.25,1) !important;
+  will-change: transform !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-card,
+#hoaDynamicShowcase .hoa-v3d-card.is-center,
+#hoaDynamicShowcase .hoa-v3d-card.is-left,
+#hoaDynamicShowcase .hoa-v3d-card.is-right,
+#hoaDynamicShowcase .hoa-v3d-card.is-back-left,
+#hoaDynamicShowcase .hoa-v3d-card.is-back-right,
+#hoaDynamicShowcase .hoa-v3d-card.is-hidden,
+#hoaDynamicShowcase .hoa-v3d-card.is-offscreen {
+  box-sizing: border-box !important;
+  position: relative !important;
+  inset: auto !important;
+  left: auto !important;
+  top: auto !important;
+  display: flex !important;
+  flex: 0 0 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  margin: 0 !important;
+  padding: 6px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transform-style: flat !important;
+  backface-visibility: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  filter: none !important;
+  transition: none !important;
+  will-change: auto !important;
+  pointer-events: auto !important;
+  overflow: hidden !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-card img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  box-shadow: 0 7px 24px rgba(21, 48, 78, .10) !important;
+  transform: none !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-card.image-error::after {
+  content: "This update could not be loaded";
+  position: absolute;
+  inset: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px dashed #b8c7d8;
+  border-radius: 12px;
+  color: #64748b;
+  background: #f8fafc;
+  font: 500 13px/1.4 Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+#hoaDynamicShowcase .hoa-v3d-loading,
+#hoaDynamicShowcase .hoa-v3d-empty {
+  box-sizing: border-box !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 18px !important;
+  color: #64748b !important;
+  background: transparent !important;
+  font: 500 13px/1.5 Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-indicators {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  min-height: 18px !important;
+  padding: 11px 12px 0 !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-dot,
+#hoaDynamicShowcase .hoa-v3d-dot.is-active {
+  box-sizing: border-box !important;
+  width: 8px !important;
+  height: 8px !important;
+  min-width: 8px !important;
+  min-height: 8px !important;
+  flex: 0 0 8px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: #c5d2e1 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-dot.is-active {
+  width: 22px !important;
+  flex-basis: 22px !important;
+  border-radius: 8px !important;
+  background: #145a9c !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-control {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  border: 1px solid #d5e0ec !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  color: #0b2e52 !important;
+  box-shadow: 0 3px 10px rgba(15, 39, 68, .07) !important;
+  transition: background-color .16s ease, border-color .16s ease !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-control:hover {
+  transform: none !important;
+  border-color: #9db6d0 !important;
+  background: #f4f8fc !important;
+  box-shadow: 0 3px 10px rgba(15, 39, 68, .07) !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-control.is-paused {
+  background: #0b2e52 !important;
+  color: #fff !important;
+  border-color: #0b2e52 !important;
+}
+
+#hoaDynamicShowcase .hoa-v3d-control:focus-visible,
+#hoaDynamicShowcase .hoa-v3d-dot:focus-visible,
+#hoaDynamicShowcase .hoa-v3d-stage:focus-visible {
+  outline: 3px solid rgba(20, 90, 156, .35) !important;
+  outline-offset: 3px !important;
+}
+
+@media (max-width: 900px) {
+  #hoaDynamicShowcase .hoa-v3d-head,
+  #hoaDynamicShowcase .hoa-v3d-stage {
+    width: calc(100% - 28px) !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-stage {
+    height: clamp(760px, 96vw, 900px) !important;
+    min-height: 760px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  #hoaDynamicShowcase {
+    margin: 18px 0 !important;
+    padding: 16px 0 12px !important;
+    border-radius: 0 !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-head {
+    width: calc(100% - 24px) !important;
+    margin-bottom: 10px !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-head h2 {
+    font-size: 21px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-head p {
+    display: block !important;
+    max-width: 240px !important;
+    font-size: 11px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-control {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-stage {
+    width: calc(100% - 24px) !important;
+    height: clamp(640px, 175vw, 760px) !important;
+    min-height: 640px !important;
+    border-radius: 14px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-card,
+  #hoaDynamicShowcase .hoa-v3d-card.is-center,
+  #hoaDynamicShowcase .hoa-v3d-card.is-offscreen {
+    padding: 5px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-card img {
+    border-radius: 9px !important;
+  }
+  #hoaDynamicShowcase .hoa-v3d-indicators {
+    gap: 6px !important;
+    padding-top: 9px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  #hoaDynamicShowcase .hoa-v3d-head p {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #hoaDynamicShowcase .hoa-v3d-track,
+  #hoaDynamicShowcase .hoa-v3d-dot,
+  #hoaDynamicShowcase .hoa-v3d-control {
+    transition: none !important;
+  }
+}

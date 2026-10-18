@@ -1,0 +1,130 @@
+/* HOA V8.90.71 P21 — wider and taller Latest Updates poster area.
+   Presentation-only: preserves the existing Supabase poster RPC, records, storage paths,
+   carousel controls, swipe, lazy-loading, login flow and Admin poster-management workflow. */
+
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase {
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  box-sizing: border-box !important;
+  width: min(1480px, calc(100vw - 32px)) !important;
+  max-width: 1480px !important;
+  margin: 0 0 66px !important;
+  padding: 30px 24px 24px !important;
+}
+
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-head {
+  width: 100% !important;
+  max-width: none !important;
+  margin-bottom: 22px !important;
+}
+
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase #hoaV3DStage {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: clamp(840px, 66vw, 1000px) !important;
+  min-height: 840px !important;
+  max-height: 1000px !important;
+}
+
+/* Give the selected portrait poster more usable width within the wider stage. */
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card,
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card.is-center,
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card.is-offscreen {
+  padding: 4px !important;
+}
+
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card img {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* Tablet: use nearly the full available width and raise the poster stage. */
+@media (min-width: 601px) and (max-width: 900px) {
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase {
+    width: calc(100vw - 12px) !important;
+    max-width: none !important;
+    padding: 24px 10px 18px !important;
+    margin: 0 0 48px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase #hoaV3DStage {
+    height: clamp(800px, 100vw, 900px) !important;
+    min-height: 800px !important;
+    max-height: 900px !important;
+  }
+}
+
+/* Mobile-first: make the carousel almost edge-to-edge while keeping a safe gutter. */
+@media (max-width: 600px) {
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase {
+    position: relative !important;
+    left: auto !important;
+    transform: none !important;
+    width: calc(100vw - 2px) !important;
+    max-width: none !important;
+    margin: 0 auto 30px !important;
+    padding: 15px 3px 13px !important;
+    border-radius: 15px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase::before {
+    left: 3px !important;
+    right: 3px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-head {
+    width: 100% !important;
+    margin-bottom: 13px !important;
+    gap: 10px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase #hoaV3DStage {
+    width: 100% !important;
+    height: clamp(740px, 205vw, 900px) !important;
+    min-height: 740px !important;
+    max-height: 900px !important;
+    border-radius: 12px !important;
+    touch-action: pan-y pinch-zoom !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card,
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card.is-center,
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card.is-offscreen {
+    padding: 2px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card img {
+    border-radius: 8px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-indicators {
+    padding-top: 13px !important;
+  }
+}
+
+/* An empty/error state stays compact; never reserve the tall poster space without posters. */
+body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase:has(#hoaV3DTrack .hoa-v3d-empty) #hoaV3DStage {
+  height: 112px !important;
+  min-height: 112px !important;
+  max-height: 112px !important;
+}
+
+@media (max-width: 600px) {
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase:has(#hoaV3DTrack .hoa-v3d-empty) #hoaV3DStage {
+    height: 104px !important;
+    min-height: 104px !important;
+    max-height: 104px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.hoa-public-front #hoaFrontPage #hoaDynamicShowcase .hoa-v3d-card img {
+    transition: none !important;
+  }
+}

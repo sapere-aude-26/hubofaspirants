@@ -1,0 +1,244 @@
+/* HOA V8.90.70 P20 — definitive phone navigation and duplicated-brand cleanup.
+   Keeps the existing account/authentication flow, blue + gold identity, and poster sizing. */
+
+@media (max-width: 600px) {
+  body.hoa-public-front #hoaFrontPage > .hoa-front-nav {
+    position: sticky !important;
+    top: env(safe-area-inset-top, 0px) !important;
+    z-index: 1200 !important;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-template-rows: auto auto auto !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    width: calc(100% - 16px) !important;
+    margin: 8px auto 12px !important;
+    padding: 11px 12px 10px !important;
+    box-sizing: border-box !important;
+    border: 1px solid #d5e1ef !important;
+    border-radius: 17px !important;
+    background: rgba(255,255,255,.98) !important;
+    box-shadow: 0 8px 24px rgba(9,43,76,.09) !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-brand {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    margin: 0 !important;
+    position: static !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-brand img {
+    width: 42px !important;
+    height: 42px !important;
+    flex: 0 0 42px !important;
+    padding: 0 !important;
+    object-fit: contain !important;
+    border: 1px solid #e4ebf3 !important;
+    border-radius: 50% !important;
+    background: #fff !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-brand-copy {
+    display: flex !important;
+    flex: 1 1 auto !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-brand-name {
+    display: block !important;
+    max-width: 100% !important;
+    font-size: clamp(12px, 3.55vw, 14px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -.015em !important;
+    color: #092b4c !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-front-brand-tag {
+    display: block !important;
+    font-size: 9px !important;
+    line-height: 1.2 !important;
+    letter-spacing: .015em !important;
+    color: #647990 !important;
+    white-space: normal !important;
+  }
+
+  /* Flatten the wrapper so the account row and swipeable section links each
+     occupy a deliberate grid row. This prevents the orphan LOGIN button seen
+     above the hero from becoming a fourth navigation row. */
+  body.hoa-public-front #hoaFrontPage .hoa-p7-navlinks {
+    display: contents !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions {
+    grid-column: 1 !important;
+    grid-row: 2 !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: stretch !important;
+    justify-self: stretch !important;
+    position: static !important;
+    inset: auto !important;
+    float: none !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 8px !important;
+    margin: 0 !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions > button {
+    position: static !important;
+    inset: auto !important;
+    float: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 45px !important;
+    margin: 0 !important;
+    padding: 9px 7px !important;
+    box-sizing: border-box !important;
+    border-radius: 11px !important;
+    font-family: inherit !important;
+    font-size: clamp(10.5px, 3vw, 12px) !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow-wrap: normal !important;
+    transform: none !important;
+    cursor: pointer !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-login-button {
+    border: 1px solid #092b4c !important;
+    background: linear-gradient(135deg, #092b4c 0%, #1558a8 100%) !important;
+    color: #fff !important;
+    box-shadow: 0 4px 11px rgba(9,43,76,.15) !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-login-button::before,
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-login-button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-login-button .hoa-p7-login-symbol {
+    display: none !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-login-button .hoa-p7-login-label {
+    display: inline !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #fff !important;
+    font-size: inherit !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-register-button {
+    border: 1px solid #e2b332 !important;
+    background: linear-gradient(135deg, #fff9e9 0%, #ffedb5 100%) !important;
+    color: #092b4c !important;
+    box-shadow: 0 4px 11px rgba(204,153,31,.1) !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-register-button::before,
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions .hoa-p7-register-button::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations {
+    grid-column: 1 !important;
+    grid-row: 3 !important;
+    display: flex !important;
+    align-items: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    gap: 6px !important;
+    margin: 0 !important;
+    padding: 8px 0 1px !important;
+    border-top: 1px solid #e8eef5 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+    -webkit-overflow-scrolling: touch !important;
+    scroll-snap-type: x proximity !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations > button {
+    position: static !important;
+    flex: 0 0 auto !important;
+    min-width: 44px !important;
+    min-height: 38px !important;
+    margin: 0 !important;
+    padding: 0 11px !important;
+    border: 1px solid #e3ebf4 !important;
+    border-radius: 10px !important;
+    background: #f4f8fd !important;
+    color: #173a5c !important;
+    font-size: 11px !important;
+    font-weight: 750 !important;
+    line-height: 1.15 !important;
+    white-space: nowrap !important;
+    scroll-snap-align: start;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations > button:active {
+    border-color: #efbd38 !important;
+    background: #fff6dc !important;
+  }
+
+  /* Branding is already clear in the mobile header; suppress the duplicated
+     hero logo lockup and let the headline start the hero content immediately. */
+  body.hoa-public-front #hoaFrontPage .hoa-p8-hero-brand-lockup {
+    display: none !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p8-brand-hero {
+    padding-top: 20px !important;
+    padding-bottom: 18px !important;
+    padding-left: max(28px, calc(env(safe-area-inset-left, 0px) + 26px)) !important;
+    padding-right: max(14px, calc(env(safe-area-inset-right, 0px) + 10px)) !important;
+    gap: 14px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage .hoa-p8-hero-eyebrow {
+    margin-top: 0 !important;
+    margin-bottom: 9px !important;
+  }
+
+  body.hoa-public-front #hoaFrontPage :is(#hoaP7Preparation, #hoaDynamicShowcase, #hoaFrontFeatures, .hoa-p7-faq-section, #hoaFrontSocialFooter) {
+    scroll-margin-top: 175px !important;
+  }
+}
+
+@media (max-width: 360px) {
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions { gap: 6px !important; }
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-actions > button { padding-inline: 5px !important; font-size: 10.5px !important; }
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations { gap: 5px !important; }
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations > button { padding-inline: 9px !important; font-size: 10.5px !important; }
+  body.hoa-public-front #hoaFrontPage .hoa-p8-hero-title { font-size: 27px !important; line-height: 1.11 !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.hoa-public-front #hoaFrontPage .hoa-p7-nav-destinations { scroll-behavior: auto !important; }
+}

@@ -1,0 +1,34 @@
+/* HOA V8.90.72 P22 — make the approved student/backpack hero image visibly present on phones.
+   Presentation-only override. Preserves the hero content, login handlers, navigation and poster component. */
+@media (max-width: 600px) {
+  body.hoa-public-front #hoaFrontPage .hoa-p8-brand-hero {
+    background-color: #fffaf0 !important;
+    /* Keep the upper copy readable while allowing the student photo to emerge clearly toward the bottom. */
+    background-image:
+      linear-gradient(
+        180deg,
+        rgba(255,253,248,.975) 0%,
+        rgba(255,253,248,.945) 20%,
+        rgba(255,253,248,.82) 42%,
+        rgba(255,253,248,.48) 62%,
+        rgba(255,253,248,.16) 82%,
+        rgba(255,253,248,.08) 100%
+      ),
+      url('../assets/hoa-hero-student.webp?v=8.90.72-mobile-visible') !important;
+    background-size: 100% 100%, auto 67% !important;
+    background-position: center center, 64% bottom !important;
+    background-repeat: no-repeat, no-repeat !important;
+  }
+
+  /* Ensure the content remains above the background photo and retains its contrast. */
+  body.hoa-public-front #hoaFrontPage .hoa-p8-brand-hero > * {
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.hoa-public-front #hoaFrontPage .hoa-p8-brand-hero {
+    scroll-behavior: auto;
+  }
+}

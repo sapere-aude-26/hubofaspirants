@@ -1,0 +1,157 @@
+.hoa-v72-inline-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.hoa-v72-inline-tools input{flex:1 1 250px;min-width:0}.hoa-v72-inline-tools input,.hoa-v72-inline-tools select{min-height:38px;padding:8px 10px;border:1px solid #C7D5E6;border-radius:8px}.hoa-v611-free-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0}.hoa-v611-free-tabs{display:flex;gap:8px;flex-wrap:wrap}.hoa-v611-free-tab{min-height:42px;padding:9px 13px;border:1px solid #C7D5E6;background:#fff;border-radius:9px;font-weight:800;color:#123B65}.hoa-v611-free-tab.active{background:#0B3B73;color:#fff;border-color:#0B3B73}.hoa-v611-free-toolbar-note{font-size:12px;color:#64748B}.hoa-v611-free-area{display:none}.hoa-v611-free-area.active{display:block}.hoa-v72-inline-tools+ .hoa-v70-table{margin-top:4px}@media(max-width:700px){.hoa-v611-free-tab{flex:1 1 100%}.hoa-v611-free-toolbar-note{width:100%}.hoa-v72-inline-tools{align-items:stretch}.hoa-v72-inline-tools input,.hoa-v72-inline-tools select{width:100%}}
+/* Free Content intentionally has no active/gold sidebar marker. */
+#adminNavFreeContent,#adminNavFreeContent.active,#adminNavFreeContent.v13-active{border-left:0!important;border-left-color:transparent!important;box-shadow:none!important;background:transparent!important;color:#EAF3FF!important}
+#adminNavFreeContent.active::before,#adminNavFreeContent.active::after,#adminNavFreeContent.v13-active::before,#adminNavFreeContent.v13-active::after{content:none!important;display:none!important}
+
+/* V8.74 consolidation: no observer-driven sorting; per-tab workspace stability. */
+.adminSectionPanel[data-hoa-admin-workspace="free-content"]{min-width:0;min-height:0;overflow:auto;}
+.hoa-v74-free-workspace{min-width:0;}
+.hoa-v74-free-area{display:none;min-width:0;}
+.hoa-v74-free-area.active{display:block;}
+.hoa-v74-free-tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:10px 0;}
+.hoa-v74-free-tools input,.hoa-v74-free-tools select{min-width:0;flex:1 1 220px;}
+.hoa-v74-free-note{font-size:12px;color:#64748b;}
+@media (max-width:720px){.hoa-v74-free-tools{align-items:stretch}.hoa-v74-free-tools input,.hoa-v74-free-tools select,.hoa-v74-free-tools button{width:100%;flex:1 1 100%;}.hoa-v74-free-tabs{overflow-x:auto;flex-wrap:nowrap!important}.hoa-v74-free-tabs button{white-space:nowrap;flex:0 0 auto;}}
+
+/* V8.90 — Free Content to shared Mock Test builder bridge */
+.hoa-v89-free-mock-bridge{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:12px 14px;border:1px solid #d8e4ef;border-radius:12px;background:#f8fbff}
+.hoa-v89-free-mock-bridge>span{font-size:13px;color:#5e7188}
+.hoa-v89-free-mock-btn{border:1px solid #0b5fa5;border-radius:9px;background:#0b5fa5;color:#fff;padding:9px 13px;font-weight:800;cursor:pointer}
+.hoa-v89-free-mock-btn:hover{filter:brightness(.96)}
+@media (max-width:700px){.hoa-v89-free-mock-bridge{align-items:stretch}.hoa-v89-free-mock-btn{width:100%}}
+
+/* V8.90 Free Content → existing Mock Test picker */
+.hoa-v89-picker-backdrop{position:fixed;inset:0;z-index:100000;background:rgba(8,25,45,.48);display:flex;align-items:center;justify-content:center;padding:18px}
+.hoa-v89-picker{width:min(760px,100%);max-height:min(82vh,760px);overflow:auto;background:#fff;border:1px solid #d6e3ef;border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.25)}
+.hoa-v89-picker-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px;border-bottom:1px solid #e3ebf3;background:#fbfdff;position:sticky;top:0;z-index:2}
+.hoa-v89-picker-head h3{margin:0;color:#0b2e52;font-size:16px}.hoa-v89-picker-head p{margin:5px 0 0;color:#64778b;font-size:11px;line-height:1.5}.hoa-v89-close{border:0;background:transparent;font-size:28px;line-height:1;color:#5f7388;cursor:pointer}
+.hoa-v89-picker-tools{display:grid;grid-template-columns:1fr 180px;gap:8px;padding:12px;border-bottom:1px solid #e5edf4}.hoa-v89-picker-tools input,.hoa-v89-picker-tools select{width:100%;padding:10px;border:1px solid #c8d7e6;border-radius:9px}.hoa-v89-picker-list{display:flex;flex-direction:column;gap:8px;padding:12px}.hoa-v89-picker-row{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:11px 12px;border:1px solid #dce7f0;border-radius:11px}.hoa-v89-picker-row b{font-size:11px;color:#173c5c}.hoa-v89-picker-row small{display:block;margin-top:4px;color:#6c7f91;font-size:9px}.hoa-v89-empty{padding:20px;text-align:center;color:#6d7f91;font-size:11px}.hoa-v89-picker-msg{min-height:24px;padding:8px 12px;color:#46647e;font-size:11px}
+.hoa-v89-free-mock-btn.ghost{background:#fff;color:#0b5fa5;border-color:#0b5fa5}.hoa-v89-free-mock-btn.small{padding:7px 9px;font-size:9px}
+@media(max-width:700px){.hoa-v89-picker{max-height:90vh}.hoa-v89-picker-tools{grid-template-columns:1fr}.hoa-v89-picker-row{flex-direction:column}.hoa-v89-picker-row .hoa-v89-free-mock-btn{width:100%}}
+
+/* V8.90 corrective fix: controller-created Free Content areas use hoa-v75 classes.
+   Without these selectors all three workspaces remain visible and the tabs appear not to switch. */
+.hoa-v75-free-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0;margin-bottom:10px;border-bottom:1px solid #D8E7F5}
+.hoa-v75-free-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.hoa-v75-free-tabs button{min-height:40px;padding:9px 13px;border-radius:9px;font-weight:800;cursor:pointer}
+.hoa-v75-free-area{display:none!important;min-width:0}
+.hoa-v75-free-area.active{display:block!important}
+.hoa-v75-free-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.hoa-v75-free-tools input,.hoa-v75-free-tools select{min-height:38px;min-width:0;padding:8px 10px;border:1px solid #C7D5E6;border-radius:8px;background:#fff}
+.hoa-v75-free-tools input{flex:1 1 260px}
+.hoa-v75-free-tools select{flex:0 1 180px}
+.hoa-v75-free-note{font-size:12px;color:#64748B}
+@media(max-width:700px){.hoa-v75-free-tabs{width:100%}.hoa-v75-free-tabs button{flex:1 1 100%}.hoa-v75-free-tools input,.hoa-v75-free-tools select{width:100%;flex:1 1 100%}.hoa-v75-free-toolbar{align-items:stretch}}
+
+/* V8.90.16 — Admin Free Content mock-test preview includes correct answers and explanations. */
+body.hoa-admin-portal-page .hoa-v70-preview-modal,
+body.hoa-app-admin .hoa-v70-preview-modal,
+body.admin-ui .hoa-v70-preview-modal{
+  position:fixed!important;inset:0!important;z-index:100050!important;display:none!important;align-items:center!important;justify-content:center!important;
+  padding:clamp(8px,2vw,22px)!important;background:rgba(8,25,45,.64)!important;overflow:auto!important;box-sizing:border-box!important;
+}
+body.hoa-admin-portal-page .hoa-v70-preview-modal.show,
+body.hoa-app-admin .hoa-v70-preview-modal.show,
+body.admin-ui .hoa-v70-preview-modal.show{display:flex!important;}
+body.hoa-admin-portal-page .hoa-v70-preview-dialog,
+body.hoa-app-admin .hoa-v70-preview-dialog,
+body.admin-ui .hoa-v70-preview-dialog{
+  position:relative!important;width:min(980px,100%)!important;max-height:min(92vh,980px)!important;overflow:auto!important;
+  border:1px solid #d6e4f1!important;border-radius:16px!important;background:#fff!important;box-shadow:0 26px 85px rgba(0,0,0,.32)!important;
+}
+body.hoa-admin-portal-page .hoa-v70-preview-head,
+body.hoa-app-admin .hoa-v70-preview-head,
+body.admin-ui .hoa-v70-preview-head{
+  position:sticky;top:0;z-index:5;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:15px 18px;
+  background:#f8fbff;border-bottom:1px solid #d9e6f2;
+}
+body.hoa-admin-portal-page .hoa-v70-preview-head span,
+body.hoa-app-admin .hoa-v70-preview-head span,
+body.admin-ui .hoa-v70-preview-head span{font-size:10px;font-weight:900;color:#a36d00;letter-spacing:.09em;}
+body.hoa-admin-portal-page .hoa-v70-preview-head h2,
+body.hoa-app-admin .hoa-v70-preview-head h2,
+body.admin-ui .hoa-v70-preview-head h2{margin:4px 0 0;font-size:19px;line-height:1.35;color:#10385e;}
+body.hoa-admin-portal-page .hoa-v70-preview-head button,
+body.hoa-app-admin .hoa-v70-preview-head button,
+body.admin-ui .hoa-v70-preview-head button{flex:0 0 36px;width:36px;height:36px;border:1px solid #cddcea;border-radius:10px;background:#fff;color:#234665;font-size:25px;line-height:1;cursor:pointer;}
+body.hoa-admin-portal-page .hoa-v70-preview-body,
+body.hoa-app-admin .hoa-v70-preview-body,
+body.admin-ui .hoa-v70-preview-body{padding:16px;}
+body.hoa-admin-portal-page .hoa-v70-preview-card,
+body.hoa-app-admin .hoa-v70-preview-card,
+body.admin-ui .hoa-v70-preview-card{width:100%;min-width:0;max-height:none;overflow:visible;padding:0;border:1px solid #d8e6f3;border-radius:13px;background:#fff;box-shadow:none;}
+body.hoa-admin-portal-page .hoa-v70-preview-card h3,
+body.hoa-app-admin .hoa-v70-preview-card h3,
+body.admin-ui .hoa-v70-preview-card h3{margin:14px 16px 7px;font-size:20px;line-height:1.4;color:#123d67;}
+body.hoa-admin-portal-page .hoa-v70-preview-card>p,
+body.hoa-app-admin .hoa-v70-preview-card>p,
+body.admin-ui .hoa-v70-preview-card>p{margin:0 16px 16px;color:#526b84;line-height:1.65;white-space:pre-wrap;}
+body.hoa-admin-portal-page .hoa-v70-preview-meta,
+body.hoa-app-admin .hoa-v70-preview-meta,
+body.admin-ui .hoa-v70-preview-meta{display:flex;gap:7px;flex-wrap:wrap;padding:12px 16px 0;}
+body.hoa-admin-portal-page .hoa-v70-preview-meta span,
+body.hoa-app-admin .hoa-v70-preview-meta span,
+body.admin-ui .hoa-v70-preview-meta span{display:inline-flex;padding:5px 9px;border-radius:999px;background:#edf5fd;color:#175aa3;font-size:10px;font-weight:800;}
+body.hoa-admin-portal-page .hoa-v70-preview-test,
+body.hoa-app-admin .hoa-v70-preview-test,
+body.admin-ui .hoa-v70-preview-test{padding:22px 18px;text-align:center;background:#f6faff;display:flex;flex-direction:column;align-items:center;gap:9px;color:#526b84;}
+body.hoa-admin-portal-page .hoa-v70-preview-test strong,
+body.hoa-app-admin .hoa-v70-preview-test strong,
+body.admin-ui .hoa-v70-preview-test strong{font-size:17px;line-height:1.4;color:#123d67;}
+.hoa-v70-preview-icon{font-size:32px;line-height:1.2;}
+.hoa-v70-preview-action{min-height:40px;margin-top:5px;padding:9px 14px;border:1px solid #145a94;border-radius:9px;background:#145a94;color:#fff;font-weight:800;cursor:pointer;}
+.hoa-v70-preview-action:disabled{opacity:.6;cursor:wait;}
+.hoa-v70-test-preview-questions{display:grid;gap:12px;margin-top:14px;}
+.hoa-v70-test-preview-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:13px 15px;border:1px solid #d8e6f3;border-radius:12px;background:#f4f9ff;}
+.hoa-v70-test-preview-summary strong,.hoa-v70-test-preview-summary span{display:block;}
+.hoa-v70-test-preview-summary strong{color:#123d67;font-size:15px;}
+.hoa-v70-test-preview-summary span{margin-top:4px;color:#5e748b;font-size:12px;}
+.hoa-v70-test-preview-badge{flex-shrink:0!important;margin:0!important;padding:6px 9px;border-radius:99px;background:#e2f2e7!important;color:#1e6e3b!important;font-size:9px!important;font-weight:900!important;}
+.hoa-v70-test-question{padding:14px;border:1px solid #dce7f1;border-radius:12px;background:#fff;}
+.hoa-v70-test-question>header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;color:#254d72;}
+.hoa-v70-test-question>header>span{padding:4px 7px;border-radius:6px;background:#edf5fd;color:#285985;font-size:10px;font-weight:800;}
+.hoa-v70-test-question>header>small{margin-left:auto;color:#72869a;font-size:11px;}
+.hoa-v70-test-question-text{color:#152f49;font-size:14px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;}
+.hoa-v70-test-question-image{display:block;max-width:100%;max-height:420px;object-fit:contain;margin:12px 0;border-radius:8px;background:#f7fafd;}
+.hoa-v70-test-options{list-style:none;display:grid;gap:8px;margin:12px 0 0;padding:0;}
+.hoa-v70-test-options li{display:flex;gap:9px;align-items:flex-start;padding:10px;border:1px solid #e0eaf4;border-radius:9px;background:#fbfdff;color:#2c4964;font-size:13px;line-height:1.5;}
+.hoa-v70-test-option-letter{flex:0 0 24px;font-weight:900;color:#1b5e96;}
+/* V8.90.16 — make answer keys conspicuous in the Admin-only preview. */
+.hoa-v70-test-options li.hoa-v70-test-option-correct{border-color:#2b8a57;background:#effaf2;box-shadow:inset 3px 0 0 #2b8a57;flex-wrap:wrap;}
+.hoa-v70-test-options li.hoa-v70-test-option-correct .hoa-v70-test-option-letter{color:#17653b;}
+.hoa-v70-test-option-content{flex:1;min-width:0;}
+.hoa-v70-test-correct-option-label{flex:0 0 auto;align-self:center;margin-left:auto;padding:4px 7px;border-radius:6px;background:#d6f3df;color:#17653b;font-size:10px;white-space:normal;}
+.hoa-v70-test-correct-answer{margin-top:12px;padding:10px 12px;border:1px solid #a9dbb7;border-radius:9px;background:#f0fbf3;color:#1f6538;}
+.hoa-v70-test-correct-answer h4{margin:0 0 5px;font-size:11px;font-weight:900;letter-spacing:.04em;text-transform:uppercase;}
+.hoa-v70-test-correct-answer p{margin:0;font-size:13px;line-height:1.55;overflow-wrap:anywhere;}
+.hoa-v70-test-correct-answer small{display:inline-block;margin-left:5px;color:#466b52;font-weight:600;}
+.hoa-v70-test-correct-answer-missing{border-color:#dce7f1;background:#f8fafc;color:#62768a;}
+.hoa-v70-test-option-image{display:block;max-width:100%;max-height:180px;object-fit:contain;margin-top:7px;}
+.hoa-v70-test-explanation{margin-top:14px;padding:12px 14px;border:1px solid #cfe5d7;border-left:4px solid #2b8a57;border-radius:9px;background:#f4fbf6;color:#244d36;}
+.hoa-v70-test-explanation h4{margin:0 0 7px;color:#17653b;font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:.04em;}
+.hoa-v70-test-explanation-text{font-size:13px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere;}
+.hoa-v70-test-explanation-image{display:block;max-width:100%;max-height:460px;object-fit:contain;margin:10px 0 0;border-radius:7px;background:#fff;}
+.hoa-v70-test-explanation-empty{border-color:#dce7f1;border-left-color:#95a9bc;background:#f8fafc;color:#62768a;}
+.hoa-v70-test-explanation-empty h4{color:#536b81;}
+.hoa-v70-test-explanation-empty p{margin:0;font-size:12px;}
+.hoa-v70-test-numerical-answer{display:flex;align-items:center;gap:10px;margin-top:12px;color:#61778b;font-size:12px;}
+.hoa-v70-test-numerical-answer div{width:min(280px,60%);height:35px;border:1px solid #cad8e6;border-radius:8px;background:#fff;}
+.hoa-v70-test-no-options,.hoa-v70-preview-empty,.hoa-v70-preview-loading{padding:16px;border:1px dashed #c7d8e8;border-radius:10px;background:#f8fbff;color:#506b85;line-height:1.5;}
+.hoa-v70-preview-loading{margin:12px 0;text-align:center;}
+.hoa-v70-test-preview-questions .error{border-color:#f1b6b6;color:#a12020;background:#fff7f7;}
+.hoa-v70-preview-video{aspect-ratio:16/9;background:#0f172a;}
+.hoa-v70-preview-video iframe{width:100%;height:100%;border:0;}
+.hoa-v70-preview-video-file{display:block;width:100%;max-height:520px;background:#0f172a;}
+.hoa-v70-preview-image{display:block;max-width:100%;max-height:420px;object-fit:contain;margin:auto;background:#f8fbff;}
+.hoa-v70-preview-link,.hoa-v70-preview-empty{padding:22px;text-align:center;background:#f8fbff;color:#526b84;overflow-wrap:anywhere;}
+@media(max-width:640px){body.hoa-admin-portal-page .hoa-v70-preview-body{padding:9px;}body.hoa-admin-portal-page .hoa-v70-preview-head{padding:12px;}body.hoa-admin-portal-page .hoa-v70-preview-dialog{max-height:95vh!important;border-radius:11px!important;}.hoa-v70-test-preview-summary{align-items:flex-start;flex-direction:column}.hoa-v70-test-question{padding:11px}.hoa-v70-test-question>header>small{width:100%;margin-left:0}}
+
+/* V8.90.18 — Branded PDF export for the Admin-only Free Content mock-test preview. */
+.hoa-v70-test-preview-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;min-width:0}
+.hoa-v70-test-preview-actions .hoa-v70-test-preview-badge{margin:0!important;white-space:nowrap}
+.hoa-v70-test-preview-actions .hoa-v70-preview-download{margin:0;min-height:36px;padding:8px 11px;font-size:11px;white-space:normal}
+.hoa-v70-test-preview-actions .hoa-v70-preview-download:disabled{opacity:.65;cursor:wait}
+.hoa-v70-pdf-export-status{min-height:0;color:#315e87;font-size:12px;line-height:1.5;margin:0}
+.hoa-v70-pdf-export-status:not(:empty){padding:8px 10px;margin:0 0 10px;background:#f1f7fc;border:1px solid #dbe8f4;border-radius:8px}
+.hoa-v70-pdf-export-status.error{color:#a4262c;background:#fff3f2;border-color:#f3c6c5}
+@media(max-width:640px){.hoa-v70-test-preview-actions{width:100%;justify-content:flex-start}.hoa-v70-test-preview-actions .hoa-v70-preview-download{width:100%;}.hoa-v70-test-preview-summary{align-items:flex-start;flex-direction:column}}
