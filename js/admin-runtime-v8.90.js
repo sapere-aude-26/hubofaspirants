@@ -1,0 +1,307 @@
+/* HOA V8.90 — Admin Runtime / Question Pipeline Consolidation
+ * Source of truth: V8.57 admin architecture. Later features are lazy-loaded
+ * behind one authoritative router. No feature module owns Admin navigation.
+ */
+(function(){
+  'use strict';
+  if(window.__HOA_ADMIN_RUNTIME_V89__) return;
+  window.__HOA_ADMIN_RUNTIME_V89__=true;
+
+  const panels={
+    master:'adminSectionMasterPanel',student:'adminSectionStudentPanel',test:'adminSectionTestPanel',
+    course:'adminSectionCoursePanel',video:'adminSectionVideoPanel',notes:'adminSectionNotesPanel',
+    poster:'adminSectionPosterPanel',result:'adminSectionResultPanel',
+    admin:'adminSectionAdminPanel',freecontent:'adminSectionFreeContentPanel'
+  };
+  const nav={master:'adminNavMaster',student:'adminNavStudent',test:'adminNavTest',course:'adminNavCourse',video:'adminNavVideo',notes:'adminNavNotes',poster:'adminNavPoster',result:'adminNavResult',admin:'adminNavAdmin',freecontent:'adminNavFreeContent'};
+  let current='master', navToken=0;
+  const loaded=new Map();
+  let testModulePromise=null;
+  const $=id=>document.getElementById(id);
+
+  function adminReady(){return window.adminLoggedIn===true || (typeof adminLoggedIn!=='undefined'&&adminLoggedIn===true);}
+  function owner(){return window.hoaAdminRole==='owner';}
+  function has(p){return owner()||Array.isArray(window.hoaAdminPermissions)&&window.hoaAdminPermissions.includes(p);}
+  const requiredPermission={test:'tests.view',course:'courses.view',video:'classes.view',notes:'notes.view',poster:'posters.view',result:'results.view'};
+  const anyPermission={freecontent:['tests.view','students.view','results.view']};
+  function setPanel(el,on){if(!el)return;el.classList.toggle('active',on);el.classList.toggle('v13-active',on);if(on){el.style.setProperty('display','block','important');el.style.setProperty('visibility','visible','important');el.style.setProperty('opacity','1','important');el.style.setProperty('pointer-events','auto','important');}else{el.style.setProperty('display','none','important');el.classList.remove('v16-result-open','v16-root-result-active');el.style.removeProperty('visibility');el.style.removeProperty('opacity');el.style.removeProperty('pointer-events');}}
+  function syncNav(section){Object.entries(nav).forEach(([k,id])=>{const b=$(id);if(!b)return;b.classList.remove('active','v13-active');b.removeAttribute('aria-current');if(k===section && k!=='freecontent'){b.classList.add('active');b.setAttribute('aria-current','page');}});const free=$('adminNavFreeContent');if(free){free.classList.remove('active','v13-active');free.removeAttribute('aria-current');free.style.setProperty('border-left','0','important');free.style.setProperty('border-left-color','transparent','important');free.style.setProperty('box-shadow','none','important');}}
+  function showPanels(section){Object.values(panels).forEach(id=>setPanel($(id),false));setPanel($(panels[section]),true);syncNav(section);}
+  function title(section){const names={master:['Dashboard','Manage coaching operations and website controls'],student:['Students','Manage paid candidates and individual course, test and note access'],test:['Mock Tests','Manage batches, folders, tests, question feeding and question bank'],course:['Courses','Manage preparation batches and courses'],video:['Classes & Videos','Manage class/video resources'],notes:['Notes','Manage study notes and PDFs'],poster:['Poster','Manage published poster slides'],result:['Results','Manage candidate results and analytics'],admin:['Admin Access','Manage admin accounts and permissions'],freecontent:['Free Content','Manage Free Student resources']};const a=names[section]||names.master; if($('adminReferencePageTitle'))$('adminReferencePageTitle').textContent=a[0];if($('adminReferencePageSub'))$('adminReferencePageSub').textContent=a[1];}
+
+  function loadCss(href,id){
+    const existing=$(id);
+    if(existing && existing.dataset.hoaLoadState!=='error')return Promise.resolve();
+    existing?.remove();
+    return new Promise((resolve,reject)=>{
+      const l=document.createElement('link');l.id=id;l.rel='stylesheet';l.href=href;l.dataset.hoaLoadState='loading';
+      l.onload=()=>{l.dataset.hoaLoadState='loaded';resolve();};
+      l.onerror=()=>{l.dataset.hoaLoadState='error';l.remove();reject(new Error('Unable to load '+href));};
+      document.head.appendChild(l);
+    });
+  }
+  function loadJs(src,id){
+    const existing=$(id);
+    if(existing && existing.dataset.hoaLoadState!=='error')return Promise.resolve();
+    existing?.remove();
+    return new Promise((resolve,reject)=>{
+      const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.dataset.hoaLoadState='loading';
+      s.onload=()=>{s.dataset.hoaLoadState='loaded';resolve();};
+      s.onerror=()=>{s.dataset.hoaLoadState='error';s.remove();reject(new Error('Unable to load '+src));};
+      document.body.appendChild(s);
+    });
+  }
+  function showMockWorkspaceLoading(){
+    const host=$('adminSectionTestPanel');
+    if(!host||$('hoaV89MockWorkspace'))return null;
+    let el=$('hoaV89MockWorkspaceLoading');
+    if(el)return el;
+    el=document.createElement('section');el.id='hoaV89MockWorkspaceLoading';el.setAttribute('role','status');el.setAttribute('aria-live','polite');el.setAttribute('aria-busy','true');
+    el.innerHTML='<div class="hoa89-loading-head"><span class="hoa89-loading-spinner" aria-hidden="true"></span><div class="hoa89-loading-copy"><strong>Mock Test Management</strong><span>Preparing the workspace…</span></div></div><div class="hoa89-loading-bars" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>';
+    host.insertBefore(el,host.firstChild);
+    return el;
+  }
+  async function ensureTestModules(){
+    if(loaded.get('test'))return;
+    if(testModulePromise)return testModulePromise;
+    const loader=showMockWorkspaceLoading();
+    testModulePromise=(async()=>{
+      try{
+        await Promise.all([
+          loadCss('css/mock-tests-v8.90.css?v=20261016-v8941-modal-admin-density','hoaV89MockCss'),
+          loadJs('js/admin-mock-tests-v8.90.js?v=20261018-p52-test-url-routing','hoaV89MockJs')
+        ]);
+        if(typeof window.hoaV89MountMockWorkspace!=='function')throw new Error('Mock Test workspace module did not initialize.');
+        const workspace=window.hoaV89MountMockWorkspace();
+        if(!workspace)throw new Error('Mock Test workspace could not be mounted. Please confirm your admin permissions and refresh.');
+        loaded.set('test',true);
+        $('hoaV89MockWorkspaceLoading')?.remove();
+      }catch(e){
+        const state=$('hoaV89MockWorkspaceLoading')||loader;
+        if(state){
+          state.setAttribute('aria-busy','false');
+          state.innerHTML='<div class="hoa89-loading-copy"><strong>Mock Test workspace could not be loaded</strong><span class="hoa89-loading-error"></span><button class="hoa89-loading-retry" type="button">RETRY LOADING</button></div>';
+          state.querySelector('.hoa89-loading-error').textContent=e?.message||'A required workspace file failed to load.';
+          state.querySelector('.hoa89-loading-retry').addEventListener('click',()=>{ensureTestModules().catch(err=>console.error('[HOA V8.90.41 Mock Tests]',err));});
+        }
+        throw e;
+      }finally{testModulePromise=null;}
+    })();
+    return testModulePromise;
+  }
+  function loadJsAndVerify(src,id,ready,description){
+    if(ready())return Promise.resolve();
+    const old=$(id); if(old)old.remove();
+    return new Promise((resolve,reject)=>{
+      const s=document.createElement('script');s.id=id;s.src=src;s.async=false;s.dataset.hoaLoadState='loading';
+      s.onload=()=>{s.dataset.hoaLoadState='loaded';if(ready())resolve();else{ s.remove();reject(new Error(description+' loaded but did not register its required API.')); }};
+      s.onerror=()=>{s.dataset.hoaLoadState='error';s.remove();reject(new Error('Could not download '+description+' from '+src+'. Verify that the file is deployed at the website root and purge the hosting/CDN cache.'));};
+      document.body.appendChild(s);
+    });
+  }
+  async function ensureQuestionFeedingModule(){
+    if(loaded.get('qf')) return;
+    await loadJs('js/hoa-question-parser-v8.89.js?v=20261005-v890','hoaV89QfParser');
+    if(typeof window.HOAPureQuestionParser?.parse!=='function') throw new Error('Pure question parser failed to initialize.');
+    loaded.set('qf',true);
+  }
+
+  async function ensureFreeModules(){
+    const controllerReady=()=>typeof window.hoaV89FreeContentAPI?.activate==='function';
+    const bridgeReady=()=>typeof window.hoaV89InstallFreeMockBridge==='function';
+    if(loaded.get('free'))return;
+    try{await loadCss('/css/free-content-admin-v8.90.css?v=20261016-v8928-free-distribution','hoaV89FreeCss');}
+    catch(e){console.warn('[HOA V8.90] Free Content CSS unavailable; continuing with base styles.',e);}
+    if(!controllerReady()){
+      try{
+        if(typeof window.hoaV89EnsureFreeContentController==='function') await window.hoaV89EnsureFreeContentController();
+        else await loadJsAndVerify('/js/free-content-admin-v8.90.js?v=20261016-v8928-free-distribution','hoaV89FreeJsRecoveryRuntimeV3',controllerReady,'Free Content tab controller');
+      }catch(e){
+        // The inline tab router and the section-specific loaders are independent
+        // of this optional controller. Do not lock out all three admin areas.
+        console.warn('[HOA V8.90] Free Content controller unavailable; using independent section handlers.',e);
+      }
+    }
+    if(!bridgeReady()){
+      try{await loadJsAndVerify('/js/free-content-mock-bridge-v8.90.js?v=20261016-v8928-free-distribution','hoaV89FreeMockBridgeRecoveryRuntimeV3',bridgeReady,'Free Content Mock Test bridge');}
+      catch(e){console.warn('[HOA V8.90] Mock Test bridge unavailable; Content Library CRUD remains available.',e);}
+    }
+    if(bridgeReady()){
+      try{window.hoaV89InstallFreeMockBridge();}
+      catch(e){console.warn('[HOA V8.90] Mock Test bridge could not initialize.',e);}
+    }
+    // Mark the workspace setup complete even when an optional enhancement is
+    // unavailable; subsequent tab clicks use the independent fallback handlers.
+    loaded.set('free',true);
+  }
+
+  async function loadSectionData(section,token){
+    if(token!==navToken)return;
+    if(section==='master')return;
+    if(section==='student'){
+      const canStudents=has('students.view')||has('students.manage');
+      const canAccess=has('student_access.view')||has('student_access.manage');
+      if(canStudents){if(window.loadStudentsFromSupabase)await window.loadStudentsFromSupabase();if(window.renderAdminStudents)window.renderAdminStudents();}
+      const preferred=window.__hoaStudentWorkspaceTab||(canStudents?'paid':'access');
+      if(typeof window.hoaSetStudentWorkspaceTab==='function')await window.hoaSetStudentWorkspaceTab(canAccess?preferred:'paid',{load:false});
+      if(canAccess&&window.__hoaStudentWorkspaceTab==='access'&&typeof window.hoaLoadAccess==='function')await window.hoaLoadAccess();
+      return;
+    }
+    if(section==='test'){cleanupLegacy();await ensureTestModules();if(window.hoaV89RefreshMockTests)await window.hoaV89RefreshMockTests();return;}
+    if(section==='course'){if(window.hoaLoadCourses)await window.hoaLoadCourses();return;}
+    if(section==='video'){if(window.hoaLoadVideos)await window.hoaLoadVideos();return;}
+    if(section==='notes'){if(window.hoaLoadNotes)await window.hoaLoadNotes();return;}
+    if(section==='poster'){if(window.hoaV59RefreshAdmin)await window.hoaV59RefreshAdmin();return;}
+    if(section==='result'){if(window.loadAdminResultsFromSupabase)await window.loadAdminResultsFromSupabase();if(window.renderAdminResultSummary)window.renderAdminResultSummary();if(window.populateTestWiseSelector)window.populateTestWiseSelector();if(window.renderTestWiseResults)window.renderTestWiseResults();if(window.addAdminProgress)window.addAdminProgress();if(window.renderAdminProgress)window.renderAdminProgress();return;}
+    if(section==='admin'){if(window.hoaV643RenderOwnerAdminManager)await window.hoaV643RenderOwnerAdminManager();return;}
+    if(section==='freecontent'){
+      await ensureFreeModules();
+      const activeTab=document.getElementById('adminSectionFreeContentPanel')?.dataset?.hoaFreeActiveTab||'content';
+      if(typeof window.hoaV89HandleFreeTabClick==='function')await window.hoaV89HandleFreeTabClick(activeTab);
+      else if(typeof window.hoaV89OpenFreeContent==='function')await window.hoaV89OpenFreeContent();
+      if(typeof window.hoaV89InstallFreeMockBridge==='function') { try{window.hoaV89InstallFreeMockBridge();}catch(e){console.warn('[HOA V8.90] Mock Test bridge could not initialize.',e);} }
+      return;
+    }
+  }
+
+  function sectionAllowed(section){
+    if(section==='master'||section==='admin')return owner();
+    if(section==='freecontent')return owner()||anyPermission.freecontent.some(has);
+    const permission=requiredPermission[section];
+    if(permission&&!has(permission))return false;
+    if(section==='student'&&!(has('students.view')||has('students.manage')||has('student_access.view')||has('student_access.manage')))return false;
+    return Boolean(panels[section]);
+  }
+  function firstAllowedSection(){
+    if(owner())return 'master';
+    return ['student','test','course','video','notes','poster','result','freecontent'].find(sectionAllowed)||null;
+  }
+  function showNoAdminPermissions(){
+    ++navToken;current='none';
+    Object.values(panels).forEach(id=>setPanel($(id),false));
+    syncNav('none');
+    if($('adminReferencePageTitle'))$('adminReferencePageTitle').textContent='No Admin Permissions';
+    if($('adminReferencePageSub'))$('adminReferencePageSub').textContent='Your account has no Admin sections assigned. Contact the Owner to request access.';
+    const msg=$('hoaV70AdminMsg');if(msg)msg.textContent='No Admin permissions are assigned to this account.';
+  }
+
+  const inflight=new Map();
+  async function router(section){
+    if(!adminReady())return;
+    if(section==='access'){
+      window.__hoaStudentWorkspaceTab='access';
+      section='student';
+    }
+    section=panels[section]?section:'master';
+    if(!sectionAllowed(section)){
+      if(section==='master')alert('Master Dashboard is available only to the Super Admin / Owner.');
+      else if(section==='admin')alert('Admin Access is available only to the Super Admin / Owner.');
+      else if(section==='freecontent')alert('You do not have permission to access Free Content.');
+      else alert('You do not have permission to access this section.');
+      section=firstAllowedSection();
+      if(!section){showNoAdminPermissions();return;}
+    }
+    if(inflight.has(section)) return inflight.get(section);
+    const token=++navToken;current=section;
+    showPanels(section);title(section);
+    const work=(async()=>{
+      try{
+        await loadSectionData(section,token);
+      }catch(e){
+        if(token!==navToken)return;
+        console.error('[HOA V8.90 Admin]',section,e);
+        const msg=$('hoaV70AdminMsg');
+        if(msg)msg.textContent=(section==='freecontent'?'Free Content':titleName(section))+' could not be loaded: '+(e.message||e);
+      }
+      if(token===navToken){showPanels(section);title(section);try{window.dispatchEvent(new CustomEvent('hoa:admin-section-ready',{detail:{section}}));}catch(_){} }
+    })();
+    inflight.set(section,work);
+    try{return await work;}finally{if(inflight.get(section)===work)inflight.delete(section);}
+  }
+  function titleName(s){return s==='freecontent'?'Free Content':s.charAt(0).toUpperCase()+s.slice(1);}
+
+  window.hoaSetStudentWorkspaceTab=async function(tab, options={}){
+    const canStudents=has('students.view')||has('students.manage');
+    const canAccess=has('student_access.view')||has('student_access.manage');
+    const paidTab=$('hoaStudentTabPaid'), accessTab=$('hoaStudentTabAccess');
+    const paidPanel=$('hoaStudentPaidSubsection'), accessPanel=$('hoaStudentAccessSubsection');
+    if(paidTab)paidTab.style.display=canStudents?'':'none';
+    if(accessTab)accessTab.style.display=canAccess?'':'none';
+    if(!canStudents)tab='access';
+    if(tab==='access'&&!canAccess)tab='paid';
+    if(tab!=='access'&&!canStudents)tab=canAccess?'access':'paid';
+    window.__hoaStudentWorkspaceTab=tab;
+    [[paidTab,'paid'],[accessTab,'access']].forEach(([button,key])=>{
+      if(!button)return;
+      const active=key===tab;
+      button.classList.toggle('active',active);
+      button.setAttribute('aria-selected',active?'true':'false');
+      button.tabIndex=active?0:-1;
+    });
+    if(paidPanel){paidPanel.classList.toggle('hidden',tab!=='paid'||!canStudents);paidPanel.hidden=tab!=='paid'||!canStudents;}
+    if(accessPanel){accessPanel.classList.toggle('hidden',tab!=='access'||!canAccess);accessPanel.hidden=tab!=='access'||!canAccess;}
+    if(tab==='access'&&canAccess&&options.load!==false&&typeof window.hoaLoadAccess==='function'){
+      await window.hoaLoadAccess();
+    }
+    return tab;
+  };
+
+  router.__hoaAdminRouterV89=true;
+  try{
+    const previous=window.showAdminSection;
+    Object.defineProperty(window,'showAdminSection',{configurable:true,enumerable:true,get:()=>router,set:fn=>{
+      if(fn!==router){ window.__HOA_ADMIN_REJECTED_NAV_WRAPPERS__=(Number(window.__HOA_ADMIN_REJECTED_NAV_WRAPPERS__)||0)+1; }
+    }});
+    window.__HOA_ADMIN_PREVIOUS_NAV__=previous;
+  }catch(_){ window.showAdminSection=router; }
+  window.hoaV81AdminRouter=router;
+  const runtimeApi={router,ensureTestModules,ensureQuestionFeedingModule,ensureFreeModules,get current(){return current;}};
+  window.__HOA_ADMIN_RUNTIME_V89_API__=runtimeApi;
+
+  // One refresh control for the currently active Admin section.
+  document.addEventListener('click',e=>{const b=e.target?.closest?.('.adminReferenceRefreshBtn');if(!b)return;e.preventDefault();router(current);},true);
+  document.addEventListener('click',e=>{
+    const b=e.target?.closest?.('.adminSectionNav button');
+    if(!b || !b.closest('#adminOnlyDashboard')) return;
+    const section=b.dataset?.section || ({adminNavMaster:'master',adminNavStudent:'student',adminNavTest:'test',adminNavCourse:'course',adminNavVideo:'video',adminNavNotes:'notes',adminNavPoster:'poster',adminNavResult:'result',adminNavAdmin:'admin',adminNavFreeContent:'freecontent'})[b.id];
+    if(!section) return;
+    e.preventDefault(); e.stopImmediatePropagation();
+    router(section);
+  },true);
+
+  // Cross-section invalidation from the consolidated Mock Test workspace.
+  window.addEventListener('hoa:mock-data-changed',()=>{if(current==='test'&&typeof window.hoaV89RefreshMockTests==='function')window.hoaV89RefreshMockTests({bank:false});});
+
+  // Remove legacy Mock Test workspace when the consolidated module mounts.
+  const cleanupLegacy=()=>{document.querySelectorAll('#adminOnlyDashboard #hoa606MockWorkspace,#adminOnlyDashboard #hoaV610MockWorkspace').forEach(x=>x.remove());};
+  cleanupLegacy();
+  // If legacy boot code changes navigation state asynchronously, correct it on a frame, not through another wrapper.
+  function enforceFreeNav(){syncNav(current);}
+  document.addEventListener('visibilitychange',enforceFreeNav);
+  setTimeout(enforceFreeNav,0);
+
+  window.HOA_ADMIN_V89={
+    version:'V8.90',
+    router,
+    getCurrent:()=>current,
+    getLoadedModules:()=>[...loaded.keys()],
+    hasPermission:has
+  };
+
+  window.hoaAdminV89RegressionCheck=function(){
+    const panelNodes=Object.entries(panels).map(([k,id])=>({section:k,id,el:$(id),display:$(id)?getComputedStyle($(id)).display:'missing'}));
+    const visible=panelNodes.filter(x=>x.el&&x.el.classList.contains('active')&&x.display!=='none').map(x=>x.section);
+    const free=$('adminNavFreeContent');
+    const freeMarker=free?(()=>{const cs=getComputedStyle(free);return {active:free.classList.contains('active'),borderLeftWidth:cs.borderLeftWidth,borderLeftColor:cs.borderLeftColor};})():null;
+    return {version:'V8.90',routerOwned:window.showAdminSection===router,current,visiblePanels:visible,activePanelInvariant:visible.length<=1,freeContentMarker:freeMarker,loadedModules:[...loaded.keys()],rejectedNavAssignments:Number(window.__HOA_ADMIN_REJECTED_NAV_WRAPPERS__)||0};
+  };
+
+  window.hoaAdminRegressionCheck=function(){
+    const activePanels=[...document.querySelectorAll('#adminOnlyDashboard .adminSectionPanel')].filter(p=>{const s=getComputedStyle(p);return p.classList.contains('active')&&s.display!=='none'&&s.visibility!=='hidden';}).map(p=>p.id);
+    const activeNav=[...document.querySelectorAll('.adminSectionNav button.active')].map(b=>b.id);
+    const free=$('adminNavFreeContent');
+    const okRouter=window.showAdminSection===router;
+    const visiblePanels=[...document.querySelectorAll('#adminOnlyDashboard .adminSectionPanel')].filter(p=>getComputedStyle(p).display!=='none').map(p=>p.id);
+    return {version:'V8.90',routerOwned:okRouter,current,activePanels,visiblePanels,activeNav,activePanelInvariant:activePanels.length===1||activePanels.length===0,freeContentMarkerCleared:!!free&&(getComputedStyle(free).borderLeftWidth==='0px'||getComputedStyle(free).borderLeftStyle==='none'),loadedModules:[...loaded.keys()],rejectedNavAssignments:Number(window.__HOA_ADMIN_REJECTED_NAV_WRAPPERS__)||0};
+  };
+})();
